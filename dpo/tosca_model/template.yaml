@@ -1,0 +1,101 @@
+tosca_definitions_version: tosca_simple_yaml_1_0_0
+metadata:
+  template_name: ves
+imports:
+- schema: schema.yaml
+topology_template:
+  node_templates:
+    ves:
+      type: dcae.nodes.dockerApp.ves
+      properties:
+        docker_collector.dmaap.streamid: fault=sec_fault,roadm-sec-to-hp|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert
+        docker_collector.inputQueue.maxPending: '8096'
+        docker_collector.keystore.alias: dynamically generated
+        docker_collector.keystore.file.location: /opt/app/dcae-certificate/keystore.jks
+        docker_collector.keystore.passwordfile: /opt/app/dcae-certificate/.password
+        docker_collector.schema.checkflag: '1'
+        docker_collector.schema.file: ./etc/CommonEventFormat_27.2.json
+        docker_collector.service.port: '8080'
+        docker_collector.service.secure.port: '-1'
+        docker_header.authflag: '0'
+        docker_header.authlist: userid1,base64encodepwd1|userid2,base64encodepwd2
+        docker_tomcat.maxthreads: '200'
+        location_id:
+          get_property:
+          - SELF
+          - composition
+          - location_id
+        service_0_service_endpoint: null
+        service_0_service_name: null
+        service_0_verb: POST
+        service_id:
+          get_property:
+          - SELF
+          - composition
+          - service_id
+        stream_0_key: sec_measurement_unsecure
+        stream_0_route: eventListener/v1
+        stream_1_key: sec_measurement
+        stream_1_route: eventListener/v1/eventBatch
+        stream_2_key: sec_fault
+        stream_3_key: sec_fault_unsecure
+      capabilities:
+        service_0:
+          properties:
+            request_format: VES_specification
+            request_version: 4.27.2
+            response_format: ves.coll.response
+            response_version: 1.0.0
+        stream_0:
+          properties:
+            format: VES_specification
+            version: 4.27.2
+        stream_1:
+          properties:
+            format: VES_specification
+            version: 4.27.2
+      requirements:
+      - stream_0:
+          capability: dcae.capabilities.stream.subscribe
+          relationship: dcae.relationships.rework_connected_to
+          node_filter:
+            capabilities:
+            - dcae.capabilities.stream.subscribe:
+                properties:
+                - format:
+                  - equal: VES_specification
+                - version:
+                  - equal: 4.27.2
+      - stream_1:
+          capability: dcae.capabilities.stream.subscribe
+          relationship: dcae.relationships.rework_connected_to
+          node_filter:
+            capabilities:
+            - dcae.capabilities.stream.subscribe:
+                properties:
+                - format:
+                  - equal: VES_specification
+                - version:
+                  - equal: 4.27.2
+      - stream_2:
+          capability: dcae.capabilities.stream.subscribe
+          relationship: dcae.relationships.rework_connected_to
+          node_filter:
+            capabilities:
+            - dcae.capabilities.stream.subscribe:
+                properties:
+                - format:
+                  - equal: VES_specification
+                - version:
+                  - equal: 4.27.2
+      - stream_3:
+          capability: dcae.capabilities.stream.subscribe
+          relationship: dcae.relationships.rework_connected_to
+          node_filter:
+            capabilities:
+            - dcae.capabilities.stream.subscribe:
+                properties:
+                - format:
+                  - equal: VES_specification
+                - version:
+                  - equal: 4.27.2

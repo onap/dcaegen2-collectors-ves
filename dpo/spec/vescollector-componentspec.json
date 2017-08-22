@@ -1,0 +1,222 @@
+{
+	"self": {
+		"version": "1.1.4",
+		"name": "dcae-controller-ves-collector",
+		"description": "Collector for receiving VES events through restful interface",
+		"component_type": "docker"
+	},
+	"streams": {
+		"subscribes": [
+			
+		],
+		"publishes": [
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_fault"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_measurement"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_syslog"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_heartbeat"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_other"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_mobileflow"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_statechange"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "sec_thresholdCrossingAlert"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "ves_voicequality"
+			},
+			{
+				"format": "VES_specification",
+				"version": "5.28.3",
+				"type": "message router",
+				"config_key": "ves_sipsignaling"
+			}
+		]
+	},
+	"services": {
+		"calls": [],
+		"provides": [
+			{
+				"route": "/eventListener/v1",
+				"verb": "POST",
+				"request": {
+					"format": "VES_specification",
+					"version": "4.27.2"
+				},
+				"response": {
+					"format": "ves.coll.response",
+					"version": "1.0.0"
+				}
+			},
+			{
+				"route": "/eventListener/v2",
+				"verb": "POST",
+				"request": {
+					"format": "VES_specification",
+					"version": "4.27.2"
+				},
+				"response": {
+					"format": "ves.coll.response",
+					"version": "1.0.0"
+				}
+			},
+			{
+				"route": "/eventListener/v3",
+				"verb": "POST",
+				"request": {
+					"format": "VES_specification",
+					"version": "4.27.2"
+				},
+				"response": {
+					"format": "ves.coll.response",
+					"version": "1.0.0"
+				}
+			},
+			{
+				"route": "/eventListener/v4",
+				"verb": "POST",
+				"request": {
+					"format": "VES_specification",
+					"version": "4.27.2"
+				},
+				"response": {
+					"format": "ves.coll.response",
+					"version": "1.0.0"
+				}
+			},
+			{
+				"route": "/eventListener/v5",
+				"verb": "POST",
+				"request": {
+					"format": "VES_specification",
+					"version": "5.28.3"
+				},
+				"response": {
+					"format": "ves.coll.response",
+					"version": "1.0.0"
+				}
+			}
+			
+		]
+	},
+	"parameters": [
+		{
+			"name": "collector.service.port",
+			"value": 8080,
+			"description": "standard http port"
+		},
+		{
+			"name": "collector.service.secure.port",
+			"value": -1,
+			"description": "secure port "
+		},
+		{
+			"name": "collector.keystore.file.location",
+			"value": "/opt/app/dcae-certificate/keystore.jks",
+			"description": "fs location of keystore in vm"
+		},
+		{
+			"name": "collector.keystore.passwordfile",
+			"value": "/opt/app/dcae-certificate/.password",
+			"description": "location of keystore password file in vm"
+		},
+		{
+			"name": "collector.keystore.alias",
+			"value": "dynamically generated",
+			"description": "alias to access the keystore"
+		},
+		{
+			"name": "collector.inputQueue.maxPending",
+			"value": 8096,
+			"description": "Maximum queue limit before publish"
+		},
+		{
+			"name": "collector.dmaap.streamid",
+			"value": "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling",
+			"description": "domain-streamid mapping"
+		},
+		{
+			"name": "header.authflag",
+			"value": 0,
+			"description": "Basic Authentication flag"
+		},
+		{
+			"name": "header.authlist",
+			"value": "userid1,base64encodepwd1|userid2,base64encodepwd2",
+			"description": "List of id and base64 encoded pwd"
+		},
+		{
+			"name": "collector.schema.checkflag",
+			"value": 1,
+			"description": "Schema check validation flag"
+		},
+		{
+			"name": "collector.schema.file",
+			"value": "{\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.3.json\"}",
+			"description": "validation schema file name per version"
+		},
+		{
+			"name": "event.transform.flag",
+			"value": 1,
+			"description": "flag to enable tranformation rules defined under eventTransform.json"
+		},
+		{
+			"name": "tomcat.maxthreads",
+			"value": "200",
+			"description": "Tomcat control for concurrent request"
+		}
+	],
+	"auxilary": {
+		"healthcheck": {
+			"type": "http",
+			"interval": "15s",
+			"timeout": "1s",
+			"endpoint": "/healthcheck"
+		}
+	},
+	"artifacts": [
+		{
+			"type": "docker image",
+			"uri": "NEXUS_REPO/com.att.dcae.controller/dcae-controller-ves-collector:17.10-011"
+		}
+	]
+}

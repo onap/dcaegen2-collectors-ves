@@ -1,0 +1,130 @@
+{
+                "sec_measurement": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "111111",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MEASUREMENT-OUTPUT"
+                        }
+                },
+                "sec_fault": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-FAULT-OUTPUT"
+                        }
+                },
+                
+                "sec_syslog": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "111111",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-SYSLOG-OUTPUT"
+                        }
+                },
+                "sec_statechange": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-STATECHANGE-OUTPUT"
+                        }
+                },                
+                
+                "sec_thresholdCrossingAlert": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "111111",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-TCA-OUTPUT"
+                        }
+                },
+                "sec_heartbeat": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-HEARTBEAT-OUTPUT"
+                        }
+                },
+                
+                "sec_other": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "111111",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-OTHER-OUTPUT"
+                        }
+                },
+                "sec_mobileflow": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
+                        }
+                },                                
+                "ves_sipsignaling": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
+                        }
+                }, 
+                "ves_voicequality": {
+                        "type": "message_router",
+                        "aaf_username": "aafid",
+                        "aaf_password": "pwd",
+                        "dmaap_info": {
+                                "client_role": "com.att.dcae.member",
+                                "client_id": "222222",
+                                "location": "mtl5",
+                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
+                        }
+                },                                 
+                "sec_fault_unsecure": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://uebsb91kcdc.it.att.com:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "sec_measurement_unsecure": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://uebsb91kcdc.it.att.com:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                }
+
+}

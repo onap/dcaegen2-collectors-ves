@@ -1,0 +1,119 @@
+tosca_definitions_version: tosca_simple_yaml_1_0_0
+metadata:
+  template_name: ves_translate
+imports:
+- schema: schema.yaml
+topology_template:
+  inputs:
+    docker_collector.dmaap.streamid:
+      type: string
+    docker_collector.inputQueue.maxPending:
+      type: string
+    docker_collector.keystore.alias:
+      type: string
+    docker_collector.keystore.file.location:
+      type: string
+    docker_collector.keystore.passwordfile:
+      type: string
+    docker_collector.schema.checkflag:
+      type: string
+    docker_collector.schema.file:
+      type: string
+    docker_collector.service.port:
+      type: string
+    docker_collector.service.secure.port:
+      type: string
+    docker_header.authflag:
+      type: string
+    docker_header.authlist:
+      type: string
+    docker_tomcat.maxthreads:
+      type: string
+    image:
+      type: string
+    location_id:
+      type: string
+    service_0_service_endpoint:
+      type: string
+    service_0_service_name:
+      type: string
+    service_0_verb:
+      type: string
+    service_component_type:
+      type: string
+    service_id:
+      type: string
+    stream_0_key:
+      type: string
+    stream_0_route:
+      type: string
+    stream_1_key:
+      type: string
+    stream_1_route:
+      type: string
+    stream_2_key:
+      type: string
+    stream_3_key:
+      type: string
+  substitution_mappings:
+    node_type: dcae.nodes.dockerApp.ves
+    capabilities:
+      service_0:
+      - ves
+      - stream
+      stream_0:
+      - ves
+      - stream
+      stream_1:
+      - ves
+      - stream
+    requirements:
+      host:
+      - ves
+      - host
+      stream_0:
+      - ves
+      - stream
+      stream_1:
+      - ves
+      - stream
+      stream_2:
+      - ves
+      - stream
+      stream_3:
+      - ves
+      - stream
+  node_templates:
+    ves:
+      type: cloudify.dcae.nodes.rework.DockerContainer
+      properties:
+        application_config:
+          collector.dmaap.streamid:
+            get_input: docker_collector.dmaap.streamid
+          collector.inputQueue.maxPending:
+            get_input: docker_collector.inputQueue.maxPending
+          collector.keystore.alias:
+            get_input: docker_collector.keystore.alias
+          collector.keystore.file.location:
+            get_input: docker_collector.keystore.file.location
+          collector.keystore.passwordfile:
+            get_input: docker_collector.keystore.passwordfile
+          collector.schema.checkflag:
+            get_input: docker_collector.schema.checkflag
+          collector.schema.file:
+            get_input: docker_collector.schema.file
+          collector.service.port:
+            get_input: docker_collector.service.port
+          collector.service.secure.port:
+            get_input: docker_collector.service.secure.port
+          header.authflag:
+            get_input: docker_header.authflag
+          header.authlist:
+            get_input: docker_header.authlist
+          tomcat.maxthreads:
+            get_input: docker_tomcat.maxthreads
+        location_id:
+          get_input: location_id
+        service_component_type: cdap_app_ves
+        service_id:
+          get_input: service_id

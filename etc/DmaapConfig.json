@@ -1,0 +1,14 @@
+{
+
+	"channels": [
+		{
+			"name": "sec_measurement",
+			"cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "zldciad3vicoll00.dcae.simpledemo.openecomp.org"
+		}
+		
+	]
+}

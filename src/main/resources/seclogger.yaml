@@ -1,0 +1,65 @@
+
+package-name: org.onap.dcae.ecomplog
+java-root: src/main/java
+resources-root: src/main/resources
+
+messages:
+  SEC_COLLECT_AND_PULIBISH_SUCCESS:
+    errorCode: 0
+    messageFormat: SEC Data collected and published successfully
+    resolution: No Resolution needed
+    description: Data Collected and published succesfully
+  SEC_COLLECT_AND_PULIBISH_FAILURE:
+    errorCode: SEC200E
+    messageFormat: SEC Data collected failed {0}
+    resolution: No Resolution needed
+    description: Data Collection and Publish failed
+  SEC_COLLECTION_SUCCESSFULL:
+    errorCode: 0
+    messageFormat: SEC Data collected successfully
+    resolution: No Resolution needed
+    description: Data Collection Successful
+  SEC_COLLECTION_FAILURE:
+    errorCode: SEC300E
+    messageFormat: SEC Data collection failed due to {0}
+    resolution: No Resolution needed
+    description: Data Collection Failed
+  SEC_AUTHENTICATION_FAILURE:
+    errorCode: SEC100E
+    messageFormat: SEC Authentication failed due to {0}
+    resolution: CPADS to work with Sender/VNF to provision authetication account
+    description: Authentication Failed    
+  SEC_AUTHENTICATION_SUCCESSFULL:
+    errorCode: 0
+    messageFormat: SEC Authentication successfully
+    resolution: No Resolution needed
+    description: Authentication Successful    
+  SEC_DMAAP_PUBLISH_SUCCESS:
+    errorCode: 0
+    messageFormat: DMaaP calls successful
+    resolution: Not Applicable
+    description: DMaaP calls successful from SEC
+  SEC_DMAAP_PUBLISH_FAILED:
+    errorCode: SEC320E
+    messageFormat: DMaaP calls Failed {0}
+    resolution: Check network
+    description: DMaaP calls failed from SEC
+  SEC_SERVICE_SLOW:
+    errorCode: SEC-SERVICE-SLOW
+    messageFormat: Service Slow {0}
+    resolution: Check application memory and network load
+    description: Service slow - Check application memory and network load
+  SEC_DMAAP_UNAVAILABLE:
+    errorCode: SEC-DMAAP-UNAVAILABLE
+    messageFormat: DMaap Unavailable {0}
+    resolution: Check application memory and network load
+    description: Service slow - Check application memory and network load
+operations:
+  SECCollectAndPulishOperation:
+    description: SEC Collect and Publish
+  SECCollectOperation:
+    description: SEC Collect
+  SECPublishOperation:
+    description: SEC Publish
+  SECAuthenticationOperation:
+    description: SEC Authentication    

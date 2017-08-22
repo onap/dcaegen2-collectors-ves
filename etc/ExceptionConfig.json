@@ -1,0 +1,42 @@
+{
+	"code" : {
+	  "200" : 
+	  	[
+	  		{
+			"Reason" : "OK",
+			"ErrorCode": ["OK","Event message has been accepted"]
+			}
+	         ],
+
+	  "204": [ 
+	  		{
+			"Reason" : "Accepted",
+			"ErrorCode": ["OK","Event message has been accepted"]
+			}
+		],
+       	   "400" :  
+       	   	[ 
+	       	   	{
+	    			"Reason" : "BadParameter",
+					"ErrorCode": ["SVC0002","Bad Parameter"	]
+				},
+				
+				{
+					"Reason" : "Error",
+					"ErrorCode": ["SVC2000","General Service Error with details"]
+				},
+				{
+					"Reason" : "exceeded",
+					"ErrorCode": ["POL9003","Message content size exceeded"	]
+				}
+		
+		 ],
+	    "401" : 
+	    	[
+	    		{
+					"Reason" : "Unauthorized",
+					"ErrorCode": ["POL2000","Unauthorized user"]
+			}
+		]
+	}				
+}
