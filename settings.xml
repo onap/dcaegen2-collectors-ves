@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<profiles>
+		<profile>
+			<id>open-ecomp</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>osecomp-nexus-releases</id>
+					<name>OSECOMP Release Repository</name>
+					<url>https://ecomp-nexus:8443/repository/maven-releases</url>
+				</repository>
+				<repository>
+					<id>osecomp-nexus-snapshots</id>
+					<name>OSECOMP Snapshot Repository</name>
+					<url>https://ecomp-nexus:8443/repository/maven-snapshots</url>
+				</repository>
+				<repository>
+					<id>eclipse</id>
+					<url>https://repo.eclipse.org/content/repositories/releases</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>open-ecomp</activeProfile>
+	</activeProfiles>
+
+	<servers>
+		<server>
+			<id>osecomp-nexus</id>
+			<username>${openecomp.nexus.user}</username>
+			<password>${openecomp.nexus.password}</password>
+		</server>
+		<server>
+			<id>osecomp-nexus-releases</id>
+			<username>${openecomp.nexus.user}</username>
+			<password>${openecomp.nexus.password}</password>
+		</server>
+		<server>
+			<id>osecomp-nexus-snapshots</id>
+			<username>${openecomp.nexus.user}</username>
+			<password>${openecomp.nexus.password}</password>
+		</server>
+			<server>			
+			<username>${openecomp.nexus.user}</username>			
+			<password>${openecomp.nexus.password}</password>			
+			<id>dcae-javadoc</id>		
+		</server>
+	
+	</servers>	
+	
+</settings>

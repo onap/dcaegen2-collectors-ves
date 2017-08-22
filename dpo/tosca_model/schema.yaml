@@ -1,0 +1,240 @@
+tosca_definitions_version: tosca_simple_yaml_1_0_0
+capability_types:
+  dcae.capabilities.cdapHost:
+    derived_from: tosca.capabilities.Root
+  dcae.capabilities.composition.host:
+    derived_from: tosca.capabilities.Root
+    properties:
+      location_id:
+        type: string
+      service_id:
+        type: string
+  dcae.capabilities.dockerHost:
+    derived_from: tosca.capabilities.Root
+  dcae.capabilities.service.provide:
+    derived_from: tosca.capabilities.Root
+    properties:
+      request_format:
+        type: string
+      request_version:
+        type: string
+      response_format:
+        type: string
+      response_version:
+        type: string
+  dcae.capabilities.stream.subscribe:
+    derived_from: tosca.capabilities.Root
+    properties:
+      format:
+        type: string
+      version:
+        type: string
+relationship_types:
+  dcae.relationships.rework_connected_to:
+    derived_from: tosca.relationships.Root
+  dcae.relationships.rework_contained_in:
+    derived_from: tosca.relationships.Root
+node_types:
+  cloudify.dcae.nodes.Root:
+    derived_from: tosca.nodes.Root
+  cloudify.dcae.nodes.rework.DockerContainer:
+    attributes:
+      service_component_name:
+        type: string
+    capabilities:
+      service:
+        type: dcae.capabilities.service.provide
+      stream:
+        type: dcae.capabilities.stream.subscribe
+    derived_from: cloudify.dcae.nodes.Root
+    properties:
+      application_config:
+        required: true
+        type: map
+      image:
+        required: true
+        type: string
+      location_id:
+        required: true
+        type: string
+      service_component_type:
+        required: true
+        type: string
+      service_id:
+        required: true
+        type: string
+    requirements:
+    - host:
+        capability: dcae.capabilities.dockerHost
+        relationship: dcae.relationships.rework_contained_in
+    - stream:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to
+  dcae.nodes.MicroService.cdap:
+    attributes:
+      service_component_name:
+        type: string
+    capabilities:
+      service:
+        type: dcae.capabilities.service.provide
+      stream:
+        type: dcae.capabilities.stream.subscribe
+    derived_from: cloudify.dcae.nodes.Root
+    properties:
+      app_config:
+        required: false
+        type: map
+      app_preferences:
+        required: false
+        type: map
+      artifact_name:
+        required: false
+        type: string
+      artifact_version:
+        required: false
+        type: string
+      jar_url:
+        type: string
+      location_id:
+        type: string
+      namespace:
+        required: false
+        type: string
+      program_preferences:
+        required: false
+        type: list
+      programs:
+        required: false
+        type: list
+      service_component_type:
+        type: string
+      service_endpoints:
+        required: false
+        type: list
+      service_id:
+        type: string
+      streamname:
+        required: false
+        type: string
+    requirements:
+    - host:
+        capability: dcae.capabilities.cdapHost
+        relationship: dcae.relationships.rework_contained_in
+    - stream:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to
+  dcae.nodes.Root:
+    derived_from: tosca.nodes.Root
+  dcae.nodes.cdapApp:
+    attributes:
+      service_component_name:
+        type: string
+    derived_from: dcae.nodes.Root
+    properties:
+      jar_url:
+        required: true
+        type: string
+      location_id:
+        required: true
+        type: string
+      service_component_type:
+        required: true
+        type: string
+      service_id:
+        required: true
+        type: string
+    requirements:
+    - host:
+        capability: dcae.capabilities.cdapHost
+        relationship: dcae.relationships.rework_contained_in
+    - composition:
+        capability: dcae.capabilities.composition.host
+  dcae.nodes.dockerApp:
+    attributes:
+      service_component_name:
+        type: string
+    derived_from: dcae.nodes.Root
+    properties:
+      image:
+        required: true
+        type: string
+      location_id:
+        required: true
+        type: string
+      service_component_type:
+        required: true
+        type: string
+      service_id:
+        required: true
+        type: string
+    requirements:
+    - host:
+        capability: dcae.capabilities.dockerHost
+        relationship: dcae.relationships.rework_contained_in
+    - composition:
+        capability: dcae.capabilities.composition.host
+  dcae.nodes.dockerApp.ves:
+    derived_from: dcae.nodes.dockerApp
+    properties:
+      docker_collector.dmaap.streamid:
+        type: string
+      docker_collector.inputQueue.maxPending:
+        type: string
+      docker_collector.keystore.alias:
+        type: string
+      docker_collector.keystore.file.location:
+        type: string
+      docker_collector.keystore.passwordfile:
+        type: string
+      docker_collector.schema.checkflag:
+        type: string
+      docker_collector.schema.file:
+        type: string
+      docker_collector.service.port:
+        type: string
+      docker_collector.service.secure.port:
+        type: string
+      docker_header.authflag:
+        type: string
+      docker_header.authlist:
+        type: string
+      docker_tomcat.maxthreads:
+        type: string
+      service_0_service_endpoint:
+        type: string
+      service_0_service_name:
+        type: string
+      service_0_verb:
+        type: string
+      stream_0_key:
+        type: string
+      stream_0_route:
+        type: string
+      stream_1_key:
+        type: string
+      stream_1_route:
+        type: string
+      stream_2_key:
+        type: string
+      stream_3_key:
+        type: string
+    capabilities:
+      service_0:
+        type: dcae.capabilities.service.provide
+      stream_0:
+        type: dcae.capabilities.stream.subscribe
+      stream_1:
+        type: dcae.capabilities.stream.subscribe
+    requirements:
+    - stream_0:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to
+    - stream_1:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to
+    - stream_2:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to
+    - stream_3:
+        capability: dcae.capabilities.stream.subscribe
+        relationship: dcae.relationships.rework_connected_to

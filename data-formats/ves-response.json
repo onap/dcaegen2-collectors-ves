@@ -1,0 +1,12 @@
+{
+  "self": {
+    "name": "ves.coll.response",
+    "version": "1.0.0",
+    "description": "VES collector response"
+  },
+ "dataformatversion": "1.0.0",
+   "unstructured": {
+        "encoding": "UTF-8"
+    }
+
+}
