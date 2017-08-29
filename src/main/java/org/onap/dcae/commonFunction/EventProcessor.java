@@ -124,7 +124,6 @@ public class EventProcessor implements Runnable {
 
 /*		  "event": {
             "commonEventHeader": {
-            ….
                             "internalHeaderFields": {
                                             "collectorTimeStamp": "Fri, 04 21 2017 04:11:52 GMT"
                             },
