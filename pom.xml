@@ -5,7 +5,7 @@
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
 	<version>1.1.4-SNAPSHOT</version>
-	<name>dcaegen2-collectors-ves</name>
+	<name>VESCollector</name>
 	<description>VESCollector</description>
 
 	<properties>
@@ -44,7 +44,11 @@
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<!-- <sonar.host.url>http://localhost:9000</sonar.host.url> -->
 		<!-- <maven.test.skip>true</maven.test.skip> -->
-		<nexusproxy>https://nexus.openecomp.org</nexusproxy>
+	
+	   <nexusproxy>https://nexus.onap.org</nexusproxy>
+       <snapshots.path>content/repositories/snapshots/</snapshots.path>
+       <releases.path>content/repositories/releases/</releases.path>
+       <site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}</site.path>
 	</properties>
 
 	<pluginRepositories>
@@ -90,13 +94,11 @@
 			<version>1.0.10</version>
 		</dependency>
 
-<!--
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>com.att.nsa</groupId>
 			<artifactId>saToolkit</artifactId>
 			<version>1.1.3</version>
-		</dependency>
--->
+		</dependency>  -->
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -576,21 +578,6 @@
 			</plugin>
 
 
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<!-- <execution> <id>copy</id> <phase>compile</phase> <goals> <goal>copy</goal> 
-						</goals> <configuration> <artifactItems> <artifactItem> <groupId>org.openecomp.dcae.controller</groupId> 
-						<artifactId>dcae-controller-service-standardeventcollector-manager</artifactId> 
-						<version>${project.version}</version> <type>zip</type> <classifier>runtime</classifier> 
-						<overWrite>true</overWrite> <outputDirectory>.</outputDirectory> <destFileName>manager.zip</destFileName> 
-						</artifactItem> </artifactItems> </configuration> </execution> -->
-				</executions>
-			</plugin>
-
 		</plugins>
 
 	</build>
@@ -632,21 +619,22 @@
 	</reporting>
 
 	<distributionManagement>
-		<site>
-			<id>dcae-javadoc</id>
-			<!-- <url>file:LOCALDIR/${project.artifactId}/</url> -->
-			<url>dav:https://ecomp-nexus:8443/repository/dcae-javadoc/${project.artifactId}/${project.version}</url>
-		</site>
-		<repository>
-			<id>ecomp-releases</id>
-			<name>Open eCOMP Release Repository</name>
-			<url>${nexusproxy}/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>ecomp-snapshots</id>
-			<name>Open eCOMP Snapshot Repository</name>
-			<url>${nexusproxy}/content/repositories/snapshots/</url>
-		</snapshotRepository>
+                <site>
+                        <id>ecomp-site</id>
+                        <!-- <url>file:LOCALDIR/${project.artifactId}/</url> -->
+                        <url>dav:${nexusproxy}/${site.path}/</url>
+                </site>
+                <repository>
+                        <id>ecomp-releases</id>
+                        <name>Open eCOMP Release Repository</name>
+                        <url>${nexusproxy}/${releases.path}</url>
+                </repository>
+                <snapshotRepository>
+                        <id>ecomp-snapshots</id>
+                        <name>Open eCOMP Snapshot Repository</name>
+                        <url>${nexusproxy}/${snapshots.path}</url>
+                </snapshotRepository>
 
 	</distributionManagement>
 </project>
+
