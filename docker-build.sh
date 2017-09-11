@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 ###
 # ============LICENSE_START=======================================================
 # PROJECT
@@ -21,9 +19,7 @@
 # ============LICENSE_END=========================================================
 ###
 
-#
-#
-# 1 build the docker image with both service manager and ves collector
+# 1 build the docker image for ves collector
 # 2 tag and then push to the remote repo if not verify
 #
 
@@ -54,21 +50,10 @@ case $phase in
 esac
 echo "Running \"$phase\" job for version \"$VERSION\""
 
-
-# DCAE Controller service manager for VES collector
-DCM_AR="${WORKSPACE}/manager.zip"
-if [ ! -f "${DCM_AR}" ]
-then
-    echo "FATAL error cannot locate ${DCM_AR}"
-    exit 2
-fi
-
 # unarchive the service manager
 TARGET="${WORKSPACE}/target"
 STAGE="${TARGET}/stage"
-DCM_DIR="${STAGE}/opt/app/manager"
-[ ! -d "${DCM_DIR}" ] && mkdir -p "${DCM_DIR}"
-unzip -qo -d "${DCM_DIR}" "${DCM_AR}"
+BASE_DIR="${STAGE}/opt/app"
 
 # unarchive the collector
 AR=${WORKSPACE}/target/VESCollector-${VERSION}-bundle.tar.gz
@@ -80,71 +65,33 @@ APP_DIR=${STAGE}/opt/app/VESCollector
 
 gunzip -c "${AR}" | tar xvf - -C "${APP_DIR}" --strip-components=1
 
-#
-# generate the manager start-up.sh
-#
-## [ -f "${DCM_DIR}/start-manager.sh" ] && exit 0
 
-cat <<EOF > "${DCM_DIR}/start-manager.sh"
-#!/bin/bash
-
-MAIN=org.openecomp.dcae.controller.service.standardeventcollector.servers.manager.DcaeControllerServiceStandardeventcollectorManagerServer
-ACTION=start
-
-WORKDIR=/opt/app/manager
-
-LOGS=\$WORKDIR/logs
-
-mkdir -p \$LOGS
-
-cd \$WORKDIR
-
-echo \$COLLECTOR_IP  \$(hostname).dcae.simpledemo.openecomp.org >> /etc/hosts
-
-if [ ! -e config ]; then
-        echo no configuration directory setup: \$WORKDIR/config
-        exit 1
+if [ ! -f "${APP_DIR}/bin/docker-entry.sh" ]
+then
+		echo "FATAL error cannot locate ${APP_DIR}/bin/docker-entry.sh"
+		exit 2
 fi
+cp -p ${APP_DIR}/bin/docker-entry.sh ${BASE_DIR}/docker-entry.sh
+chmod 755 "${BASE_DIR}/docker-entry.sh"
 
-exec java -cp ./config:./lib:./lib/*:./bin \$MAIN \$ACTION > logs/manager.out 2>logs/manager.err
 
-EOF
-
-chmod 775 "${DCM_DIR}/start-manager.sh"
 
 
 #
 # generate docker file
 #
-cat <<EOF > "${STAGE}/Dockerfile"
-FROM ubuntu:14.04
+if [ ! -f "${APP_DIR}/Dockerfile" ]
+then
+		echo "FATAL error cannot locate ${APP_DIR}/Dockerfile"
+		exit 2
+fi
+cp -p ${APP_DIR}/Dockerfile ${STAGE}/Dockerfile
 
-MAINTAINER dcae@lists.openecomp.org
-
-WORKDIR /opt/app/manager
-
-ENV HOME /opt/app/VESCollector
-ENV JAVA_HOME /usr
-
-RUN apt-get update && apt-get install -y \
-        bc \
-        curl \
-        telnet \
-        vim \
-        netcat \
-        openjdk-7-jdk
-
-COPY opt /opt
-
-EXPOSE 9999
-
-CMD [ "/opt/app/manager/start-manager.sh" ]
-EOF
 
 #
 # build the docker image. tag and then push to the remote repo
 #
-IMAGE='openecomp/dcae-collector-common-event'
+IMAGE='dcaegen2-ves-collector'
 VERSION="${VERSION//[^0-9.]/}"
 VERSION2=$(echo "$VERSION" | cut -f1-2 -d'.')
 
@@ -170,17 +117,14 @@ esac
 # staging registry                   nexus3.openecomp.org:10004"
 case $EXT in
 SNAPSHOT|snapshot)
-    #REPO='nexus3.openecomp.org:10003'
     REPO='nexus3.onap.org:10003'
     EXT="-SNAPSHOT"
     ;;
 STAGING|staging)
-    #REPO='nexus3.openecomp.org:10003'
     REPO='nexus3.onap.org:10003'
     EXT="-STAGING"
     ;;
 "")
-    #REPO='nexus3.openecomp.org:10002'
     REPO='nexus3.onap.org:10002'
     EXT=""
     echo "version has no extension, intended for release, in \"$phase\" phase. donot do release here"
@@ -202,3 +146,4 @@ do
    docker push "${NEWTAG}"
    OLDTAG="${NEWTAG}"
 done
+

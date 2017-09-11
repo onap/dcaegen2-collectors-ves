@@ -66,6 +66,13 @@
         </includes>
         <outputDirectory>specs</outputDirectory>
     </fileSet>
+    <fileSet>
+        <directory>/</directory>
+         <includes>
+        	<include>Dockerfile</include>
+        </includes>
+        <outputDirectory>target/</outputDirectory>
+    </fileSet>
   </fileSets>
   <dependencySets>
   	<dependencySet>
@@ -76,3 +83,4 @@
   	</dependencySet>
   </dependencySets>
 </assembly>
+

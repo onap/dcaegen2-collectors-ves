@@ -1,5 +1,4 @@
 #!/bin/sh
-
 ###
 # ============LICENSE_START=======================================================
 # PROJECT
@@ -19,8 +18,7 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-
-
+echo \$COLLECTOR_IP  \$(hostname).dcae.simpledemo.openecomp.org >> /etc/hosts
 if [ -z "$CONSUL_HOST" ] || [ -z "$CONFIG_BINDING_SERVICE" ] || [ -z "$HOSTNAME" ]; then
                 echo "INFO: USING STANDARD CONTROLLER"
                 /opt/app/manager/start-manager.sh
@@ -30,3 +28,4 @@ else
                 /opt/app/VESCollector/bin/VESrestfulCollector.sh start &
 fi
 #while true; do sleep 1000; done
+
