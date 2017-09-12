@@ -28,6 +28,10 @@ MVN_PHASE="$2"
 
 
 PROJECT_ROOT=$(dirname $0)
+if [ -z "$WORKSPACE" ]; then
+  export WORKSPACE="$PROJECT_ROOT"
+fi
+
 
 FQDN="${MVN_PROJECT_GROUPID}.${MVN_PROJECT_ARTIFACTID}"
 if [ "$MVN_PROJECT_MODULEID" == "__" ]; then
@@ -110,12 +114,28 @@ package)
   ;;
 install)
   echo "==> install phase script"
+  #build_and_push_docker
+  case $MVN_DEPLOYMENT_TYPE in
+  SNAPSHOT)
+    bash docker-build.sh merge
+    ;;
+  STAGING)
+    bash docker-build.sh release
+    ;;
+  esac
   ;;
 deploy)
   echo "==> deploy phase script"
   # build docker image from Docker file (under root of repo) and push to registry
-  build_and_push_docker
-
+  #build_and_push_docker
+  case $MVN_DEPLOYMENT_TYPE in
+  SNAPSHOT)
+    bash docker-build.sh merge
+    ;;
+  STAGING)
+    bash docker-build.sh release
+    ;;
+  esac 
   ;;
 *)
   echo "==> unprocessed phase"
