@@ -113,50 +113,9 @@ install)
   ;;
 deploy)
   echo "==> deploy phase script"
-  # below segments are example of how to deploy various artifacts
-  # copy the ones suitable for your repo, and remove the "if false" statement
-
   # build docker image from Docker file (under root of repo) and push to registry
-  if  false ; then
-    build_and_push_docker
-  fi
+  build_and_push_docker
 
-  # upload all yaml file under the root of repo
-  if  false ; then
-    upload_files_of_extension yaml
-  fi
-
-  if  false ; then
-    case $MVN_PROJECT_MODULEID in
-    bootstrap)
-      # build docker image from Docker file (under module dir) and push to registry
-      build_and_push_docker
-      ;;
-    scripts)
-      # upload all sh file under the root of module 
-      upload_files_of_extension sh
-      ;;
-    platformdoc)
-      CURDIR=$(pwd)
-      virtualenv ./venv-doc
-      source ./venv-doc/bin/activate
-      pip install --upgrade pip
-      pip install --upgrade mkdocs mkdocs-material
-      pip freeze
-
-      mkdocs build
-      build_and_push_docker
-      deactivate
-      rm -rf ./venv-doc
-
-      # build docker image from Docker file (under module dir) and push to registry
-      build_and_push_docker
-    ;;
-    *)
-      echo "====> unknown mvn project module"
-      ;;
-    esac
-  fi
   ;;
 *)
   echo "==> unprocessed phase"
