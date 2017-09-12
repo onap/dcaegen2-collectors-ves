@@ -231,6 +231,7 @@ build_and_push_docker()
 {
   IMAGENAME="onap/${FQDN}.${MVN_PROJECT_MODULEID}"
   IMAGENAME=$(echo "$IMAGENAME" | sed -e 's/_*$//g' -e 's/\.*$//g')
+  IMAGENAME=$(echo "$IMAGENAME" | tr '[:upper:]' '[:lower:]')
 
   # use the major and minor version of the MVN artifact version as docker image version
   VERSION="${MVN_PROJECT_VERSION//[^0-9.]/}"
