@@ -10,7 +10,7 @@
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
 	<version>1.1.4-SNAPSHOT</version>
-	<name>VESCollector</name>
+	<name>dcaegen2-collectors-ves</name>
 	<description>VESCollector</description>
 
 	<properties>
@@ -20,7 +20,6 @@
 		<surefire.plugin.version>2.19.1</surefire.plugin.version>
 		<surefire.report.plugin.version>2.19.1</surefire.report.plugin.version>
 		<failsafe.plugin.version>2.19.1</failsafe.plugin.version>
-		<sonar.plugin.version>3.2</sonar.plugin.version>
 		<pmd.plugin.version>3.5</pmd.plugin.version>
 		<jacoco.plugin.version>0.7.7.201606060606</jacoco.plugin.version>
 		<findbugs.plugin.version>3.0.2</findbugs.plugin.version>
@@ -47,7 +46,6 @@
 		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
 		</jacoco.ut.execution.data.file>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
-		<!-- <sonar.host.url>http://localhost:9000</sonar.host.url> -->
 		<!-- <maven.test.skip>true</maven.test.skip> -->
 	
 	   <nexusproxy>https://nexus.onap.org</nexusproxy>
@@ -275,35 +273,6 @@
 				</plugin>
 
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>1.10</version>
-					<configuration>
-						<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-						<processStartTag>============LICENSE_START=======================================================</processStartTag>
-						<processEndTag>============LICENSE_END=========================================================</processEndTag>
-						<sectionDelimiter>================================================================================</sectionDelimiter>
-						<licenseName>apache_v2</licenseName>
-						<inceptionYear>2017</inceptionYear>
-						<organizationName>AT&amp;T Intellectual Property. All rights
-							reserved.</organizationName>
-						<projectName>PROJECT</projectName>
-						<canUpdateCopyright>true</canUpdateCopyright>
-						<canUpdateDescription>true</canUpdateDescription>
-						<canUpdateLicense>true</canUpdateLicense>
-						<emptyLineAfterHeader>true</emptyLineAfterHeader>
-					</configuration>
-					<executions>
-						<execution>
-							<id>first</id>
-							<goals>
-								<goal>update-file-header</goal>
-							</goals>
-							<phase>process-sources</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.6</version>
@@ -345,13 +314,6 @@
 					</executions>
 				</plugin>
 
-
-				<!-- SONAR PLUGIN -->
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>${sonar.plugin.version}</version>
-				</plugin>
 
 				<!-- DEPLOY PLUGIN -->
 				<plugin>
