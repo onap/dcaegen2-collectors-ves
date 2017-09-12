@@ -2,6 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.onap.oparent</groupId>
+		<artifactId>oparent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
 	<version>1.1.4-SNAPSHOT</version>
@@ -213,7 +218,7 @@
 					</executions>
 				</plugin>
 				<!-- CHECKSTYLE PLUGIN -->
-
+<!--
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
@@ -224,7 +229,9 @@
 							<phase>validate</phase>
 							<configuration>
 								<configLocation>${checkstyle.file.name}</configLocation>
+-->
 								<!-- <suppressionsLocation>${checkstyle.suppression.file.name}</suppressionsLocation> -->
+<!--
 								<encoding>UTF-8</encoding>
 								<consoleOutput>true</consoleOutput>
 
@@ -245,7 +252,7 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-
+-->
 
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
@@ -501,6 +508,35 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.2.1</version>
+					<configuration>
+						<executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
+						<environmentVariables>
+							<!-- make mvn properties as env for our script -->
+							<MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
+							<MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
+							<MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
+							<MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
+							<MVN_RAWREPO_BASEURL_UPLOAD>${onap.nexus.rawrepo.baseurl.upload}</MVN_RAWREPO_BASEURL_UPLOAD>
+							<MVN_RAWREPO_BASEURL_DOWNLOAD>${onap.nexus.rawrepo.baseurl.download}</MVN_RAWREPO_BASEURL_DOWNLOAD>
+							<MVN_RAWREPO_SERVERID>${onap.nexus.rawrepo.serverid}</MVN_RAWREPO_SERVERID>
+							<MVN_DOCKERREGISTRY_DAILY>${onap.nexus.dockerregistry.daily}</MVN_DOCKERREGISTRY_DAILY>
+							<MVN_DOCKERREGISTRY_RELEASE>${onap.nexus.dockerregistry.release}</MVN_DOCKERREGISTRY_RELEASE>
+						</environmentVariables>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M1</version>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -577,6 +613,26 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>deploy script</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<arguments>
+								<argument>__</argument>
+								<argument>deploy</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 
@@ -618,10 +674,13 @@
 		</plugins>
 	</reporting>
 
+<!--
 	<distributionManagement>
                 <site>
                         <id>ecomp-site</id>
+-->
                         <!-- <url>file:LOCALDIR/${project.artifactId}/</url> -->
+<!--
                         <url>dav:${nexusproxy}/${site.path}/</url>
                 </site>
                 <repository>
@@ -636,5 +695,6 @@
                 </snapshotRepository>
 
 	</distributionManagement>
+-->
 </project>
 
