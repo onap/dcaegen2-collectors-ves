@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.onap.oparent</groupId>
-		<artifactId>oparent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
+  	<parent> 
+		<groupId>org.onap.oparent</groupId> 
+		<artifactId>oparent</artifactId>  
+		<version>1.0.0-SNAPSHOT</version> 
+	</parent> 
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
 	<version>1.1.4-SNAPSHOT</version>
@@ -17,13 +17,6 @@
 		<compiler.source.version>1.7</compiler.source.version>
 		<compiler.target.version>1.7</compiler.target.version>
 		<main.basedir>${project.basedir}</main.basedir>
-		<surefire.plugin.version>2.19.1</surefire.plugin.version>
-		<surefire.report.plugin.version>2.19.1</surefire.report.plugin.version>
-		<failsafe.plugin.version>2.19.1</failsafe.plugin.version>
-		<pmd.plugin.version>3.5</pmd.plugin.version>
-		<jacoco.plugin.version>0.7.7.201606060606</jacoco.plugin.version>
-		<findbugs.plugin.version>3.0.2</findbugs.plugin.version>
-		<checkstyle.plugin.version>2.16</checkstyle.plugin.version>
 		<compiler.plugin.version>3.3</compiler.plugin.version>
 		<jar.plugin.version>2.4</jar.plugin.version>
 		<deploy.plugin.version>2.8</deploy.plugin.version>
@@ -35,23 +28,13 @@
 
 		<!--PLUGIN SETTINGS -->
 
-
-		<pmd.violation.buildfail>false</pmd.violation.buildfail>
-		<findbugs.failOnError>true</findbugs.failOnError>
-		<checkstyle.failOnViolation>true</checkstyle.failOnViolation>
-		<!-- <checkstyle.file.name>checkstyle.xml</checkstyle.file.name> -->
-		<!-- <checkstyle.suppression.file.name>suppressions.xml</checkstyle.suppression.file.name> -->
-		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec
-		</jacoco.it.execution.data.file>
-		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
-		</jacoco.ut.execution.data.file>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<!-- <maven.test.skip>true</maven.test.skip> -->
-	
-	   <nexusproxy>https://nexus.onap.org</nexusproxy>
-       <snapshots.path>content/repositories/snapshots/</snapshots.path>
-       <releases.path>content/repositories/releases/</releases.path>
-       <site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}</site.path>
+
+		<nexusproxy>https://nexus.onap.org</nexusproxy>
+		<snapshots.path>content/repositories/snapshots/</snapshots.path>
+		<releases.path>content/repositories/releases/</releases.path>
+		<site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}</site.path>
 	</properties>
 
 	<pluginRepositories>
@@ -97,11 +80,8 @@
 			<version>1.0.10</version>
 		</dependency>
 
-	<!-- 	<dependency>
-			<groupId>com.att.nsa</groupId>
-			<artifactId>saToolkit</artifactId>
-			<version>1.1.3</version>
-		</dependency>  -->
+		<!-- <dependency> <groupId>com.att.nsa</groupId> <artifactId>saToolkit</artifactId> 
+			<version>1.1.3</version> </dependency> -->
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -189,68 +169,6 @@
 						</archive>
 					</configuration>
 				</plugin>
-				<!-- FIND BUGS (STATIC CODE ANALYSIS) PLUGIN -->
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${findbugs.plugin.version}</version>
-					<configuration>
-						<effort>Max</effort>
-						<threshold>Low</threshold>
-						<xmlOutput>true</xmlOutput>
-						<!-- BUILD FAIL ON FINDBUGS ERRORS -->
-						<failOnError>${findbugs.failOnError}</failOnError>
-						<!-- <excludeFilterFile>${main.basedir}/findbugs-exclude.xml</excludeFilterFile> -->
-						<outputDirectory>${project.reporting.outputDirectory}/findbugs</outputDirectory>
-						<findbugsXmlOutputDirectory>${project.reporting.outputDirectory}/findbugs
-						</findbugsXmlOutputDirectory>
-					</configuration>
-					<executions>
-						<execution>
-							<id>analyze-compile</id>
-							<phase>compile</phase>
-							<goals>
-								<goal>check</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- CHECKSTYLE PLUGIN -->
-<!--
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${checkstyle.plugin.version}</version>
-					<executions>
-						<execution>
-							<id>validate</id>
-							<phase>validate</phase>
-							<configuration>
-								<configLocation>${checkstyle.file.name}</configLocation>
--->
-								<!-- <suppressionsLocation>${checkstyle.suppression.file.name}</suppressionsLocation> -->
-<!--
-								<encoding>UTF-8</encoding>
-								<consoleOutput>true</consoleOutput>
-
-								<failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
-								<includeTestSourceDirectory>true</includeTestSourceDirectory>
-								<outputFile>${project.reporting.outputDirectory}/checkstyle</outputFile>
-							</configuration>
-							<goals>
-								<goal>check</goal>
-							</goals>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>com.puppycrawl.tools</groupId>
-							<artifactId>checkstyle</artifactId>
-							<version>6.19</version>
-						</dependency>
-					</dependencies>
-				</plugin>
--->
 
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
@@ -301,155 +219,6 @@
 				</plugin>
 
 
-				<!-- JACOCO CODE COVERAGE PLUGIN -->
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${jacoco.plugin.version}</version>
-
-					<executions>
-						<!-- prepare jacoco agent before unit tests -->
-						<execution>
-							<id>pre-unit-test</id>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.ut.execution.data.file}</destFile>
-								<propertyName>surefireArgLine</propertyName>
-							</configuration>
-						</execution>
-						<!-- generate unit test coverage report -->
-						<execution>
-							<id>post-unit-test</id>
-							<phase>test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.ut.execution.data.file}</dataFile>
-								<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-							</configuration>
-						</execution>
-						<!-- prepare jacoco agent before integration tests -->
-						<execution>
-							<id>pre-integration-test</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.it.execution.data.file}</destFile>
-								<propertyName>failsafeArgLine</propertyName>
-							</configuration>
-						</execution>
-						<!-- generate integration test coverage report -->
-						<execution>
-							<id>post-integration-test</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.it.execution.data.file}</dataFile>
-								<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- PMD PLUGIN SETUP -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-pmd-plugin</artifactId>
-					<version>${pmd.plugin.version}</version>
-					<configuration>
-						<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-						<targetJdk>${compiler.target.version}</targetJdk>
-						<linkXRef>false</linkXRef>
-						<!-- BUILD FAIL ON PMD VIOLATION -->
-						<failOnViolation>${pmd.violation.buildfail}</failOnViolation>
-						<targetDirectory>${project.reporting.outputDirectory}/pmd</targetDirectory>
-					</configuration>
-					<executions>
-						<execution>
-							<id>pmd-check</id>
-							<goals>
-								<goal>check</goal>
-							</goals>
-							<configuration>
-								<printFailingErrors>true</printFailingErrors>
-								<excludeFromFailureFile>${main.basedir}/pmd-exclude.properties</excludeFromFailureFile>
-							</configuration>
-						</execution>
-						<execution>
-							<id>cpd-check</id>
-							<goals>
-								<!-- <goal>cpd-check</goal> -->
-							</goals>
-							<configuration>
-								<printFailingErrors>true</printFailingErrors>
-								<!-- <excludeFromFailureFile>${main.basedir}/cpd-exclude.properties</excludeFromFailureFile> -->
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- SUREFIRE TEST PLUGIN -->
-				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
-					<version>${surefire.plugin.version}</version> <configuration> <skipTests>${skip.unit.tests}</skipTests> 
-					<argLine>-Xmx2048m -Djava.awt.headless=true -XX:+UseConcMarkSweepGC -XX:OnOutOfMemoryError="kill 
-					-9 %p" -XX:+HeapDumpOnOutOfMemoryError </argLine> <redirectTestOutputToFile>${surefire.redirectTestOutputToFile}</redirectTestOutputToFile> 
-					<parallel>methods</parallel> <threadCount>8</threadCount> <forkCount>8</forkCount> 
-					<reuseForks>true</reuseForks> <reportFormat>xml</reportFormat> <trimStackTrace>false</trimStackTrace> 
-					<systemPropertyVariables> <java.io.tmpdir>${project.build.directory}</java.io.tmpdir> 
-					<logback.configurationFile> ${basedir}/src/test/resources/logback-test.xml 
-					</logback.configurationFile> </systemPropertyVariables> <includes> <include>${unit.test.pattern}</include> 
-					</includes> <excludes> <exclude>${integration.test.pattern}</exclude> </excludes> 
-					<argLine>${surefireArgLine}</argLine> </configuration> <dependencies> <dependency> 
-					<groupId>org.apache.maven.surefire</groupId> <artifactId>surefire-junit47</artifactId> 
-					<version>${surefire.plugin.version}</version> </dependency> </dependencies> 
-					</plugin> -->
-				<!-- FAIL SAFE PLUGIN FOR INTEGRATION TEST -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>${failsafe.plugin.version}</version>
-					<executions>
-						<execution>
-							<id>integration-tests</id>
-							<goals>
-								<goal>integration-test</goal>
-								<goal>verify</goal>
-							</goals>
-							<configuration>
-								<skipTests>${skip.integration.tests}</skipTests>
-								<!-- Sets the VM argument line used when integration tests are run. -->
-								<!--suppress MavenModelInspection -->
-								<argLine>${failsafeArgLine}</argLine>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-
-				<!-- blackduck maven plugin -->
-				<plugin>
-					<groupId>com.blackducksoftware.integration</groupId>
-					<artifactId>hub-maven-plugin</artifactId>
-					<version>1.4.0</version>
-					<inherited>false</inherited>
-					<configuration>
-						<hubProjectName>${project.name}</hubProjectName>
-						<outputDirectory>${project.basedir}</outputDirectory>
-					</configuration>
-					<executions>
-						<execution>
-							<id>create-bdio-file</id>
-							<phase>package</phase>
-							<goals>
-								<goal>createHubOutput</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
@@ -485,24 +254,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
-				</plugin> -->
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>com.blackducksoftware.integration</groupId>
-				<artifactId>hub-maven-plugin</artifactId>
-			</plugin>
-
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -514,17 +266,8 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-			</plugin>
-
-			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
-
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
-				</plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
-				</plugin> -->
 
 
 			<plugin>
@@ -545,6 +288,19 @@
 							</arguments>
 						</configuration>
 					</execution>
+					<execution>
+                                                <id>install script</id>
+                                                <phase>install</phase>
+                                                <goals>
+                                                        <goal>exec</goal>
+                                                </goals>
+                                                <configuration>
+                                                        <arguments>
+                                                                <argument>__</argument>
+                                                                <argument>install</argument>
+                                                        </arguments>
+                                                </configuration>
+                                        </execution>
 				</executions>
 			</plugin>
 
@@ -588,27 +344,6 @@
 		</plugins>
 	</reporting>
 
-<!--
-	<distributionManagement>
-                <site>
-                        <id>ecomp-site</id>
--->
-                        <!-- <url>file:LOCALDIR/${project.artifactId}/</url> -->
-<!--
-                        <url>dav:${nexusproxy}/${site.path}/</url>
-                </site>
-                <repository>
-                        <id>ecomp-releases</id>
-                        <name>Open eCOMP Release Repository</name>
-                        <url>${nexusproxy}/${releases.path}</url>
-                </repository>
-                <snapshotRepository>
-                        <id>ecomp-snapshots</id>
-                        <name>Open eCOMP Snapshot Repository</name>
-                        <url>${nexusproxy}/${snapshots.path}</url>
-                </snapshotRepository>
 
-	</distributionManagement>
--->
 </project>
 
