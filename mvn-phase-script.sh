@@ -117,16 +117,84 @@ install)
   ;;
 deploy)
   echo "==> deploy phase script"
-  # build docker image from Docker file (under root of repo) and push to registry
-  #build_and_push_docker
+  
   case $MVN_DEPLOYMENT_TYPE in
-  SNAPSHOT)
-    bash docker-build.sh merge
-    ;;
-  STAGING)
-    bash docker-build.sh release
-    ;;
-  esac 
+    SNAPSHOT)
+      phase='merge'
+      ;;
+    STAGING)
+      phase='release'
+      ;;
+    *)
+      exit 1
+      ;;
+  esac
+
+  VERSION=$(xpath -e '//project/version/text()' 'pom.xml')
+  VERSION=${VERSION//\"/}
+  EXT=$(echo "$VERSION" | rev | cut -s -f1 -d'-' | rev)
+  if [ -z "$EXT" ]; then
+    EXT="STAGING"
+  fi
+  case $phase in
+    verify|merge)
+      if [ "$EXT" != 'SNAPSHOT' ]; then
+        echo "$phase job only takes SNAPSHOT version, got \"$EXT\" instead"
+        exit 1
+      fi
+      ;;
+    release)
+      if [ ! -z "$EXT" ] && [ "$EXT" != 'STAGING' ]; then
+        echo "$phase job only takes STAGING or pure numerical version, got \"$EXT\" instead"
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Unknown phase \"$phase\""
+      exit 1
+  esac
+  echo "Running \"$phase\" job for version \"$VERSION\""
+
+  # unarchive the service manager
+  TARGET="${WORKSPACE}/target"
+  #STAGE="${TARGET}/stage"
+  STAGE=.
+  BASE_DIR="${STAGE}/opt/app"
+
+  # unarchive the collector
+  AR=${WORKSPACE}/target/VESCollector-${VERSION}-bundle.tar.gz
+  APP_DIR=${STAGE}/opt/app/VESCollector
+
+  [ -d "${STAGE}/opt/app/VESCollector-${VERSION}" ] && rm -rf "${STAGE}/opt/app/VESCollector-${VERSION}"
+
+  [ ! -f "${APP_DIR}" ] && mkdir -p "${APP_DIR}"
+
+  gunzip -c "${AR}" | tar xvf - -C "${APP_DIR}" --strip-components=1
+
+
+  if [ ! -f "${APP_DIR}/bin/docker-entry.sh" ]
+  then
+    echo "FATAL error cannot locate ${APP_DIR}/bin/docker-entry.sh"
+    exit 2
+  fi
+  cp -p ${APP_DIR}/bin/docker-entry.sh ${BASE_DIR}/docker-entry.sh
+  chmod 755 "${BASE_DIR}/docker-entry.sh"
+
+
+
+
+  #
+  # generate docker file
+  #
+  if [ ! -f "${APP_DIR}/Dockerfile" ]
+  then
+    echo "FATAL error cannot locate ${APP_DIR}/Dockerfile"
+    exit 2
+  fi
+  cp -p ${APP_DIR}/Dockerfile ${STAGE}/Dockerfile
+
+  BUILD_PATH="${WORKSPACE}/target/stage" 
+  build_and_push_docker 
   ;;
 *)
   echo "==> unprocessed phase"

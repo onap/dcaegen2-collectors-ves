@@ -545,6 +545,19 @@
 							</arguments>
 						</configuration>
 					</execution>
+					<execution>
+                                                <id>install script</id>
+                                                <phase>install</phase>
+                                                <goals>
+                                                        <goal>exec</goal>
+                                                </goals>
+                                                <configuration>
+                                                        <arguments>
+                                                                <argument>__</argument>
+                                                                <argument>install</argument>
+                                                        </arguments>
+                                                </configuration>
+                                        </execution>
 				</executions>
 			</plugin>
 
