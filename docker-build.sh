@@ -91,7 +91,7 @@ cp -p ${APP_DIR}/Dockerfile ${STAGE}/Dockerfile
 #
 # build the docker image. tag and then push to the remote repo
 #
-IMAGE='onap/dcaegen2-ves-collector'
+IMAGE='onap/dcaegen2.ves.collector'
 VERSION="${VERSION//[^0-9.]/}"
 VERSION2=$(echo "$VERSION" | cut -f1-2 -d'.')
 
@@ -135,6 +135,8 @@ STAGING|staging)
     exit 1
     ;;
 esac
+
+#docker login "$REPO" -u "$IMAGE" -p "<password>"
 
 OLDTAG="${LFQI}"
 PUSHTAGS="${REPO}/${IMAGE}:${VERSION}${EXT}${TIMESTAMP} ${REPO}/${IMAGE}:latest ${REPO}/${IMAGE}:${VERSION2}${EXT}-latest"
