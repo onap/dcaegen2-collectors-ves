@@ -32,10 +32,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 public class VESCollectorJunitTest {
-		public static String schemaFile=null;
+		public static String schemaFile="etc/CommonEventFormat_27.2.json";
 		public static String output; 
 
 
@@ -53,8 +54,12 @@ public class VESCollectorJunitTest {
 			input = new FileInputStream("etc/collector.properties");
 			try {
 				prop.load(input);
-				schemaFile=prop.getProperty("collector.schema.file");
+				//schemaFile=prop.getProperty("collector.schema.file");
 
+				JSONObject schemaFileJson = new JSONObject(prop.getProperty("collector.schema.file"));
+				System.out.println("JSON Schemafile" + schemaFileJson);
+				//schemaFile = schemaFileJson.getString("v4");
+				
 				System.out.println( "Schema file location: "+ schemaFile);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -65,7 +70,7 @@ public class VESCollectorJunitTest {
 			e.printStackTrace();
 		}
 		
-		assertEquals(message,output);
+		assertEquals("true",output);
 	}
 	
 	
@@ -78,8 +83,13 @@ public class VESCollectorJunitTest {
 			input = new FileInputStream("etc/collector.properties");
 			try {
 				prop.load(input);
-				schemaFile=prop.getProperty("collector.schema.file");
+				
+				//schemaFile=prop.getProperty("collector.schema.file");
 
+				JSONObject schemaFileJson = new JSONObject(prop.getProperty("collector.schema.file"));
+				System.out.println("JSON Schemafile" + schemaFileJson);
+				//schemaFile = schemaFileJson.getString("v4");
+				
 				System.out.println( "Schema file location: "+ schemaFile);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -107,3 +117,4 @@ public class VESCollectorJunitTest {
 	
 
 }
+

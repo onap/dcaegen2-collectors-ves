@@ -63,7 +63,7 @@ public class InputJsonValidation {
 
 		String schema=null;
 		try {
-			schema = new JsonParser().parse(new FileReader(VESCollectorJunitTest.schemaFile)).toString();
+			schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json")).toString();
 			//System.out.println("Schema value: " + schema.toString());
 		} catch (JsonIOException e) {
 			// TODO Auto-generated catch block
@@ -108,7 +108,8 @@ public class InputJsonValidation {
 		String schema=null;
 		try {
 
-			schema = new JsonParser().parse(new FileReader(VESCollectorJunitTest.schemaFile)).toString();
+			System.out.println("XX debug" + VESCollectorJunitTest.schemaFile);
+			schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json")).toString();
 		} catch (JsonIOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,3 +168,4 @@ public class InputJsonValidation {
 	}
 
 }  
+
