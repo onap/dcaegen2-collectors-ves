@@ -18,14 +18,14 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-echo \$COLLECTOR_IP  \$(hostname).dcae.simpledemo.openecomp.org >> /etc/hosts
+#echo \$COLLECTOR_IP  \$(hostname).dcae.simpledemo.openecomp.org >> /etc/hosts
 if [ -z "$CONSUL_HOST" ] || [ -z "$CONFIG_BINDING_SERVICE" ] || [ -z "$HOSTNAME" ]; then
-                echo "INFO: USING STANDARD CONTROLLER"
-                /opt/app/manager/start-manager.sh
+                echo "INFO: USING STANDARD ALONE CONFIGURATION SETUP; DMAAP PUBLISH NOT SUPPORTED"
+               # /opt/app/manager/start-manager.sh
 else
                 echo "INFO: USING DCAEGEN2 CONTROLLER"
+fi
                 /opt/app/VESCollector/bin/VESrestfulCollector.sh stop
                 /opt/app/VESCollector/bin/VESrestfulCollector.sh start &
-fi
 #while true; do sleep 1000; done
 
