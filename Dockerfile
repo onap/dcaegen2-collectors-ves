@@ -5,8 +5,6 @@ MAINTAINER vv770d@att.com
 
 WORKDIR /opt/app/VESCollector
 
-ENV http_proxy http://one.proxy.att.com:8080
-ENV https_proxy http://one.proxy.att.com:8080
 ENV HOME /opt/app/VESCollector
 ENV JAVA_HOME /usr
 
