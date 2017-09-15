@@ -7,8 +7,16 @@
 			"class": "HpCambriaOutputStream",
 			"stripHpId": "true",
 			"type": "out",
-			"cambria.hosts": "zldciad3vicoll00.dcae.simpledemo.openecomp.org"
-		}
+			"cambria.hosts": "onap.dmaap.org"
+		},
+                {
+                        "name": "sec_fault",
+                        "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+                        "class": "HpCambriaOutputStream",
+                        "stripHpId": "true",
+                        "type": "out",
+                        "cambria.hosts": "onap.dmaap.org"
+                }
 		
 	]
 }

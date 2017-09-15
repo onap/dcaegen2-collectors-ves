@@ -2,37 +2,41 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
 	
 	"definitions": {
-				"attCopyrightNotice": {
-				"description": "Copyright (c) <2017>, AT&T Intellectual Property. All rights reserved. Licensed under the Apache License, Version 2.0 (the License)",
-				"type": "object",
-				"properties": {
-					"useAndRedistribution": {
-						"description": "You may not use this file except in compliance with the License.You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0",
-						"type": "string"
-					},
-					"licenseLink": "http://www.apache.org/licenses/LICENSE-2.0",
-					"condition1": {
-						"description": "Unless required by applicable law or agreed to in writing, software 13 * distributed under the License is distributed on an AS IS BASIS,",
-						"type": "string"
-					},
-					"condition2": {
-						"description": "Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.",
-						"type": "string"
-					},
-					"condition3": {
-						"description": "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
-						"type": "string"
-					},
-					"condition4": {
-						"description": "See the License for the specific language governing permissions and limitations under the License.",
-						"type": "string"
-					},
-					"Trademarks": {
-						"description": "ECOMP and OpenECOMP are trademarks and service marks of AT&T Intellectual Property.",
-						"type": "string"
-					}
-				   }
+	"attCopyrightNotice": {
+			"description": "Copyright (c) <2017>, AT&T Intellectual Property. All rights reserved. Licensed under the Apache License, Version 2.0 (the License)",
+			"type": "object",
+			"properties": {
+				"useAndRedistribution": {
+					"description": "You may not use this file except in compliance with the License.You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0",
+					"type": "string"
 				},
+				"licenseLink": {
+				 "description": "http://www.apache.org/licenses/LICENSE-2.0",
+				 "type":"string"
+				},
+				"condition1": {
+					"description": "Unless required by applicable law or agreed to in writing, software 13 * distributed under the License is distributed on an AS IS BASIS,",
+					"type": "string"
+				},
+				"condition2": {
+					"description": "Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.",
+					"type": "string"
+				},
+				"condition3": {
+					"description": "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
+					"type": "string"
+				},
+				"condition4": {
+					"description": "See the License for the specific language governing permissions and limitations under the License.",
+					"type": "string"
+				},
+				"Trademarks": {
+					"description": "ECOMP and OpenECOMP are trademarks and service marks of AT&T Intellectual Property.",
+					"type": "string"
+				}
+			}
+		},
+	
  		"codecsInUse": {
 			"description": "number of times an identified codec was used over the measurementInterval",
 			"type": "object",
@@ -1415,7 +1419,7 @@
                     "type": "number"
                 },
                 "summarySip": {
-                    "description": "the SIP Method or Response (‘INVITE’, ‘200 OK’, ‘BYE’, etc)",
+                    "description": "the SIP Method or Response (â€˜INVITEâ€™, â€˜200 OKâ€™, â€˜BYEâ€™, etc)",
                     "type": "string"
                 },
                 "vendorVnfNameFields": {
@@ -1488,7 +1492,7 @@
 			"type": "object",
 			"properties": {
 				"additionalFields": {
-					"description": "additional syslog fields if needed provided as name=value delimited by a pipe ‘|’ symbol, for example: 'name1=value1|name2=value2|…'",
+					"description": "additional syslog fields if needed provided as name=value delimited by a pipe â€˜|â€™ symbol, for example: 'name1=value1|name2=value2|â€¦'",
 					"type": "string"
 				},
 				"eventSourceHost": {
