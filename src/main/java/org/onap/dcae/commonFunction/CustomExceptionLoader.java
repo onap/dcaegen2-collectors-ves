@@ -20,33 +20,31 @@
 
 package org.onap.dcae.commonFunction;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-
-import java.util.Map.Entry;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 
 public class CustomExceptionLoader {
 
-    public static HashMap<String, JsonArray> map = null;
-    private static final Logger log = LoggerFactory.getLogger ( CustomExceptionLoader.class );
-    
+    public static HashMap<String, JsonArray> map;
+    private static final Logger log = LoggerFactory.getLogger(CustomExceptionLoader.class);
+
     //For standalone test
     //LoadMap Invoked from servletSetup
     /*
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
 		System.out.println("CustomExceptionLoader.main --> Arguments -- ExceptionConfig file: " + args[0] + "StatusCode:" + args[1]+ " Error Msg:" + args[2]);
 		CommonStartup.exceptionConfig = args[0];
@@ -62,71 +60,73 @@ public class CustomExceptionLoader {
 	    
 	}
 	*/
-	
-	public static void LoadMap () {
-		
-		 map = new HashMap<String, JsonArray>();
-		 FileReader fr = null;
-		 try {
-			 	JsonElement root = null;
-			 	fr = new FileReader(CommonStartup.exceptionConfig);
-			 	root = new JsonParser().parse(fr);
-			 	JsonObject jsonObject = root.getAsJsonObject().get("code").getAsJsonObject();
 
-				for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-				     map.put(entry.getKey(), (JsonArray) entry.getValue());
-				}
-				
-				log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
-			} catch (JsonIOException e) {
-				e.printStackTrace();
-			} catch (JsonSyntaxException e) {
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		 	finally {
-		    	if (fr != null) {
-		    		try {
-		    				fr.close();
-		    			} catch (IOException e) {
-		    				log.error("Error closing file reader stream : " +e.toString());
-		    			}
-		    	}
-		    }
-	}
+    public static void LoadMap() {
 
-	public static String[] LookupMap (String error, String errormsg) {
-		 
-		 String[] retarray = null;
-		 
-		 log.debug("CustomExceptionLoader.LookupMap -->" + " HTTP StatusCode:" + error + " Msg:" + errormsg);
-		 try{
-			 
-			 JsonArray jarray = map.get(error);
-			  for (int i = 0; i < jarray.size(); i++) {
-			    	  
-			     JsonElement val = jarray.get(i).getAsJsonObject().get("Reason");
-			     JsonArray ec = (JsonArray) jarray.get(i).getAsJsonObject().get("ErrorCode");
-				 log.trace("CustomExceptionLoader.LookupMap Parameter -> Error msg : " + errormsg + " Reason text being matched:" + val);			
-				 if (errormsg.contains(val.toString().replace("\"", ""))){
-					 log.trace("CustomExceptionLoader.LookupMap Successful! Exception matched to error message StatusCode:" + ec.get(0).toString() + "ErrorMessage:" + ec.get(1).toString());
-					 retarray = new String[2];
-					 retarray[0]=ec.get(0).toString();
-					 retarray[1]=ec.get(1).toString();
-					 return retarray;
-				 }
-			    }
-  
-		 }
-		 catch (Exception e)
-		 {
-			 System.out.println(e.getMessage());
-		 }
-	        
-		 return retarray;
-	}
+        map = new HashMap<String, JsonArray>();
+        FileReader fr = null;
+        try {
+            JsonElement root = null;
+            fr = new FileReader(CommonStartup.exceptionConfig);
+            root = new JsonParser().parse(fr);
+            JsonObject jsonObject = root.getAsJsonObject().get("code").getAsJsonObject();
+
+            for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                map.put(entry.getKey(), (JsonArray) entry.getValue());
+            }
+
+            log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
+            fr.close();
+        } catch (JsonIOException e) {
+            log.error("json IO exception occured " + e.getLocalizedMessage(), e);
+        } catch (JsonSyntaxException e) {
+            log.error("JsonSyntaxException occured " + e.getLocalizedMessage(), e);
+        } catch (FileNotFoundException e) {
+            log.error("FileNotFoundException occured " + e.getLocalizedMessage(), e);
+        } catch (Exception e) {
+            log.error("exception occured " + e.getLocalizedMessage(), e);
+        } finally {
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    log.error("Error closing file reader stream : " + e.getLocalizedMessage(), e);
+                }
+            }
+        }
+    }
+
+    public static String[] LookupMap(String error, String errorMsg) {
+
+        String[] retarray = null;
+
+        log.debug("CustomExceptionLoader.LookupMap -->" + " HTTP StatusCode:" + error + " Msg:"
+            + errorMsg);
+        try {
+
+            JsonArray jarray = map.get(error);
+            for (int i = 0; i < jarray.size(); i++) {
+
+                JsonElement val = jarray.get(i).getAsJsonObject().get("Reason");
+                JsonArray ec = (JsonArray) jarray.get(i).getAsJsonObject().get("ErrorCode");
+                log.trace("CustomExceptionLoader.LookupMap Parameter -> Error msg : " + errorMsg
+                    + " Reason text being matched:" + val);
+                if (errorMsg.contains(val.toString().replace("\"", ""))) {
+                    log.trace(
+                        "CustomExceptionLoader.LookupMap Successful! Exception matched to error message StatusCode:"
+                            + ec.get(0) + "ErrorMessage:" + ec.get(1));
+                    retarray = new String[2];
+                    retarray[0] = ec.get(0).toString();
+                    retarray[1] = ec.get(1).toString();
+                    return retarray;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return retarray;
+    }
 
 }
