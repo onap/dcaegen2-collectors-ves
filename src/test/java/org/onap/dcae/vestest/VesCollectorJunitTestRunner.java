@@ -19,34 +19,38 @@
  */
 
 /*
- * Purpose: CommonCollectorJunitTestRunner is the main class where test suit execution starts its test cases execution
- * the common collector test suit has been written in order to incorporate functional and logical testing of collector features
- * 
+ * Purpose: CommonCollectorJunitTestRunner is the main class where test suit execution starts its
+ * test cases execution the common collector test suit has been written in order to incorporate
+ * functional and logical testing of collector features.
  */
 
 package org.onap.dcae.vestest;
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
-import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
-import org.onap.dcae.commonFunction.CommonStartup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VESCollectorJunitTestRunner {
+public class VesCollectorJunitTestRunner {
 
-	public static void main(String[] args) {
+    private static final Logger log = LoggerFactory.getLogger(VesCollectorJunitTestRunner.class);
 
-		System.out.println("STARTING TEST SUITE EXECUTION.....");
-		
-		Result result = JUnitCore.runClasses(VESCollectorJunitTest.class);
+    /**
+     * Runner for test case.
+     *
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
 
-		for (Failure failure : result.getFailures()) {
-			System.out.println(failure.toString());
-		}
+        log.info("STARTING TEST SUITE EXECUTION.....");
 
-		
-		System.out.println("Execution Final result : "+result.wasSuccessful());
-	}
-	
+        Result result = JUnitCore.runClasses(VesCollectorJunitTest.class);
+
+        for (Failure failure : result.getFailures()) {
+            log.info(failure.toString());
+        }
+
+        log.info("Execution Final result : " + result.wasSuccessful());
+    }
 }
