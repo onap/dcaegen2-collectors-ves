@@ -17,54 +17,56 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.vestest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.CustomExceptionLoader;
-
-import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestCustomExceptionLoader {
 
-	CustomExceptionLoader cl;
-	@Before
-	public void setUp() throws Exception {
-		cl = new CustomExceptionLoader();
-		CommonStartup.exceptionConfig="./etc/ExceptionConfig.json";
-	}
+    private static final Logger log = LoggerFactory.getLogger(TestCustomExceptionLoader.class);
+    private CustomExceptionLoader cl;
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+        cl = new CustomExceptionLoader();
+        CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
+    }
 
-	@Test
-	public void testLoad() {
-		String op = "notloaded";
-		CustomExceptionLoader.LoadMap();
-		op = "dataloaded";
-		assertEquals("dataloaded",op);
-	}
-	@Test
-	public void testLookup() {
-		String[] retarray = null;
-		
-		CommonStartup.exceptionConfig="./etc/ExceptionConfig.json";
-		CustomExceptionLoader.LoadMap();
-		retarray=CustomExceptionLoader.LookupMap(String.valueOf(HttpStatusCodes.k401_unauthorized), "Unauthorized user");
-		if (retarray==null)
-		{
-			System.out.println("Lookup failed");
-		}
-		else
-		{
-			assertEquals("\"POL2000\"",retarray[0].toString());
-		}
-		
-	}
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void testLoad() {
+        String op;
+        CustomExceptionLoader.LoadMap();
+        op = "dataloaded";
+        assertEquals("dataloaded", op);
+    }
+
+    @Test
+    public void testLookup() {
+        String[] retarray;
+
+        CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
+        CustomExceptionLoader.LoadMap();
+        retarray = CustomExceptionLoader
+            .LookupMap(String.valueOf(HttpStatusCodes.k401_unauthorized), "Unauthorized user");
+        if (retarray == null) {
+            log.info("Lookup failed");
+        } else {
+            assertEquals("\"POL2000\"", retarray[0]);
+        }
+    }
 }
 

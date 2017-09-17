@@ -17,7 +17,13 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.vestest;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,144 +34,118 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
-
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InputJsonValidation {
 
-
-	static String valresult = null;
-
-
-	@Test
-	public void nonvalidJSONValidation(){
-
-		JSONObject jsonObject = null;
-		JSONParser parser=new JSONParser();
-		Object obj=null;
-		//String jsonfilepath="C:/Users/vv770d/git/restfulcollector/src/test/resources/fujistu_non_valid_json.txt";
-		String jsonfilepath="src/test/resources/VES_invalid.txt";
-		String retValue="false";
-		try{
-
-			obj=parser.parse(new FileReader(jsonfilepath));
-
-		}
-		catch(Exception e){
-
-			System.out.println("Exception while opening the file");
-
-		}
-		jsonObject=(JSONObject) obj;
-
-		String schema=null;
-		try {
-			schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json")).toString();
-			//System.out.println("Schema value: " + schema.toString());
-		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (schema!=null){
-			retValue=CommonStartup.schemavalidate(jsonObject.toString(), schema);	
-		}
-		//return retValue;
-		VESCollectorJunitTest.output = retValue;
-	}
-	
-	
-	// The below test case meant for verifying json schema on provided json file
-	@Test
-	public void validJSONValidation(){
-
-		JSONObject jsonObject = null;
-		JSONParser parser=new JSONParser();
-		Object obj=null;
-
-		String jsonfilepath="src/test/resources/VES_valid.txt";
-		String retValue="false";
-		try{
-
-			obj=parser.parse(new FileReader(jsonfilepath));
+    private static final Logger log = LoggerFactory.getLogger(InputJsonValidation.class);
+    static String valresult;
 
 
-		}
-		catch(Exception e){
-			System.out.println("Exception while opening the file");
+    @Test
+    public void nonValidJsonValidation() {
 
-		}
-		jsonObject=(JSONObject) obj;
-		String schema=null;
-		try {
+        JSONObject jsonObject;
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+        //String jsonfilepath="C:/Users/vv770d/git/restfulcollector/src/test/resources/fujistu_non_valid_json.txt";
+        String jsonfilepath = "src/test/resources/VES_invalid.txt";
+        String retValue = "false";
+        try {
 
-			System.out.println("XX debug" + VESCollectorJunitTest.schemaFile);
-			schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json")).toString();
-		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            obj = parser.parse(new FileReader(jsonfilepath));
+        } catch (Exception e) {
 
-		if (schema!=null){
-			retValue=CommonStartup.schemavalidate(jsonObject.toString(), schema);	
-		}
-		VESCollectorJunitTest.output = retValue; 
-		//return retValue;
-	}  
+            log.info("Exception while opening the file");
+        }
+        jsonObject = (JSONObject) obj;
 
-	
-	
-	//validating valid json reception and its posting to DMAP.
-	@Test
-	public void eventReception(){
+        String schema = null;
+        try {
+            schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json"))
+                .toString();
+            //log.info("Schema value: " + schema.toString());
+        } catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            log.error(e.getLocalizedMessage(), e);
+        }
 
-
-		String testCurlCommand = "curl -i -X POST -d @C:/Users/vv770d/git/restfulcollector/src/test/resources/fujistu-3.txt --header \"Content-Type: application/json\" http://localhost:8080/eventListener/v1";
-
-		//final Process terminal = curlCommand.start();
-		try {
-			Process p = Runtime.getRuntime().exec(testCurlCommand);
-			BufferedReader stdInput = new BufferedReader(new 
-					InputStreamReader(p.getInputStream()));
-
-			BufferedReader stdError = new BufferedReader(new 
-					InputStreamReader(p.getErrorStream()));
-
-			// read the output from the command
-
-			String s = null;
-			while ((s = stdInput.readLine()) != null) {
-				if (s.contains("HTTP/1.1 200 OK")){
-
-					//return "true";
-					VESCollectorJunitTest.output = "true";
-				}
-
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+        if (schema != null) {
+            retValue = CommonStartup.schemavalidate(jsonObject.toString(), schema);
+        }
+        //return retValue;
+        VesCollectorJunitTest.output = retValue;
+    }
 
 
-			e.printStackTrace();
-		}
-		
-		//return "false";
-	}
+    // The below test case meant for verifying json schema on provided json file
+    @Test
+    public void validJsonValidation() {
 
-}  
+        JSONObject jsonObject;
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+
+        String jsonfilepath = "src/test/resources/VES_valid.txt";
+        String retValue = "false";
+        try {
+
+            obj = parser.parse(new FileReader(jsonfilepath));
+        } catch (Exception e) {
+            log.info("Exception while opening the file");
+        }
+        jsonObject = (JSONObject) obj;
+        String schema = null;
+        try {
+
+            log.info("XX debug" + VesCollectorJunitTest.schemaFile);
+            schema = new JsonParser().parse(new FileReader("etc/CommonEventFormat_27.2.json"))
+                .toString();
+        } catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            log.error(e.getLocalizedMessage(), e);
+        }
+
+        if (schema != null) {
+            retValue = CommonStartup.schemavalidate(jsonObject.toString(), schema);
+        }
+        VesCollectorJunitTest.output = retValue;
+        //return retValue;
+    }
+
+
+    //validating valid json reception and its posting to DMAP.
+    @Test
+    public void eventReception() {
+
+        String testCurlCommand = "curl -i -X POST -d @C:/Users/vv770d/git/restfulcollector/src/test/resources/fujistu-3.txt --header \"Content-Type: application/json\" http://localhost:8080/eventListener/v1";
+
+        //final Process terminal = curlCommand.start();
+        try {
+            Process process = Runtime.getRuntime().exec(testCurlCommand);
+            BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(process.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(process.getErrorStream()));
+
+            // read the output from the command
+
+            String str;
+            while ((str = stdInput.readLine()) != null) {
+                if (str.contains("HTTP/1.1 200 OK")) {
+
+                    //return "true";
+                    VesCollectorJunitTest.output = "true";
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            log.error(e.getLocalizedMessage(), e);
+        }
+
+        //return "false";
+    }
+}
 
