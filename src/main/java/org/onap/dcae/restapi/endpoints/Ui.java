@@ -20,15 +20,12 @@
 
 package org.onap.dcae.restapi.endpoints;
 
-import java.io.IOException;
-
 import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
 import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
 
-public class Ui extends NsaBaseEndpoint
-{
-	public static void hello ( DrumlinRequestContext ctx ) throws IOException
-	{
-		ctx.renderer ().renderTemplate ( "templates/hello.html" );
-	}
+public class Ui extends NsaBaseEndpoint {
+
+    public static void hello(DrumlinRequestContext ctx) {
+        ctx.renderer().renderTemplate("templates/hello.html");
+    }
 }
