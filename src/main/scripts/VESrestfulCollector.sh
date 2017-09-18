@@ -28,30 +28,34 @@ usage() {
 }
 
 
+#BASEDIR=/opt/app/d1gfp1m7/extra/VES/VESCollector-1.1.4-SNAPSHOT/
+BASEDIR=/opt/app/VESCollector/
+
 collector_start() {
-        echo `date +"%Y%m%d.%H%M%S%3N"` - collector_start | tee -a /opt/app/VESCollector/logs/console.txt
+        echo `date +"%Y%m%d.%H%M%S%3N"` - collector_start | tee -a ${BASEDIR}/logs/console.txt
         collectorPid=`pgrep -f org.onap.dcae.commonFunction`
 
         if [ ! -z "$collectorPid" ]; then
-                echo  "WARNING: VES Restful Collector already running as PID $collectorPid" | tee -a /opt/app/VESCollector/logs/console.txt
-                echo  "Startup Aborted!!!" | tee -a /opt/app/VESCollector/logs/console.txt
+                echo  "WARNING: VES Restful Collector already running as PID $collectorPid" | tee -a ${BASEDIR}/logs/console.txt
+                echo  "Startup Aborted!!!" | tee -a ${BASEDIR}/logs/console.txt
                 exit 1
-        fi 
+        fi
 
 
         # run java. The classpath is the etc dir for config files, and the lib dir
         # for all the jars.
-        cd /opt/app/VESCollector/
+        #cd /opt/app/VESCollector/
+        cd ${BASEDIR}
         nohup $JAVA -cp "etc${PATHSEP}lib/*" $JAVA_OPTS -Dhttps.protocols=TLSv1.1,TLSv1.2 $MAINCLASS $* &
         if [ $? -ne 0 ]; then
-                echo "VES Restful Collector has been started!!!" | tee -a /opt/app/VESCollector/logs/console.txt
+                echo "VES Restful Collector has been started!!!" | tee -a ${BASEDIR}/logs/console.txt
         fi
 
 
 }
 
 collector_stop() {
-         echo `date +"%Y%m%d.%H%M%S%3N"` - collector_stop 
+         echo `date +"%Y%m%d.%H%M%S%3N"` - collector_stop
          collectorPid=`pgrep -f org.onap.dcae.commonFunction`
          if [ ! -z "$collectorPid" ]; then
                 echo "Stopping PID $collectorPid"
@@ -80,7 +84,7 @@ collector_configupdate() {
 
             echo "INFO: DYNAMIC CONFIG INTERFACE SUPPORTED"
             # move into base directory
-            
+
             #BASEDIR=`dirname $0`
             #cd $BASEDIR/..
             cd /opt/app/VESCollector
@@ -156,11 +160,11 @@ esac
 
 case $1 in
         "start")
-                collector_configupdate | tee -a /opt/app/VESCollector/logs/console.txt
-                collector_start 
+                collector_configupdate | tee -a ${BASEDIR}/logs/console.txt
+                collector_start
                 ;;
         "stop")
-                collector_stop | tee -a /opt/app/VESCollector/logs/console.txt
+                collector_stop | tee -a ${BASEDIR}/logs/console.txt
                 ;;
         *)
                 usage

@@ -51,7 +51,7 @@ public class DmaapPropertyReader {
 
     public HashMap<String, String> dmaap_hash = new HashMap<String, String>();
 
-    private DmaapPropertyReader(String cambriaConfigFile) {
+    public DmaapPropertyReader(String cambriaConfigFile) {
 
         FileReader fr = null;
         try {
