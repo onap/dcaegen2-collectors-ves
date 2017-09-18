@@ -224,7 +224,7 @@
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>1.2.1</version>
 					<configuration>
-						<executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
+						<executable>${session.executionRootDirectory}/mvn-phase-script.sh.vv</executable>
 						<environmentVariables>
 							<!-- make mvn properties as env for our script -->
 							<MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
