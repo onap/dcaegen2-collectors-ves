@@ -67,47 +67,46 @@ import javax.servlet.ServletException;
 
 public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
-    public static final String kConfig = "c";
+	public static final String KCONFIG = "c";
 
-    public static final String kSetting_Port = "collector.service.port";
-    public static final int kDefault_Port = 8080;
+	public static final String KSETTING_PORT = "collector.service.port";
+	public static final int KDEFAULT_PORT = 8080;
+	
+	public static final String KSETTING_SECUREPORT = "collector.service.secure.port";
+	public static final int KDEFAULT_SECUREPORT = -1; 
+	
+	public static final String KSETTING_KEYSTOREPASSFILE = "collector.keystore.passwordfile";
+	public static final String KDEFAULT_KEYSTOREPASSFILE = "../etc/passwordfile";	
+	public static final String KSETTING_KEYSTOREFILE = "collector.keystore.file.location";
+	public static final String KDEFAULT_KEYSTOREFILE = "../etc/keystore";
+	public static final String KSETTING_KEYALIAS = "collector.keystore.alias";
+	public static final String KDEFAULT_KEYALIAS = "tomcat";
 
-    public static final String kSetting_SecurePort = "collector.service.secure.port";
-    public static final int kDefault_SecurePort = -1;
+	public static final String KSETTING_DMAAPCONFIGS = "collector.dmaapfile";
+	protected static final String[] KDEFAULT_DMAAPCONFIGS = new String[] { "/etc/DmaapConfig.json" };
 
-    public static final String kSetting_KeystorePassfile = "collector.keystore.passwordfile";
-    public static final String kDefault_KeystorePassfile = "../etc/passwordfile";
-    public static final String kSetting_KeystoreFile = "collector.keystore.file.location";
-    public static final String kDefault_KeystoreFile = "../etc/keystore";
-    public static final String kSetting_KeyAlias = "collector.keystore.alias";
-    public static final String kDefault_KeyAlias = "tomcat";
-
-    public static final String kSetting_DmaapConfigs = "collector.dmaapfile";
-    protected static final String[] kDefault_DmaapConfigs = new String[]{"/etc/DmaapConfig.json"};
-
-    public static final String kSetting_MaxQueuedEvents = "collector.inputQueue.maxPending";
-    public static final int kDefault_MaxQueuedEvents = 1024 * 4;
-
-    public static final String kSetting_schemaValidator = "collector.schema.checkflag";
-    public static final int kDefault_schemaValidator = -1;
-
-    public static final String kSetting_schemaFile = "collector.schema.file";
-    public static final String kDefault_schemaFile = "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}";
-    public static final String kSetting_ExceptionConfig = "exceptionConfig";
-
-    public static final String kSetting_dmaapStreamid = "collector.dmaap.streamid";
-
-    public static final String kSetting_authflag = "header.authflag";
-    public static final int kDefault_authflag = 0;
-
-    public static final String kSetting_authid = "header.authid";
-    public static final String kSetting_authpwd = "header.authpwd";
-    public static final String kSetting_authstore = "header.authstore";
-    public static final String kSetting_authlist = "header.authlist";
-
-    public static final String kSetting_eventTransformFlag = "event.transform.flag";
-    public static final int kDefault_eventTransformFlag = 1;
-
+	public static final String KSETTING_MAXQUEUEDEVENTS = "collector.inputQueue.maxPending";
+	public static final int KDEFAULT_MAXQUEUEDEVENTS = 1024*4;
+	
+	public static final String KSETTING_SCHEMAVALIDATOR = "collector.schema.checkflag";
+	public static final int KDEFAULT_SCHEMAVALIDATOR = -1; 
+	
+	public static final String KSETTING_SCHEMAFILE = "collector.schema.file";
+	public static final String KDEFAULT_SCHEMAFILE = "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}";
+	public static final String KSETTING_EXCEPTIONCONFIG = "exceptionConfig";
+	
+	public static final String KSETTING_DMAAPSTREAMID = "collector.dmaap.streamid";
+	
+	public static final String KSETTING_AUTHFLAG = "header.authflag";
+	public static final int KDEFAULT_AUTHFLAG = 0;
+	
+	public static final String KSETTING_AUTHID = "header.authid";
+	public static final String KSETTING_AUTHPWD = "header.authpwd";
+	public static final String KSETTING_AUTHSTORE = "header.authstore";
+	public static final String KSETTING_AUTHLIST = "header.authlist";
+	
+	public static final String KSETTING_EVENTTRANSFORMFLAG = "event.transform.flag";
+	public static final int KDEFAULT_EVENTTRANSFORMFLAG = 1;
 
     public static final Logger inlog = LoggerFactory
         .getLogger("org.onap.dcae.commonFunction.input");
@@ -132,29 +131,29 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
         throws loadException, IOException, rrNvReadable.missingReqdSetting, rrNvReadable.invalidSettingValue, ServletException, InterruptedException {
         final List<ApiServerConnector> connectors = new LinkedList<ApiServerConnector>();
 
-        if (settings.getInt(kSetting_Port, kDefault_Port) > 0) {
+        if (settings.getInt(KSETTING_PORT, KDEFAULT_PORT) > 0) {
             // http service
             connectors.add(
-                new ApiServerConnector.Builder(settings.getInt(kSetting_Port, kDefault_Port))
+                new ApiServerConnector.Builder(settings.getInt(KSETTING_PORT, KDEFAULT_PORT))
                     .secure(false)
                     .build()
             );
         }
 
         // optional https service
-        final int securePort = settings.getInt(kSetting_SecurePort, kDefault_SecurePort);
+        final int securePort = settings.getInt(KSETTING_SECUREPORT, KDEFAULT_SECUREPORT);
         final String keystoreFile = settings
-            .getString(kSetting_KeystoreFile, kDefault_KeystoreFile);
+            .getString(KSETTING_KEYSTOREFILE, KDEFAULT_KEYSTOREFILE);
         final String keystorePasswordFile = settings
-            .getString(kSetting_KeystorePassfile, kDefault_KeystorePassfile);
-        final String keyAlias = settings.getString(kSetting_KeyAlias, kDefault_KeyAlias);
+            .getString(KSETTING_KEYSTOREPASSFILE, KDEFAULT_KEYSTOREPASSFILE);
+        final String keyAlias = settings.getString(KSETTING_KEYALIAS, KDEFAULT_KEYALIAS);
 
         if (securePort > 0) {
-            final String kSetting_KeystorePass = readFile(keystorePasswordFile,
+            final String KSETTING_KEYSTOREPASS = readFile(keystorePasswordFile,
                 Charset.defaultCharset());
             connectors.add(new ApiServerConnector.Builder(securePort)
                 .secure(true)
-                .keystorePassword(kSetting_KeystorePass)
+                .keystorePassword(KSETTING_KEYSTOREPASS)
                 .keystoreFile(keystoreFile)
                 .keyAlias(keyAlias)
                 .build());
@@ -163,22 +162,22 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
         //Reading other config properties
 
-        schema_Validatorflag = settings.getInt(kSetting_schemaValidator, kDefault_schemaValidator);
+        schema_Validatorflag = settings.getInt(KSETTING_SCHEMAVALIDATOR, KDEFAULT_SCHEMAVALIDATOR);
         if (schema_Validatorflag > 0) {
-            schemaFile = settings.getString(kSetting_schemaFile, kDefault_schemaFile);
+            schemaFile = settings.getString(KSETTING_SCHEMAFILE, KDEFAULT_SCHEMAFILE);
             //System.out.println("SchemaFile:" + schemaFile);
             schemaFileJson = new JSONObject(schemaFile);
 
         }
-        exceptionConfig = settings.getString(kSetting_ExceptionConfig, null);
+        exceptionConfig = settings.getString(KSETTING_EXCEPTIONCONFIG, null);
         authflag = settings
-            .getInt(CommonStartup.kSetting_authflag, CommonStartup.kDefault_authflag);
+            .getInt(CommonStartup.KSETTING_AUTHFLAG, CommonStartup.KDEFAULT_AUTHFLAG);
         String[] currentconffile = settings
-            .getStrings(CommonStartup.kSetting_DmaapConfigs, CommonStartup.kDefault_DmaapConfigs);
+            .getStrings(CommonStartup.KSETTING_DMAAPCONFIGS, CommonStartup.KDEFAULT_DMAAPCONFIGS);
         cambriaConfigFile = currentconffile[0];
-        streamid = settings.getString(kSetting_dmaapStreamid, null);
+        streamid = settings.getString(KSETTING_DMAAPSTREAMID, null);
         eventTransformFlag = settings
-            .getInt(kSetting_eventTransformFlag, kDefault_eventTransformFlag);
+            .getInt(KSETTING_EVENTTRANSFORMFLAG, KDEFAULT_EVENTTRANSFORMFLAG);
 
         fTomcatServer = new ApiServer.Builder(connectors, new RestfulCollectorServlet(settings))
             .encodeSlashes(true)
@@ -196,7 +195,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
             // process command line arguments
             final Map<String, String> argMap = NsaCommandLineUtil.processCmdLine(args, true);
             final String config = NsaCommandLineUtil
-                .getSetting(argMap, kConfig, "collector.properties");
+                .getSetting(argMap, KCONFIG, "collector.properties");
             final URL settingStream = DrumlinServlet.findStream(config, CommonStartup.class);
 
             final nvReadableStack settings = new nvReadableStack();
@@ -204,7 +203,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
             settings.push(new nvReadableTable(argMap));
 
             fProcessingInputQueue = new LinkedBlockingQueue<JSONObject>(
-                CommonStartup.kDefault_MaxQueuedEvents);
+                CommonStartup.KDEFAULT_MAXQUEUEDEVENTS);
 
             VESLogger.setUpEcompLogging();
 
@@ -238,7 +237,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
             fTomcatServer.start();
         } catch (LifecycleException | IOException e) {
 
-            e.printStackTrace();
+            LOG.error("lifecycle or IO: ",  e);
         }
         fTomcatServer.await();
     }
@@ -273,7 +272,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
                 }
 
             }
-            log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
+            LOG.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
             CommonStartup.metriclog.info("EVENT_PUBLISH_END");
             //ecomplogger.debug(secloggerMessageEnum.SEC_COLLECT_AND_PULIBISH_SUCCESS);
 
@@ -298,45 +297,42 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
         try {
             //System.out.println("Applying schema: @<@<"+jsonSchema+">@>@ to data: #<#<"+jsonData+">#>#");
-            log.trace("Schema validation for event:" + jsonData);
+            LOG.trace("Schema validation for event:" + jsonData);
             JsonNode schemaNode = JsonLoader.fromString(jsonSchema);
             JsonNode data = JsonLoader.fromString(jsonData);
             JsonSchemaFactory factory = JsonSchemaFactory.byDefault();
             JsonSchema schema = factory.getJsonSchema(schemaNode);
             report = schema.validate(data);
         } catch (JsonParseException e) {
-            log.error("schemavalidate:JsonParseException for event:" + jsonData);
-            System.out.println(e.getMessage());
+            LOG.error("schemavalidate:JsonParseException for event:" + jsonData);
             return e.getMessage().toString();
         } catch (ProcessingException e) {
-            log.error("schemavalidate:Processing exception for event:" + jsonData);
-            System.out.println(e.getMessage());
+            LOG.error("schemavalidate:Processing exception for event:" + jsonData);
             return e.getMessage().toString();
         } catch (IOException e) {
-            log.error(
+            LOG.error(
                 "schemavalidate:IO exception; something went wrong trying to read json data for event:"
                     + jsonData);
-            System.out.println(e.getMessage());
             return e.getMessage().toString();
         }
         if (report != null) {
             Iterator<ProcessingMessage> iter = report.iterator();
             while (iter.hasNext()) {
                 ProcessingMessage pm = iter.next();
-                log.trace("Processing Message: " + pm.getMessage());
+                LOG.trace("Processing Message: " + pm.getMessage());
             }
             result = String.valueOf(report.isSuccess());
         }
         try {
-            log.debug("Validation Result:" + result + " Validation report:" + report);
+            LOG.debug("Validation Result:" + result + " Validation report:" + report);
         } catch (NullPointerException e) {
-            log.error("schemavalidate:NullpointerException on report");
+            LOG.error("schemavalidate:NullpointerException on report");
         }
         return result;
     }
 
     static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApiServer fTomcatServer = null;
-    private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CommonStartup.class);
 
 }
