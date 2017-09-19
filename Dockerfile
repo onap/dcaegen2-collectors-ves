@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
         vim \
         openjdk-8-jdk
 
-
 COPY opt /opt
 
 EXPOSE 8080 8443
