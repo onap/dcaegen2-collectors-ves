@@ -1,0 +1,17 @@
+{
+	"services_calls": {},
+	"collector.schema.checkflag": 1,
+	"collector.inputQueue.maxPending": 8096,
+	"collector.keystore.alias": "dynamically generated",
+	"collector.schema.file": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.json\"}",
+	"header.authlist": "userid1,base64encodepwd1|userid2,base64encodepwd2",
+	"streams_subscribes": {},
+	"tomcat.maxthreads": "200",
+	"collector.service.secure.port": 8443,
+	"collector.dmaap.streamid": "fault=ves_fault|syslog=ves_syslog|heartbeat=ves_heartbeat|measurementsForVfScaling=ves_measurement|mobileFlow=ves_mobileflow|other=ves_other|stateChange=ves_statechange|thresholdCrossingAlert=ves_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling",
+	"event.transform.flag": 0,
+	"collector.keystore.file.location": "/opt/app/dcae-certificate/keystore.jks",
+	"collector.keystore.passwordfile": "/opt/app/dcae-certificate/.password",
+	"header.authflag": 0,
+	"collector.service.port": 8080
+}

@@ -1,0 +1,49 @@
+{
+"event": {
+"commonEventHeader": {
+"sourceId": "owb-rdm-003",
+"startEpochMicrosec": 1469528413000,
+"eventId": "owb-rdm-003 1",
+"reportingEntityId": "127.0.1.1",
+"eventType": "fault_owb-rdm-003_lossOfSignal",
+"priority": "High",
+"version": 1.0,
+"reportingEntityName": "agilevm",
+"sequence": 0,
+"domain": "fault",
+"functionalRole": "rdm",
+"lastEpochMicrosec": 1469528413000,
+"sourceName": "owb-rdm-003"
+},
+"faultFields": {
+"eventSeverity": "CRITICAL",
+"alarmCondition": "lossOfSignal",
+"faultFieldsVersion": 1.0,
+"specificProblem": "lossOfSignal",
+"alarmInterfaceA": "1/0/0 E1",
+"memoryConfigured": "2000",
+"memoryUsed":"20",
+"alarmAdditionalInformation": [
+{
+"name": "DIR",
+"value": "tx"
+},
+{
+"name": "LOC",
+"value": "NEND"
+},
+{
+"name": "TYPE",
+"value": "communication"
+},
+{
+"name": "CKTID",
+"value": "circuit-1"
+}
+],
+"eventSourceType": "port",
+"vfStatus": "Active"
+}
+}
+}
+

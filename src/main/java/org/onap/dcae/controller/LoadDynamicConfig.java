@@ -39,8 +39,8 @@ public class LoadDynamicConfig {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDynamicConfig.class);
 
-    static String propFile = "collector.properties";
-    static String configFile = "/opt/app/KV-Configuration.json";
+    public static String propFile = "collector.properties";
+    public static String configFile = "/opt/app/KV-Configuration.json";
     static String url;
     static String retString;
 
@@ -100,33 +100,6 @@ public class LoadDynamicConfig {
         } else {
             log.info(">>>Static configuration to be used");
         }
-
-    }
-
-    public static String executecurl(String url) {
-
-        String[] command = {"curl", "-v", url};
-        ProcessBuilder process = new ProcessBuilder(command);
-        Process p;
-        String result = null;
-        try {
-            p = process.start();
-
-            InputStreamReader ipr = new InputStreamReader(p.getInputStream());
-            BufferedReader reader = new BufferedReader(ipr);
-            StringBuilder builder = new StringBuilder();
-            String line = null;
-
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
-            }
-            result = builder.toString();
-            log.info(result);
-
-        } catch (IOException e) {
-            log.error("error" + e.getLocalizedMessage(), e);
-        }
-        return result;
 
     }
 

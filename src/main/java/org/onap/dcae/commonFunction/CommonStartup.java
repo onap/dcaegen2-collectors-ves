@@ -125,7 +125,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
     public static String exceptionConfig;
     public static String cambriaConfigFile;
     private boolean listnerstatus;
-    static String streamid;
+    public static String streamid;
 
 
     private CommonStartup(rrNvReadable settings)

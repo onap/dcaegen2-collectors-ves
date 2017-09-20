@@ -46,7 +46,7 @@ public class EventProcessor implements Runnable {
     private static final String COMMON_EVENT_HEADER = "commonEventHeader";
 
     private static HashMap<String, String[]> streamid_hash = new HashMap<String, String[]>();
-    private JSONObject event;
+    public JSONObject event;
 
     public EventProcessor() {
         log.debug("EventProcessor: Default Constructor");
