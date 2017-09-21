@@ -46,8 +46,8 @@ public class DmaapPropertyReader {
     private static final String CAMBRIA_HOSTS = "cambria.hosts";
     private static final String USER = " USER:";
     private static final String PWD = " PWD:";
-    private static final String BASIC_AUTH_PASSWORD = "basicAuthPassword";
-    private static final String BASIC_AUTH_USERNAME = "basicAuthUsername";
+    private static final String BA_PWD = "basicAuthPassword";
+    private static final String BA_UNAME = "basicAuthUsername";
 
     public HashMap<String, String> dmaap_hash = new HashMap<String, String>();
 
@@ -68,8 +68,8 @@ public class DmaapPropertyReader {
                         jsonObject.get(i).getAsJsonObject().get("cambria.topic"), HOST_URL,
                         jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL),
                         jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS), PWD,
-                        jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD), USER,
-                        jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USERNAME),
+                        jsonObject.get(i).getAsJsonObject().get(BA_PWD), USER,
+                        jsonObject.get(i).getAsJsonObject().get(BA_UNAME),
                         jsonObject.get(i).getAsJsonObject().get("name")));
 
                     String convertedname = jsonObject.get(i).getAsJsonObject().get("name")
@@ -88,15 +88,15 @@ public class DmaapPropertyReader {
                             jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL).toString()
                                 .replace("\"", ""));
                     }
-                    if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD) != null) {
+                    if (jsonObject.get(i).getAsJsonObject().get(BA_PWD) != null) {
                         dmaap_hash.put(convertedname + ".basicAuthPassword",
                             jsonObject.get(i).getAsJsonObject()
-                                .get(BASIC_AUTH_PASSWORD).toString().replace("\"", ""));
+                                .get(BA_PWD).toString().replace("\"", ""));
                     }
-                    if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USERNAME) != null) {
+                    if (jsonObject.get(i).getAsJsonObject().get(BA_UNAME) != null) {
                         dmaap_hash.put(convertedname + ".basicAuthUsername",
                             jsonObject.get(i).getAsJsonObject()
-                                .get(BASIC_AUTH_USERNAME).toString().replace("\"", ""));
+                                .get(BA_UNAME).toString().replace("\"", ""));
                     }
 
                 }

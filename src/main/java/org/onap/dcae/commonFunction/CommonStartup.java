@@ -335,7 +335,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
         return result;
     }
 
-    static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
+    public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApiServer fTomcatServer = null;
     private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 

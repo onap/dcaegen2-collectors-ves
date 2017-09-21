@@ -45,8 +45,6 @@ public class TestLoadDynamicConfig {
 	public void setUp() throws Exception {
 	
 		
-		LoadDynamicConfig.propFile = "src/test/resources/testcollector.properties";
-		LoadDynamicConfig.configFile = "src/test/resources/controller-config.json";	
 
 	}
 
@@ -62,6 +60,8 @@ public class TestLoadDynamicConfig {
 		
 		Boolean flag=false;
 		lc = new LoadDynamicConfig();
+		lc.propFile = "src/test/resources/testcollector.properties";
+		lc.configFile = "src/test/resources/controller-config.json";
 		
 		String data = LoadDynamicConfig.readFile(propop);
 		assertEquals(data.isEmpty(), flag);
