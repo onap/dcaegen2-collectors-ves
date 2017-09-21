@@ -39,8 +39,8 @@ public class LoadDynamicConfig {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDynamicConfig.class);
 
-    public static String propFile = "collector.properties";
-    public static String configFile = "/opt/app/KV-Configuration.json";
+    public String propFile = "collector.properties";
+    public String configFile = "/opt/app/KV-Configuration.json";
     static String url;
     static String retString;
 
@@ -60,11 +60,12 @@ public class LoadDynamicConfig {
 
             try {
 
-                String jsonData = readFile(configFile);
+		LoadDynamicConfig lc = new LoadDynamicConfig();
+                String jsonData = readFile(lc.configFile);
                 JSONObject jsonObject = new JSONObject(jsonData);
 
                 PropertiesConfiguration conf;
-                conf = new PropertiesConfiguration(propFile);
+                conf = new PropertiesConfiguration(lc.propFile);
                 conf.setEncoding(null);
 
                 // update properties based on consul dynamic configuration
