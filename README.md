@@ -1,7 +1,7 @@
 DCAE VESCollector
 ======================================
 
-This is the repository for VES Collector for Open DCAE. 
+This is the repository for VES Collector for Open DCAE.
 
 ### Build Instructions
 
@@ -22,13 +22,13 @@ The jar file is bundled into a docker image installed by the DCAE Controller. Fo
 $ git clone ssh://git@<repo-address>:dcae-collectors/OpenVESCollector.git
 ```
 
-2. Once the collecter build is successful build dcae-controller
+2. Once the collector build is successful build dcae-controller
 ```
 BASE_WS="/var/lib/jenkins/workspace"
 PROJECT="build-dcae-controller"
 DCM_DIR="dcae-org.onap.dcae.controller/dcae-controller-service-standardeventcollector-manager/target/"
 ARTIFACT="dcae-controller-service-standardeventcollector-manager-0.1.0-SNAPSHOT-runtime.zip"
-DCM_AR="${BASE_WS}/${PROJECT}/${DCM_DIR}/${ARTIFACT}" 
+DCM_AR="${BASE_WS}/${PROJECT}/${DCM_DIR}/${ARTIFACT}"
 echo "WORKSPACE: ${WORKSPACE}"
 if [ ! -f "${DCM_AR}" ]
 then
@@ -41,7 +41,7 @@ DCM_DIR=${STAGE}/opt/app/manager
 [ ! -d ${DCM_DIR} ] && mkdir -p ${DCM_DIR}
 unzip -qo -d ${DCM_DIR} ${DCM_AR}
 ```
-3.  Get the VES collector Servicemanager artifacts.
+3.  Get the VES collector Service manager artifacts.
 ```
 DCM_DIR=${WORKSPACE}/target/stage/opt/app/manager
 [ -f "${DCM_DIR}/start-manager.sh" ] && exit 0
@@ -59,7 +59,7 @@ chmod 775 ${DCM_DIR}/start-manager.sh
 ```
 3.	Obtain the required packages to be included in docker
 ```
-cat <<'EOF' > ${WORKSPACE}/target/stage/Dockerfile 
+cat <<'EOF' > ${WORKSPACE}/target/stage/Dockerfile
 FROM ubuntu:14.04
 MAINTAINER dcae@lists.openecomp.org
 WORKDIR /opt/app/manager
@@ -96,7 +96,7 @@ sed -i 's/\r$//g' ${APP_DIR}/bin/SErestfulCollector.sh
 #
 IMAGE="dcae-controller-common-event"
 TAG="latest"
-LFQI="${IMAGE}:${TAG}" 
+LFQI="${IMAGE}:${TAG}"
 REPO="ecomp-nexus:51212"
 RFQI="${REPO}/${LFQI}"
 BUILD_PATH="${WORKSPACE}/target/stage"
@@ -104,6 +104,6 @@ BUILD_PATH="${WORKSPACE}/target/stage"
 docker build --rm -t ${LFQI} ${BUILD_PATH}
 # tag
 docker tag ${LFQI} ${RFQI}
-# push to remote repo 
+# push to remote repo
 docker push ${RFQI}
 ```
