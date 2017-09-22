@@ -22,7 +22,7 @@ The jar file is bundled into a docker image installed by the DCAE Controller. Fo
 $ git clone ssh://git@<repo-address>:dcae-collectors/OpenVESCollector.git
 ```
 
-2. Once the collecter build is successful build dcae-controller
+2. Once the collector build is successful build dcae-controller
 ```
 BASE_WS="/var/lib/jenkins/workspace"
 PROJECT="build-dcae-controller"
@@ -41,7 +41,7 @@ DCM_DIR=${STAGE}/opt/app/manager
 [ ! -d ${DCM_DIR} ] && mkdir -p ${DCM_DIR}
 unzip -qo -d ${DCM_DIR} ${DCM_AR}
 ```
-3.  Get the VES collector Servicemanager artifacts.
+3.  Get the VES collector Service manager artifacts.
 ```
 DCM_DIR=${WORKSPACE}/target/stage/opt/app/manager
 [ -f "${DCM_DIR}/start-manager.sh" ] && exit 0
