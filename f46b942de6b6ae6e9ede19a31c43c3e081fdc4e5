@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Lusheng Ji <lji@research.att.com>
+Submitted-by: Lusheng Ji <lji@research.att.com>
+Submitted-at: Mon, 25 Sep 2017 20:43:26 +0000
+Reviewed-on: http://gerrit.onap.org/r/15201
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
