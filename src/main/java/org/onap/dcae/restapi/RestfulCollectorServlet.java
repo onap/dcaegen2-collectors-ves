@@ -47,21 +47,22 @@ import com.att.nsa.security.NsaAuthenticator;
 import com.att.nsa.security.authenticators.SimpleAuthenticator;
 import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
+
 public class RestfulCollectorServlet extends CommonServlet
 {
-	String authid;
-	String authpwd;
+	String authid=null;
+	String authpwd=null;
 	public String authlist;
 	
 	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
 	{
 		super ( settings, "collector", false );
-		authid =  settings.getString(CommonStartup.kSetting_authid,null);
-		if (authid != null)
+		//authid =  settings.getString(CommonStartup.kSetting_authid,null);
+		/*if (authid != null)
 		{
 			String authpwdtemp = settings.getString(CommonStartup.kSetting_authpwd,null);
 			authpwd =  new String(Base64.decodeBase64(authpwdtemp));
-		}
+		}*/
 		authlist = settings.getString(CommonStartup.kSetting_authlist,null);
 	}
 
@@ -158,4 +159,3 @@ public class RestfulCollectorServlet extends CommonServlet
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger ( RestfulCollectorServlet.class );
 }
-

@@ -21,6 +21,7 @@
 
 package org.onap.dcae.commonFunction;
 
+
 import java.text.DecimalFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -334,7 +335,7 @@ public class ConfigProcessors {
 		    				}
 		    			}
 		    			else //if new array
-		    			setEventObjectVal(field + "[0]", new JSONObject(value));
+		    			setEventObjectVal(field + "[0]", new JSONObject(value), "JArray");
 		    		}
 		    		else //oldfield is jsonArray
 		    			setEventObjectVal(field, new JSONArray(value));	
@@ -657,8 +658,11 @@ public class ConfigProcessors {
 	    	}
 	    	else if (fieldType.equals("integer") && value instanceof String)
 	    		((JSONObject)keySeriesObj).put(keySet[keySet.length -1], Integer.valueOf((String) value));
+	    	else if (fieldType.equals("JArray"))
+	    		((JSONArray)keySeriesObj).put( value);
 	    	else
 	    		((JSONObject)keySeriesObj).put(keySet[keySet.length -1], value);
+	    	
 	    }
 	    private JSONObject event = new JSONObject();
 }

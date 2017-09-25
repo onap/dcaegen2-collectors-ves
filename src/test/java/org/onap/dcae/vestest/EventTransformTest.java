@@ -23,10 +23,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
 import java.io.IOException;
-
 import org.json.JSONObject;
 import com.google.gson.JsonParser;
-
 import com.google.gson.JsonObject;
 import org.junit.Test;
 
@@ -63,7 +61,6 @@ public class EventTransformTest {
 		}
 		return jsonObject;
 	}
-
 	@Test
 	public void testAttrMap(){
 		
@@ -95,7 +92,23 @@ public class EventTransformTest {
 	 	System.out.println("responseData==" + responseData); 
 	 	assertEquals (alarmAdditionalInformation, responseData); 
 	}
-	
+	@Test
+	public void testJobjMaptoArray(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		//final String receiveDiscards = (((jsonObject.getJSONObject("event")).getJSONObject("faultFields")).get("errors")).get("receiveDiscards").toString();
+		System.out.println("event==" + jsonObject.toString());
+		//System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.vNicPerformanceArray[]\",\"oldField\": \"event.faultFields.errors\",\"attrMap\":{\"receiveDiscards\":\"receivedDiscardedPacketsAccumulated\"}}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+		final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors.receiveDiscards").toString();
+		System.out.println("receiveDiscards==" + receiveDiscards);
+	 	cpEvent.map(jsonArgs);
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.vNicPerformanceArray[0].receivedDiscardedPacketsAccumulated").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals (receiveDiscards, responseData); 
+	}
 	@Test
 	public void testAttrAdd(){
 		
@@ -106,6 +119,22 @@ public class EventTransformTest {
 		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
 		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
 	 	cpEvent.addAttribute(jsonArgs);
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("2.0", responseData); 
+	}
+	
+	@Test
+	public void testAttrUpdate(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		//final String functionRole = (jsonObject.getJSONObject("event")).getJSONObject("commonEventHeader").get("functionalRole").toString();
+		System.out.println("event==" + jsonObject.toString());
+		//System.out.println("functionRole==" + functionRole);
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.updateAttribute(jsonArgs);
 	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
 	 	System.out.println("modified event==" + jsonObject.toString());
 	 	System.out.println("responseData==" + responseData); 

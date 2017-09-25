@@ -49,6 +49,7 @@ import com.att.nsa.drumlin.till.nv.impl.nvPropertiesFile;
 import com.att.nsa.drumlin.till.nv.impl.nvReadableStack;
 import com.att.nsa.drumlin.till.nv.impl.nvReadableTable;
 
+
 public class TestCommonStartup {
 
         String payload = null;
@@ -57,7 +58,7 @@ public class TestCommonStartup {
 
                 // process command line arguments
                 payload = new JsonParser().parse(new FileReader("src/test/resources/VES_valid.txt")).toString();
-                CommonStartup.fProcessingInputQueue = new LinkedBlockingQueue<JSONObject> (CommonStartup.kDefault_MaxQueuedEvents);
+                CommonStartup.fProcessingInputQueue = new LinkedBlockingQueue<JSONObject> (CommonStartup.KDEFAULT_MAXQUEUEDEVENTS);
         }
 
         @After

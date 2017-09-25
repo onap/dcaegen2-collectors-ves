@@ -37,7 +37,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-
 public class CustomExceptionLoader {
 
     protected static HashMap<String, JsonArray> map = null;
@@ -78,14 +77,10 @@ public class CustomExceptionLoader {
 				}
 				
 				log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
-			} catch (JsonIOException e) {
-				e.printStackTrace();
-			} catch (JsonSyntaxException e) {
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (JsonIOException|JsonSyntaxException|FileNotFoundException e) {
+				log.error("Exception in LoadMap:" + e.getMessage());
+				//e.printStackTrace();
+				map = null;
 			}
 		 	finally {
 		    	if (fr != null) {
@@ -93,6 +88,7 @@ public class CustomExceptionLoader {
 		    				fr.close();
 		    			} catch (IOException e) {
 		    				log.error("Error closing file reader stream : " +e.toString());
+		    				map = null;
 		    			}
 		    	}
 		    }
@@ -130,4 +126,3 @@ public class CustomExceptionLoader {
 	}
 
 }
-
