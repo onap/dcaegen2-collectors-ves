@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_d0c9235a",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-09-25T14:50:52Z",
+      "side": 1,
+      "message": "LOG should still be \"log\". It is not an immutable value.\n\nSee the google coding standards that we are following, section 5.2.4, found at https://google.github.io/styleguide/javaguide.html \n\nIt gives an explicit example showing logger names as NOT being a constant.",
+      "revId": "8a876f7e0c649d90d566a237eb2662983a30e02f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
