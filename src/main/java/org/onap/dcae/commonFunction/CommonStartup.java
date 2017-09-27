@@ -213,7 +213,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			fTomcatServer.start();
 		} catch (LifecycleException | IOException e) {
 
-			LOG.error("lifecycle or IO: ", e);
+			log.error("lifecycle or IO: ", e);
 		}
 		fTomcatServer.await();
 	}
@@ -246,7 +246,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 				}
 
 			}
-			LOG.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
+			log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
 			CommonStartup.metriclog.info("EVENT_PUBLISH_END");
 			// ecomplogger.debug(secloggerMessageEnum.SEC_COLLECT_AND_PULIBISH_SUCCESS);
 
@@ -269,20 +269,20 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		try {
 			// System.out.println("Applying schema: @<@<"+jsonSchema+">@>@ to
 			// data: #<#<"+jsonData+">#>#");
-			LOG.trace("Schema validation for event:" + jsonData);
+			log.trace("Schema validation for event:" + jsonData);
 			JsonNode schemaNode = JsonLoader.fromString(jsonSchema);
 			JsonNode data = JsonLoader.fromString(jsonData);
 			JsonSchemaFactory factory = JsonSchemaFactory.byDefault();
 			JsonSchema schema = factory.getJsonSchema(schemaNode);
 			report = schema.validate(data);
 		} catch (JsonParseException e) {
-			LOG.error("schemavalidate:JsonParseException for event:" + jsonData);
+			log.error("schemavalidate:JsonParseException for event:" + jsonData);
 			return e.getMessage().toString();
 		} catch (ProcessingException e) {
-			LOG.error("schemavalidate:Processing exception for event:" + jsonData);
+			log.error("schemavalidate:Processing exception for event:" + jsonData);
 			return e.getMessage().toString();
 		} catch (IOException e) {
-			LOG.error(
+			log.error(
 					"schemavalidate:IO exception; something went wrong trying to read json data for event:" + jsonData);
 			return e.getMessage().toString();
 		}
@@ -290,21 +290,21 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			Iterator<ProcessingMessage> iter = report.iterator();
 			while (iter.hasNext()) {
 				ProcessingMessage pm = iter.next();
-				LOG.trace("Processing Message: " + pm.getMessage());
+				log.trace("Processing Message: " + pm.getMessage());
 			}
 			result = String.valueOf(report.isSuccess());
 		}
 		try {
-			LOG.debug("Validation Result:" + result + " Validation report:" + report);
+			log.debug("Validation Result:" + result + " Validation report:" + report);
 		} catch (NullPointerException e) {
-			LOG.error("schemavalidate:NullpointerException on report");
+			log.error("schemavalidate:NullpointerException on report");
 		}
 		return result;
 	}
 
 	public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
 	private static ApiServer fTomcatServer = null;
-	private static final Logger LOG = LoggerFactory.getLogger(CommonStartup.class);
+	private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 
 }
 
