@@ -19,7 +19,6 @@ mvn clean install
 
 ### Docker Image
 
-
 ```
 git clone ssh://vv770d@gerrit.onap.org:29418/dcaegen2/collectors/ves
 mvn clean deploy
