@@ -153,16 +153,8 @@ public class EventPublisher {
             CommonStartup.oplog.info(String.format("URL:%sTOPIC:%sEvent Published:%s",
                 ueburl, topic, event));
 
-        } catch (IOException e) {
-            log.error("IOException:Unable to publish event:" + event + " streamid:" + streamid
-                + " Exception:" + e);
-        } catch (GeneralSecurityException e) {
-            // TODO Auto-generated catch block
-            log.error("GeneralSecurityException:Unable to publish event:" + event + " streamid:"
-                + streamid + " Exception:" + e);
-        } catch (IllegalArgumentException e) {
-            log.error("IllegalArgumentException:Unable to publish event:" + event + " streamid:"
-                + streamid + " Exception:" + e);
+        } catch (IOException | GeneralSecurityException | IllegalArgumentException e) {
+            log.error("Unable to publish event: {} streamid: {}. Exception: {}", event, streamid, e);
         }
 
     }
@@ -177,10 +169,8 @@ public class EventPublisher {
                     log.error(stuck.size() + " messages unsent");
                 }
             }
-        } catch (InterruptedException ie) {
-            log.error("Caught an Interrupted Exception on Close event");
-        } catch (IOException ioe) {
-            log.error("Caught IO Exception: " + ioe);
+        } catch (InterruptedException | IOException e) {
+            log.error("Caught Exception on Close event: {}", e);
         }
 
     }
