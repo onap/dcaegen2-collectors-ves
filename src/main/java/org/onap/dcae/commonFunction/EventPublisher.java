@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,49 +38,25 @@ import java.util.concurrent.TimeUnit;
 public class EventPublisher {
 
     private static final String VES_UNIQUE_ID = "VESuniqueId";
+
     private static EventPublisher instance;
     private static CambriaBatchingPublisher pub;
-
-    private String streamid = "";
-    private String ueburl = "";
-    private String topic = "";
-    private String authuser = "";
-    private String authpwd = "";
+    private DMaaPChannel channel;
 
     private static Logger log = LoggerFactory.getLogger(EventPublisher.class);
 
 
-    private EventPublisher(String newstreamid) {
-
-        streamid = newstreamid;
+    private EventPublisher(String streamId) {
         try {
-            ueburl = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                .get(streamid + ".cambria.url");
-
-            if (ueburl == null) {
-                ueburl = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                    .get(streamid + ".cambria.hosts");
-            }
-            topic = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile)
-                .getKeyValue(streamid + ".cambria.topic");
-            authuser = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile)
-                .getKeyValue(streamid + ".basicAuthUsername");
-
-            if (authuser != null) {
-                authpwd = DmaapPropertyReader
-                    .getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                    .get(streamid + ".basicAuthPassword");
-            }
+            // TODO: Throw Exception if channel not found
+            channel = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).getChannel(streamId);
         } catch (Exception e) {
             log.error("CambriaClientBuilders connection reader exception : " + e.getMessage());
-
         }
-
     }
 
-
     /**
-     * Returns event publisher
+     * Returns event publisher.
      *
      * @param streamid stream id
      * @return event publisher
@@ -88,13 +64,11 @@ public class EventPublisher {
     public static synchronized EventPublisher getInstance(String streamid) {
         if (instance == null) {
             instance = new EventPublisher(streamid);
-        }
-        if (!instance.streamid.equals(streamid)) {
+        } else if (!instance.channel.getName().equals(streamid)) {
             instance.closePublisher();
             instance = new EventPublisher(streamid);
         }
         return instance;
-
     }
 
 
@@ -115,32 +89,24 @@ public class EventPublisher {
         }
 
         try {
+            log.debug("URL: {}, TOPIC: {}, AuthUser: {}, Authpwd: {}",
+                      channel.getCambriaUrl(), channel.getCambriaTopic(),
+                      channel.getBasicAuthUsername(), channel.getBasicAuthPassword());
 
-            if (authuser != null) {
-                log.debug(String.format("URL:%sTOPIC:%sAuthUser:%sAuthpwd:%s", ueburl, topic,
-                    authuser, authpwd));
-                pub = new CambriaClientBuilders.PublisherBuilder()
-                    .usingHosts(ueburl)
-                    .onTopic(topic)
-                    .usingHttps()
-                    .authenticatedByHttp(authuser, authpwd)
-                    .logSendFailuresAfter(5)
-                    //	 .logTo(log)
-                    //	 .limitBatch(100, 10)
-                    .build();
-            } else {
+            CambriaClientBuilders.PublisherBuilder pBuilder =
+                    new CambriaClientBuilders.PublisherBuilder()
+                            .usingHosts(channel.getCambriaUrl())
+                            .onTopic(channel.getCambriaTopic())
+                            //.logTo(log)
+                            //.limitBatch(100, 10)
+                            .logSendFailuresAfter(5);
 
-                log.debug(String.format("URL:%sTOPIC:%s", ueburl, topic));
-                pub = new CambriaClientBuilders.PublisherBuilder()
-                    .usingHosts(ueburl)
-                    .onTopic(topic)
-                    //		 .logTo(log)
-                    .logSendFailuresAfter(5)
-                    //		 .limitBatch(100, 10)
-                    .build();
-
+            if (channel.getBasicAuthUsername() != null) {
+                pBuilder.authenticatedByHttp(channel.getBasicAuthUsername(),
+                                             channel.getBasicAuthPassword());
             }
 
+            pub = pBuilder.build();
             int pendingMsgs = pub.send("MyPartitionKey", event.toString());
             //this.wait(2000);
 
@@ -151,17 +117,14 @@ public class EventPublisher {
             //closePublisher();
             log.info("pub.send invoked - no error");
             CommonStartup.oplog.info(String.format("URL:%sTOPIC:%sEvent Published:%s",
-                ueburl, topic, event));
-
+                channel.getCambriaUrl(), channel.getCambriaTopic(), event));
         } catch (IOException | GeneralSecurityException | IllegalArgumentException e) {
-            log.error("Unable to publish event: {} streamid: {}. Exception: {}", event, streamid, e);
+            log.error("Unable to publish event: {} streamid: {}. Exception: {}", event, channel.getName(), e);
         }
-
     }
 
 
     public synchronized void closePublisher() {
-
         try {
             if (pub != null) {
                 final List<?> stuck = pub.close(20, TimeUnit.SECONDS);
@@ -172,6 +135,5 @@ public class EventPublisher {
         } catch (InterruptedException | IOException e) {
             log.error("Caught Exception on Close event: {}", e);
         }
-
     }
 }
