@@ -1,5 +1,4 @@
 {
-
 	"channels": [
 		{
 			"name": "sec_measurement",
@@ -9,14 +8,13 @@
 			"type": "out",
 			"cambria.hosts": "onap.dmaap.org"
 		},
-                {
-                        "name": "sec_fault",
-                        "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
-                        "class": "HpCambriaOutputStream",
-                        "stripHpId": "true",
-                        "type": "out",
-                        "cambria.hosts": "onap.dmaap.org"
-                }
-		
+		{
+			"name": "sec_fault",
+			"cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "onap.dmaap.org"
+		}
 	]
 }
