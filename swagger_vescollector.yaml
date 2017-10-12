@@ -867,8 +867,8 @@ definitions:
         items:
           type: array
           items:
-            - type: string
-            - type: number
+            type: string
+            type: number
       ipTosList:
         description: >-
           Array of unique IP Type-of-Service values observed in the flow where
@@ -903,8 +903,8 @@ definitions:
         items:
           type: array
           items:
-            - type: string
-            - type: number
+            type: string
+            type: number
       mobileQciCosList:
         description: >-
           Array of unique LTE QCI or UMTS class-of-service values observed in
@@ -988,8 +988,8 @@ definitions:
         items:
           type: array
           items:
-            - type: string
-            - type: number
+            type: string
+            type: number
       tcpFlagList:
         description: Array of unique TCP Flags observed in the flow
         type: array
@@ -1515,7 +1515,7 @@ definitions:
         type: number
       summarySip:
         description: >-
-          the SIP Method or Response (â€˜INVITEâ€™, â€˜200 OKâ€™, â€˜BYEâ€™,
+          the SIP Method or Response (INVITE, 200 OK, BYE,
           etc)
         type: string
       vendorVnfNameFields:
@@ -1586,7 +1586,7 @@ definitions:
       additionalFields:
         description: >-
           additional syslog fields if needed provided as name=value delimited by
-          a pipe â€˜|â€™ symbol, for example: 'name1=value1|name2=value2|â€¦'
+          a pipe | symbol, for example: 'name1=value1|name2=value2|'
         type: string
       eventSourceHost:
         description: hostname of the device
