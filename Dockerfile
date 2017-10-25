@@ -15,6 +15,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY opt /opt
 
-EXPOSE 8080 8443
+EXPOSE 8080
 
 CMD [ "/opt/app/docker-entry.sh" ]

@@ -20,7 +20,7 @@
 ###
 
 if [ ! -z "$COLLECTOR_IP" ]; then
-        echo $COLLECTOR_IP  $(hostname).dcae.simpledemo.openecomp.org >> /etc/hosts
+        echo $COLLECTOR_IP  $(hostname).dcae.simpledemo.onap.org >> /etc/hosts
 fi
 
 if [ ! -z "$DMAAPHOST" ]; then
