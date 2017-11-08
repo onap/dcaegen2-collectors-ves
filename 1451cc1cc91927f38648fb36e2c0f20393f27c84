@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4e6583_3c2577c2",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-11-08T14:09:31Z",
+      "side": 1,
+      "message": "this can wind up calling closePublisher() twice. Is that safe?",
+      "revId": "1451cc1cc91927f38648fb36e2c0f20393f27c84",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_dc2b0393",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-11-08T14:09:31Z",
+      "side": 1,
+      "message": "can pub.close() be called twice?\n\nShould you set pub to null here?\n\npub \u003d null;",
+      "revId": "1451cc1cc91927f38648fb36e2c0f20393f27c84",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
