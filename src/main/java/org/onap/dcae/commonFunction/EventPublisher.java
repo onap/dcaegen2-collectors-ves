@@ -148,7 +148,7 @@ public class EventPublisher {
                 log.info("Pending Message Count=" + pendingMsgs);
             }
 
-            //closePublisher();
+            closePublisher();
             log.info("pub.send invoked - no error");
             CommonStartup.oplog.info(String.format("URL:%sTOPIC:%sEvent Published:%s",
                 ueburl, topic, event));
@@ -156,6 +156,9 @@ public class EventPublisher {
         } catch (IOException | GeneralSecurityException | IllegalArgumentException e) {
             log.error("Unable to publish event: {} streamid: {}. Exception: {}", event, streamid, e);
         }
+	finally {
+			closePublisher();
+	}
 
     }
 
