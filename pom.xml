@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
-	<version>1.1.4-SNAPSHOT</version>
+	<version>1.2.4-SNAPSHOT</version>
 	<name>dcaegen2-collectors-ves</name>
 	<description>VESCollector</description>
 
