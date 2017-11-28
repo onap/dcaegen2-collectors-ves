@@ -2,7 +2,7 @@
 	"self": {
 		"name": "VES_specification",
 		"version": "5.28.4",
-		"description": "VES spec for 5.4"
+		"description": "VES spec for 5.4.1"
 	},
 	"dataformatversion": "1.0.0",
 	"jsonschema": {

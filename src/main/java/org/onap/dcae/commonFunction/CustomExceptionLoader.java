@@ -77,9 +77,8 @@ public class CustomExceptionLoader {
 				}
 				
 				log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
-			} catch (JsonIOException|JsonSyntaxException|FileNotFoundException e) {
+			} catch (JsonIOException|JsonSyntaxException|FileNotFoundException  e) {
 				log.error("Exception in LoadMap:" + e.getMessage());
-				//e.printStackTrace();
 				map = null;
 			}
 		 	finally {

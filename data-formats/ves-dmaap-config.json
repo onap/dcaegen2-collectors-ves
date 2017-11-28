@@ -1,130 +1,149 @@
 {
-                "sec_measurement": {
+                "ves_syslog": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "111111",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MEASUREMENT-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                "sec_fault": {
+                "ves_statechange": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-FAULT-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                
-                "sec_syslog": {
+
+                "ves_thresholdCrossingAlert": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "111111",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-SYSLOG-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                "sec_statechange": {
+                "ves_heartbeat": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-STATECHANGE-OUTPUT"
-                        }
-                },                
-                
-                "sec_thresholdCrossingAlert": {
-                        "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
-                        "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "111111",
-                                "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-TCA-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                "sec_heartbeat": {
+
+                "ves_other": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-HEARTBEAT-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                
-                "sec_other": {
+                "ves_mobileflow": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
                         "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "111111",
                                 "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-OTHER-OUTPUT"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                "sec_mobileflow": {
-                        "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
-                        "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
-                                "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
-                        }
-                },                                
                 "ves_sipsignaling": {
                         "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
-                        "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
-                                "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
-                        }
-                }, 
-                "ves_voicequality": {
-                        "type": "message_router",
-                        "aaf_username": "aafid",
-                        "aaf_password": "pwd",
-                        "dmaap_info": {
-                                "client_role": "com.att.dcae.member",
-                                "client_id": "222222",
-                                "location": "mtl5",
-                                "topic_url": "https://dmaap-mr-hostname:3905/events/com.att.dcae.dmaap.FTL2.SEC-MOBILEFLOW-OUTPUT"
-                        }
-                },                                 
-                "sec_fault_unsecure": {
-                        "type": "message_router",
                         "dmaap_info": {
                                 "location": "mtl5",
-                                "topic_url": "http://uebsb91kcdc.it.att.com:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
                 },
-                "sec_measurement_unsecure": {
+                "ves_voicequality": {
                         "type": "message_router",
                         "dmaap_info": {
                                 "location": "mtl5",
-                                "topic_url": "http://uebsb91kcdc.it.att.com:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
                         }
-                }
+                },
+                "ves_fault": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_measurement": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                
+                
+                "ves_syslog_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_statechange_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+
+                "ves_thresholdCrossingAlert_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_heartbeat_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+
+                "ves_other_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_mobileflow_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_sipsignaling_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_voicequality_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_fault_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                },
+                "ves_measurement_secondary": {
+                        "type": "message_router",
+                        "dmaap_info": {
+                                "location": "mtl5",
+                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+                        }
+                }                
 
 }

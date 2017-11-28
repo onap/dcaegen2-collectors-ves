@@ -46,7 +46,8 @@ collector_start() {
         # for all the jars.
         #cd /opt/app/VESCollector/
         cd ${BASEDIR}
-        nohup $JAVA -cp "etc${PATHSEP}lib/*" $JAVA_OPTS -Dhttps.protocols=TLSv1.1,TLSv1.2 $MAINCLASS $* &
+        #nohup $JAVA -cp "etc${PATHSEP}lib/*" $JAVA_OPTS -Dhttps.protocols=TLSv1.1,TLSv1.2 $MAINCLASS $* &
+	nohup $JAVA -cp "etc${PATHSEP}lib/*" -Xms256m -Xmx512m -XX:ErrorFile=/opt/app/VESCollector/logs/java_error%p.log -XX:+HeapDumpOnOutOfMemoryError -Dhttps.protocols=TLSv1.1,TLSv1.2 $MAINCLASS $* &
         if [ $? -ne 0 ]; then
                 echo "VES Restful Collector has been started!!!" | tee -a ${BASEDIR}/logs/console.txt
         fi

@@ -1,7 +1,7 @@
 {
 	"channels": [
 		{
-			"name": "sec_measurement",
+			"name": "ves_measurement",
 			"cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
 			"class": "HpCambriaOutputStream",
 			"stripHpId": "true",
@@ -9,7 +9,7 @@
 			"cambria.hosts": "onap.dmaap.org"
 		},
 		{
-			"name": "sec_fault",
+			"name": "ves_fault",
 			"cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
 			"class": "HpCambriaOutputStream",
 			"stripHpId": "true",

@@ -1,7 +1,7 @@
 {
         "self": {
-                "version": "1.1.0",
-                "name": "dcaegen2-collectors-ves",
+       		"version": "1.2.0",
+		"name": "dcae-ves-collector",
                 "description": "Collector for receiving VES events through restful interface",
                 "component_type": "docker"
         },
@@ -69,7 +69,67 @@
                                 "version": "5.28.4",
                                 "type": "message router",
                                 "config_key": "ves_sipsignaling"
-                        }
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_fault_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_measurement_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_syslog_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_heartbeat_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_other_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_mobileflow_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_statechange_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_thresholdCrossingAlert_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_voicequality_secondary"
+                        },
+                        {
+                                "format": "VES_specification",
+                                "version": "5.28.4",
+                                "type": "message router",
+                                "config_key": "ves_sipsignaling_secondary"
+                        }                        
                 ]
         },
         "services": {
@@ -141,7 +201,7 @@
         "parameters": [
                 {
                         "name": "collector.service.port",
-                        "value": 8080,
+                        "value": -1,
                         "description": "standard http port"
                 },
                 {
@@ -171,12 +231,12 @@
                 },
                 {
                         "name": "collector.dmaap.streamid",
-                        "value": "fault=ves_fault|syslog=ves_syslog|heartbeat=ves_heartbeat|measurementsForVfScaling=ves_measurement|mobileFlow=ves_mobileflow|other=ves_other|stateChange=ves_statechange|thresholdCrossingAlert=ves_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling",
+                        "value": "fault=ves_fault,ves_fault_secondary|syslog=ves_syslog,ves_syslog_secondary|heartbeat=ves_heartbeat,ves_heartbeat_secondary|measurementsForVfScaling=ves_measurement,ves_measurement_secondary|mobileFlow=ves_mobileflow,ves_mobileflow_secondary|other=ves_other,ves_other_secondary|stateChange=ves_statechange,ves_statechange_secondary|thresholdCrossingAlert=ves_thresholdCrossingAlert,ves_thresholdCrossingAlert_secondary|voiceQuality=ves_voicequality,ves_voicequality_secondary|sipSignaling=ves_sipsignaling,ves_sipsignaling_secondary",
                         "description": "domain-streamid mapping"
                 },
                 {
                         "name": "header.authflag",
-                        "value": 0,
+                        "value": 1,
                         "description": "Basic Authentication flag"
                 },
                 {
@@ -196,7 +256,7 @@
                 },
                 {
                         "name": "event.transform.flag",
-                        "value": 0,
+                        "value": 1,
                         "description": "flag to enable tranformation rules defined under eventTransform.json"
                 },
                 {
@@ -211,12 +271,15 @@
                         "interval": "15s",
                         "timeout": "1s",
                         "endpoint": "/healthcheck"
-                }
+                },
+			    "ports": [
+			      "8443:8443"
+			    ]                
         },
         "artifacts": [
                 {
                         "type": "docker image",
-                        "uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
+			"uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
                 }
         ]
 }

@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -117,20 +118,6 @@ public class EventProcessor implements Runnable {
         final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-		/*JSONArray additionalParametersarray = new JSONArray().put(new JSONObject().put("collectorTimeStamp", sdf.format(currentTime)));
-        JSONObject additionalParameter = new JSONObject().put("additionalParameters",additionalParametersarray );
-		JSONObject commonEventHeaderkey = event.getJSONObject("event").getJSONObject("commonEventHeader");
-		commonEventHeaderkey.put("internalHeaderFields", additionalParameter);*/
-
-
-/*		  "event": {
-            "commonEventHeader": {
-                            "internalHeaderFields": {
-                                            "collectorTimeStamp": "Fri, 04 21 2017 04:11:52 GMT"
-                            },
-*/
-
-        //JSONArray additionalParametersarray = new JSONArray().put(new JSONObject().put("collectorTimeStamp", sdf.format(currentTime)));
         JSONObject collectorTimeStamp = new JSONObject()
             .put("collectorTimeStamp", sdf.format(currentTime));
         JSONObject commonEventHeaderkey = event.getJSONObject(EVENT_LITERAL)
@@ -141,9 +128,10 @@ public class EventProcessor implements Runnable {
         if (CommonStartup.eventTransformFlag == 1) {
             // read the mapping json file
             final JsonParser parser = new JsonParser();
+	    FileReader fr = null;
             try {
-                final JsonArray jo = (JsonArray) parser
-                    .parse(new FileReader("./etc/eventTransform.json"));
+		fr = new FileReader ( "./etc/eventTransform.json" );
+                final JsonArray jo = (JsonArray) parser.parse(fr);
                 log.info("parse eventTransform.json");
                 // now convert to org.json
                 final String jsonText = jo.toString();
@@ -183,11 +171,25 @@ public class EventProcessor implements Runnable {
 
             } catch (Exception e) {
 
-                log.error("EventProcessor Exception" + e.getMessage() + e);
-                log.error("EventProcessor Exception" + e.getCause());
+                log.error("EventProcessor Exception" + e.getMessage() + e + e.getCause() );
             }
-        }
-        log.debug("Modified event:" + event);
+	    finally {
+                 //close the file
+                 if (fr != null) {
+                 	try {
+                        	fr.close();
+                        } catch (IOException e) {
+                               	log.error("Error closing file reader stream : " + e.toString());
+                        }
+                              
+                 }
+            }
+	}
+        //Remove VESversion from event. This field is for internal use and must be removed after use.
+        if (event.has("VESversion"))
+            	event.remove("VESversion");
 
-    }
+            log.debug("Modified event:" + event);
+
+        }
 }

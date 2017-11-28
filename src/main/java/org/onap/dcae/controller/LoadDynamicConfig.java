@@ -50,9 +50,6 @@ public class LoadDynamicConfig {
 
     public static void main(String[] args) {
         Map<String, String> env = System.getenv();
-        /*for (String envName : env.keySet()) {
-            System.out.format("%s=%s%n", envName, env.get(envName));
-		}*/
 
         //Check again to ensure new controller deployment related config
         if (env.containsKey("CONSUL_HOST") &&
@@ -95,6 +92,7 @@ public class LoadDynamicConfig {
 
             } catch (ConfigurationException e) {
                 log.error(e.getLocalizedMessage(), e);
+                e.printStackTrace();
 
             }
 
@@ -117,6 +115,7 @@ public class LoadDynamicConfig {
             br.close();
         } catch (Exception e) {
             log.error(e.getLocalizedMessage(), e);
+	    e.printStackTrace();
         }
         return result;
     }

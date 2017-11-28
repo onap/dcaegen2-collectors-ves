@@ -80,6 +80,7 @@ public class FetchDynamicConfig {
                 log.error(
                     "Error in writing configuration into file /opt/app/KV-Configuration.json "
                         + jsonObject, e);
+		e.printStackTrace();
             }
         } else {
             log.info(">>>Static configuration to be used");
@@ -110,6 +111,7 @@ public class FetchDynamicConfig {
             ipr.close();
         } catch (IOException e) {
             log.error("error", e);
+            e.printStackTrace();
         }
         return result;
 

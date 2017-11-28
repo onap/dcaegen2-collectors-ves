@@ -31,6 +31,8 @@ fi
 
 if [ -z "$CONSUL_HOST" ] || [ -z "$CONFIG_BINDING_SERVICE" ] || [ -z "$HOSTNAME" ]; then
                 echo "INFO: USING STANDARD ALONE CONFIGURATION SETUP"
+		## For Container supporting both classic and GEN2 controller - below line should be uncommented, provided service manager package is included
+		#/opt/app/manager/start-manager.sh
 else
                 echo "INFO: USING DCAEGEN2 CONTROLLER"
 fi
