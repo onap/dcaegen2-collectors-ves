@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Fri, 01 Dec 2017 16:50:08 +0000
+Reviewed-on: https://gerrit.onap.org/r/25253
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
