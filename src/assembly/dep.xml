@@ -53,7 +53,7 @@
         <outputDirectory>etc</outputDirectory>
     </fileSet>
     <fileSet>
-        <directory>data-formats</directory>
+        <directory>dpo/data-formats</directory>
                 <includes>
         	<include>**/*.json</include>
         </includes>
