@@ -39,89 +39,90 @@ import com.google.gson.JsonSyntaxException;
 
 public class CustomExceptionLoader {
 
-    protected static HashMap<String, JsonArray> map = null;
-    private static final Logger log = LoggerFactory.getLogger ( CustomExceptionLoader.class );
-    
-    //For standalone test
-    //LoadMap Invoked from servletSetup
-    /*
-	public static void main(String[] args) {
+	protected static HashMap<String, JsonArray> map = null;
+	private static final Logger log = LoggerFactory.getLogger(CustomExceptionLoader.class);
 
-		System.out.println("CustomExceptionLoader.main --> Arguments -- ExceptionConfig file: " + args[0] + "StatusCode:" + args[1]+ " Error Msg:" + args[2]);
-		CommonStartup.exceptionConfig = args[0];
-		
-		//Read the Custom exception JSON file into map
-	    LoadMap();
-	    System.out.println("CustomExceptionLoader.main --> Map info post LoadMap:" + map);
-	   
-	     String[] str= LookupMap(args[1],args[2]);
-			if (! (str==null)) {
-			System.out.println("CustomExceptionLoader.main --> Return from lookup function" + str[0] + "value:" + str[1]);	
-		}
-	    
-	}
-	*/
-	
-	public static void LoadMap () {
-		
-		 map = new HashMap<String, JsonArray>();
-		 FileReader fr = null;
-		 try {
-			 	JsonElement root = null;
-			 	fr = new FileReader(CommonStartup.exceptionConfig);
-			 	root = new JsonParser().parse(fr);
-			 	JsonObject jsonObject = root.getAsJsonObject().get("code").getAsJsonObject();
+	// For standalone test
+	// LoadMap Invoked from servletSetup
+	/*
+	 * public static void main(String[] args) {
+	 * 
+	 * System.out.
+	 * println("CustomExceptionLoader.main --> Arguments -- ExceptionConfig file: "
+	 * + args[0] + "StatusCode:" + args[1]+ " Error Msg:" + args[2]);
+	 * CommonStartup.exceptionConfig = args[0];
+	 * 
+	 * //Read the Custom exception JSON file into map LoadMap(); System.out.
+	 * println("CustomExceptionLoader.main --> Map info post LoadMap:" + map);
+	 * 
+	 * String[] str= LookupMap(args[1],args[2]); if (! (str==null)) {
+	 * System.out.
+	 * println("CustomExceptionLoader.main --> Return from lookup function" +
+	 * str[0] + "value:" + str[1]); }
+	 * 
+	 * }
+	 */
 
-				for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-				     map.put(entry.getKey(), (JsonArray) entry.getValue());
-				}
-				
-				log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
-			} catch (JsonIOException|JsonSyntaxException|FileNotFoundException  e) {
-				log.error("Exception in LoadMap:" + e.getMessage());
-				map = null;
+	public static void LoadMap() {
+
+		map = new HashMap<String, JsonArray>();
+		FileReader fr = null;
+		try {
+			JsonElement root = null;
+			fr = new FileReader(CommonStartup.exceptionConfig);
+			root = new JsonParser().parse(fr);
+			JsonObject jsonObject = root.getAsJsonObject().get("code").getAsJsonObject();
+
+			for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+				map.put(entry.getKey(), (JsonArray) entry.getValue());
 			}
-		 	finally {
-		    	if (fr != null) {
-		    		try {
-		    				fr.close();
-		    			} catch (IOException e) {
-		    				log.error("Error closing file reader stream : " +e.toString());
-		    				map = null;
-		    			}
-		    	}
-		    }
+
+			log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
+		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+			log.error("Exception in LoadMap:" + e.getMessage());
+			map = null;
+		} finally {
+			if (fr != null) {
+				try {
+					fr.close();
+				} catch (IOException e) {
+					log.error("Error closing file reader stream : " + e.toString());
+					map = null;
+				}
+			}
+		}
 	}
 
-	public static String[] LookupMap (String error, String errormsg) {
-		 
-		 String[] retarray = null;
-		 
-		 log.debug("CustomExceptionLoader.LookupMap -->" + " HTTP StatusCode:" + error + " Msg:" + errormsg);
-		 try{
-			 
-			 JsonArray jarray = map.get(error);
-			  for (int i = 0; i < jarray.size(); i++) {
-			    	  
-			     JsonElement val = jarray.get(i).getAsJsonObject().get("Reason");
-			     JsonArray ec = (JsonArray) jarray.get(i).getAsJsonObject().get("ErrorCode");
-				 log.trace("CustomExceptionLoader.LookupMap Parameter -> Error msg : " + errormsg + " Reason text being matched:" + val);			
-				 if (errormsg.contains(val.toString().replace("\"", ""))){
-					 log.trace("CustomExceptionLoader.LookupMap Successful! Exception matched to error message StatusCode:" + ec.get(0).toString() + "ErrorMessage:" + ec.get(1).toString());
-					 retarray = new String[2];
-					 retarray[0]=ec.get(0).toString();
-					 retarray[1]=ec.get(1).toString();
-					 return retarray;
-				 }
-			    }
-  
-		 }
-		 catch (Exception e)
-		 {
-			 System.out.println(e.getMessage());
-		 }
-	        
-		 return retarray;
+	public static String[] LookupMap(String error, String errormsg) {
+
+		String[] retarray = null;
+
+		log.debug("CustomExceptionLoader.LookupMap -->" + " HTTP StatusCode:" + error + " Msg:" + errormsg);
+		try {
+
+			JsonArray jarray = map.get(error);
+			for (int i = 0; i < jarray.size(); i++) {
+
+				JsonElement val = jarray.get(i).getAsJsonObject().get("Reason");
+				JsonArray ec = (JsonArray) jarray.get(i).getAsJsonObject().get("ErrorCode");
+				log.trace("CustomExceptionLoader.LookupMap Parameter -> Error msg : " + errormsg
+						+ " Reason text being matched:" + val);
+				if (errormsg.contains(val.toString().replace("\"", ""))) {
+					log.trace(
+							"CustomExceptionLoader.LookupMap Successful! Exception matched to error message StatusCode:"
+									+ ec.get(0).toString() + "ErrorMessage:" + ec.get(1).toString());
+					retarray = new String[2];
+					retarray[0] = ec.get(0).toString();
+					retarray[1] = ec.get(1).toString();
+					return retarray;
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return retarray;
 	}
 
 }

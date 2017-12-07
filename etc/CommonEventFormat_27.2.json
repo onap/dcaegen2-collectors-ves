@@ -10,8 +10,8 @@
 					"type": "string"
 				},
 				"licenseLink": {
-				 "description": "http://www.apache.org/licenses/LICENSE-2.0",
-				 "type":"string"
+					"description": "http://www.apache.org/licenses/LICENSE-2.0",
+					"type": "string"
 				},
 				"condition1": {
 					"description": "Unless required by applicable law or agreed to in writing, software 13 * distributed under the License is distributed on an AS IS BASIS,",
@@ -1382,6 +1382,6 @@
 		},
 		"eventList": {
 			"$ref": "#/definitions/eventList"
-			}
+		}
 	}
 }

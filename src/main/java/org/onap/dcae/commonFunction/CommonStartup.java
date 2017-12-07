@@ -63,7 +63,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import javax.servlet.ServletException;
 
-
 public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
 	public static final String KCONFIG = "c";
@@ -194,14 +193,15 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			executor = Executors.newFixedThreadPool(20);
 			executor.execute(ep);
 
-		} catch (loadException | missingReqdSetting | IOException | invalidSettingValue | ServletException | InterruptedException e) {
+		} catch (loadException | missingReqdSetting | IOException | invalidSettingValue | ServletException
+				| InterruptedException e) {
 			CommonStartup.eplog.error("FATAL_STARTUP_ERROR" + e.getMessage());
 			throw new RuntimeException(e);
 		} catch (Throwable e) {
-                	System.err.println("Uncaught exception - " + e.getMessage());
-                	CommonStartup.eplog.error("FATAL_ERROR" + e.getMessage() );
-                	e.printStackTrace(System.err);
-           	} finally {
+			System.err.println("Uncaught exception - " + e.getMessage());
+			CommonStartup.eplog.error("FATAL_ERROR" + e.getMessage());
+			e.printStackTrace(System.err);
+		} finally {
 			// This will make the executor accept no new threads
 			// and finish all existing threads in the queue
 			if (executor != null) {
@@ -310,4 +310,3 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 
 }
-

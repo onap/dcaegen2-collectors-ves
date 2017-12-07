@@ -52,7 +52,8 @@ public class DmaapPropertyReader {
 			fr = new FileReader(CambriaConfigFile);
 			root = new JsonParser().parse(fr);
 
-			//Check if dmaap config is handled by legacy controller/service manager
+			// Check if dmaap config is handled by legacy controller/service
+			// manager
 			if (root.getAsJsonObject().has("channels")) {
 				JsonArray jsonObject = (JsonArray) root.getAsJsonObject().get("channels");
 
@@ -88,13 +89,14 @@ public class DmaapPropertyReader {
 				}
 			} else {
 
-				//Handing new format from  controllergen2/config_binding_service
+				// Handing new format from controllergen2/config_binding_service
 				JsonObject jsonObject = root.getAsJsonObject();
 				Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
 
 				for (Map.Entry<String, JsonElement> entry : entries) {
-					
-					JsonElement topicurl = entry.getValue().getAsJsonObject().get("dmaap_info").getAsJsonObject().get("topic_url");
+
+					JsonElement topicurl = entry.getValue().getAsJsonObject().get("dmaap_info").getAsJsonObject()
+							.get("topic_url");
 					String[] urlParts = dmaapUrlSplit(topicurl.toString().replace("\"", ""));
 
 					String mrTopic = null;
