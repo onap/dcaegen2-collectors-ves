@@ -81,7 +81,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static final String KDEFAULT_KEYALIAS = "tomcat";
 
 	public static final String KSETTING_DMAAPCONFIGS = "collector.dmaapfile";
-	protected static final String[] KDEFAULT_DMAAPCONFIGS = new String[] { "/etc/DmaapConfig.json" };
+	private static final String[] KDEFAULT_DMAAPCONFIGS = new String[] { "/etc/DmaapConfig.json" };
 
 	public static final String KSETTING_MAXQUEUEDEVENTS = "collector.inputQueue.maxPending";
 	public static final int KDEFAULT_MAXQUEUEDEVENTS = 1024 * 4;
@@ -98,7 +98,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static final String KSETTING_AUTHFLAG = "header.authflag";
 	public static final int KDEFAULT_AUTHFLAG = 0;
 
-	public static final String kSetting_authlist = "header.authlist";
+	public static final String KSETTING_AUTHLIST = "header.authlist";
 
 	public static final String KSETTING_EVENTTRANSFORMFLAG = "event.transform.flag";
 	public static final int KDEFAULT_EVENTTRANSFORMFLAG = 1;
@@ -108,7 +108,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static final Logger eplog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.error");
 	public static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
 
-	public static int schema_Validatorflag = -1;
+	public static int schemaValidatorflag = -1;
 	public static int authflag = 1;
 	public static int eventTransformFlag = 1;
 	public static String schemaFile;
@@ -117,6 +117,10 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static String cambriaConfigFile;
 	private boolean listnerstatus;
 	public static String streamid;
+
+	public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
+	private static ApiServer fTomcatServer = null;
+	private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 
 	private CommonStartup(rrNvReadable settings) throws loadException, IOException, rrNvReadable.missingReqdSetting,
 			rrNvReadable.invalidSettingValue, ServletException, InterruptedException {
@@ -143,8 +147,8 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
 		// Reading other config properties
 
-		schema_Validatorflag = settings.getInt(KSETTING_SCHEMAVALIDATOR, KDEFAULT_SCHEMAVALIDATOR);
-		if (schema_Validatorflag > 0) {
+		schemaValidatorflag = settings.getInt(KSETTING_SCHEMAVALIDATOR, KDEFAULT_SCHEMAVALIDATOR);
+		if (schemaValidatorflag > 0) {
 			schemaFile = settings.getString(KSETTING_SCHEMAFILE, KDEFAULT_SCHEMAFILE);
 			// System.out.println("SchemaFile:" + schemaFile);
 			schemaFileJson = new JSONObject(schemaFile);
@@ -280,14 +284,14 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			report = schema.validate(data);
 		} catch (JsonParseException e) {
 			log.error("schemavalidate:JsonParseException for event:" + jsonData);
-			return e.getMessage().toString();
+			return e.getMessage();
 		} catch (ProcessingException e) {
 			log.error("schemavalidate:Processing exception for event:" + jsonData);
-			return e.getMessage().toString();
+			return e.getMessage();
 		} catch (IOException e) {
 			log.error(
 					"schemavalidate:IO exception; something went wrong trying to read json data for event:" + jsonData);
-			return e.getMessage().toString();
+			return e.getMessage();
 		}
 		if (report != null) {
 			Iterator<ProcessingMessage> iter = report.iterator();
@@ -305,8 +309,5 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		return result;
 	}
 
-	public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
-	private static ApiServer fTomcatServer = null;
-	private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 
 }

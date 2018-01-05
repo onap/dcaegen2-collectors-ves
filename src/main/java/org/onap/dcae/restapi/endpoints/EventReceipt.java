@@ -125,7 +125,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 			}
 
 			if (retkey != null || CommonStartup.authflag == 0) {
-				if (CommonStartup.schema_Validatorflag > 0) {
+				if (CommonStartup.schemaValidatorflag > 0) {
 					if ((arrayFlag == 1) && (jsonObject.has("eventList") && (!jsonObject.has("event")))
 							|| ((arrayFlag == 0) && (!jsonObject.has("eventList") && (jsonObject.has("event"))))) {
 						fr = new FileReader(schemaFileVersion(vesVersion));

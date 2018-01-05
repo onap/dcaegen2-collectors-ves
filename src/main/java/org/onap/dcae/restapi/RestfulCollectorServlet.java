@@ -57,7 +57,7 @@ public class RestfulCollectorServlet extends CommonServlet
 	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
 	{
 		super ( settings, "collector", false );
-		authlist = settings.getString(CommonStartup.kSetting_authlist,null);
+		authlist = settings.getString(CommonStartup.KSETTING_AUTHLIST,null);
 	}
 
 
