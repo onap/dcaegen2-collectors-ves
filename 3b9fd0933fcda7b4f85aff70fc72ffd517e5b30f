@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_5e8491d3",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-01-11T14:28:50Z",
+      "side": 1,
+      "message": "I would be careful on this one.\n\nMost of the time that a config variable like this was made protected is when it really needed to be accessed in a derived class.\n\nThis needs to be verified by others who have created such derived classes. It also needs to be verified against existing code to make certain that nothing using it breaks.\n\nIf access truly is needed, an accessor function may be appropriate.",
+      "revId": "3b9fd0933fcda7b4f85aff70fc72ffd517e5b30f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
