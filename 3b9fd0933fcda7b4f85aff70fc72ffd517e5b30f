@@ -16,6 +16,24 @@
       "revId": "3b9fd0933fcda7b4f85aff70fc72ffd517e5b30f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_a4002402",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2917
+      },
+      "writtenOn": "2018-01-12T05:17:27Z",
+      "side": 1,
+      "message": "I do agree with you. But I found this config variable is used only with in the same class, not anywhere else. And sonar reported this as an issue. \nI hope this can be merged now and later if someone need this config in derived class can change from private to protected and use it. If there is a usage outside this class, then I think sonar won\u0027t report this as an issue again.",
+      "parentUuid": "5a93c517_5e8491d3",
+      "revId": "3b9fd0933fcda7b4f85aff70fc72ffd517e5b30f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
