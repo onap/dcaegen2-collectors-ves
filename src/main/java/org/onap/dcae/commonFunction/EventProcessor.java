@@ -70,7 +70,7 @@ public class EventProcessor implements Runnable {
 		try {
 
 			event = CommonStartup.fProcessingInputQueue.take();
-			log.info("EventProcessor\tRemoving element: " + event);
+			log.info("QueueSize:" + CommonStartup.fProcessingInputQueue.size()+  "\tEventProcessor\tRemoving element: " + event );
 
 			// EventPublisher Ep=new EventPublisher();
 			while (event != null) {
@@ -95,7 +95,8 @@ public class EventProcessor implements Runnable {
 					for (String aStreamIdList : streamIdList) {
 						log.info("Invoking publisher for streamId:" + aStreamIdList);
 						this.overrideEvent();
-						EventPublisher.getInstance(aStreamIdList).sendEvent(event);
+						//EventPublisher.getInstance(aStreamIdList).sendEvent(event);
+						EventPublisherHash.getInstance().sendEvent(event, aStreamIdList);
 
 					}
 				}

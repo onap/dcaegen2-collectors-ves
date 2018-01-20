@@ -58,6 +58,22 @@
 	        	}
 	    	},
 	    	{
+	    		"functionName": "addAttribute",
+	    		"args":{
+	    			"field": "event.faultFields.faultFieldsVersion",
+	    			"value": "2.0",
+	    			"fieldType": "number"
+	    		}
+	    	},
+	    	{
+	    		"functionName": "addAttribute",
+	    		"args":{
+	    			"field": "event.commonEventHeader.version",
+	    			"value": "3.0",
+	    			"fieldType": "number"
+	    		}
+	    	},
+	    	{
 	        	"functionName": "map",
 	        	"args":{
 	        		"field": "event.commonEventHeader.nfNamingCode",
@@ -212,3 +228,4 @@
 	}
 	
 ]
+

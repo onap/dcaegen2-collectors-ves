@@ -36,10 +36,11 @@ import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.EventProcessor;
 import org.onap.dcae.commonFunction.EventPublisher;
+import org.onap.dcae.commonFunction.EventPublisherHash;
 import org.onap.dcae.controller.LoadDynamicConfig;
 import org.onap.dcae.commonFunction.DmaapPropertyReader;
 
-
+import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.google.gson.JsonParser;
 
 public class TestEventProcessor {
@@ -99,6 +100,74 @@ public class TestEventProcessor {
 		assertEquals(true, flag);
 	}
 	
+	
+	@Test
+	public void testpublisherhashclass() {
 
+	    DmaapPropertyReader dr;
+	    EventPublisherHash eph = null;
+	    Boolean flag = false;
+		eph = EventPublisherHash.getInstance();
+		
+		
+		if (eph.equals(null))
+		{
+			flag = false;
+		}
+		else
+		{
+			flag = true;
+		}
+		assertEquals(true, flag);
+		
+		
+	}
+	
+	@Test
+	public void testpublisherhashclassload() {
+
+	    DmaapPropertyReader dr;
+	    EventPublisherHash eph = null;
+	    String testinput = "src/test/resources/testDmaapConfig.json";
+	    Boolean flag = false;
+	    dr = new DmaapPropertyReader(testinput);
+		eph = EventPublisherHash.getInstance();
+		EventProcessor ec = new EventProcessor();
+		ec.event=new org.json.JSONObject(ev);	
+		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig.json";
+		CambriaBatchingPublisher pub = eph.Dmaaphash("sec_fault_ueb");
+		
+		if (pub == null || pub.equals(null))
+		{
+			flag = false;
+		}
+		else
+		{
+			flag = true;
+		}
+		assertEquals(true, flag);
+		
+	}		
+
+	@Test
+	public void testpublisherhashSend() {
+
+	    DmaapPropertyReader dr;
+	    EventPublisherHash eph = null;
+	    String testinput = "src/test/resources/testDmaapConfig.json";
+	    Boolean flag = true;
+	    dr = new DmaapPropertyReader(testinput);
+		eph = EventPublisherHash.getInstance();
+
+		
+		EventProcessor ec = new EventProcessor();
+		ec.event=new org.json.JSONObject(ev);
+		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig.json";
+		eph.sendEvent(ec.event, "sec_fault_ueb");
+		
+		assertEquals(true, flag);
+		
+	}
 }
+
 

@@ -41,9 +41,7 @@ public class ConfigProcessors {
 		event = eventJson;
 	}
 
-	/**
-	 * 
-	 */
+
 	public void getValue(JSONObject J) {
 		// log.info("addAttribute");
 		final String field = J.getString(FIELD);
@@ -57,9 +55,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void setValue(JSONObject J) {
 		// log.info("addAttribute");
 		final String field = J.getString(FIELD);
@@ -73,9 +69,8 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
+
 	public String evaluate(String str) {
 		String value = str;
 		if (str.startsWith("$")) {
@@ -85,9 +80,7 @@ public class ConfigProcessors {
 		return value;
 	}
 
-	/**
-	 * { "functionName":"suppressEvent", "args":{} }
-	 */
+
 	public void suppressEvent(JSONObject J) {
 		// log.info("addAttribute");
 		final JSONObject filter = J.optJSONObject(FILTER);
@@ -100,9 +93,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void addAttribute(JSONObject J) {
 		// log.info("addAttribute begin");
 		final String field = J.getString(FIELD);
@@ -119,9 +110,7 @@ public class ConfigProcessors {
 		// log.info("addAttribute End");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void updateAttribute(JSONObject J) {
 		// log.info("updateAttribute");
 		final String field = J.getString(FIELD);
@@ -135,9 +124,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void removeAttribute(JSONObject J) {
 		// log.info("removeAttribute");
 		final String field = J.getString(FIELD);
@@ -149,9 +136,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void renameArrayInArray(JSONObject J) // map
 	{
 		log.info("renameArrayInArray");
@@ -185,9 +170,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void map(JSONObject J) {
 		// log.info("mapAttribute");
 		final String field = J.getString(FIELD);
@@ -200,9 +183,6 @@ public class ConfigProcessors {
 			mapAttribute(J);
 	}
 
-	/**
-	 * 
-	 */
 	public String performOperation(String operation, String value) {
 		log.info("performOperation");
 		if (operation != null) {
@@ -214,9 +194,7 @@ public class ConfigProcessors {
 		return value;
 	}
 
-	/**
-	 * 
-	 */
+
 	// public void mapAttributeToArrayAttribute(JSONObject J)
 	public void mapAttribute(JSONObject J) {
 		// log.info("mapAttribute");
@@ -241,9 +219,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	public void mapToJArray(JSONObject J) {
 		log.info("mapToJArray");
 		String field = J.getString(FIELD);
@@ -355,9 +331,7 @@ public class ConfigProcessors {
 			log.info("Filter not met");
 	}
 
-	/**
-	 * 
-	 */
+
 	private void removeEventKey(String field) {
 		String[] keySet = field.split("\\.", field.length());
 		JSONObject keySeries = event;
@@ -371,9 +345,7 @@ public class ConfigProcessors {
 
 	}
 
-	/**
-	 * 
-	 */
+
 	private boolean checkFilter(JSONObject jo, String key, String logicKey) {
 		String filterValue = jo.getString(key);
 		boolean retVal = true;
@@ -431,9 +403,7 @@ public class ConfigProcessors {
 		return retVal;
 	}
 
-	/**
-	 * 
-	 */
+
 	public boolean isFilterMet(JSONObject jo) {
 		boolean retval = true;
 		// log.info("Filter==" + jo.toString());
@@ -579,3 +549,4 @@ public class ConfigProcessors {
 
 	private JSONObject event = new JSONObject();
 }
+

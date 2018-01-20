@@ -195,7 +195,10 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			// Thread epThread=new Thread(ep);
 			// epThread.start();
 			executor = Executors.newFixedThreadPool(20);
-			executor.execute(ep);
+			//executor.execute(ep);
+			for (int i = 0; i < 20; ++i) {
+				executor.execute(ep);
+				}
 
 		} catch (loadException | missingReqdSetting | IOException | invalidSettingValue | ServletException
 				| InterruptedException e) {

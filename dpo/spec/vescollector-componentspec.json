@@ -12,121 +12,121 @@
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_fault"
+				"config_key": "ves-fault"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_measurement"
+				"config_key": "ves-measurement"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_syslog"
+				"config_key": "ves-syslog"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_heartbeat"
+				"config_key": "ves-heartbeat"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_other"
+				"config_key": "ves-other"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_mobileflow"
+				"config_key": "ves-mobileflow"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_statechange"
+				"config_key": "ves-statechange"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_thresholdCrossingAlert"
+				"config_key": "ves-thresholdCrossingAlert"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_voicequality"
+				"config_key": "ves-voicequality"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_sipsignaling"
+				"config_key": "ves-sipsignaling"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_fault_secondary"
+				"config_key": "ves-fault-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_measurement_secondary"
+				"config_key": "ves-measurement-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_syslog_secondary"
+				"config_key": "ves-syslog-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_heartbeat_secondary"
+				"config_key": "ves-heartbeat-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_other_secondary"
+				"config_key": "ves-other-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_mobileflow_secondary"
+				"config_key": "ves-mobileflow-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_statechange_secondary"
+				"config_key": "ves-statechange-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_thresholdCrossingAlert_secondary"
+				"config_key": "ves-thresholdCrossingAlert-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_voicequality_secondary"
+				"config_key": "ves-voicequality-secondary"
 			},
 			{
 				"format": "VES_specification",
 				"version": "5.28.4",
 				"type": "message router",
-				"config_key": "ves_sipsignaling_secondary"
+				"config_key": "ves-sipsignaling-secondary"
 			}
 		]
 	},
@@ -228,7 +228,7 @@
 		},
 		{
 			"name": "collector.dmaap.streamid",
-			"value": "fault=ves_fault,ves_fault_secondary|syslog=ves_syslog,ves_syslog_secondary|heartbeat=ves_heartbeat,ves_heartbeat_secondary|measurementsForVfScaling=ves_measurement,ves_measurement_secondary|mobileFlow=ves_mobileflow,ves_mobileflow_secondary|other=ves_other,ves_other_secondary|stateChange=ves_statechange,ves_statechange_secondary|thresholdCrossingAlert=ves_thresholdCrossingAlert,ves_thresholdCrossingAlert_secondary|voiceQuality=ves_voicequality,ves_voicequality_secondary|sipSignaling=ves_sipsignaling,ves_sipsignaling_secondary",
+			"value": "fault=ves-fault,ves-fault-secondary|syslog=ves-syslog,ves-syslog-secondary|heartbeat=ves-heartbeat,ves-heartbeat-secondary|measurementsForVfScaling=ves-measurement,ves-measurement-secondary|mobileFlow=ves-mobileflow,ves-mobileflow-secondary|other=ves-other,ves-other-secondary|stateChange=ves-statechange,ves-statechange-secondary|thresholdCrossingAlert=ves-thresholdCrossingAlert,ves-thresholdCrossingAlert-secondary|voiceQuality=ves-voicequality,ves-voicequality-secondary|sipSignaling=ves-sipsignaling,ves-sipsignaling-secondary",
 			"description": "domain-streamid mapping"
 		},
 		{
@@ -238,8 +238,9 @@
 		},
 		{
 			"name": "header.authlist",
-			"value": "userid1,base64encodepwd1|userid2,base64encodepwd2",
-			"description": "List of id and base64 encoded pwd"
+			"value": "sample1,c2FtcGxlMQ==|userid1,base64encodepwd1|userid2,base64encodepwd2",
+			"description": "List of id and base64 encoded pwd",
+			"sourced_at_deployment":true
 		},
 		{
 			"name": "collector.schema.checkflag",
@@ -264,11 +265,29 @@
 	],
 	"auxilary": {
 		"healthcheck": {
-			"type": "http",
+			"type": "https",
 			"interval": "15s",
 			"timeout": "1s",
 			"endpoint": "/healthcheck"
 		},
+		"volumes": [
+			{
+				"container": {
+					"bind": "/opt/app/dcae-certificate"
+				},
+				"host": {
+					"path": "/opt/app/dcae-certificate"
+				}
+			},
+			{
+				"container": {
+					"bind": "/opt/app/VESCollector/logs"
+				},
+				"host": {
+					"path": "/opt/data/DCAE/VESCollector/logs"
+				}
+			}
+		],
 		"ports": [
 			"8443:8443"
 		]
@@ -276,7 +295,9 @@
 	"artifacts": [
 		{
 			"type": "docker image",
-			"uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
+                       "uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
+
+
 		}
 	]
 }
