@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static final String KDEFAULT_KEYALIAS = "tomcat";
 
 	public static final String KSETTING_DMAAPCONFIGS = "collector.dmaapfile";
-	private static final String[] KDEFAULT_DMAAPCONFIGS = new String[] { "/etc/DmaapConfig.json" };
+	protected static final String[] KDEFAULT_DMAAPCONFIGS = new String[] { "/etc/DmaapConfig.json" };
 
 	public static final String KSETTING_MAXQUEUEDEVENTS = "collector.inputQueue.maxPending";
 	public static final int KDEFAULT_MAXQUEUEDEVENTS = 1024 * 4;
@@ -192,8 +192,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			csmain.start();
 
 			EventProcessor ep = new EventProcessor();
-			// Thread epThread=new Thread(ep);
-			// epThread.start();
 			executor = Executors.newFixedThreadPool(20);
 			//executor.execute(ep);
 			for (int i = 0; i < 20; ++i) {
@@ -211,9 +209,9 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		} finally {
 			// This will make the executor accept no new threads
 			// and finish all existing threads in the queue
-			if (executor != null) {
+			/*if (executor != null) {
 				executor.shutdown();
-			}
+			}*/
 
 		}
 	}

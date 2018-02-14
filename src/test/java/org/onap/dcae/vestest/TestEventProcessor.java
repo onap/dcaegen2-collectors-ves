@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import static org.junit.Assert.*;
 
 
 import java.io.File;
-import java.io.FileReader;
 import java.net.URL;
 import java.util.Map;
 
@@ -47,13 +46,13 @@ public class TestEventProcessor {
 
 	EventProcessor ec;
 	String ev= "{\"event\": {\"commonEventHeader\": {	\"reportingEntityName\": \"VM name will be provided by ECOMP\",	\"startEpochMicrosec\": 1477012779802988,\"lastEpochMicrosec\": 1477012789802988,\"eventId\": \"83\",\"sourceName\": \"Dummy VM name - No Metadata available\",\"sequence\": 83,\"priority\": \"Normal\",\"functionalRole\": \"vFirewall\",\"domain\": \"measurementsForVfScaling\",\"reportingEntityId\": \"VM UUID will be provided by ECOMP\",\"sourceId\": \"Dummy VM UUID - No Metadata available\",\"version\": 1.1},\"measurementsForVfScalingFields\": {\"measurementInterval\": 10,\"measurementsForVfScalingVersion\": 1.1,\"vNicUsageArray\": [{\"multicastPacketsIn\": 0,\"bytesIn\": 3896,\"unicastPacketsIn\": 0,	\"multicastPacketsOut\": 0,\"broadcastPacketsOut\": 0,		\"packetsOut\": 28,\"bytesOut\": 12178,\"broadcastPacketsIn\": 0,\"packetsIn\": 58,\"unicastPacketsOut\": 0,\"vNicIdentifier\": \"eth0\"}]}}}";
-			
+	String testinput;
 	
 	@Before
 	public void setUp() throws Exception {
 		CommonStartup.streamid="fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
 		CommonStartup.eventTransformFlag = 1;
-		
+		testinput = "src/test/resources/testDmaapConfig_ip.json";
 	
 	}
 
@@ -81,7 +80,7 @@ public class TestEventProcessor {
 
 	    DmaapPropertyReader dr;
 		EventPublisher ep = null;
-	    String testinput = "src/test/resources/testDmaapConfig.json";
+	
 	    Boolean flag = false;
 	    dr = new DmaapPropertyReader(testinput);
 
@@ -106,9 +105,11 @@ public class TestEventProcessor {
 
 	    DmaapPropertyReader dr;
 	    EventPublisherHash eph = null;
+	    
 	    Boolean flag = false;
+	    dr = new DmaapPropertyReader(testinput);
 		eph = EventPublisherHash.getInstance();
-		
+	
 		
 		if (eph.equals(null))
 		{
@@ -128,13 +129,14 @@ public class TestEventProcessor {
 
 	    DmaapPropertyReader dr;
 	    EventPublisherHash eph = null;
-	    String testinput = "src/test/resources/testDmaapConfig.json";
+	    
 	    Boolean flag = false;
 	    dr = new DmaapPropertyReader(testinput);
 		eph = EventPublisherHash.getInstance();
 		EventProcessor ec = new EventProcessor();
 		ec.event=new org.json.JSONObject(ev);	
-		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig.json";
+		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig_ip.json";
+		   
 		CambriaBatchingPublisher pub = eph.Dmaaphash("sec_fault_ueb");
 		
 		if (pub == null || pub.equals(null))
@@ -154,7 +156,7 @@ public class TestEventProcessor {
 
 	    DmaapPropertyReader dr;
 	    EventPublisherHash eph = null;
-	    String testinput = "src/test/resources/testDmaapConfig.json";
+	    
 	    Boolean flag = true;
 	    dr = new DmaapPropertyReader(testinput);
 		eph = EventPublisherHash.getInstance();
@@ -162,12 +164,11 @@ public class TestEventProcessor {
 		
 		EventProcessor ec = new EventProcessor();
 		ec.event=new org.json.JSONObject(ev);
-		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig.json";
+		CommonStartup.cambriaConfigFile="src/test/resources/testDmaapConfig_ip.json";
 		eph.sendEvent(ec.event, "sec_fault_ueb");
 		
 		assertEquals(true, flag);
 		
 	}
 }
-
 

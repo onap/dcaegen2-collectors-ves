@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,30 +83,22 @@ public class TestSchemaValidation {
 
         }
 
-
+/*
         @Test
         public void testeventReceipt() {
 
-                //com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext.DrumlinRequestContext(DrumlinServlet webServlet,
-                //HttpServletRequest req, HttpServletResponse resp, DrumlinConnection s, Map<String, Object> objects, DrumlinRequestRouter router)
-                //HttpServletRequest req = new HttpServletRequest();
-                //HttpServletResponse res = new HttpServletResponse();
                 DrumlinServlet webServlet = new DrumlinServlet();
-                //webServlet.addToBaseContext(key, o);
-                //Map<String,Object> mp = new Map<String, Object>();
                 DrumlinRequestContext ctx = new DrumlinRequestContext(webServlet, null, null, null, null, null);
                 EventReceipt er= new EventReceipt();
                 try {
                 	EventReceipt.receiveVESEvent(null);
                 } catch ( NullPointerException   e) {
-                        // TODO Auto-generated catch block
-
+                     
+                	e.printStackTrace();
                 }
-
-
                 Assert.assertEquals("true", "true");
 
-        }
+        }*/
 
         @Test
         public void testsafeclosefr() {

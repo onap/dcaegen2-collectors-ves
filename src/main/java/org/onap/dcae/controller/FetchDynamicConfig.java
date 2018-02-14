@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class FetchDynamicConfig {
 
 	private static final Logger log = LoggerFactory.getLogger(FetchDynamicConfig.class);
 
-	static String configFile = "/opt/app/KV-Configuration.json";
+	public static String configFile = "/opt/app/KV-Configuration.json";
 	static String url;
 	static String retString;
 
@@ -49,8 +49,8 @@ public class FetchDynamicConfig {
 			log.info("%s=%s%n", entry.getKey(), entry.getValue());
 		}
 
-		if (env.containsKey("CONSUL_HOST") && env.containsKey("CONFIG_BINDING_SERVICE")
-				&& env.containsKey("HOSTNAME")) {
+		if (env.containsKey("CONSUL_HOST") && env.containsKey("CONFIG_BINDING_SERVICE")) {
+//				&& env.containsKey("HOSTNAME")) {
 			log.info(">>>Dynamic configuration to be fetched from ConfigBindingService");
 			url = env.get("CONSUL_HOST") + ":8500/v1/catalog/service/" + env.get("CONFIG_BINDING_SERVICE");
 
@@ -65,22 +65,46 @@ public class FetchDynamicConfig {
 			}
 
 			log.info("CONFIG_BINDING_SERVICE DNS RESOLVED:" + urlPart1);
-			url = urlPart1 + "/service_component/" + env.get("HOSTNAME");
-			retString = executecurl(url);
-
-			JSONObject jsonObject = new JSONObject(new JSONTokener(retString));
-			try (FileWriter file = new FileWriter(configFile)) {
-				file.write(jsonObject.toString());
-
-				log.info("Successfully Copied JSON Object to file /opt/app/KV-Configuration.json");
-			} catch (IOException e) {
-				log.error("Error in writing configuration into file /opt/app/KV-Configuration.json " + jsonObject, e);
-				e.printStackTrace();
+			FetchDynamicConfig fc= new FetchDynamicConfig();
+			if (env.containsKey("HOSTNAME"))
+			{
+				url = urlPart1 + "/service_component/" + env.get("HOSTNAME");
+				retString = executecurl(url);
 			}
+			else if (env.containsKey("SERVICE_NAME"))
+			{
+				url = urlPart1 + "/service_component/" + env.get("SERVICE_NAME");
+				retString = executecurl(url);
+			}
+			else
+			{
+				log.error("Service name environment variable - HOSTNAME/SERVICE_NAME not found within container ");
+			}
+			fc.writefile(retString);
+			
+			
 		} else {
 			log.info(">>>Static configuration to be used");
 		}
 
+	}
+	
+	public void writefile (String retString)
+	{
+		log.info("URL to fetch configuration:" + url  + " Return String:" + retString);
+
+		
+		String indentedretstring=(new JSONObject(retString)).toString(4);
+		
+		try (FileWriter file = new FileWriter(FetchDynamicConfig.configFile)) {
+			file.write(indentedretstring);
+
+			log.info("Successfully Copied JSON Object to file /opt/app/KV-Configuration.json");
+		} catch (IOException e) {
+			log.error("Error in writing configuration into file /opt/app/KV-Configuration.json " + retString, e);
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static String executecurl(String url) {

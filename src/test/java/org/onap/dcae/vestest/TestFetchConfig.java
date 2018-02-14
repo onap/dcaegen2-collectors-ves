@@ -21,83 +21,70 @@ package org.onap.dcae.vestest;
 
 import static org.junit.Assert.*;
 
-import java.io.FileReader;
+import static org.junit.Assert.assertEquals;
 
+import java.io.FileReader;
+import java.io.IOException;
 import org.json.JSONObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.dcae.commonFunction.CommonStartup;
+import org.onap.dcae.commonFunction.DmaapPropertyReader;
+import org.onap.dcae.commonFunction.EventProcessor;
+import org.onap.dcae.commonFunction.EventPublisherHash;
 import org.onap.dcae.controller.FetchDynamicConfig;
-import org.onap.dcae.controller.LoadDynamicConfig;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-public class TestLoadDynamicConfig {
+public class TestFetchConfig {
 
-	LoadDynamicConfig lc;
-	String propop =  "src/test/resources/test_collector_ip_op.properties";
-	
+	JSONObject jsonObject;
 	
 	@Before
 	public void setUp() throws Exception {
-	
-		lc = new LoadDynamicConfig();
+
 
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
 
+	
 	@Test
-	public void testLoad() {
+	public void testwritefile() {
+		Boolean flag = false;
+		
+		FetchDynamicConfig fc = new FetchDynamicConfig();
+		FetchDynamicConfig.configFile = "src/test/resources/controller-config_formatted_op.json";
 
 		
-		Boolean flag=false;
 		
-
-		lc.propFile = "src/test/resources/test_collector_ip_op.properties";
-		lc.configFile = "src/test/resources/controller-config_dmaap_ip.json";
-		
-		String data = LoadDynamicConfig.readFile(propop);
-		assertEquals(data.isEmpty(), flag);
-	}
-
-
-	@Test
-	public void testwrite() {
-
-		
-		Boolean flag=false;
-		
-		lc.propFile = "src/test/resources/test_collector_ip_op.properties";
-		lc.configFile = "src/test/resources/controller-config_dmaap_ip.json";
-		lc.dmaapoutputfile = "src/test/resources/DmaapConfig-op.json";
-		
-		String data = LoadDynamicConfig.readFile(lc.configFile);
-		JSONObject jsonObject = new JSONObject(data);
-		lc.writeconfig(jsonObject);
-
 		try{
 			 JsonParser parser = new JsonParser();
-			FileReader fr = new FileReader ( lc.dmaapoutputfile );
+			FileReader fr = new FileReader ("src/test/resources/controller-config_singleline_ip.json"  );
 			final JsonObject jo =  (JsonObject) parser.parse (fr);
 			final String jsonText = jo.toString ();
 			jsonObject = new JSONObject ( jsonText );
+			fc.writefile(jsonObject.toString());
 		}
 		catch(Exception e){
 			System.out.println("Exception while opening the file");
 			e.printStackTrace();
 		}
-		if(jsonObject.has("ves-fault-secondary"))
+		if(jsonObject.has("streams_publishes"))
 		{
 			flag = true;
 		}
 		
 		assertEquals(true, flag);
-
+		
 	}
+
+
 }
 

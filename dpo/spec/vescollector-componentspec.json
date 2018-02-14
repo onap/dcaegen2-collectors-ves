@@ -67,66 +67,6 @@
 				"version": "5.28.4",
 				"type": "message router",
 				"config_key": "ves-sipsignaling"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-fault-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-measurement-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-syslog-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-heartbeat-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-other-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-mobileflow-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-statechange-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-thresholdCrossingAlert-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-voicequality-secondary"
-			},
-			{
-				"format": "VES_specification",
-				"version": "5.28.4",
-				"type": "message router",
-				"config_key": "ves-sipsignaling-secondary"
 			}
 		]
 	},
@@ -228,7 +168,7 @@
 		},
 		{
 			"name": "collector.dmaap.streamid",
-			"value": "fault=ves-fault,ves-fault-secondary|syslog=ves-syslog,ves-syslog-secondary|heartbeat=ves-heartbeat,ves-heartbeat-secondary|measurementsForVfScaling=ves-measurement,ves-measurement-secondary|mobileFlow=ves-mobileflow,ves-mobileflow-secondary|other=ves-other,ves-other-secondary|stateChange=ves-statechange,ves-statechange-secondary|thresholdCrossingAlert=ves-thresholdCrossingAlert,ves-thresholdCrossingAlert-secondary|voiceQuality=ves-voicequality,ves-voicequality-secondary|sipSignaling=ves-sipsignaling,ves-sipsignaling-secondary",
+			"value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling",
 			"description": "domain-streamid mapping"
 		},
 		{
@@ -284,7 +224,7 @@
 					"bind": "/opt/app/VESCollector/logs"
 				},
 				"host": {
-					"path": "/opt/data/DCAE/VESCollector/logs"
+					"path": "/opt/logs/DCAE/VESCollector/logs"
 				}
 			}
 		],
@@ -295,10 +235,7 @@
 	"artifacts": [
 		{
 			"type": "docker image",
-                       "uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
-
-
+			"uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1"
 		}
 	]
 }
-

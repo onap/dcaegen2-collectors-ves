@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ public class LoadDynamicConfig {
 	public String configFile = "/opt/app/KV-Configuration.json";
 	static String url;
 	static String retString;
+	public String dmaapoutputfile = "./etc/DmaapConfig.json";
 
 	public LoadDynamicConfig() {
 
@@ -59,35 +60,10 @@ public class LoadDynamicConfig {
 				LoadDynamicConfig lc = new LoadDynamicConfig();
 				String jsonData = readFile(lc.configFile);
 				JSONObject jsonObject = new JSONObject(jsonData);
+				lc.writeconfig(jsonObject);
+		
 
-				PropertiesConfiguration conf;
-				conf = new PropertiesConfiguration(lc.propFile);
-				conf.setEncoding(null);
-
-				// update properties based on consul dynamic configuration
-				Iterator<?> keys = jsonObject.keys();
-
-				while (keys.hasNext()) {
-					String key = (String) keys.next();
-					// check if any configuration is related to dmaap
-					// and write into dmaapconfig.json
-					if (key.startsWith("streams_publishes")) {
-						// VESCollector only have publish streams
-						try (FileWriter file = new FileWriter("./etc/DmaapConfig.json")) {
-							file.write(jsonObject.get(key).toString());
-							log.info("Successfully written JSON Object to DmaapConfig.json");
-							file.close();
-						} catch (IOException e) {
-							log.info("Error in writing dmaap configuration into DmaapConfig.json", e);
-						}
-					} else {
-						conf.setProperty(key, jsonObject.get(key).toString());
-					}
-
-				}
-				conf.save();
-
-			} catch (ConfigurationException e) {
+			} catch (Exception e) {
 				log.error(e.getLocalizedMessage(), e);
 				e.printStackTrace();
 
@@ -97,6 +73,45 @@ public class LoadDynamicConfig {
 			log.info(">>>Static configuration to be used");
 		}
 
+	}
+	
+	public void writeconfig (JSONObject jsonObject)
+	{
+		
+		PropertiesConfiguration conf;
+		try {
+			conf = new PropertiesConfiguration(propFile);
+	
+		conf.setEncoding(null);
+
+		// update properties based on consul dynamic configuration
+		Iterator<?> keys = jsonObject.keys();
+
+		while (keys.hasNext()) {
+			String key = (String) keys.next();
+			// check if any configuration is related to dmaap
+			// and write into dmaapconfig.json
+			if (key.startsWith("streams_publishes")) {
+				// VESCollector only have publish streams
+				try (FileWriter file = new FileWriter(dmaapoutputfile)) {
+					
+					String indentedretstring=(new JSONObject(jsonObject.get(key).toString())).toString(4);
+					file.write(indentedretstring);
+					log.info("Successfully written JSON Object to DmaapConfig.json");
+					file.close();
+				} catch (IOException e) {
+					log.info("Error in writing dmaap configuration into DmaapConfig.json", e);
+				}
+			} else {
+				conf.setProperty(key, jsonObject.get(key).toString());
+			}
+
+		}
+		conf.save();
+		} catch (ConfigurationException e) {
+			log.error(e.getLocalizedMessage(), e);
+			e.printStackTrace();
+		}
 	}
 
 	public static String readFile(String filename) {

@@ -4,7 +4,7 @@
 # ============LICENSE_START=======================================================
 # PROJECT
 # ================================================================================
-# Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ usage() {
 }
 
 
-#BASEDIR=/opt/app/d1gfp1m7/extra/VES/VESCollector-1.1.4-SNAPSHOT/
 BASEDIR=/opt/app/VESCollector/
 
 collector_start() {
@@ -108,6 +107,26 @@ collector_configupdate() {
                     else
                         echo "INFO: Dynamic config updated successfully into VESCollector configuration!"
                     fi
+                    
+					# Identify alias names from keystore and password provided
+         
+            		paramName="collector.keystore.alias"
+					localpropertyfile="/opt/app/VESCollector/etc/collector.properties"
+					tmpfile="/opt/app/VESCollector/etc/collector.properties.tmp"
+					
+					keystore=`grep collector.keystore.file.location $localpropertyfile | tr -d '[:space:]' | cut -d"=" -f2`
+					keypwdfile=`grep collector.keystore.passwordfile $localpropertyfile | tr -d '[:space:]' | cut -d"=" -f2`
+						
+					echo "/usr/bin/keytool -list -keystore $keystore < $keypwdfile | grep "PrivateKeyEntry" | cut -d"," -f1"
+                    tmpalias=`/usr/bin/keytool -list -keystore $keystore < $keypwdfile | grep "PrivateKeyEntry" | cut -d"," -f1`
+                    echo "tmpalias:" $tmpalias
+                    alias=`echo $tmpalias | cut -d":" -f2`
+                    echo "alias:" $alias
+                    sed "s~$paramName=.*~$paramName=$alias~g" $localpropertyfile > $tmpfile
+                    echo `cat $tmpfile > $localpropertyfile`
+                    rm $tmpfile
+                	echo "INFO: Keystore alias updated into configuration"
+                  
             else
                 echo "ERROR: Configuration file /opt/app/KV-Configuration.json missing"
             fi
