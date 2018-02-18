@@ -40,6 +40,7 @@ import org.onap.dcae.commonFunction.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,9 +62,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 
 		NsaSimpleApiKey retkey = null;
 
-		JSONArray jsonArray;
-		JSONArray jsonArrayMod = new JSONArray();
-		JSONObject event;
+
 		JSONObject jsonObject;
 		FileReader fr = null;
 		InputStream istr = null;
@@ -71,14 +70,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 		String vesVersion = null;
 
 		try {
-			// System.out.print("Version string:" + version);
 
-			// String br = new BufferedReader(new
-			// InputStreamReader(ctx.request().getBodyStream())).readLine();
-			// JsonElement msg = new JsonParser().parse(new BufferedReader(new
-			// InputStreamReader(ctx.request().getBodyStream())).readLine());
-			// jsonArray = new JSONArray ( new JSONTokener (
-			// ctx.request().getBodyStream () ) );
 
 			log.debug("Request recieved :" + ctx.request().getRemoteAddress());
 			istr = ctx.request().getBodyStream();
@@ -123,66 +115,9 @@ public class EventReceipt extends NsaBaseEndpoint {
 				respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Invalid user");
 				return;
 			}
+			
+			schemaCheck( retkey,  arrayFlag, jsonObject,  vesVersion,  ctx,  uuid);
 
-			if (retkey != null || CommonStartup.authflag == 0) {
-				if (CommonStartup.schemaValidatorflag > 0) {
-					if ((arrayFlag == 1) && (jsonObject.has("eventList") && (!jsonObject.has("event")))
-							|| ((arrayFlag == 0) && (!jsonObject.has("eventList") && (jsonObject.has("event"))))) {
-						fr = new FileReader(schemaFileVersion(vesVersion));
-						String schema = new JsonParser().parse(fr).toString();
-
-						valresult = CommonStartup.schemavalidate(jsonObject.toString(), schema);
-						if (valresult.equals("true")) {
-							log.info("Validation successful");
-						} else if (valresult.equals("false")) {
-							log.info("Validation failed");
-							respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-									"Schema validation failed");
-							return;
-						} else {
-							log.error("Validation errored" + valresult);
-							respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-									"Couldn't parse JSON object");
-							return;
-						}
-					} else {
-						log.info("Validation failed");
-						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest, "Schema validation failed");
-						return;
-					}
-					if (arrayFlag == 1) {
-						jsonArray = jsonObject.getJSONArray("eventList");
-						log.info("Validation successful for all events in batch");
-						for (int i = 0; i < jsonArray.length(); i++) {
-							event = new JSONObject().put("event", jsonArray.getJSONObject(i));
-							event.put("VESuniqueId", uuid + "-" + i);
-							event.put("VESversion", vesVersion);
-							jsonArrayMod.put(event);
-						}
-						log.info("Modified jsonarray:" + jsonArrayMod.toString());
-					} else {
-						jsonObject.put("VESuniqueId", uuid);
-						jsonObject.put("VESversion", vesVersion);
-						jsonArrayMod = new JSONArray().put(jsonObject);
-					}
-				}
-
-				// reject anything that's not JSON
-				if (!ctx.request().getContentType().equalsIgnoreCase("application/json")) {
-					log.info(String.format("Rejecting request with content type %s Message:%s",
-							ctx.request().getContentType(), jsonObject));
-					respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-							"Incorrect message content-type; only accepts application/json messages");
-					return;
-				}
-
-				CommonStartup.handleEvents(jsonArrayMod);
-			} else {
-				log.info(String.format("Unauthorized request %s%s%s", ctx.request().getContentType(), MESSAGE,
-						jsonObject));
-				respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
-				return;
-			}
 		} catch (JSONException | NullPointerException | IOException x) {
 			log.error(String.format("Couldn't parse JSON Array - HttpStatusCodes.k400_badRequest%d%s%s",
 					HttpStatusCodes.k400_badRequest, MESSAGE, x.getMessage()));
@@ -205,6 +140,73 @@ public class EventReceipt extends NsaBaseEndpoint {
 		}
 		log.info("MessageAccepted and k200_ok to be sent");
 		ctx.response().sendErrorAndBody(HttpStatusCodes.k200_ok, "Message Accepted", MimeTypes.kAppJson);
+	}
+	
+	public static void schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,JSONObject jsonObject, String vesVersion,  DrumlinRequestContext ctx, UUID uuid) throws JSONException, QueueFullException, IOException
+	{
+		JSONArray jsonArray;
+		JSONArray jsonArrayMod = new JSONArray();
+		JSONObject event;
+		FileReader fr;
+		if (retkey != null || CommonStartup.authflag == 0) {
+			if (CommonStartup.schemaValidatorflag > 0) {
+				if ((arrayFlag == 1) && (jsonObject.has("eventList") && (!jsonObject.has("event")))
+						|| ((arrayFlag == 0) && (!jsonObject.has("eventList") && (jsonObject.has("event"))))) {
+					fr = new FileReader(schemaFileVersion(vesVersion));
+					String schema = new JsonParser().parse(fr).toString();
+
+					valresult = CommonStartup.schemavalidate(jsonObject.toString(), schema);
+					if (valresult.equals("true")) {
+						log.info("Validation successful");
+					} else if (valresult.equals("false")) {
+						log.info("Validation failed");
+						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
+								"Schema validation failed");
+						return;
+					} else {
+						log.error("Validation errored" + valresult);
+						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
+								"Couldn't parse JSON object");
+						return;
+					}
+				} else {
+					log.info("Validation failed");
+					respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest, "Schema validation failed");
+					return;
+				}
+				if (arrayFlag == 1) {
+					jsonArray = jsonObject.getJSONArray("eventList");
+					log.info("Validation successful for all events in batch");
+					for (int i = 0; i < jsonArray.length(); i++) {
+						event = new JSONObject().put("event", jsonArray.getJSONObject(i));
+						event.put("VESuniqueId", uuid + "-" + i);
+						event.put("VESversion", vesVersion);
+						jsonArrayMod.put(event);
+					}
+					log.info("Modified jsonarray:" + jsonArrayMod.toString());
+				} else {
+					jsonObject.put("VESuniqueId", uuid);
+					jsonObject.put("VESversion", vesVersion);
+					jsonArrayMod = new JSONArray().put(jsonObject);
+				}
+			}
+
+			// reject anything that's not JSON
+			if (!ctx.request().getContentType().equalsIgnoreCase("application/json")) {
+				log.info(String.format("Rejecting request with content type %s Message:%s",
+						ctx.request().getContentType(), jsonObject));
+				respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
+						"Incorrect message content-type; only accepts application/json messages");
+				return;
+			}
+
+			CommonStartup.handleEvents(jsonArrayMod);
+		} else {
+			log.info(String.format("Unauthorized request %s%s%s", ctx.request().getContentType(), MESSAGE,
+					jsonObject));
+			respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
+			return;
+		}
 	}
 
 	public static void respondWithCustomMsginJson(DrumlinRequestContext ctx, int sc, String msg) {

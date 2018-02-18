@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
 <!--
 ================================================================================
 Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
@@ -17,8 +20,7 @@ limitations under the License.
 
 ECOMP is a trademark and service mark of AT&T Intellectual Property.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 

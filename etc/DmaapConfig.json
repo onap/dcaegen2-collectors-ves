@@ -15,6 +15,14 @@
 			"stripHpId": "true",
 			"type": "out",
 			"cambria.hosts": "onap.dmaap.org"
+		},
+		{
+			"name": "ves_heartbeat",
+			"cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "onap.dmaap.org"
 		}
 	]
 }
