@@ -19,21 +19,11 @@
  */
 package org.onap.dcae.vestest;
 
-import static org.junit.Assert.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONObject;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -42,8 +32,6 @@ import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.restapi.endpoints.EventReceipt;
 
-import com.att.nsa.drumlin.service.framework.DrumlinServlet;
-import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
 import com.google.gson.JsonParser;
 
 public class TestSchemaValidation {

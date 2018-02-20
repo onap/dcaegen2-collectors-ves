@@ -202,7 +202,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 				| InterruptedException e) {
 			CommonStartup.eplog.error("FATAL_STARTUP_ERROR" + e.getMessage());
 			throw new RuntimeException(e);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			System.err.println("Uncaught exception - " + e.getMessage());
 			CommonStartup.eplog.error("FATAL_ERROR" + e.getMessage());
 			e.printStackTrace(System.err);

@@ -19,28 +19,17 @@
  */
 package org.onap.dcae.vestest;
 
-import static org.junit.Assert.*;
-
-
-import java.io.File;
-import java.net.URL;
-import java.util.Map;
-
-import org.json.simple.JSONObject;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
-import org.onap.dcae.commonFunction.EventProcessor;
-import org.onap.dcae.commonFunction.EventPublisher;
-import org.onap.dcae.commonFunction.EventPublisherHash;
-import org.onap.dcae.controller.LoadDynamicConfig;
 import org.onap.dcae.commonFunction.DmaapPropertyReader;
+import org.onap.dcae.commonFunction.EventProcessor;
+import org.onap.dcae.commonFunction.EventPublisherHash;
 
 import com.att.nsa.cambria.client.CambriaBatchingPublisher;
-import com.google.gson.JsonParser;
 
 public class TestEventProcessor {
 
@@ -76,34 +65,9 @@ public class TestEventProcessor {
 
 
 	@Test
-	public void testpublisher() {
-
-	    DmaapPropertyReader dr;
-		EventPublisher ep = null;
-	
-	    Boolean flag = false;
-	    dr = new DmaapPropertyReader(testinput);
-
-				//new EventPublisher("sec_fault_ueb");
-		ep = EventPublisher.getInstance("sec_fault_ueb");
-		//event.commonEventHeader.sourceName
-		
-		if (ep.equals(null))
-		{
-			flag = false;
-		}
-		else
-		{
-			flag = true;
-		}
-		assertEquals(true, flag);
-	}
-	
-	
-	@Test
 	public void testpublisherhashclass() {
 
-	    DmaapPropertyReader dr;
+	    DmaapPropertyReader dr = null;
 	    EventPublisherHash eph = null;
 	    
 	    Boolean flag = false;
