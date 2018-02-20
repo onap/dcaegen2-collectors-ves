@@ -24,7 +24,11 @@ if [ ! -z "$COLLECTOR_IP" ]; then
 fi
 
 if [ ! -z "$DMAAPHOST" ]; then
-        echo $DMAAPHOST  onap.dmaap.org >> /etc/hosts
+        if [ -z "$(echo $DMAAPHOST | sed -e 's/[0-9\.]//g')" ]; then 
+                echo "$DMAAPHOST  onap-dmaap" >> /etc/hosts
+        else
+                echo "onap-dmaap $DMAAPHOST" >> /etc/host.aliases
+        fi
 else
 	echo "DMAAPHOST ENV NOT SET!! PUBLISH WILL NOT BE SUPPORTED"
 fi
