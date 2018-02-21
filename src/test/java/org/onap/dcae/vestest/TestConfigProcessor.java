@@ -32,7 +32,7 @@ import org.onap.dcae.commonFunction.ConfigProcessors;
 
 
 
-public class EventTransformTest {
+public class TestConfigProcessor {
 	public JSONObject getFileAsJsonObject()
 	{
 		JSONObject jsonObject = null;
@@ -177,5 +177,31 @@ public class EventTransformTest {
 	 	System.out.println("responseData==" + responseData); 
 	 	assertEquals ("1980.0", responseData); 
 	}
+	
+	@Test
+	public void testAttrGet(){
+		
+		Boolean Flag= true;
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+		cpEvent.getValue(jsonArgs);
+		assertEquals (true, Flag);
+	}
+	
+	@Test
+	public void testAttrSet(){
+		Boolean Flag= true;
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.setValue(jsonArgs);
+	 	 
+		assertEquals (true, Flag);
+	}
+
+
 }  
 

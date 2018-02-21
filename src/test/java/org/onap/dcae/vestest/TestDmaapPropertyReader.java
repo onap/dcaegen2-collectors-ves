@@ -29,7 +29,7 @@ import org.onap.dcae.commonFunction.DmaapPropertyReader;
 public class TestDmaapPropertyReader {
 
 	DmaapPropertyReader dr;
-	String testinput = "src/test/resources/testDmaapConfig_ip.json";
+
 	Boolean flag = false;
 
 	@Before
@@ -37,7 +37,7 @@ public class TestDmaapPropertyReader {
 
 		// process command line arguments
 
-		dr = new DmaapPropertyReader(testinput);
+		
 
 	}
 
@@ -48,11 +48,20 @@ public class TestDmaapPropertyReader {
 
 	@Test
 	public void testDmaapPropertyReader() {
-
+		String testinput = "src/test/resources/testDmaapConfig_ip.json";
+		dr = new DmaapPropertyReader(testinput);
 		Boolean test = true;
 		flag = !dr.dmaap_hash.isEmpty();
 		Assert.assertEquals(test, flag);
 	}
 
+	@Test
+	public void testDmaapPropertyReaderNewConfig() {
+		String testinput = "src/test/resources/testDmaapConfig_gen2.json";
+		dr = new DmaapPropertyReader(testinput);
+		Boolean test = true;
+		flag = !dr.dmaap_hash.isEmpty();
+		Assert.assertEquals(test, flag);
+	}
 }
 
