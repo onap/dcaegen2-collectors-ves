@@ -34,6 +34,7 @@ import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
 import org.onap.dcae.commonFunction.CustomExceptionLoader;
 import org.onap.dcae.restapi.endpoints.EventReceipt;
+import org.onap.dcae.restapi.endpoints.Ui;
 
 import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
 import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
@@ -118,6 +119,20 @@ public class TestEventReceipt extends NsaBaseEndpoint {
 			
 			Log.debug("Response object creation failure");
 		}
+		assertEquals(true, true);
+	}
+	
+	@Test
+	public void testUI() {
+
+        try {
+		Ui.hello(null);
+        }
+        catch (Exception e)
+        {
+        	//As context object is null, handling null pointer exception.
+        	Log.debug("Response object creation failure");
+        }
 		assertEquals(true, true);
 	}
 }

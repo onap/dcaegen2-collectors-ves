@@ -25,6 +25,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+
 import org.json.JSONObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
@@ -46,7 +49,10 @@ public class TestFetchConfig {
 	@Before
 	public void setUp() throws Exception {
 
-
+		
+		System.setProperty("CONSUL_HOST", "localhost");
+		System.setProperty("CONFIG_BINDING_SERVICE", "localhost");
+		System.setProperty("HOSTNAME", "localhost");
 	}
 
 	@After
@@ -60,16 +66,18 @@ public class TestFetchConfig {
 		Boolean flag = false;
 		
 		FetchDynamicConfig fc = new FetchDynamicConfig();
+		//Used for writing the configuration output
 		FetchDynamicConfig.configFile = "src/test/resources/controller-config_formatted_op.json";
 
 		
 		
 		try{
-			 JsonParser parser = new JsonParser();
+			JsonParser parser = new JsonParser();
 			FileReader fr = new FileReader ("src/test/resources/controller-config_singleline_ip.json"  );
 			final JsonObject jo =  (JsonObject) parser.parse (fr);
 			final String jsonText = jo.toString ();
 			jsonObject = new JSONObject ( jsonText );
+			
 			fc.writefile(jsonObject.toString());
 		}
 		catch(Exception e){
@@ -84,7 +92,53 @@ public class TestFetchConfig {
 		assertEquals(true, flag);
 		
 	}
+	
+	@Test
+	public void testgetConsul() {
+		Boolean flag = false;
 
+		
+		try{
 
+			FetchDynamicConfig.getconsul();
+			flag = true;
+		}
+		catch(Exception e){
+			System.out.println("Exception while getting to consul");
+			e.printStackTrace();
+		}
+		assertEquals(true, flag);
+		
+	}
+
+	@Test
+	public void testgetCBS() {
+		Boolean flag = false;
+		
+		try{
+			
+			
+			JsonParser parser = new JsonParser();
+			FileReader fr = new FileReader ("src/test/resources/controller-config_singleline_ip.json"  );
+			final JsonObject jo =  (JsonObject) parser.parse (fr);
+			final String jsonText = jo.toString ();
+			jsonObject = new JSONObject ( jsonText );
+			
+			//retstring from Consul is parsed
+			FetchDynamicConfig.retString = "[{\"ID\":\"81bc2a17-8cfa-3f6f-30a9-a545a9b6ac2f\",\"Node\":\"zldcrdm5bdcc2dokr00\",\"Address\":\"135.25.108.161\",\"Datacenter\":\"zldcrdm5bdcc2\",\"TaggedAddresses\":{\"lan\":\"135.25.108.161\",\"wan\":\"135.25.108.161\"},\"NodeMeta\":{\"fqdn\":\"zldcrdm5bdcc2dokr00.2f3fb3.rdm5b.tci.att.com\"},\"ServiceID\":\"20299a144716:config_binding_service:10000\",\"ServiceName\":\"config_binding_service\",\"ServiceTags\":[],\"ServiceAddress\":\"135.25.108.161\",\"ServicePort\":10000,\"ServiceEnableTagOverride\":false,\"CreateIndex\":9153156,\"ModifyIndex\":9153156}]";
+			
+			//Mock the return CBS output
+			FetchDynamicConfig.retCBSString = jsonObject.toString();
+			FetchDynamicConfig.getCBS();
+			flag = true;
+		}
+		catch(Exception e){
+			System.out.println("Exception while fetching cbs configuration");
+			e.printStackTrace();
+		}
+		assertEquals(true, flag);
+		
+	}
+	
 }
 

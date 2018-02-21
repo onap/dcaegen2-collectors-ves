@@ -77,8 +77,6 @@ public class EventProcessor implements Runnable {
 				// As long as the producer is running we remove elements from
 				// the queue.
 
-				// UUID uuid =
-				// UUID.fromString(event.get("VESuniqueId").toString());
 				String uuid = event.get("VESuniqueId").toString();
 				LoggingContext localLC = VESLogger.getLoggingContextForThread(uuid);
 				localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
@@ -102,11 +100,11 @@ public class EventProcessor implements Runnable {
 				}
 				log.debug("Message published" + event);
 				event = CommonStartup.fProcessingInputQueue.take();
-				// log.info("EventProcessor\tRemoving element: " +
-				// this.queue.remove());
+
 			}
 		} catch (InterruptedException e) {
 			log.error("EventProcessor InterruptedException" + e.getMessage());
+			Thread.currentThread().interrupt();
 		}
 
 	}
@@ -155,8 +153,7 @@ public class EventProcessor implements Runnable {
 							final JSONObject processorList = processors.getJSONObject(i);
 							final String functionName = processorList.getString("functionName");
 							final JSONObject args = processorList.getJSONObject("args");
-							// final JSONObject filter =
-							// processorList.getJSONObject("filter");
+					
 
 							log.info(String.format("functionName==%s | args==%s", functionName, args));
 							// reflect method call

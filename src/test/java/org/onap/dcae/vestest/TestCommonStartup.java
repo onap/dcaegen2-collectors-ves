@@ -116,7 +116,8 @@ public class TestCommonStartup {
 */
 
 
-        @Test
+     
+		@Test
         public void testEventProcessorinstantiation()
         {
                 CommonStartup.streamid="fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
@@ -124,7 +125,7 @@ public class TestCommonStartup {
                 Thread epThread=new Thread(ep);
                 epThread.start();
                  Assert.assertEquals("true", "true");
-                epThread.stop();
+                epThread.interrupt();
 
         }
 

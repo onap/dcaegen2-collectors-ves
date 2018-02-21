@@ -38,15 +38,30 @@ public class FetchDynamicConfig {
 
 	public static String configFile = "/opt/app/KV-Configuration.json";
 	static String url;
-	static String retString;
-
+	public static String retString;
+	public static String retCBSString;		
+	public static Map<String, String> env;
+	
 	public FetchDynamicConfig() {
 	}
 
 	public static void main(String[] args) {
-		Map<String, String> env = System.getenv();
+		
+		//Call consul api and identify the CBS Service address and port
+		getconsul();
+		//Construct and invoke CBS API to get application Configuration
+		getCBS();
+		//Write data returned into configFile for LoadDynamicConfig process to pickup
+		FetchDynamicConfig fc= new FetchDynamicConfig();
+		fc.writefile(retCBSString);
+	}
+	
+	public  static void getconsul()
+	{
+		
+		env = System.getenv();
 		for (Map.Entry<String, String> entry : env.entrySet()) {
-			log.info("%s=%s%n", entry.getKey(), entry.getValue());
+			log.info( entry.getKey() + ":"+ entry.getValue());
 		}
 
 		if (env.containsKey("CONSUL_HOST") && env.containsKey("CONFIG_BINDING_SERVICE")) {
@@ -55,53 +70,60 @@ public class FetchDynamicConfig {
 			url = env.get("CONSUL_HOST") + ":8500/v1/catalog/service/" + env.get("CONFIG_BINDING_SERVICE");
 
 			retString = executecurl(url);
-			// consul return as array
-			JSONTokener temp = new JSONTokener(retString);
-			JSONObject cbsjobj = (JSONObject) new JSONArray(temp).get(0);
-
-			String urlPart1 = null;
-			if (cbsjobj.has("ServiceAddress") && cbsjobj.has("ServicePort")) {
-				urlPart1 = cbsjobj.getString("ServiceAddress") + ":" + cbsjobj.getInt("ServicePort");
-			}
-
-			log.info("CONFIG_BINDING_SERVICE DNS RESOLVED:" + urlPart1);
-			FetchDynamicConfig fc= new FetchDynamicConfig();
-			if (env.containsKey("HOSTNAME"))
-			{
-				url = urlPart1 + "/service_component/" + env.get("HOSTNAME");
-				retString = executecurl(url);
-			}
-			else if (env.containsKey("SERVICE_NAME"))
-			{
-				url = urlPart1 + "/service_component/" + env.get("SERVICE_NAME");
-				retString = executecurl(url);
-			}
-			else
-			{
-				log.error("Service name environment variable - HOSTNAME/SERVICE_NAME not found within container ");
-			}
-			fc.writefile(retString);
 			
 			
 		} else {
 			log.info(">>>Static configuration to be used");
 		}
 
+		
+	}
+
+	public static void getCBS()
+	{
+
+		env = System.getenv();
+		// consul return as array
+		JSONTokener temp = new JSONTokener(retString);
+		JSONObject cbsjobj = (JSONObject) new JSONArray(temp).get(0);
+
+		String urlPart1 = null;
+		if (cbsjobj.has("ServiceAddress") && cbsjobj.has("ServicePort")) {
+			urlPart1 = cbsjobj.getString("ServiceAddress") + ":" + cbsjobj.getInt("ServicePort");
+		}
+
+		log.info("CONFIG_BINDING_SERVICE DNS RESOLVED:" + urlPart1);
+		
+		if (env.containsKey("HOSTNAME"))
+		{
+			url = urlPart1 + "/service_component/" + env.get("HOSTNAME");
+			retCBSString = executecurl(url);
+		}
+		else if (env.containsKey("SERVICE_NAME"))
+		{
+			url = urlPart1 + "/service_component/" + env.get("SERVICE_NAME");
+			retCBSString = executecurl(url);
+		}
+		else
+		{
+			log.error("Service name environment variable - HOSTNAME/SERVICE_NAME not found within container ");
+		}
+	
 	}
 	
-	public void writefile (String retString)
+	public void writefile (String retCBSString)
 	{
-		log.info("URL to fetch configuration:" + url  + " Return String:" + retString);
+		log.info("URL to fetch configuration:" + url  + " Return String:" + retCBSString);
 
 		
-		String indentedretstring=(new JSONObject(retString)).toString(4);
+		String indentedretstring=(new JSONObject(retCBSString)).toString(4);
 		
 		try (FileWriter file = new FileWriter(FetchDynamicConfig.configFile)) {
 			file.write(indentedretstring);
 
-			log.info("Successfully Copied JSON Object to file /opt/app/KV-Configuration.json");
+			log.info("Successfully Copied JSON Object to file " + configFile);
 		} catch (IOException e) {
-			log.error("Error in writing configuration into file /opt/app/KV-Configuration.json " + retString, e);
+			log.error("Error in writing configuration into file " + configFile  + retString +  e.getMessage());
 			e.printStackTrace();
 		}
 		

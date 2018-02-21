@@ -50,9 +50,8 @@ import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
 public class RestfulCollectorServlet extends CommonServlet
 {
-	String authid=null;
-	String authpwd=null;
-	public String authlist;
+
+	public static String authlist;
 	
 	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
 	{
@@ -135,10 +134,6 @@ public class RestfulCollectorServlet extends CommonServlet
 					((SimpleAuthenticator) NsaAuth).add(listauthid,listauthpwd);
 		    }
 			
-		}
-		else if (authid != null)
-		{
-			((SimpleAuthenticator) NsaAuth).add(authid,authpwd);
 		}
 		else
 		{
