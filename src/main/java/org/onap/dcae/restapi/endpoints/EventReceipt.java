@@ -44,6 +44,8 @@ import org.slf4j.LoggerFactory;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,11 +70,11 @@ public class EventReceipt extends NsaBaseEndpoint {
 		InputStream istr = null;
 		int arrayFlag = 0;
 		String vesVersion = null;
+		String userId=null;
 
 		try {
 
 
-			log.debug("Request recieved :" + ctx.request().getRemoteAddress());
 			istr = ctx.request().getBodyStream();
 			jsonObject = new JSONObject(new JSONTokener(istr));
 
@@ -107,16 +109,22 @@ public class EventReceipt extends NsaBaseEndpoint {
 
 			try {
 				if (CommonStartup.authflag == 1) {
+					userId = getUser (ctx);
 					retkey = NsaBaseEndpoint.getAuthenticatedUser(ctx);
 				}
 			} catch (NullPointerException x) {
-				log.info("Invalid user request " + ctx.request().getContentType() + MESSAGE + jsonObject);
-				CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: Unauthorized user" + x);
+				log.info("Invalid user request " + userId + ctx.request().getContentType() + MESSAGE + jsonObject);
+				CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: Unauthorized user" + userId +  x);
 				respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Invalid user");
 				return;
 			}
 			
-			schemaCheck( retkey,  arrayFlag, jsonObject,  vesVersion,  ctx,  uuid);
+			Boolean ErrorStatus = false;
+			ErrorStatus = schemaCheck( retkey,  arrayFlag, jsonObject,  vesVersion,  ctx,  uuid);
+			if (ErrorStatus)
+			{
+				return;
+			}
 
 		} catch (JSONException | NullPointerException | IOException x) {
 			log.error(String.format("Couldn't parse JSON Array - HttpStatusCodes.k400_badRequest%d%s%s",
@@ -142,11 +150,29 @@ public class EventReceipt extends NsaBaseEndpoint {
 		ctx.response().sendErrorAndBody(HttpStatusCodes.k200_ok, "Message Accepted", MimeTypes.kAppJson);
 	}
 	
-	public static void schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,JSONObject jsonObject, String vesVersion,  DrumlinRequestContext ctx, UUID uuid) throws JSONException, QueueFullException, IOException
+	
+	public static String getUser( DrumlinRequestContext ctx){
+		String authorization = null;
+		authorization = ctx.request().getFirstHeader("Authorization");
+		 if (authorization != null && authorization.startsWith("Basic")) {
+		        // Authorization: Basic base64credentials
+		        String base64Credentials = authorization.substring("Basic".length()).trim();
+		        String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+		                Charset.forName("UTF-8"));
+		        // credentials = username:password
+		        final String[] values = credentials.split(":",2);
+		        log.debug("User:" + values[0].toString() + " Pwd:" + values[1].toString());
+		        return values[0].toString();
+		 }
+		 return null;
+		
+	}
+	public static Boolean schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,JSONObject jsonObject, String vesVersion,  DrumlinRequestContext ctx, UUID uuid) throws JSONException, QueueFullException, IOException
 	{
 		JSONArray jsonArray;
 		JSONArray jsonArrayMod = new JSONArray();
 		JSONObject event;
+		Boolean ErrorStatus=false;
 		FileReader fr;
 		if (retkey != null || CommonStartup.authflag == 0) {
 			if (CommonStartup.schemaValidatorflag > 0) {
@@ -162,17 +188,20 @@ public class EventReceipt extends NsaBaseEndpoint {
 						log.info("Validation failed");
 						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
 								"Schema validation failed");
-						return;
+						ErrorStatus=true;
+						return ErrorStatus;
 					} else {
 						log.error("Validation errored" + valresult);
 						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
 								"Couldn't parse JSON object");
-						return;
+						ErrorStatus=true;
+						return ErrorStatus;
 					}
 				} else {
 					log.info("Validation failed");
 					respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest, "Schema validation failed");
-					return;
+					ErrorStatus=true;
+					return ErrorStatus;
 				}
 				if (arrayFlag == 1) {
 					jsonArray = jsonObject.getJSONArray("eventList");
@@ -197,16 +226,19 @@ public class EventReceipt extends NsaBaseEndpoint {
 						ctx.request().getContentType(), jsonObject));
 				respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
 						"Incorrect message content-type; only accepts application/json messages");
-				return;
+				ErrorStatus=true;
+				return ErrorStatus;
 			}
 
 			CommonStartup.handleEvents(jsonArrayMod);
 		} else {
-			log.info(String.format("Unauthorized request %s%s%s", ctx.request().getContentType(), MESSAGE,
+			log.info(String.format("Unauthorized request %s%s%s%s", getUser(ctx), ctx.request().getContentType(), MESSAGE,
 					jsonObject));
 			respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
-			return;
+			ErrorStatus=true;
+			return ErrorStatus;
 		}
+		return ErrorStatus;
 	}
 
 	public static void respondWithCustomMsginJson(DrumlinRequestContext ctx, int sc, String msg) {

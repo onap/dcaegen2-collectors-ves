@@ -23,10 +23,20 @@ package org.onap.dcae.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.onap.dcae.commonFunction.CommonStartup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,48 +49,83 @@ public class FetchDynamicConfig {
 	public static String configFile = "/opt/app/KV-Configuration.json";
 	static String url;
 	public static String retString;
-	public static String retCBSString;		
+	public static String retCBSString;
 	public static Map<String, String> env;
-	
+
 	public FetchDynamicConfig() {
 	}
 
 	public static void main(String[] args) {
-		
-		//Call consul api and identify the CBS Service address and port
+		Boolean areEqual = false;
+		// Call consul api and identify the CBS Service address and port
 		getconsul();
-		//Construct and invoke CBS API to get application Configuration
+		// Construct and invoke CBS API to get application Configuration
 		getCBS();
-		//Write data returned into configFile for LoadDynamicConfig process to pickup
-		FetchDynamicConfig fc= new FetchDynamicConfig();
-		fc.writefile(retCBSString);
+		// Verify if data has changed
+		areEqual = verifyConfigChange();
+		// If new config then write data returned into configFile for
+		// LoadDynamicConfig process
+		if (! areEqual) {
+			FetchDynamicConfig fc = new FetchDynamicConfig();
+			fc.writefile(retCBSString);
+		} else {
+			log.info("New config pull results identical -  " + configFile + " NOT refreshed");
+		}
 	}
-	
-	public  static void getconsul()
-	{
-		
+
+	public static void getconsul() {
+
 		env = System.getenv();
 		for (Map.Entry<String, String> entry : env.entrySet()) {
-			log.info( entry.getKey() + ":"+ entry.getValue());
+			log.info(entry.getKey() + ":" + entry.getValue());
 		}
 
 		if (env.containsKey("CONSUL_HOST") && env.containsKey("CONFIG_BINDING_SERVICE")) {
-//				&& env.containsKey("HOSTNAME")) {
+			// && env.containsKey("HOSTNAME")) {
 			log.info(">>>Dynamic configuration to be fetched from ConfigBindingService");
 			url = env.get("CONSUL_HOST") + ":8500/v1/catalog/service/" + env.get("CONFIG_BINDING_SERVICE");
 
 			retString = executecurl(url);
-			
-			
+
 		} else {
 			log.info(">>>Static configuration to be used");
 		}
 
-		
 	}
 
-	public static void getCBS()
-	{
+	public static boolean verifyConfigChange() {
+
+		boolean areEqual = false;
+		// Read current data
+		try {
+			File f = new File(configFile);
+			if (f.exists() && !f.isDirectory()) {
+
+				String jsonData = LoadDynamicConfig.readFile(configFile);
+				JSONObject jsonObject = new JSONObject(jsonData);
+
+				ObjectMapper mapper = new ObjectMapper();
+
+				JsonNode tree1 = mapper.readTree(jsonObject.toString());
+				JsonNode tree2 = mapper.readTree(retCBSString.toString());
+				areEqual = tree1.equals(tree2);
+				log.info("Comparison value:" + areEqual);
+			} else {
+				log.info("First time config file read: " + configFile);
+				// To allow first time file creation
+				areEqual = false;
+			}
+
+		} catch (IOException e) {
+			log.error("Comparison with new fetched data failed" + e.getMessage());
+
+		}
+
+		return areEqual;
+
+	}
+
+	public static void getCBS() {
 
 		env = System.getenv();
 		// consul return as array
@@ -93,40 +138,33 @@ public class FetchDynamicConfig {
 		}
 
 		log.info("CONFIG_BINDING_SERVICE DNS RESOLVED:" + urlPart1);
-		
-		if (env.containsKey("HOSTNAME"))
-		{
+
+		if (env.containsKey("HOSTNAME")) {
 			url = urlPart1 + "/service_component/" + env.get("HOSTNAME");
 			retCBSString = executecurl(url);
-		}
-		else if (env.containsKey("SERVICE_NAME"))
-		{
+		} else if (env.containsKey("SERVICE_NAME")) {
 			url = urlPart1 + "/service_component/" + env.get("SERVICE_NAME");
 			retCBSString = executecurl(url);
-		}
-		else
-		{
+		} else {
 			log.error("Service name environment variable - HOSTNAME/SERVICE_NAME not found within container ");
 		}
-	
-	}
-	
-	public void writefile (String retCBSString)
-	{
-		log.info("URL to fetch configuration:" + url  + " Return String:" + retCBSString);
 
-		
-		String indentedretstring=(new JSONObject(retCBSString)).toString(4);
-		
+	}
+
+	public void writefile(String retCBSString) {
+		log.info("URL to fetch configuration:" + url + " Return String:" + retCBSString);
+
+		String indentedretstring = (new JSONObject(retCBSString)).toString(4);
+
 		try (FileWriter file = new FileWriter(FetchDynamicConfig.configFile)) {
 			file.write(indentedretstring);
 
 			log.info("Successfully Copied JSON Object to file " + configFile);
 		} catch (IOException e) {
-			log.error("Error in writing configuration into file " + configFile  + retString +  e.getMessage());
+			log.error("Error in writing configuration into file " + configFile + retString + e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static String executecurl(String url) {

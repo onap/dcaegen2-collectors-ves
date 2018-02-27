@@ -98,6 +98,7 @@ public class TestEventReceipt extends NsaBaseEndpoint {
 		// schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,JSONObject
 		// jsonObject, String vesVersion, FileReader fr, DrumlinRequestContext
 		// ctx, UUID uuid) throws JSONException, QueueFullException, IOException
+		Boolean flag = true;
 		NsaSimpleApiKey retkey = null;
 		int arrayFlag = 0;
 		
@@ -114,12 +115,35 @@ public class TestEventReceipt extends NsaBaseEndpoint {
 		UUID uuid = UUID.randomUUID();
 
 		try {
-			EventReceipt.schemaCheck(retkey, arrayFlag, jsonObject, vesVersion, ctx, uuid);
+			flag = EventReceipt.schemaCheck(retkey, arrayFlag, jsonObject, vesVersion, ctx, uuid);
 		} catch (NullPointerException |JSONException | QueueFullException | IOException e) {
 			
 			Log.debug("Response object creation failure");
 		}
-		assertEquals(true, true);
+		assertEquals(true, flag);
+	}
+
+	@Test
+	public void testgetUser() {
+
+	
+		Boolean flag = true;
+		String user;
+		
+		CommonStartup.authflag = 1;
+		CommonStartup.schemaValidatorflag = 1;
+
+		jsonObject = new org.json.JSONObject(ev);
+
+		DrumlinRequestContext ctx = null;
+
+		try {
+			user = EventReceipt.getUser(ctx);
+		} catch (NullPointerException |JSONException e) {
+			
+			Log.debug("Response object creation failure");
+		}
+		assertEquals(true, flag);
 	}
 	
 	@Test
