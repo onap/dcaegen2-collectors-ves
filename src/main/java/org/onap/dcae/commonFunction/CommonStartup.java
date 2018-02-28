@@ -34,12 +34,13 @@ import com.att.nsa.drumlin.till.nv.rrNvReadable.loadException;
 import com.att.nsa.drumlin.till.nv.rrNvReadable.missingReqdSetting;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.fge.jsonschema.exceptions.ProcessingException;
+import com.github.fge.jackson.JsonLoader;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.github.fge.jsonschema.core.report.ProcessingMessage;
+import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import com.github.fge.jsonschema.report.ProcessingMessage;
-import com.github.fge.jsonschema.report.ProcessingReport;
-import com.github.fge.jsonschema.util.JsonLoader;
+
 import org.apache.catalina.LifecycleException;
 import org.json.JSONArray;
 import org.json.JSONException;

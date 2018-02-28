@@ -22,10 +22,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    		<groupId>org.onap.oparent</groupId>
-    		<artifactId>oparent</artifactId>
-    		<version>0.1.1</version>
-    		<relativePath/>
+		<groupId>org.onap.oparent</groupId>
+		<artifactId>oparent</artifactId>
+		<version>0.1.1</version>
+		<relativePath />
 	</parent>
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
@@ -82,9 +82,15 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 		</dependency>
 
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.fge</groupId>
 			<artifactId>json-schema-validator</artifactId>
-			<version>2.0.1</version>
+			<version>2.2.6</version>
 		</dependency>
 
 		<dependency>
@@ -121,6 +127,9 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			<artifactId>json</artifactId>
 			<version>20160810</version>
 		</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.github.fge/jackson-coreutils -->
+
 
 		<dependency>
 			<groupId>commons-configuration</groupId>
@@ -273,7 +282,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 
-		
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -308,18 +317,18 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 						</configuration>
 					</execution>
 					<execution>
-                                                <id>install script</id>
-                                                <phase>install</phase>
-                                                <goals>
-                                                        <goal>exec</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <arguments>
-                                                                <argument>__</argument>
-                                                                <argument>install</argument>
-                                                        </arguments>
-                                                </configuration>
-                                        </execution>
+						<id>install script</id>
+						<phase>install</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<arguments>
+								<argument>__</argument>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -364,5 +373,19 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 	</reporting>
 
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.fge</groupId>
+				<artifactId>json-schema-core</artifactId>
+				<version>1.2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
 

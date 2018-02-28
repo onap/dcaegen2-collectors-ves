@@ -113,7 +113,8 @@ public class EventReceipt extends NsaBaseEndpoint {
 					retkey = NsaBaseEndpoint.getAuthenticatedUser(ctx);
 				}
 			} catch (NullPointerException x) {
-				log.info("Invalid user request " + userId + ctx.request().getContentType() + MESSAGE + jsonObject);
+				//log.info("Invalid user request :" + userId + " FROM " + ctx.request().getRemoteAddress() + " " +  ctx.request().getContentType() + MESSAGE + jsonObject);
+				log.info(String.format("Unauthorized request %s FROM %s %s %s %s", getUser(ctx), ctx.request().getRemoteAddress(), ctx.request().getContentType(), MESSAGE,	jsonObject));
 				CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: Unauthorized user" + userId +  x);
 				respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Invalid user");
 				return;
@@ -232,7 +233,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 
 			CommonStartup.handleEvents(jsonArrayMod);
 		} else {
-			log.info(String.format("Unauthorized request %s%s%s%s", getUser(ctx), ctx.request().getContentType(), MESSAGE,
+			log.info(String.format("Unauthorized request %s FROM %s %s %s %s", getUser(ctx), ctx.request().getRemoteAddress(), ctx.request().getContentType(), MESSAGE,
 					jsonObject));
 			respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
 			ErrorStatus=true;
