@@ -84,7 +84,7 @@ public class EventPublisherHash {
 			}
 			
 			
-			if (authuser != null) {
+			if ((authuser != null)  &&  (authpwd != null)) {
 				log.debug(String.format("URL:%sTOPIC:%sAuthUser:%sAuthpwd:%s", ueburl, topic, authuser, authpwd));
 				pub = new CambriaClientBuilders.PublisherBuilder().usingHosts(ueburl).onTopic(topic).usingHttps()
 						.authenticatedByHttp(authuser, authpwd).logSendFailuresAfter(5)
