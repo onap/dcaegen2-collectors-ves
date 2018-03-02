@@ -91,9 +91,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			<groupId>com.github.fge</groupId>
 			<artifactId>json-schema-validator</artifactId>
 			<version>2.2.6</version>
-
+		
 		</dependency>
-
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -400,6 +399,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-core</artifactId>
 				<version>2.8.10</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.8.11.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
