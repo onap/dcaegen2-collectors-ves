@@ -179,29 +179,112 @@ public class TestConfigProcessor {
 	}
 	
 	@Test
-	public void testAttrGet(){
+	public void testSetValue(){
 		
-		Boolean Flag= true;
 		final JSONObject jsonObject = getFileAsJsonObject();
 		System.out.println("event==" + jsonObject.toString());
-		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
-		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
-		cpEvent.getValue(jsonArgs);
-		assertEquals (true, Flag);
-	}
-	
-	@Test
-	public void testAttrSet(){
-		Boolean Flag= true;
-		final JSONObject jsonObject = getFileAsJsonObject();
-		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing SetValue");
 		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
 		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
 	 	cpEvent.setValue(jsonArgs);
-	 	 
-		assertEquals (true, Flag);
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("2.0", responseData); 
 	}
-
-
+	
+	@Test
+	public void testSetEventObjectVal(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing SetEventObjectVal");
+		//final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.setEventObjectVal("event.faultFields.version", "2.0", "number");
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("2.0", responseData); 
+	}
+	
+	@Test
+	public void testGetValue(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing GetValue");
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.eventSeverity\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.getValue(jsonArgs);
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventSeverity").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("CRITICAL", responseData); 
+	}
+	
+	@Test
+	public void testGetEventObjectVal(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing GetEventObjectVal");
+		//final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.eventSeverity\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.getEventObjectVal("event.faultFields.eventSeverity");
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventSeverity").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("CRITICAL", responseData); 
+	}
+	
+	@Test
+	public void testRemoveAttribute(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing removeAttribute");
+		final JSONObject jsonArgs = new JSONObject ( "{\"field\": \"event.faultFields.memoryUsed\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	cpEvent.removeAttribute(jsonArgs);
+	 	final String responseData = cpEvent.getEventObjectVal("event.faultFields.memoryUsed").toString();
+	 	System.out.println("modified event==" + jsonObject.toString());
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("ObjectNotFound", responseData); 
+	}
+	
+	@Test
+	public void testIsFilterMet(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing isFilterMet");
+		final JSONObject jsonArgs = new JSONObject ( "{\"event.faultFields.eventSeverity\":\"CRITICAL\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	
+	 	final boolean response = cpEvent.isFilterMet(jsonArgs);
+	 	String responseData = "CRITICAL";
+	 	if (response == false)
+	 		responseData = "notCRITICAL";
+	 	
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("CRITICAL", responseData); 
+	}
+	
+	@Test
+	public void testSuppressEvent(){
+		
+		final JSONObject jsonObject = getFileAsJsonObject();
+		System.out.println("event==" + jsonObject.toString());
+		System.out.println("Testing SuppressEvent");
+		final JSONObject jsonArgs = new JSONObject ( "{\"event.faultFields.eventSeverity\":\"CRITICAL\"}" );
+		ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+	 	
+	 	cpEvent.suppressEvent(jsonArgs);
+	 	String responseData = cpEvent.getEventObjectVal("suppressEvent").toString();
+	 	
+	 	System.out.println("responseData==" + responseData); 
+	 	assertEquals ("true", responseData); 
+	}
 }  
 

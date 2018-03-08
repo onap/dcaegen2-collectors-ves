@@ -71,7 +71,7 @@ public class ConfigProcessors {
 
 
 
-	public String evaluate(String str) {
+	private String evaluate(String str) {
 		String value = str;
 		if (str.startsWith("$")) {
 			value = (String) getEventObjectVal(str.substring(1));
@@ -137,7 +137,7 @@ public class ConfigProcessors {
 	}
 
 
-	public void renameArrayInArray(JSONObject J) // map
+	private void renameArrayInArray(JSONObject J) // map
 	{
 		log.info("renameArrayInArray");
 		final String field = J.getString(FIELD);
@@ -183,7 +183,7 @@ public class ConfigProcessors {
 			mapAttribute(J);
 	}
 
-	public String performOperation(String operation, String value) {
+	private String performOperation(String operation, String value) {
 		log.info("performOperation");
 		if (operation != null) {
 			if (operation.equals("convertMBtoKB")) {
@@ -220,7 +220,7 @@ public class ConfigProcessors {
 	}
 
 
-	public void mapToJArray(JSONObject J) {
+	private void mapToJArray(JSONObject J) {
 		log.info("mapToJArray");
 		String field = J.getString(FIELD);
 		String oldField = J.getString(OLD_FIELD);
@@ -549,4 +549,3 @@ public class ConfigProcessors {
 
 	private JSONObject event = new JSONObject();
 }
-
