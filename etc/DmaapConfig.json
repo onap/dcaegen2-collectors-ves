@@ -23,6 +23,14 @@
 			"stripHpId": "true",
 			"type": "out",
 			"cambria.hosts": "onap-dmaap"
-		}
+		},
+		{
+			"name": "ves_other",
+			"cambria.topic": "unauthenticated.SEC_OTHER_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "onap-dmaap"
+		}		
 	]
 }
