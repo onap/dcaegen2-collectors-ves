@@ -237,7 +237,7 @@ build_and_push_docker()
   VERSION="${MVN_PROJECT_VERSION//[^0-9.]/}"
   VERSION2=$(echo "$VERSION" | cut -f1-2 -d'.')
 
-  LFQI="${IMAGENAME}:${VERSION}-${TIMESTAMP}"
+  LFQI="${IMAGENAME}:${VERSION}-${TIMESTAMP}"Z
   # build a docker image
   docker build --rm -f ./Dockerfile -t "${LFQI}" ./
 
@@ -279,7 +279,7 @@ build_and_push_docker()
     fi
 
     OLDTAG="${LFQI}"
-    PUSHTAGS="${REPO}/${IMAGENAME}:${VERSION2}-${TIMESTAMP} ${REPO}/${IMAGENAME}:${VERSION2} ${REPO}/${IMAGENAME}:${VERSION2}-latest"
+    PUSHTAGS="${REPO}/${IMAGENAME}:${VERSION}-SNAPSHOT-${TIMESTAMP}Z ${REPO}/${IMAGENAME}:${VERSION} ${REPO}/${IMAGENAME}:latest"
     for NEWTAG in ${PUSHTAGS}
     do
       echo "tagging ${OLDTAG} to ${NEWTAG}"
