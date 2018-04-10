@@ -70,13 +70,14 @@ public class EventProcessor implements Runnable {
 		try {
 
 			event = CommonStartup.fProcessingInputQueue.take();
-			log.info("QueueSize:" + CommonStartup.fProcessingInputQueue.size()+  "\tEventProcessor\tRemoving element: " + event );
+			
 
 			// EventPublisher Ep=new EventPublisher();
 			while (event != null) {
 				// As long as the producer is running we remove elements from
 				// the queue.
-
+				log.info("QueueSize:" + CommonStartup.fProcessingInputQueue.size()+  "\tEventProcessor\tRemoving element: " + event );
+				
 				String uuid = event.get("VESuniqueId").toString();
 				LoggingContext localLC = VESLogger.getLoggingContextForThread(uuid);
 				localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());

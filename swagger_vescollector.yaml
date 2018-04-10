@@ -17,7 +17,7 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 swagger: '2.0'
 info:
-  version: 1.1.0
+  version: 1.2.0
   title: VES Collector
   description: >
     Virtual Event Streaming (VES) Collector is RESTful collector for processing
