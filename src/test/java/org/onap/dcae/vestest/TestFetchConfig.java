@@ -34,6 +34,7 @@ import com.google.gson.JsonObject;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.DmaapPropertyReader;
