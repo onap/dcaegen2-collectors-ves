@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_f92c5204",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPublishers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-04-12T08:24:36Z",
+      "side": 1,
+      "message": "One question on this. Is there any particular reason this project uses source \u0026 target versions for Java 7 instead of 8?",
+      "revId": "acb7248630476f10a9ebc288a3c39433c2df970d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
