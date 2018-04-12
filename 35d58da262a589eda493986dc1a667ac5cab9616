@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_4f2ed48d",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CambriaPublisherFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-04-12T12:24:26Z",
+      "side": 1,
+      "message": "project name",
+      "range": {
+        "startLine": 4,
+        "startChar": 3,
+        "endLine": 4,
+        "endChar": 10
+      },
+      "revId": "35d58da262a589eda493986dc1a667ac5cab9616",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ef4ec06e",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPublishers.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-04-12T12:24:26Z",
+      "side": 1,
+      "message": "project name",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "35d58da262a589eda493986dc1a667ac5cab9616",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6f42b03f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventPublisherHash.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-04-12T12:24:26Z",
+      "side": 1,
+      "message": "the same",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "35d58da262a589eda493986dc1a667ac5cab9616",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2f1a686f",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventPublisherHashTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-04-12T12:24:26Z",
+      "side": 1,
+      "message": "You have to add the name of project in license header",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "35d58da262a589eda493986dc1a667ac5cab9616",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
