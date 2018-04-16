@@ -16,7 +16,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ============LICENSE_END=========================================================
 
-ECOMP is a trademark and service mark of AT&T Intellectual Property.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -92,7 +91,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			<groupId>com.github.fge</groupId>
 			<artifactId>json-schema-validator</artifactId>
 			<version>2.2.6</version>
-		
+
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -100,6 +99,21 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			<version>2.3.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>8.0.51</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>8.0.51</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-coyote</artifactId>
+			<version>8.0.51</version>
+		</dependency>
 		<!-- NSA server library -->
 		<dependency>
 			<groupId>com.att.nsa</groupId>
@@ -129,7 +143,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			<version>20160810</version>
 		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.github.fge/jackson-coreutils -->
+		<!-- https://mvnrepository.com/artifact/com.github.fge/jackson-coreutils -->
 
 
 		<dependency>
@@ -405,13 +419,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>2.8.10</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.8.11.1</version>
+				<version>2.8.11</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
