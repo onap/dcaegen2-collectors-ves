@@ -1,36 +1,24 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"definitions": {
-		"attCopyrightNotice": {
-			"description": "Copyright (c) <2017>, AT&T Intellectual Property. All rights reserved. Licensed under the Apache License, Version 2.0 (the License)",
+			"schemaLicenseAndCopyrightNotice": {
+			"description": "Copyright (c) 2017, AT&T Intellectual Property.  All rights reserved",
 			"type": "object",
 			"properties": {
-				"useAndRedistribution": {
-					"description": "You may not use this file except in compliance with the License.You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0",
+				"apacheLicense2.0": {
+					"description": "Licensed under the Apache License, Version 2.0 (the 'License'); you may not use this file except in compliance with the License. You may obtain a copy of the License at:",
 					"type": "string"
 				},
-				"licenseLink": {
+				"licenseUrl": {
 					"description": "http://www.apache.org/licenses/LICENSE-2.0",
 					"type": "string"
 				},
-				"condition1": {
-					"description": "Unless required by applicable law or agreed to in writing, software 13 * distributed under the License is distributed on an AS IS BASIS,",
+				"asIsClause": {
+					"description": "Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
 					"type": "string"
 				},
-				"condition2": {
-					"description": "Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.",
-					"type": "string"
-				},
-				"condition3": {
-					"description": "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
-					"type": "string"
-				},
-				"condition4": {
+				"permissionsAndLimitations": {
 					"description": "See the License for the specific language governing permissions and limitations under the License.",
-					"type": "string"
-				},
-				"Trademarks": {
-					"description": "ECOMP and OpenECOMP are trademarks and service marks of AT&T Intellectual Property.",
 					"type": "string"
 				}
 			}
