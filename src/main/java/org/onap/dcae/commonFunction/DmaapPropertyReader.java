@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,11 +38,19 @@ import com.google.gson.JsonSyntaxException;
 
 public class DmaapPropertyReader {
 
+	private static final String HOST_URL = " HOST-URL:";
+	private static final String TOPIC = "TOPIC:";
+	private static final String CAMBRIA_URL = "cambria.url";
+	private static final String CAMBRIA_HOSTS = "cambria.hosts";
+	private static final String PWD = " PWD:";
+	private static final String USER = " USER:";
+	private static final String BASIC_AUTH_PASSWORD = "basicAuthPassword";
+	private static final String BASIC_AUTH_USER_NAME = "basicAuthUsername";
 	private static DmaapPropertyReader instance = null;
 
 	private static final Logger log = LoggerFactory.getLogger(DmaapPropertyReader.class);
 
-	public HashMap<String, String> dmaap_hash = new HashMap<String, String>();
+	public HashMap<String, String> dmaap_hash = new HashMap<>();
 
 	public DmaapPropertyReader(String CambriaConfigFile) {
 
@@ -58,32 +66,32 @@ public class DmaapPropertyReader {
 				JsonArray jsonObject = (JsonArray) root.getAsJsonObject().get("channels");
 
 				for (int i = 0; i < jsonObject.size(); i++) {
-					log.debug("TOPIC:" + jsonObject.get(i).getAsJsonObject().get("cambria.topic") + " HOST-URL:"
-							+ jsonObject.get(i).getAsJsonObject().get("cambria.url") + " HOSTS:"
-							+ jsonObject.get(i).getAsJsonObject().get("cambria.hosts") + " PWD:"
-							+ jsonObject.get(i).getAsJsonObject().get("basicAuthPassword") + " USER:"
-							+ jsonObject.get(i).getAsJsonObject().get("basicAuthUsername") + " NAME:"
+					log.debug(TOPIC + jsonObject.get(i).getAsJsonObject().get("cambria.topic") + HOST_URL
+							+ jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL) + " HOSTS:"
+							+ jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS) + PWD
+							+ jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD) + USER
+							+ jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USER_NAME) + " NAME:"
 							+ jsonObject.get(i).getAsJsonObject().get("name"));
 
 					String convertedname = jsonObject.get(i).getAsJsonObject().get("name").toString().replace("\"", "");
 					dmaap_hash.put(convertedname + ".cambria.topic",
 							jsonObject.get(i).getAsJsonObject().get("cambria.topic").toString().replace("\"", ""));
 
-					if (jsonObject.get(i).getAsJsonObject().get("cambria.hosts") != null) {
+					if (jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS) != null) {
 						dmaap_hash.put(convertedname + ".cambria.hosts",
-								jsonObject.get(i).getAsJsonObject().get("cambria.hosts").toString().replace("\"", ""));
+								jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS).toString().replace("\"", ""));
 					}
-					if (jsonObject.get(i).getAsJsonObject().get("cambria.url") != null) {
+					if (jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL) != null) {
 						dmaap_hash.put(convertedname + ".cambria.url",
-								jsonObject.get(i).getAsJsonObject().get("cambria.url").toString().replace("\"", ""));
+								jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL).toString().replace("\"", ""));
 					}
-					if (jsonObject.get(i).getAsJsonObject().get("basicAuthPassword") != null) {
+					if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD) != null) {
 						dmaap_hash.put(convertedname + ".basicAuthPassword", jsonObject.get(i).getAsJsonObject()
-								.get("basicAuthPassword").toString().replace("\"", ""));
+								.get(BASIC_AUTH_PASSWORD).toString().replace("\"", ""));
 					}
-					if (jsonObject.get(i).getAsJsonObject().get("basicAuthUsername") != null) {
+					if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USER_NAME) != null) {
 						dmaap_hash.put(convertedname + ".basicAuthUsername", jsonObject.get(i).getAsJsonObject()
-								.get("basicAuthUsername").toString().replace("\"", ""));
+								.get(BASIC_AUTH_USER_NAME).toString().replace("\"", ""));
 					}
 
 				}
@@ -111,7 +119,7 @@ public class DmaapPropertyReader {
 							mrUrl = urlParts[2];
 
 							// DCAE internal dmaap topic convention
-							if (urlParts[3].equals("events")) {
+							if ("events".equals(urlParts[3])) {
 								mrTopic = urlParts[4];
 							} else {
 								// ONAP dmaap topic convention
@@ -132,10 +140,10 @@ public class DmaapPropertyReader {
 						userpwd = entry.getValue().getAsJsonObject().get("aaf_password").toString().replace("\"", "");
 					}
 					if (hostport == null) {
-						log.debug("TOPIC:" + mrTopic + " HOST-URL:" + mrUrl + " PWD:" + userpwd + " USER:" + username);
+						log.debug(TOPIC + mrTopic + HOST_URL + mrUrl + PWD + userpwd + USER + username);
 					} else {
-						log.debug("TOPIC:" + mrTopic + " HOST-URL:" + mrUrl + " HOSTS:" + hostport[0] + " PWD:"
-								+ userpwd + " USER:" + username + " NAME:" + entry.getKey());
+						log.debug(TOPIC + mrTopic + HOST_URL + mrUrl + " HOSTS:" + hostport[0] + PWD
+								+ userpwd + USER + username + " NAME:" + entry.getKey());
 					}
 
 					dmaap_hash.put(entry.getKey() + ".cambria.topic", mrTopic);
@@ -190,7 +198,7 @@ public class DmaapPropertyReader {
 		String[] multUrls = dmUrl.split(",");
 
 		StringBuffer newUrls = new StringBuffer();
-		String urlParts[] = null;
+		String[] urlParts = null;
 		for (int i = 0; i < multUrls.length; i++) {
 			urlParts = multUrls[i].split("/");
 			if (i == 0) {
@@ -202,14 +210,14 @@ public class DmaapPropertyReader {
 		return urlParts;
 	}
 
-	public static synchronized DmaapPropertyReader getInstance(String ChannelConfig) {
+	public static synchronized DmaapPropertyReader getInstance(String channelConfig) {
 		if (instance == null) {
-			instance = new DmaapPropertyReader(ChannelConfig);
+			instance = new DmaapPropertyReader(channelConfig);
 		}
 		return instance;
 	}
 
-	public String getKeyValue(String HashKey) {
-		return this.dmaap_hash.get(HashKey);
+	public String getKeyValue(String hashKey) {
+		return this.dmaap_hash.get(hashKey);
 	}
 }
