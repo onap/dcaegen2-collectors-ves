@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_3d14c64b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/ConfigProcessors.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-04-20T22:03:02Z",
+      "side": 1,
+      "message": "constant defined can be used here",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 28
+      },
+      "revId": "8a8933ae6c5cf80bc0f4631f6fc8a3197bd84d66",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b016bd47",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/ConfigProcessors.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-04-20T22:03:02Z",
+      "side": 1,
+      "message": "equals as such is symmetric; This doesn\u0027t add any significance other than developers choice of implementation. \n\nTypically the object being evaluated is LHS of the equation.\n\nthis comment applies to all similar changes noted",
+      "range": {
+        "startLine": 330,
+        "startChar": 7,
+        "endLine": 330,
+        "endChar": 36
+      },
+      "revId": "8a8933ae6c5cf80bc0f4631f6fc8a3197bd84d66",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
