@@ -102,17 +102,17 @@ limitations under the License.
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>8.0.51</version>
+			<version>8.5.23</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
-			<version>8.0.51</version>
+			<version>8.5.23</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-coyote</artifactId>
-			<version>8.0.51</version>
+			<version>8.5.23</version>
 		</dependency>
 		<!-- NSA server library -->
 		<dependency>
