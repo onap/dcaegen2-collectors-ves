@@ -46,7 +46,7 @@ public class EventProcessor implements Runnable {
 	private static final String EVENT_LITERAL = "event";
 	private static final String COMMON_EVENT_HEADER = "commonEventHeader";
 
-	private static HashMap<String, String[]> streamid_hash = new HashMap<String, String[]>();
+	private static HashMap<String, String[]> streamidHash = new HashMap<>();
 	public JSONObject event;
 
 	public EventProcessor() {
@@ -55,11 +55,11 @@ public class EventProcessor implements Runnable {
 		String[] list = CommonStartup.streamid.split("\\|");
 		for (String aList : list) {
 			String domain = aList.split("=")[0];
-			// String streamIdList[] = list[i].split("=")[1].split(",");
+
 			String[] streamIdList = aList.substring(aList.indexOf('=') + 1).split(",");
 
 			log.debug(String.format("Domain: %s streamIdList:%s", domain, Arrays.toString(streamIdList)));
-			streamid_hash.put(domain, streamIdList);
+			streamidHash.put(domain, streamIdList);
 		}
 
 	}
@@ -70,9 +70,7 @@ public class EventProcessor implements Runnable {
 		try {
 
 			event = CommonStartup.fProcessingInputQueue.take();
-			
 
-			// EventPublisher Ep=new EventPublisher();
 			while (event != null) {
 				// As long as the producer is running we remove elements from
 				// the queue.
@@ -84,7 +82,7 @@ public class EventProcessor implements Runnable {
 
 				log.debug("event.VESuniqueId" + event.get("VESuniqueId") + "event.commonEventHeader.domain:"
 						+ event.getJSONObject(EVENT_LITERAL).getJSONObject(COMMON_EVENT_HEADER).getString("domain"));
-				String[] streamIdList = streamid_hash
+				String[] streamIdList = streamidHash
 						.get(event.getJSONObject(EVENT_LITERAL).getJSONObject(COMMON_EVENT_HEADER).getString("domain"));
 				log.debug("streamIdList:" + streamIdList);
 
@@ -94,7 +92,7 @@ public class EventProcessor implements Runnable {
 					for (String aStreamIdList : streamIdList) {
 						log.info("Invoking publisher for streamId:" + aStreamIdList);
 						this.overrideEvent();
-						//EventPublisher.getInstance(aStreamIdList).sendEvent(event);
+
 						EventPublisherHash.getInstance().sendEvent(event, aStreamIdList);
 
 					}
@@ -133,7 +131,6 @@ public class EventProcessor implements Runnable {
 				// now convert to org.json
 				final String jsonText = jo.toString();
 				final JSONArray topLevel = new JSONArray(jsonText);
-				// log.info("topLevel == " + topLevel);
 
 				Class[] paramJSONObject = new Class[1];
 				paramJSONObject[0] = JSONObject.class;
