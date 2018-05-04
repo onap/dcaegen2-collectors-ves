@@ -1,0 +1,42 @@
+---
+project: 'dcaegen2-collectors-ves'
+project_creation_date: '2017-06-28'
+lifecycle_state: 'Incubation'
+project_lead: &onap_releng_ptl
+    name: 'Lusheng Ji'
+    email: 'lji@research.att.com'
+    id: 'wrider'
+    company: 'ATT'
+    timezone: 'America/New York'
+primary_contact: *onap_releng_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.onap.org/projects/DCAEGEN2'
+    key: 'DCAEGEN2'
+meetings:
+    - type: 'zoom'
+      agenda: 'https://wiki.onap.org/display/DW/Meetings'
+      url: 'https://wiki.onap.org/pages/viewpage.action?pageId=6593119'
+      server: 'n/a'
+      channel: 'n/a'
+      repeats: 'weekly'
+      time: '15:30 UTC'
+committers:
+    - <<: *onap_releng_ptl
+    - name: 'Michael Hwang'
+      email: 'mhwang@research.att.com'
+      company: 'ATT'
+      id: 'researchmike'
+      timezone: 'America/New York'
+    - name: 'Tony Hansen'
+      email: 'tony@att.com'
+      company: 'ATT'
+      id: 'TonyLHansen'
+      timezone: 'America/New York'
+    - name: 'Vijay Venkatesh Kumar'
+      email: 'vv770d@att.com'
+      company: 'ATT'
+      id: 'vv770d'
+      timezone: 'America/New York'
+tsc:
+    approval: 'https://lists.onap.org/pipermail/onap-tsc'
