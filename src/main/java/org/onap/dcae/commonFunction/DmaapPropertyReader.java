@@ -27,7 +27,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -38,163 +37,126 @@ import com.google.gson.JsonSyntaxException;
 
 public class DmaapPropertyReader {
 
-	private static final String HOST_URL = " HOST-URL:";
-	private static final String TOPIC = "TOPIC:";
-	private static final String CAMBRIA_URL = "cambria.url";
-	private static final String CAMBRIA_HOSTS = "cambria.hosts";
-	private static final String PWD = " PWD:";
-	private static final String USER = " USER:";
-	private static final String BASIC_AUTH_PASSWORD = "basicAuthPassword";
-	private static final String BASIC_AUTH_USER_NAME = "basicAuthUsername";
-	private static DmaapPropertyReader instance = null;
 
 	private static final Logger log = LoggerFactory.getLogger(DmaapPropertyReader.class);
+	private static final String CAMBRIA_TOPIC_KEY = "cambria.topic";
+	private static final String CAMBRIA_HOSTS_KEY = "cambria.hosts";
+	private static final String CAMBRIA_URL_KEY = "cambria.url";
+	private static final String[] LEGACY_CHANNEL_PARAM_NAMES = {CAMBRIA_TOPIC_KEY, CAMBRIA_HOSTS_KEY, CAMBRIA_URL_KEY, "basicAuthPassword", "basicAuthUsername"};
+	private static final String PROPERTY_KEY_NAME_SEPARATOR = ".";
+	private static DmaapPropertyReader instance = null;
+	private final Map<String, String> dmaapProperties;
 
-	public HashMap<String, String> dmaap_hash = new HashMap<>();
-
-	public DmaapPropertyReader(String CambriaConfigFile) {
-
-		FileReader fr = null;
-		try {
-			JsonElement root = null;
-			fr = new FileReader(CambriaConfigFile);
-			root = new JsonParser().parse(fr);
-
-			// Check if dmaap config is handled by legacy controller/service
-			// manager
-			if (root.getAsJsonObject().has("channels")) {
-				JsonArray jsonObject = (JsonArray) root.getAsJsonObject().get("channels");
-
-				for (int i = 0; i < jsonObject.size(); i++) {
-					log.debug(TOPIC + jsonObject.get(i).getAsJsonObject().get("cambria.topic") + HOST_URL
-							+ jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL) + " HOSTS:"
-							+ jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS) + PWD
-							+ jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD) + USER
-							+ jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USER_NAME) + " NAME:"
-							+ jsonObject.get(i).getAsJsonObject().get("name"));
-
-					String convertedname = jsonObject.get(i).getAsJsonObject().get("name").toString().replace("\"", "");
-					dmaap_hash.put(convertedname + ".cambria.topic",
-							jsonObject.get(i).getAsJsonObject().get("cambria.topic").toString().replace("\"", ""));
-
-					if (jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS) != null) {
-						dmaap_hash.put(convertedname + ".cambria.hosts",
-								jsonObject.get(i).getAsJsonObject().get(CAMBRIA_HOSTS).toString().replace("\"", ""));
-					}
-					if (jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL) != null) {
-						dmaap_hash.put(convertedname + ".cambria.url",
-								jsonObject.get(i).getAsJsonObject().get(CAMBRIA_URL).toString().replace("\"", ""));
-					}
-					if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_PASSWORD) != null) {
-						dmaap_hash.put(convertedname + ".basicAuthPassword", jsonObject.get(i).getAsJsonObject()
-								.get(BASIC_AUTH_PASSWORD).toString().replace("\"", ""));
-					}
-					if (jsonObject.get(i).getAsJsonObject().get(BASIC_AUTH_USER_NAME) != null) {
-						dmaap_hash.put(convertedname + ".basicAuthUsername", jsonObject.get(i).getAsJsonObject()
-								.get(BASIC_AUTH_USER_NAME).toString().replace("\"", ""));
-					}
-
-				}
-			} else {
-
-				// Handing new format from controllergen2/config_binding_service
-				JsonObject jsonObject = root.getAsJsonObject();
-				Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
-
-				for (Map.Entry<String, JsonElement> entry : entries) {
-
-					JsonElement topicurl = entry.getValue().getAsJsonObject().get("dmaap_info").getAsJsonObject()
-							.get("topic_url");
-					String[] urlParts = dmaapUrlSplit(topicurl.toString().replace("\"", ""));
-
-					String mrTopic = null;
-					String mrUrl = null;
-					String[] hostport = null;
-					String username = null;
-					String userpwd = null;
-
-					try {
-
-						if (null != urlParts) {
-							mrUrl = urlParts[2];
-
-							// DCAE internal dmaap topic convention
-							if ("events".equals(urlParts[3])) {
-								mrTopic = urlParts[4];
-							} else {
-								// ONAP dmaap topic convention
-								mrTopic = urlParts[3];
-								hostport = mrUrl.split(":");
-							}
-
-						}
-					} catch (NullPointerException e) {
-						System.out.println("NullPointerException");
-						e.getMessage();
-					}
-
-					if (entry.getValue().getAsJsonObject().has("aaf_username")) {
-						username = entry.getValue().getAsJsonObject().get("aaf_username").toString().replace("\"", "");
-					}
-					if (entry.getValue().getAsJsonObject().has("aaf_password")) {
-						userpwd = entry.getValue().getAsJsonObject().get("aaf_password").toString().replace("\"", "");
-					}
-					if (hostport == null) {
-						log.debug(TOPIC + mrTopic + HOST_URL + mrUrl + PWD + userpwd + USER + username);
-					} else {
-						log.debug(TOPIC + mrTopic + HOST_URL + mrUrl + " HOSTS:" + hostport[0] + PWD
-								+ userpwd + USER + username + " NAME:" + entry.getKey());
-					}
-
-					dmaap_hash.put(entry.getKey() + ".cambria.topic", mrTopic);
-
-					if (!(hostport == null)) {
-						dmaap_hash.put(entry.getKey() + ".cambria.hosts", hostport[0]);
-					}
-
-					if (!(mrUrl == null)) {
-						dmaap_hash.put(entry.getKey() + ".cambria.url", mrUrl);
-					}
-
-					if (!(username == null)) {
-						dmaap_hash.put(entry.getKey() + ".basicAuthUsername", username);
-					}
-
-					if (!(userpwd == null)) {
-						dmaap_hash.put(entry.getKey() + ".basicAuthPassword", userpwd);
-					}
-
-				}
-
-			}
-
-		} catch (JsonIOException | JsonSyntaxException |
-
-				FileNotFoundException e1) {
-			e1.printStackTrace();
-			log.error("Problem loading Dmaap Channel configuration file: " + e1.toString());
-		} finally {
-			if (fr != null) {
-				try {
-					fr.close();
-				} catch (IOException e) {
-					log.error("Error closing file reader stream : " + e.toString());
-				}
-			}
-		}
-
+	public DmaapPropertyReader(String cambriaConfigFilePath) {
+		this.dmaapProperties = DmaapPropertyReader.getProcessedDmaapProperties(cambriaConfigFilePath);
 	}
 
-	/***
-	 * Dmaap url structure pub - https://<dmaaphostname>:<port>/events/
-	 * <namespace>.<dmaapcluster>.<topic>, sub - https://<dmaaphostname>:
-	 * <port>/events/<namespace>.<dmaapcluster>.<topic>/G1/u1";
-	 *
-	 * Onap url structure pub - http://<dmaaphostname>:<port>/<unauthenticated>.
-	 * <topic>,
-	 */
 
-	private String[] dmaapUrlSplit(String dmUrl) {
+	private static Map<String, String> getProcessedDmaapProperties(String configFilePath){
+		Map<String, String> transformedDmaapProperties = new HashMap<>();
+		try(FileReader fr = new FileReader(configFilePath)) {
+			JsonElement root = new JsonParser().parse(fr);
+
+			// Check if dmaap config is handled by legacy controller/service/manager
+			JsonElement channelRoot = root.getAsJsonObject().get("channels");
+			if (channelRoot != null) {
+				transformedDmaapProperties = fillDmaapHashWithLegacyChannelData((JsonArray) channelRoot);
+			} else {
+				// Handing new format from controllergen2/config_binding_service
+				transformedDmaapProperties = fillDmaapHashInNewFormat(root.getAsJsonObject());
+			}
+
+		} catch (JsonIOException | JsonSyntaxException |  FileNotFoundException e1) {
+			log.error("Problem loading Dmaap configuration file (located under path: )"+configFilePath+ ") : " + e1.toString());
+			e1.printStackTrace();
+		} catch (IOException e) {
+			log.error("Cannot read Dmaap configuration file (located under path: )"+configFilePath+ ") : " + e.toString());
+			e.printStackTrace();
+		}
+		return transformedDmaapProperties;
+	}
+
+	private static Map<String, String> fillDmaapHashWithLegacyChannelData(JsonArray channelRoot){
+		Map<String, String> dmaapProps = new HashMap<>();
+
+		for (int i = 0; i < channelRoot.size(); i++) {
+			JsonObject jsonElement = channelRoot.get(i).getAsJsonObject();
+			String channelNamePrefix = jsonElement.get("name").toString().replace("\"", "");
+			for(String paramName: LEGACY_CHANNEL_PARAM_NAMES){
+				addElementIfPresent(dmaapProps, jsonElement, paramName, channelNamePrefix+ PROPERTY_KEY_NAME_SEPARATOR +paramName);
+			}
+		}
+		return dmaapProps;
+	}
+
+	private static Map<String, String> fillDmaapHashInNewFormat(JsonObject root) {
+		Map<String, String> dmaapProps = new HashMap<>();
+
+		for (Map.Entry<String, JsonElement> entry : root.entrySet()) {
+			String entryKey = entry.getKey();
+			JsonObject entryValue = entry.getValue().getAsJsonObject();
+			JsonElement topicUrl = entryValue.get("dmaap_info").getAsJsonObject().get("topic_url");
+			String[] urlParts = dmaapUrlSplit(topicUrl.toString().replace("\"", ""));
+
+			String mrTopic = null;
+			String mrUrl = null;
+			String[] hostPort = null;
+
+			try {
+				if (null != urlParts) {
+					mrUrl = urlParts[2];
+					// DCAE internal dmaap topic convention
+					if (urlParts[3].equals("events")) {
+						mrTopic = urlParts[4];
+					} else {
+						// ONAP dmaap topic convention
+						mrTopic = urlParts[3];
+						hostPort = mrUrl.split(":");
+					}
+				}
+			} catch (NullPointerException e) {
+				log.error("Exception during parsing topic_url and topic convention- expected number of url parts: 4"+" but found only: "+urlParts.length);
+				e.getMessage();
+			}
+
+			dmaapProps.put(entryKey+"."+CAMBRIA_TOPIC_KEY, mrTopic);
+			dmaapProps.put(entryKey+"."+ CAMBRIA_URL_KEY, mrUrl);
+			addElementIfPresent(dmaapProps, entryValue, "aaf_username", entryKey+".basicAuthUsername");
+			addElementIfPresent(dmaapProps, entryValue, "aaf_password", entryKey+".basicAuthPassword");
+
+			if(hostPort != null){
+				dmaapProps.put(entryKey+"."+ CAMBRIA_HOSTS_KEY, hostPort[0]);
+				log.debug("Initializing dmaapProperties for DmaapPropertyReader. Provided data: TOPIC:" + mrTopic + " HOST-URL:" + mrUrl + " HOSTS:" + hostPort[0] +" NAME:" + entryKey);
+			}
+			else {
+				log.debug("Initializing dmaapProperties for DmaapPropertyReader (no host specified). Provided data:  TOPIC:" + mrTopic + " HOST-URL:" + mrUrl);
+			}
+		}
+		return dmaapProps;
+	}
+
+	private static void addElementIfPresent(Map<String, String> dmaapProperties, JsonObject highLevelJsonObject, String inputParamName, String newKey){
+		if(highLevelJsonObject.has(inputParamName)) {
+			dmaapProperties.put(newKey, highLevelJsonObject.get(inputParamName).toString().replace("\"", ""));
+		}
+	}
+
+
+
+	public Map<String, String> getDmaapProperties() {
+		return dmaapProperties;
+	}
+
+		/***
+         * Dmaap url structure pub - https://<dmaaphostname>:<port>/events/
+         * <namespace>.<dmaapcluster>.<topic>, sub - https://<dmaaphostname>:
+         * <port>/events/<namespace>.<dmaapcluster>.<topic>/G1/u1";
+         *
+         * Onap url structure pub - http://<dmaaphostname>:<port>/<unauthenticated>.
+         * <topic>,
+         */
+
+	private static String[] dmaapUrlSplit(String dmUrl) {
 		String[] multUrls = dmUrl.split(",");
 
 		StringBuffer newUrls = new StringBuffer();
@@ -218,6 +180,9 @@ public class DmaapPropertyReader {
 	}
 
 	public String getKeyValue(String hashKey) {
-		return this.dmaap_hash.get(hashKey);
+		return dmaapProperties.get(hashKey);
 	}
+
 }
+
+
