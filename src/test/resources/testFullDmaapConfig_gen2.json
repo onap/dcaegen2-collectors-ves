@@ -1,0 +1,24 @@
+{
+  "ves-fault-secondary": {
+    "aaf_username": "sampleUsername",
+    "dmaap_info": {
+      "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+      "location": "mtl5",
+      "client_id": null,
+      "client_role": null
+    },
+    "type": "message_router",
+    "aaf_password": "SamplePasswd"
+  },
+  "ves-thresholdCrossingAlert-secondary": {
+    "aaf_username": "sampleUsername2",
+    "dmaap_info": {
+      "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+      "location": "mtl5",
+      "client_id": null,
+      "client_role": null
+    },
+    "type": "message_router",
+    "aaf_password": "SamplePassWD2"
+  }
+}
