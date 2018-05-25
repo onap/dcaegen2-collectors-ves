@@ -1,0 +1,325 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_fae1172b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "why not private?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 21
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3aaa1fd3",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "imo this log is useless",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 57
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7acd07b7",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "maybe extract to separate method",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3abf7ffe",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "do we need to have new \u0027sdf\u0027 each time when this method is invoked?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 88
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_fab3574b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "could be inlined",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 28
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7a7f4767",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "2 questions:\nwhy static class\nwhy within this file?",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 1
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9a80134b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "maybe extract to separate files?",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 1
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7aa8a7db",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/ConfigProcessorAdapterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9a99f3d2",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "rename it to EventProcessorTest",
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_baecef2a",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "make it private static final",
+      "range": {
+        "startLine": 56,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5af12b00",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "extract this to final field",
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7af667fb",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "remove if not needed",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 2
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9ae7b346",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "can this be asserted using following convention: assertThat(ec.event.getJSONObject(\"event\").getJSONObject(\"commonEventHeader\"), hasItem(\"sourceName) ?",
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_1adba37e",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "can be extracted to const",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 170
+      },
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3ad8df7e",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestEventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-05-25T09:07:01Z",
+      "side": 1,
+      "message": "use https://junit.org/junit4/javadoc/latest/org/hamcrest/CoreMatchers.html",
+      "revId": "aaf53a67ac9e5d4ee2065594540e2ad959e02301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
