@@ -30,7 +30,7 @@ limitations under the License.
 
     <groupId>org.onap.dcaegen2.collectors.ves</groupId>
     <artifactId>VESCollector</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
 
     <name>dcaegen2-collectors-ves</name>
     <description>VESCollector</description>
