@@ -1,0 +1,10 @@
+Code-Review+1: Adam Krysiak <adam.krysiak@nokia.com>
+Code-Review+1: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Piotr Bochenski <piotr.bochenski@nokia.com>
+Code-Review+2: Lusheng Ji <lji@research.att.com>
+Submitted-by: Lusheng Ji <lji@research.att.com>
+Submitted-at: Wed, 30 May 2018 14:26:45 +0000
+Reviewed-on: https://gerrit.onap.org/r/49083
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
