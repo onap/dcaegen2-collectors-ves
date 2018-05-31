@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Code-Review+1: Piotr Bochenski <piotr.bochenski@nokia.com>
+Code-Review+1: Marcin Migdal <marcin.migdal@nokia.com>
+Code-Review+1: Pawel Szalapski <pawel.szalapski@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Thu, 31 May 2018 03:33:59 +0000
+Reviewed-on: https://gerrit.onap.org/r/49405
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
