@@ -1,42 +1,98 @@
 {
-	"code" : {
-	  "200" : 
-	  	[
-	  		{
-			"Reason" : "OK",
-			"ErrorCode": ["OK","Event message has been accepted"]
-			}
-	         ],
-
-	  "204": [ 
-	  		{
-			"Reason" : "Accepted",
-			"ErrorCode": ["OK","Event message has been accepted"]
+	"code": {
+		"200": [
+			{
+				"Reason": "OK",
+				"ErrorCode": [
+					"OK",
+					"Event message has been accepted"
+				]
 			}
 		],
-       	   "400" :  
-       	   	[ 
-	       	   	{
-	    			"Reason" : "BadParameter",
-					"ErrorCode": ["SVC0002","Bad Parameter"	]
-				},
-				
-				{
-					"Reason" : "Error",
-					"ErrorCode": ["SVC2000","General Service Error with details"]
-				},
-				{
-					"Reason" : "exceeded",
-					"ErrorCode": ["POL9003","Message content size exceeded"	]
-				}
-		
-		 ],
-	    "401" : 
-	    	[
-	    		{
-					"Reason" : "Unauthorized",
-					"ErrorCode": ["POL2000","Unauthorized user"]
+		"204": [
+			{
+				"Reason": "Accepted",
+				"ErrorCode": [
+					"OK",
+					"Event message has been accepted"
+				]
+			}
+		],
+		"400": [
+			{
+				"Reason": "BadParameter",
+				"ErrorCode": [
+					"SVC0002",
+					"Bad Parameter"
+				]
+			},
+			{
+				"Reason": "Schema",
+				"ErrorCode": [
+					"SVC0002",
+					"Bad Parameter - Schema Validation Failure"
+				]
+			},
+			{
+				"Reason": "Couldn't parse JSON object",
+				"ErrorCode": [
+					"SVC0002",
+					"Bad JSON input"
+				]
+			},
+			{
+				"Reason": "Incorrect message content-type",
+				"ErrorCode": [
+					"SVC0002",
+					"Bad Parameter - Incorrect message content-type"
+				]
+			},
+			{
+				"Reason": "Error",
+				"ErrorCode": [
+					"SVC2000",
+					"General Service Error with details"
+				]
+			},
+			{
+				"Reason": "exceeded",
+				"ErrorCode": [
+					"POL9003",
+					"Message content size exceeded"
+				]
+			},
+			{
+				"Reason": "Queue full",
+				"ErrorCode": [
+					"SVC1000",
+					"No server resources(internal message queue full)'"
+				]
+			}
+		],
+		"401": [
+			{
+				"Reason": "Unauthorized",
+				"ErrorCode": [
+					"POL2000",
+					"Unauthorized user"
+				]
+			},
+			{
+				"Reason": "Invalid",
+				"ErrorCode": [
+					"POL2000",
+					"Unauthorized user"
+				]
+			}
+		],
+		"503": [
+			{
+				"Reason": "Queue full",
+				"ErrorCode": [
+					"SVC1000",
+					"No server resources(internal message queue full)'"
+				]
 			}
 		]
-	}				
+	}
 }

@@ -21,6 +21,8 @@
 package org.onap.dcae.vestest;
 
 import static org.junit.Assert.assertEquals;
+import static org.onap.dcae.commonFunction.CustomExceptionLoader.LoadMap;
+import static org.onap.dcae.restapi.endpoints.EventReceipt.respondWithCustomMsginJson;
 
 import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
 import org.junit.After;
@@ -45,11 +47,21 @@ public class TestCustomExceptionLoader {
     @After
     public void tearDown() throws Exception {
     }
-
+    @Test
+    public void test() {
+        LoadMap();
+        // all code usages found
+        respondWithCustomMsginJson(null, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
+        respondWithCustomMsginJson(null, HttpStatusCodes.k401_unauthorized, "Invalid user");
+        respondWithCustomMsginJson(null, HttpStatusCodes.k400_badRequest, "Couldn't parse JSON object");
+        respondWithCustomMsginJson(null, HttpStatusCodes.k503_serviceUnavailable, "Queue full");
+        respondWithCustomMsginJson(null, HttpStatusCodes.k400_badRequest, "Schema validation failed");
+        respondWithCustomMsginJson(null, HttpStatusCodes.k400_badRequest, "Incorrect message content-type; only accepts application/json messages");
+    }
     @Test
     public void testLoad() {
         String op;
-        CustomExceptionLoader.LoadMap();
+        LoadMap();
         op = "dataloaded";
         assertEquals("dataloaded", op);
     }
@@ -59,7 +71,7 @@ public class TestCustomExceptionLoader {
         String[] retarray;
 
         CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
-        CustomExceptionLoader.LoadMap();
+        LoadMap();
         retarray = CustomExceptionLoader
             .LookupMap(String.valueOf(HttpStatusCodes.k401_unauthorized), "Unauthorized user");
         if (retarray == null) {
