@@ -39,8 +39,8 @@ limitations under the License.
         <main.basedir>${project.basedir}</main.basedir>
 
         <!-- CODE COMPILATION VERSIONS -->
-        <compiler.source.version>1.7</compiler.source.version>
-        <compiler.target.version>1.7</compiler.target.version>
+        <compiler.source.version>1.8</compiler.source.version>
+        <compiler.target.version>1.8</compiler.target.version>
 
         <!-- PLUGINS VERSIONS -->
         <compiler.plugin.version>3.3</compiler.plugin.version>
