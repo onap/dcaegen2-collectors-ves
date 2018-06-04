@@ -78,6 +78,8 @@ public class CustomExceptionLoader {
 			}
 
 			log.debug("CustomExceptionLoader.LoadMap --> Map loaded - " + map);
+			System.out.println("FILE LOADED CORRECTLY");
+			System.out.println("MAP SIZE: " + map.entrySet().size());
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			log.error("Exception in LoadMap:" + e.getMessage());
 			map = null;
@@ -119,6 +121,7 @@ public class CustomExceptionLoader {
 			}
 
 		} catch (Exception e) {
+			System.out.println("Bad key as well");
 			System.out.println(e.getMessage());
 		}
 

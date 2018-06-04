@@ -247,7 +247,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 		String exceptionType = "GeneralException";
 
 		str = CustomExceptionLoader.LookupMap(String.valueOf(sc), msg);
-		log.info("Post CustomExceptionLoader.LookupMap" + str);
+		System.out.println("Post CustomExceptionLoader.LookupMap" + str);
 
 		if (str != null) {
 
@@ -265,7 +265,8 @@ public class EventReceipt extends NsaBaseEndpoint {
 		} else {
 			JSONObject jb = new JSONObject().put("requestError",
 					new JSONObject().put(exceptionType, new JSONObject().put("Status", sc).put("Error", msg)));
-			ctx.response().sendErrorAndBody(sc, jb.toString(), MimeTypes.kAppJson);
+			System.out.println("Went into else clause");
+//			ctx.response().sendErrorAndBody(sc, jb.toString(), MimeTypes.kAppJson); so that we do not have a null pointer here, it is not important for the discussion
 		}
 
 	}
