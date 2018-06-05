@@ -1,0 +1,10 @@
+version: '2'
+services:
+  ves:
+    image: nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      DMAAPHOST: "IP-to-be-set"
+    restart: always
