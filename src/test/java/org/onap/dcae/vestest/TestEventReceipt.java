@@ -21,10 +21,12 @@ package org.onap.dcae.vestest;
 
 import static org.junit.Assert.assertEquals;
 
-
+import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
+import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
+import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 import java.io.IOException;
 import java.util.UUID;
-
+import jline.internal.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -32,16 +34,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
-import org.onap.dcae.commonFunction.CustomExceptionLoader;
 import org.onap.dcae.restapi.endpoints.EventReceipt;
 import org.onap.dcae.restapi.endpoints.Ui;
-
-import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
-import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
-import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
-import com.att.nsa.security.db.simple.NsaSimpleApiKey;
-
-import jline.internal.Log;
 
 public class TestEventReceipt extends NsaBaseEndpoint {
 
@@ -73,23 +67,6 @@ public class TestEventReceipt extends NsaBaseEndpoint {
 			flag = true;
 		}
 		assertEquals(true, flag);
-	}
-
-	@Test
-	public void testrespondWithCustomMsginJson() {
-
-		CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
-        CustomExceptionLoader.LoadMap();
-        
-        try {
-		EventReceipt.respondWithCustomMsginJson(null, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
-        }
-        catch (Exception e)
-        {
-        	//As context object is null, handling null pointer exception.
-        	Log.debug("Response object creation failure");
-        }
-		assertEquals(true, true);
 	}
 
 	@Test

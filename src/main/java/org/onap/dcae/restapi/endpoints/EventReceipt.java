@@ -29,18 +29,6 @@ import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 import com.google.gson.JsonParser;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.onap.dcae.commonFunction.CommonStartup;
-import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
-import org.onap.dcae.commonFunction.CustomExceptionLoader;
-import org.onap.dcae.commonFunction.VESLogger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,6 +37,16 @@ import java.util.Base64;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.onap.dcae.commonFunction.CommonStartup;
+import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
+import org.onap.dcae.commonFunction.VESLogger;
+import org.onap.dcae.restapi.ApiException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EventReceipt extends NsaBaseEndpoint {
 
@@ -116,7 +114,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 				//log.info("Invalid user request :" + userId + " FROM " + ctx.request().getRemoteAddress() + " " +  ctx.request().getContentType() + MESSAGE + jsonObject);
 				log.info(String.format("Unauthorized request %s FROM %s %s %s %s", getUser(ctx), ctx.request().getRemoteAddress(), ctx.request().getContentType(), MESSAGE,	jsonObject));
 				CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: Unauthorized user" + userId +  x);
-				respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Invalid user");
+				respondWithCustomMsginJson(ctx, ApiException.UNAUTHORIZED_USER);
 				return;
 			}
 			
@@ -131,12 +129,12 @@ public class EventReceipt extends NsaBaseEndpoint {
 			log.error(String.format("Couldn't parse JSON Array - HttpStatusCodes.k400_badRequest%d%s%s",
 					HttpStatusCodes.k400_badRequest, MESSAGE, x.getMessage()));
 			CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: Invalid user request " + x);
-			respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest, "Couldn't parse JSON object");
+			respondWithCustomMsginJson(ctx, ApiException.INVALID_JSON_INPUT);
 			return;
 		} catch (QueueFullException e) {
 			log.error("Collector internal queue full  :" + e.getMessage(), e);
 			CommonStartup.eplog.info("EVENT_RECEIPT_FAILURE: QueueFull" + e);
-			respondWithCustomMsginJson(ctx, HttpStatusCodes.k503_serviceUnavailable, "Queue full");
+			respondWithCustomMsginJson(ctx, ApiException.NO_SERVER_RESOURCES);
 			return;
 		} finally {
 			if (fr != null) {
@@ -187,20 +185,18 @@ public class EventReceipt extends NsaBaseEndpoint {
 						log.info("Validation successful");
 					} else if (valresult.equals("false")) {
 						log.info("Validation failed");
-						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-								"Schema validation failed");
+						respondWithCustomMsginJson(ctx, ApiException.SCHEMA_VALIDATION_FAILED);
 						ErrorStatus=true;
 						return ErrorStatus;
 					} else {
 						log.error("Validation errored" + valresult);
-						respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-								"Couldn't parse JSON object");
+						respondWithCustomMsginJson(ctx, ApiException.INVALID_JSON_INPUT);
 						ErrorStatus=true;
 						return ErrorStatus;
 					}
 				} else {
 					log.info("Validation failed");
-					respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest, "Schema validation failed");
+					respondWithCustomMsginJson(ctx, ApiException.SCHEMA_VALIDATION_FAILED);
 					ErrorStatus=true;
 					return ErrorStatus;
 				}
@@ -225,8 +221,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 			if (!ctx.request().getContentType().equalsIgnoreCase("application/json")) {
 				log.info(String.format("Rejecting request with content type %s Message:%s",
 						ctx.request().getContentType(), jsonObject));
-				respondWithCustomMsginJson(ctx, HttpStatusCodes.k400_badRequest,
-						"Incorrect message content-type; only accepts application/json messages");
+				respondWithCustomMsginJson(ctx, ApiException.INVALID_CONTENT_TYPE);
 				ErrorStatus=true;
 				return ErrorStatus;
 			}
@@ -235,39 +230,17 @@ public class EventReceipt extends NsaBaseEndpoint {
 		} else {
 			log.info(String.format("Unauthorized request %s FROM %s %s %s %s", getUser(ctx), ctx.request().getRemoteAddress(), ctx.request().getContentType(), MESSAGE,
 					jsonObject));
-			respondWithCustomMsginJson(ctx, HttpStatusCodes.k401_unauthorized, "Unauthorized user");
+			respondWithCustomMsginJson(ctx, ApiException.UNAUTHORIZED_USER);
 			ErrorStatus=true;
 			return ErrorStatus;
 		}
 		return ErrorStatus;
 	}
 
-	public static void respondWithCustomMsginJson(DrumlinRequestContext ctx, int sc, String msg) {
-		String[] str;
-		String exceptionType = "GeneralException";
-
-		str = CustomExceptionLoader.LookupMap(String.valueOf(sc), msg);
-		log.info("Post CustomExceptionLoader.LookupMap" + str);
-
-		if (str != null) {
-
-			if (str[0].matches("SVC")) {
-				exceptionType = "ServiceException";
-			} else if (str[1].matches("POL")) {
-				exceptionType = "PolicyException";
-			}
-
-			JSONObject jb = new JSONObject().put("requestError",
-					new JSONObject().put(exceptionType, new JSONObject().put("MessagID", str[0]).put("text", str[1])));
-
-			log.debug("Constructed json error : " + jb);
-			ctx.response().sendErrorAndBody(sc, jb.toString(), MimeTypes.kAppJson);
-		} else {
-			JSONObject jb = new JSONObject().put("requestError",
-					new JSONObject().put(exceptionType, new JSONObject().put("Status", sc).put("Error", msg)));
-			ctx.response().sendErrorAndBody(sc, jb.toString(), MimeTypes.kAppJson);
-		}
-
+	public static void respondWithCustomMsginJson(DrumlinRequestContext ctx, ApiException apiException) {
+		ctx.response()
+			.sendErrorAndBody(apiException.httpStatusCode,
+				apiException.toBackwardCompatibleFormat().toString(), MimeTypes.kAppJson);
 	}
 
 	public static void safeClose(FileReader fr) {
