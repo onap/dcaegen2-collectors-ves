@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_9218e01f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-06-05T12:18:26Z",
+      "side": 1,
+      "message": "https://wiki.onap.org/display/DW/Commit+Messages\n\n\"\nWrite the summary line and description of what you have done in the imperative mode, that is as if you were commanding someone. Start the line with a VERB  Fix, Add, Change instead of Fixed, Added, Changed.\n\"",
+      "revId": "77415d7c1b5f80fa84b8cdabb884a8276b92996b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
