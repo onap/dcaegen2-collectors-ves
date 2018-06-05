@@ -92,7 +92,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
 	public static final String KSETTING_SCHEMAFILE = "collector.schema.file";
 	public static final String KDEFAULT_SCHEMAFILE = "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}";
-	public static final String KSETTING_EXCEPTIONCONFIG = "exceptionConfig";
 
 	public static final String KSETTING_DMAAPSTREAMID = "collector.dmaap.streamid";
 
@@ -114,7 +113,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 	public static int eventTransformFlag = 1;
 	public static String schemaFile;
 	public static JSONObject schemaFileJson;
-	public static String exceptionConfig;
 	public static String cambriaConfigFile;
 	private boolean listnerstatus;
 	public static String streamid;
@@ -155,7 +153,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			schemaFileJson = new JSONObject(schemaFile);
 
 		}
-		exceptionConfig = settings.getString(KSETTING_EXCEPTIONCONFIG, null);
 		authflag = settings.getInt(CommonStartup.KSETTING_AUTHFLAG, CommonStartup.KDEFAULT_AUTHFLAG);
 		String[] currentconffile = settings.getStrings(CommonStartup.KSETTING_DMAAPCONFIGS,
 				CommonStartup.KDEFAULT_DMAAPCONFIGS);
@@ -166,8 +163,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		fTomcatServer = new ApiServer.Builder(connectors, new RestfulCollectorServlet(settings)).encodeSlashes(true)
 				.name("collector").build();
 
-		// Load override exception map
-		CustomExceptionLoader.LoadMap();
 		setListnerstatus(true);
 	}
 
