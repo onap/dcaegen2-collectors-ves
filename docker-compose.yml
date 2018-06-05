@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ves:
+    image: veslocal
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      DMAAPHOST: "10.42.111.36"
+    extra_hosts:
+      - "onap-dmaap:10.42.111.36"
+    build:
+      context: .
