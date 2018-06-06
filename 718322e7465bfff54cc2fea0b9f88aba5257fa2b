@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_f8f1fe01",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/Event.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "if that is possible, mark class and fields as final and supply appropriate constructor",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_58ed9224",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/Processor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "if that is possible, mark class and fields as final and supply appropriate constructor",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d891a29b",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventProcessorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "please run formatter on the code base",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b894d68c",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventProcessorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "This tests nothing, even Intellij IDEA highlights at to be nonsense.",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_788e4e7b",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventProcessorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "this is not used, please refactor this testcase",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_988b1a68",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventProcessorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-06T12:23:40Z",
+      "side": 1,
+      "message": "this is not used, please refactor this testcase",
+      "revId": "718322e7465bfff54cc2fea0b9f88aba5257fa2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
