@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,85 +19,59 @@
  */
 package org.onap.dcae.vestest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.onap.dcae.vestest.TestingUtilities.correctQuotes;
+import static org.onap.dcae.vestest.TestingUtilities.createTemporaryFile;
 
-import java.io.FileReader;
-
+import com.github.fge.jackson.JsonLoader;
+import com.google.gson.JsonObject;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.dcae.controller.FetchDynamicConfig;
 import org.onap.dcae.controller.LoadDynamicConfig;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class TestLoadDynamicConfig {
 
-	LoadDynamicConfig lc;
-	String propop =  "src/test/resources/test_collector_ip_op.properties";
-	
-	
-	@Before
-	public void setUp() throws Exception {
-	
-		lc = new LoadDynamicConfig();
+    private Path temporaryFile;
 
-	}
+    @Before
+    public void setUp() {
+        temporaryFile = createTemporaryFile();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Test
+    public void shouldReadFileContent() throws IOException {
+        // given
+        String expectedJSON = correctQuotes("{ 'field' : 1 }");
+        Files.write(temporaryFile, expectedJSON.getBytes());
 
-	@Test
-	public void testLoad() {
+        // when
+        String readFileContent = LoadDynamicConfig.readFile(temporaryFile.toString());
 
-		
-		Boolean flag=false;
-		
+        // then
+        assertEquals(JsonLoader.fromString(expectedJSON), JsonLoader.fromString(readFileContent));
+    }
 
-		lc.propFile = "src/test/resources/test_collector_ip_op.properties";
-		lc.configFile = "src/test/resources/controller-config_dmaap_ip.json";
-		
-		String data = LoadDynamicConfig.readFile(propop);
-		assertEquals(data.isEmpty(), flag);
-	}
+    @Test
+    public void shouldWriteFileAndAttachDMaaPRelatedPropertiesFromConfiguration() {
+        // given
+        LoadDynamicConfig loadDynamicConfig = new LoadDynamicConfig();
+        loadDynamicConfig.propFile = "src/test/resources/test_collector_ip_op.properties";
+        loadDynamicConfig.configFile = "src/test/resources/controller-config_dmaap_ip.json";
+        loadDynamicConfig.dmaapoutputfile = temporaryFile.toString();
+        String sampleConfiguration = LoadDynamicConfig.readFile(loadDynamicConfig.configFile);
 
+        // when
+        loadDynamicConfig.writeconfig(new JSONObject(sampleConfiguration));
 
-	@Test
-	public void testwrite() {
+        // then
+        JsonObject actuallyWrittenJSONContent = TestingUtilities.readJSONFromFile(temporaryFile);
+        assertTrue(actuallyWrittenJSONContent.has("ves-fault-secondary"));
+    }
 
-		
-		Boolean flag=false;
-		
-		lc.propFile = "src/test/resources/test_collector_ip_op.properties";
-		lc.configFile = "src/test/resources/controller-config_dmaap_ip.json";
-		lc.dmaapoutputfile = "src/test/resources/DmaapConfig-op.json";
-		
-		String data = LoadDynamicConfig.readFile(lc.configFile);
-		JSONObject jsonObject = new JSONObject(data);
-		lc.writeconfig(jsonObject);
-
-		try{
-			 JsonParser parser = new JsonParser();
-			FileReader fr = new FileReader ( lc.dmaapoutputfile );
-			final JsonObject jo =  (JsonObject) parser.parse (fr);
-			final String jsonText = jo.toString ();
-			jsonObject = new JSONObject ( jsonText );
-		}
-		catch(Exception e){
-			System.out.println("Exception while opening the file");
-			e.printStackTrace();
-		}
-		if(jsonObject.has("ves-fault-secondary"))
-		{
-			flag = true;
-		}
-		
-		assertEquals(true, flag);
-
-	}
 }
 
