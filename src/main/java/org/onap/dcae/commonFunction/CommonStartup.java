@@ -140,7 +140,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		final String keyAlias = settings.getString(KSETTING_KEYALIAS, KDEFAULT_KEYALIAS);
 
 		if (securePort > 0) {
-			final String KSETTING_KEYSTOREPASS = readFile(keystorePasswordFile, Charset.defaultCharset());
+			final String KSETTING_KEYSTOREPASS = readFile(keystorePasswordFile);
 			connectors.add(new ApiServerConnector.Builder(securePort).secure(true)
 					.keystorePassword(KSETTING_KEYSTOREPASS).keystoreFile(keystoreFile).keyAlias(keyAlias).build());
 
@@ -265,7 +265,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		}
 	}
 
-	static String readFile(String path, Charset encoding) throws IOException {
+	static String readFile(String path) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		String pwd = new String(encoded);
 		return pwd.substring(0, pwd.length() - 1);
