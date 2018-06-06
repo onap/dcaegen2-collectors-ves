@@ -47,12 +47,11 @@ import com.att.nsa.security.NsaAuthenticator;
 import com.att.nsa.security.authenticators.SimpleAuthenticator;
 import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
-
 public class RestfulCollectorServlet extends CommonServlet
 {
 
 	public static String authlist;
-	
+
 	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
 	{
 		super ( settings, "collector", false );
@@ -76,7 +75,7 @@ public class RestfulCollectorServlet extends CommonServlet
 			// logging. The Restful Collector likely doesn't need API authentication, so for now,
 			// we init the base class services with an in-memory (and empty!) config DB.
 			commonServletSetup ( ConfigDbType.MEMORY );
-			
+
 			VESLogger.setUpEcompLogging();
 
 			// setup the servlet routing and error handling
@@ -101,10 +100,10 @@ public class RestfulCollectorServlet extends CommonServlet
 			if (CommonStartup.authflag > 0) {
 				NsaAuthenticator<NsaSimpleApiKey> NsaAuth;
 				NsaAuth = AuthlistHandler(authlist);
-				
+
 				this.getSecurityManager().addAuthenticator(NsaAuth);
 			}
-			
+
 			log.info ( "Restful Collector Servlet is up." );
 		}
 		catch ( SecurityException e )
@@ -127,13 +126,13 @@ public class RestfulCollectorServlet extends CommonServlet
 		if (authlist != null)
 		{
 			String authpair[] = authlist.split("\\|");
-			for (String pair: authpair) {           
-					String lineid[] = pair.split(",");
-					String listauthid =  lineid[0];	
-					String listauthpwd =  new String(Base64.decodeBase64(lineid[1]));
-					((SimpleAuthenticator) NsaAuth).add(listauthid,listauthpwd);
-		    }
-			
+			for (String pair: authpair) {
+				String lineid[] = pair.split(",");
+				String listauthid =  lineid[0];
+				String listauthpwd =  new String(Base64.decodeBase64(lineid[1]));
+				((SimpleAuthenticator) NsaAuth).add(listauthid,listauthpwd);
+			}
+
 		}
 		else
 		{
@@ -143,8 +142,9 @@ public class RestfulCollectorServlet extends CommonServlet
 		return NsaAuth;
 
 	}
-	
+
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger ( RestfulCollectorServlet.class );
 }
+

@@ -25,6 +25,7 @@ import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import java.util.Map;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TimeZone;
 
 
 public class EventProcessor implements Runnable {
@@ -50,22 +50,25 @@ public class EventProcessor implements Runnable {
     }.getType();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
 
-    private static HashMap<String, String[]> streamidHash = new HashMap<>();
-    JSONObject event;
+	static Map<String, String[]> streamidHash = new HashMap<>();
+	public JSONObject event;
 
     public EventProcessor() {
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        String[] list = CommonStartup.streamid.split("\\|");
+        streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamid);
+    }
+
+    private Map<String, String[]> parseStreamIdToStreamHashMapping(String streamId) {
+        Map<String, String[]> streamidHash = new HashMap<>();
+        String[] list = streamId.split("\\|");
         for (String aList : list) {
             String domain = aList.split("=")[0];
-
             String[] streamIdList = aList.substring(aList.indexOf('=') + 1).split(",");
 
-            log.debug(String.format("Domain: %s streamIdList:%s", domain, Arrays.toString(streamIdList)));
             streamidHash.put(domain, streamIdList);
         }
-
+        return streamidHash;
     }
+
 
     @Override
     public void run() {
