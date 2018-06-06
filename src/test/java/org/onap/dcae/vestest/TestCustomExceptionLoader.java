@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,50 +20,39 @@
 
 package org.onap.dcae.vestest;
 
+import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.onap.dcae.commonFunction.CustomExceptionLoader.LookupMap;
 
 import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.CustomExceptionLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TestCustomExceptionLoader {
 
-    private static final Logger log = LoggerFactory.getLogger(TestCustomExceptionLoader.class);
-    private CustomExceptionLoader cl;
-
-    @Before
-    public void setUp() throws Exception {
-        cl = new CustomExceptionLoader();
+    @Test
+    public void shouldLoadingADefaultExceptionMappingDoNotThrowExceptions() {
         CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        CustomExceptionLoader.LoadMap();
     }
 
     @Test
-    public void testLoad() {
-        String op;
-        CustomExceptionLoader.LoadMap();
-        op = "dataloaded";
-        assertEquals("dataloaded", op);
-    }
-
-    @Test
-    public void testLookup() {
-        String[] retarray;
-
+    public void shouldLookupErrorMessagePartsOutOfStatusCodeAndReason() {
+        // given
         CommonStartup.exceptionConfig = "./etc/ExceptionConfig.json";
         CustomExceptionLoader.LoadMap();
-        retarray = CustomExceptionLoader
-            .LookupMap(String.valueOf(HttpStatusCodes.k401_unauthorized), "Unauthorized user");
+        int statusCode = HttpStatusCodes.k401_unauthorized;
+        String message = "Unauthorized user";
+
+        // when
+        String[] retarray = LookupMap(String.valueOf(statusCode), message);
+
+        // then
         if (retarray == null) {
-            log.info("Lookup failed");
+            fail(format(
+                "Lookup failed, did not find value for a valid status code %s and message %s", statusCode, message));
         } else {
             assertEquals("\"POL2000\"", retarray[0]);
         }
