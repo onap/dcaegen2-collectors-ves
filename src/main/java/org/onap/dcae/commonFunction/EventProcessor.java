@@ -25,6 +25,7 @@ import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -46,13 +47,16 @@ public class EventProcessor implements Runnable {
 	private static final String EVENT_LITERAL = "event";
 	private static final String COMMON_EVENT_HEADER = "commonEventHeader";
 
-	private static HashMap<String, String[]> streamidHash = new HashMap<>();
+	private static Map<String, String[]> streamidHash = new HashMap<>();
 	public JSONObject event;
 
 	public EventProcessor() {
-		log.debug("EventProcessor: Default Constructor");
+		streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamid);
+	}
 
-		String[] list = CommonStartup.streamid.split("\\|");
+	public Map<String, String[]> parseStreamIdToStreamHashMapping(String streamId) {
+		HashMap<String, String[]> streamidHash = new HashMap<>();
+		String[] list = streamId.split("\\|");
 		for (String aList : list) {
 			String domain = aList.split("=")[0];
 
@@ -61,7 +65,7 @@ public class EventProcessor implements Runnable {
 			log.debug(String.format("Domain: %s streamIdList:%s", domain, Arrays.toString(streamIdList)));
 			streamidHash.put(domain, streamIdList);
 		}
-
+		return streamidHash;
 	}
 
 	@Override
