@@ -265,7 +265,7 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 		}
 	}
 
-	static String readFile(String path, Charset encoding) throws IOException {
+	static String readFile(String path) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		String pwd = new String(encoded);
 		return pwd.substring(0, pwd.length() - 1);
