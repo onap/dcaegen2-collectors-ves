@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_27873f14",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-07T08:25:57Z",
+      "side": 1,
+      "message": "maybe use string format instead of concatenating",
+      "range": {
+        "startLine": 73,
+        "startChar": 3,
+        "endLine": 73,
+        "endChar": 114
+      },
+      "revId": "a83d8c86fd3acdd487b711587f14c63d25943edd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_879ad36c",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-07T08:25:57Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 23
+      },
+      "revId": "a83d8c86fd3acdd487b711587f14c63d25943edd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_478ccb35",
+        "filename": "src/test/java/org/onap/dcae/vestest/DmaapPropertyReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-07T08:25:57Z",
+      "side": 1,
+      "message": "get rid off asterisks",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "a83d8c86fd3acdd487b711587f14c63d25943edd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e78077f9",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestEventProcessor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-07T08:25:57Z",
+      "side": 1,
+      "message": "maybe rename it to EventProcessorTest?",
+      "revId": "a83d8c86fd3acdd487b711587f14c63d25943edd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
