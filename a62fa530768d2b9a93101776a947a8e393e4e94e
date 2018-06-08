@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_35768840",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestingUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2018-06-08T11:40:46Z",
+      "side": 1,
+      "message": "add private default constructor, there is no reason to have possibility to initialize this class",
+      "revId": "a62fa530768d2b9a93101776a947a8e393e4e94e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
