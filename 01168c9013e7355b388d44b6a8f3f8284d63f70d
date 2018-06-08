@@ -16,6 +16,121 @@
       "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_38399d3f",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-08T19:47:11Z",
+      "side": 1,
+      "message": "Not being used; can be removed",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_183e212a",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-08T19:47:11Z",
+      "side": 1,
+      "message": "Not used; can be removed",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 56
+      },
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b82dadff",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-08T19:47:11Z",
+      "side": 1,
+      "message": "unused; can be removed",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9811d1b1",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-08T19:47:11Z",
+      "side": 1,
+      "message": "\"test\" would be better prefix here as target/end state is not specified in method name",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 39
+      },
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b814cd9f",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-08T19:47:11Z",
+      "side": 1,
+      "message": "\"test\" would be better prefix here as target/end state is not specified in method name",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 54
+      },
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
