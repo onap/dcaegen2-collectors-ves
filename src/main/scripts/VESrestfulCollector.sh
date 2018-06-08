@@ -32,7 +32,7 @@ BASEDIR=/opt/app/VESCollector/
 
 collector_start() {
         echo `date +"%Y%m%d.%H%M%S%3N"` - collector_start | tee -a ${BASEDIR}/logs/console.txt
-        collectorPid=`pgrep -f org.onap.dcae.commonFunction`
+        collectorPid=`pidof org.onap.dcae.commonFunction`
 
         if [ ! -z "$collectorPid" ]; then
                 echo  "WARNING: VES Restful Collector already running as PID $collectorPid" | tee -a ${BASEDIR}/logs/console.txt
@@ -56,13 +56,13 @@ collector_start() {
 
 collector_stop() {
          echo `date +"%Y%m%d.%H%M%S%3N"` - collector_stop
-         collectorPid=`pgrep -f org.onap.dcae.commonFunction`
+         collectorPid=`pidof org.onap.dcae.commonFunction`
          if [ ! -z "$collectorPid" ]; then
                 echo "Stopping PID $collectorPid"
 
                 kill -9 $collectorPid
                 sleep 5
-                if [ ! "$(pgrep -f org.onap.dcae.commonFunction)" ]; then
+                if [ ! "$(pidof org.onap.dcae.commonFunction)" ]; then
                          echo "VES Restful Collector has been stopped!!!"
                 else
                          echo "VES Restful Collector is being stopped!!!"
@@ -107,16 +107,16 @@ collector_configupdate() {
                     else
                         echo "INFO: Dynamic config updated successfully into VESCollector configuration!"
                     fi
-                    
+
 					# Identify alias names from keystore and password provided
-         
+
             		paramName="collector.keystore.alias"
 					localpropertyfile="/opt/app/VESCollector/etc/collector.properties"
 					tmpfile="/opt/app/VESCollector/etc/collector.properties.tmp"
-					
+
 					keystore=`grep collector.keystore.file.location $localpropertyfile | tr -d '[:space:]' | cut -d"=" -f2`
 					keypwdfile=`grep collector.keystore.passwordfile $localpropertyfile | tr -d '[:space:]' | cut -d"=" -f2`
-						
+
 					echo "/usr/bin/keytool -list -keystore $keystore < $keypwdfile | grep "PrivateKeyEntry" | cut -d"," -f1"
                     tmpalias=`/usr/bin/keytool -list -keystore $keystore < $keypwdfile | grep "PrivateKeyEntry" | cut -d"," -f1`
                     echo "tmpalias:" $tmpalias
@@ -126,7 +126,7 @@ collector_configupdate() {
                     echo `cat $tmpfile > $localpropertyfile`
                     rm $tmpfile
                 	echo "INFO: Keystore alias updated into configuration"
-                  
+
             else
                 echo "ERROR: Configuration file /opt/app/KV-Configuration.json missing"
             fi

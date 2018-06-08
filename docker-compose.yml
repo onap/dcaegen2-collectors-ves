@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ves:
+    container_name: ves
+    image: onap/org.onap.dcaegen2.collectors.ves.vescollector:latest
+    ports:
+      - "8080:8080"
+      - "8443:8443"
