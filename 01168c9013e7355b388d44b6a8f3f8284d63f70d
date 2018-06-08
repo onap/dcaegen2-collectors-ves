@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_35f3e8e8",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2018-06-08T10:55:59Z",
+      "side": 1,
+      "message": "Method executed in constructor shouldn\u0027t have public access.",
+      "revId": "01168c9013e7355b388d44b6a8f3f8284d63f70d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
