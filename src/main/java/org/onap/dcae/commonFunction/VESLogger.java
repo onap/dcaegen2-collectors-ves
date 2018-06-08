@@ -36,7 +36,7 @@ import java.util.UUID;
 public class VESLogger {
 
 	public static final String VES_AGENT = "VES_AGENT";
-	private static final String REQUEST_ID = "requestId";
+	public static final String REQUEST_ID = "requestId";
 	private static final String IP_ADDRESS = "127.0.0.1";
 	private static final String HOST_NAME = "localhost";
 
