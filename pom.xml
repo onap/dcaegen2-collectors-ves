@@ -15,10 +15,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ============LICENSE_END=========================================================
-
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -36,33 +37,24 @@ limitations under the License.
     <description>VESCollector</description>
 
     <properties>
-        <main.basedir>${project.basedir}</main.basedir>
+        <!-- PROJECT SETTINGS -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>8</java.version>
+        <docker.image.name>onap/org.onap.dcaegen2.collectors.ves.vescollector</docker.image.name>
 
-        <!-- CODE COMPILATION VERSIONS -->
-        <compiler.source.version>1.8</compiler.source.version>
-        <compiler.target.version>1.8</compiler.target.version>
-
-        <!-- PLUGINS VERSIONS -->
-        <compiler.plugin.version>3.3</compiler.plugin.version>
-        <jar.plugin.version>2.4</jar.plugin.version>
-        <deploy.plugin.version>2.8</deploy.plugin.version>
-        <source.plugin.version>2.4</source.plugin.version>
-        <javadoc.plugin.version>2.10.4</javadoc.plugin.version>
-        <project.info.reports.plugin.version>2.6</project.info.reports.plugin.version>
-        <assembly.plugin.version>2.4.1</assembly.plugin.version>
-        <exec.plugin.version>1.2.1</exec.plugin.version>
-
-        <!--TEST SETTINGS -->
+        <!-- TEST SETTINGS -->
         <surefire.redirectTestOutputToFile>true</surefire.redirectTestOutputToFile>
 
-        <!--PLUGIN SETTINGS -->
+        <!-- PLUGIN SETTINGS -->
         <dependency.locations.enabled>false</dependency.locations.enabled>
 
         <!-- NEXUS RELATED SETTINGS -->
         <nexusproxy>https://nexus.onap.org</nexusproxy>
         <snapshots.path>content/repositories/snapshots/</snapshots.path>
         <releases.path>content/repositories/releases/</releases.path>
-        <site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}
+        <site.path>
+            content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}
         </site.path>
     </properties>
 
@@ -70,164 +62,193 @@ limitations under the License.
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler.plugin.version}</version>
-                    <configuration>
-                        <source>${compiler.target.version}</source>
-                        <target>${compiler.source.version}</target>
-                    </configuration>
+                    <version>3.7.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>${source.plugin.version}</version>
-                    <configuration>
-                        <excludeResources>true</excludeResources>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>${jar.plugin.version}</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            </manifest>
-                            <manifestEntries>
-                                <Implementation-Build-Version>${project.version}</Implementation-Build-Version>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${assembly.plugin.version}</version>
-                    <configuration>
-                        <descriptors>
-                            <descriptor>src/assembly/dep.xml</descriptor>
-                        </descriptors>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                            <phase>package</phase> <!-- bind to the packaging phase -->
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${javadoc.plugin.version}</version>
-                    <configuration>
-                        <!-- minimize console output messages -->
-                        <quiet>true</quiet>
-                        <verbose>false</verbose>
-                        <useStandardDocletOptions>false</useStandardDocletOptions>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>aggregate</id>
-                            <phase>site</phase>
-                            <goals>
-                                <goal>aggregate</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>attach-javadoc</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>${exec.plugin.version}</version>
-                    <configuration>
-                        <executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
-                        <environmentVariables>
-                            <!-- make mvn properties as env for our script -->
-                            <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                            <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                            <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                            <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                            <MVN_RAWREPO_BASEURL_UPLOAD>${onap.nexus.rawrepo.baseurl.upload}
-                            </MVN_RAWREPO_BASEURL_UPLOAD>
-                            <MVN_RAWREPO_BASEURL_DOWNLOAD>${onap.nexus.rawrepo.baseurl.download}
-                            </MVN_RAWREPO_BASEURL_DOWNLOAD>
-                            <MVN_RAWREPO_SERVERID>${onap.nexus.rawrepo.serverid}</MVN_RAWREPO_SERVERID>
-                            <MVN_DOCKERREGISTRY_DAILY>${onap.nexus.dockerregistry.daily}</MVN_DOCKERREGISTRY_DAILY>
-                            <MVN_DOCKERREGISTRY_RELEASE>${onap.nexus.dockerregistry.release}
-                            </MVN_DOCKERREGISTRY_RELEASE>
-                        </environmentVariables>
-                    </configuration>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.1.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.plugin.version}</version>
+                <configuration>
+                    <excludeResources>true</excludeResources>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>deploy script</id>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build-Version>${project.version}</Implementation-Build-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/dep.xml</descriptor>
+                    </descriptors>
+                    <attach>false</attach>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <updateOnly>true</updateOnly>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- minimize console output messages -->
+                    <quiet>true</quiet>
+                    <verbose>false</verbose>
+                    <useStandardDocletOptions>false</useStandardDocletOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <serverId>${onap.nexus.dockerregistry.daily}</serverId>
+                    <imageName>${docker.image.name}</imageName>
+                    <imageTags>latest</imageTags>
+
+                    <baseImage>openjdk:8-jre-slim</baseImage>
+                    <env>
+                        <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
+                    </env>
+                    <workdir>/opt/app/VESCollector</workdir>
+                    <resources>
+                        <resource>
+                            <targetPath>.</targetPath>
+                            <directory>${project.build.directory}/${project.artifactId}-${project.version}</directory>
+                        </resource>
+                    </resources>
+                    <runs>chmod +x bin/*.sh</runs> <!-- Maven is loosing file permissions during artifacts copy -->
+                    <exposes>
+                        <expose>8080</expose>
+                        <expose>8443</expose>
+                    </exposes>
+                    <cmd>bin/docker-entry.sh</cmd>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tag-and-push-image-latest</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <arguments>
-                                <argument>__</argument>
-                                <argument>deploy</argument>
-                            </arguments>
+                            <image>${docker.image.name}:latest</image>
+                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:latest</newName>
+                            <pushImage>true</pushImage>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>install script</id>
-                        <phase>install</phase>
+                        <id>tag-and-push-image-with-version</id>
+                        <phase>deploy</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <arguments>
-                                <argument>__</argument>
-                                <argument>install</argument>
-                            </arguments>
+                            <image>${docker.image.name}:latest</image>
+                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}</newName>
+                            <pushImage>true</pushImage>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag-and-push-image-with-version-and-date</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${docker.image.name}:latest</image>
+                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}-${maven.build.timestamp}Z</newName>
+                            <pushImage>true</pushImage>
                         </configuration>
                     </execution>
                 </executions>
@@ -235,35 +256,36 @@ limitations under the License.
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.github.fge</groupId>
-                <artifactId>json-schema-core</artifactId>
-                <version>1.2.5</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>1.4.7</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.3</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.8.11</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependencies</report>
+                            <report>license</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+                    <docletArtifact>
+                        <groupId>org.umlgraph</groupId>
+                        <artifactId>umlgraph</artifactId>
+                        <version>5.6</version>
+                    </docletArtifact>
+                    <additionalparam>-views</additionalparam>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <dependencies>
         <!-- JSON RELATED -->
@@ -278,6 +300,11 @@ limitations under the License.
             <version>2.2.6</version>
         </dependency>
         <dependency>
+            <groupId>com.github.fge</groupId>
+            <artifactId>json-schema-core</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.3.1</version>
@@ -288,7 +315,7 @@ limitations under the License.
             <version>20160810</version>
         </dependency>
 
-        <!-- REST API EXPOSURE RELATED -->
+        <!-- REST API RELATED -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -309,6 +336,16 @@ limitations under the License.
             <artifactId>nsaServerLibrary</artifactId>
             <version>1.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.11</version>
+        </dependency>
 
         <!-- LOGGING RELATED -->
         <dependency>
@@ -324,14 +361,24 @@ limitations under the License.
 
         <!-- MISCELLANEOUS -->
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
         </dependency>
 
         <!-- TESTING -->
@@ -342,40 +389,6 @@ limitations under the License.
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${project.info.reports.plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependencies</report>
-                            <report>license</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${javadoc.plugin.version}</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                    <docletArtifact>
-                        <groupId>org.umlgraph</groupId>
-                        <artifactId>umlgraph</artifactId>
-                        <version>5.6</version>
-                    </docletArtifact>
-                    <additionalparam>-views</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <repositories>
         <repository>
