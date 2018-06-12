@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_a981dd4e",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-12T13:34:52Z",
+      "side": 1,
+      "message": "public Optional\u003cAnyNode\u003e getAsOptional(String key) {\n        try {\n            return Optional.ofNullable(get(key));\n        } catch (JSONException ex) {\n            return Optional.empty()\n        }\n    }",
+      "revId": "6033230f17d8b0790635d7eb8010c9fbec7f76d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c984695f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-12T13:34:52Z",
+      "side": 1,
+      "message": "asStream().collect(Collectors.toList());",
+      "revId": "6033230f17d8b0790635d7eb8010c9fbec7f76d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
