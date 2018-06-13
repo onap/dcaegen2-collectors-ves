@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_b7305308",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-13T05:49:15Z",
+      "side": 1,
+      "message": "you can extract this to separate method - it will be easier to read",
+      "range": {
+        "startLine": 93,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "f12c9bddd26d87aeeb7f3c652626a581d6200cd7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d7339f11",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-13T05:49:15Z",
+      "side": 1,
+      "message": "you can extract this to separate method- it will be easier to read",
+      "range": {
+        "startLine": 104,
+        "startChar": 21,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "f12c9bddd26d87aeeb7f3c652626a581d6200cd7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_773acbe8",
+        "filename": "src/test/java/org/onap/dcae/vestest/AnyNodeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-13T05:49:15Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "f12c9bddd26d87aeeb7f3c652626a581d6200cd7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
