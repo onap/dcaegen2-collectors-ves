@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_296cdf07",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-18T12:21:09Z",
+      "side": 1,
+      "message": "this exc is not thrown here\n\nI\u0027d change it to accept a string, it is more reusable then",
+      "revId": "f12c9bddd26d87aeeb7f3c652626a581d6200cd7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_8965f31e",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-18T12:21:09Z",
+      "side": 1,
+      "message": "seem to be unused?",
+      "revId": "f12c9bddd26d87aeeb7f3c652626a581d6200cd7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_b7305308",
         "filename": "src/main/java/org/onap/dcae/commonFunction/DmaapPropertyReader.java",
         "patchSetId": 5
