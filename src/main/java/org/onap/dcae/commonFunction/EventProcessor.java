@@ -26,7 +26,9 @@ import com.att.nsa.logging.log4j.EcompFields;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONObject;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,8 +54,10 @@ public class EventProcessor implements Runnable {
 
 	static Map<String, String[]> streamidHash = new HashMap<>();
 	public JSONObject event;
+    private AtomicReference<EventPublisher> eventPublisher;
 
-    public EventProcessor() {
+    public EventProcessor(AtomicReference<EventPublisher> eventPublisher) {
+        this.eventPublisher = eventPublisher;
         streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamid);
     }
 
@@ -130,12 +134,11 @@ public class EventProcessor implements Runnable {
 
     }
 
-    private void sendEventsToStreams(String[] streamIdList) {
-        for (String aStreamIdList : streamIdList) {
-            log.info("Invoking publisher for streamId:" + aStreamIdList);
+    private void sendEventsToStreams(String[] streamIDs) {
+        for (String streamID : streamIDs) {
+            log.info("Invoking publisher for streamId:" + streamID);
             this.overrideEvent();
-            EventPublisherHash.getInstance().sendEvent(event, aStreamIdList);
-
+            eventPublisher.get().sendEvent(event, streamID);
         }
     }
 
