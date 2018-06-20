@@ -41,17 +41,18 @@ import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 
+import java.util.concurrent.atomic.AtomicReference;
 import org.apache.catalina.LifecycleException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.restapi.RestfulCollectorServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -184,10 +185,11 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
 			CommonStartup cs = new CommonStartup(settings);
 
+			AtomicReference<EventPublisher> eventPublisher = EventPublisher.createPublisher(oplog, Paths.get(cambriaConfigFile));
+
 			Thread csmain = new Thread(cs);
 			csmain.start();
-
-			EventProcessor ep = new EventProcessor();
+			EventProcessor ep = new EventProcessor(eventPublisher);
 			executor = Executors.newFixedThreadPool(20);
 			//executor.execute(ep);
 			for (int i = 0; i < 20; ++i) {
@@ -202,13 +204,6 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			System.err.println("Uncaught exception - " + e.getMessage());
 			CommonStartup.eplog.error("FATAL_ERROR" + e.getMessage());
 			e.printStackTrace(System.err);
-		} finally {
-			// This will make the executor accept no new threads
-			// and finish all existing threads in the queue
-			/*if (executor != null) {
-				executor.shutdown();
-			}*/
-
 		}
 	}
 
