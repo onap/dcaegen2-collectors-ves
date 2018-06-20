@@ -20,6 +20,7 @@
 package org.onap.dcae.commonFunction;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.att.nsa.cmdLine.NsaCommandLineUtil;
@@ -37,11 +38,13 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.restapi.RestfulCollectorServlet;
 
 
@@ -78,7 +81,7 @@ public class TestCommonStartup {
     public void testParseStreamIdToStreamHashMapping() {
         // given
         CommonStartup.streamid = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
-        EventProcessor eventProcessor = new EventProcessor();
+        EventProcessor eventProcessor = new EventProcessor(new AtomicReference<>(mock(EventPublisher.class)));
 
         // when
         Map<String, String[]> streamHashMapping = EventProcessor.streamidHash;
@@ -103,7 +106,7 @@ public class TestCommonStartup {
 
         RestfulCollectorServlet rsv = new RestfulCollectorServlet(settings);
 
-        DrumlinRequest drumlinRequestMock = Mockito.mock(DrumlinRequest.class);
+        DrumlinRequest drumlinRequestMock = mock(DrumlinRequest.class);
 
         String basicHeaderForUser1 = "Basic " + encode(user1, password1UnHashed);
         when(drumlinRequestMock.getFirstHeader("Authorization")).thenReturn(basicHeaderForUser1);
