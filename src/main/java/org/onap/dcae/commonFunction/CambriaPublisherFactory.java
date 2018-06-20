@@ -23,6 +23,8 @@ import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.att.nsa.cambria.client.CambriaClientBuilders;
 import java.net.MalformedURLException;
 import java.security.GeneralSecurityException;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,21 +35,18 @@ class CambriaPublisherFactory {
     public CambriaBatchingPublisher createCambriaPublisher(String streamId)
             throws MalformedURLException, GeneralSecurityException {
         String authpwd = null;
-        String ueburl = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                .get(streamId + ".cambria.url");
+        DmaapPropertyReader reader = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile);
+        Map<String, String> dmaapProperties  = reader.getDmaapProperties();
+        String ueburl = dmaapProperties.get(streamId + ".cambria.url");
 
         if (ueburl == null) {
-            ueburl = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                    .get(streamId + ".cambria.hosts");
+            ueburl = dmaapProperties.get(streamId + ".cambria.hosts");
         }
-        String topic = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile)
-                .getKeyValue(streamId + ".cambria.topic");
-        String authuser = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile)
-                .getKeyValue(streamId + ".basicAuthUsername");
+        String topic = reader.getKeyValue(streamId + ".cambria.topic");
+        String authuser = reader.getKeyValue(streamId + ".basicAuthUsername");
 
         if (authuser != null) {
-            authpwd = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile).dmaap_hash
-                    .get(streamId + ".basicAuthPassword");
+            authpwd = dmaapProperties.get(streamId + ".basicAuthPassword");
         }
 
         if ((authuser != null) && (authpwd != null)) {

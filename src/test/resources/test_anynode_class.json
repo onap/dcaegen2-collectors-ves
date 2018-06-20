@@ -1,0 +1,9 @@
+{
+  "channels": [{
+    "one": "number1", "two": "number2", "three": "number3"}],
+  "sampleStrList": ["1", "2", "3", "4", "5"],
+  "sampleNestedObject": {"a": 1, "b": 2},
+  "sampleInt": 1,
+  "sampleString": "str",
+  "sampleNull": null
+}
