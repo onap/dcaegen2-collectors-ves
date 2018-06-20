@@ -20,8 +20,8 @@
  */
 package org.onap.dcae.commonFunction;
 
-import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.google.gson.Gson;
+import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,9 +29,9 @@ import org.mockito.ArgumentCaptor;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -54,7 +54,7 @@ public class EventProcessorTest {
     @Test
     public void testLoad() {
         //given
-        EventProcessor ec = new EventProcessor();
+        EventProcessor ec = new EventProcessor(new AtomicReference<>(mock(EventPublisher.class)));
         ec.event = new org.json.JSONObject(ev);
         //when
         ec.overrideEvent();
@@ -65,9 +65,9 @@ public class EventProcessorTest {
     }
 
     @Test
-    public void shouldParseJsonEvents() throws FileNotFoundException, ReflectiveOperationException {
+    public void shouldParseJsonEvents() throws ReflectiveOperationException {
         //given
-        EventProcessor eventProcessor = new EventProcessor();
+        EventProcessor eventProcessor = new EventProcessor(new AtomicReference<>(mock(EventPublisher.class)));
         String event_json = "[{ \"filter\": {\"event.commonEventHeader.domain\":\"heartbeat\",\"VESversion\":\"v4\"},\"processors\":[" +
                 "{\"functionName\": \"concatenateValue\",\"args\":{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"], \"delimiter\":\"_\"}}" +
                 ",{\"functionName\": \"addAttribute\",\"args\":{\"field\": \"event.heartbeatFields.heartbeatFieldsVersion\",\"value\": \"1.0\",\"fieldType\": \"number\"}}" +
@@ -86,32 +86,5 @@ public class EventProcessorTest {
         assertThat(stringArgumentCaptor.getAllValues()).contains("concatenateValue", "addAttribute", "map");
     }
 
-    @Test
-    public void shouldCreateDmaapPublisher() {
-
-        //given
-        EventPublisherHash eph = EventPublisherHash.getInstance();
-        EventProcessor ec = new EventProcessor();
-        ec.event = new org.json.JSONObject(ev);
-        CommonStartup.cambriaConfigFile = "src/test/resources/testDmaapConfig_ip.json";
-
-        //when
-        CambriaBatchingPublisher pub = eph.getDmaapPublisher("sec_fault_ueb");
-
-        //then
-        assertNotNull(pub);
-    }
-
-    @Test
-    public void shouldSendEventWithNoError() {
-
-        EventPublisherHash eph = EventPublisherHash.getInstance();
-        EventProcessor eventProcessor = new EventProcessor();
-        eventProcessor.event = new org.json.JSONObject(ev);
-        CommonStartup.cambriaConfigFile = "src/test/resources/testDmaapConfig_ip.json";
-
-        //when
-        eph.sendEvent(eventProcessor.event, "sec_fault_ueb");
-    }
 }
 

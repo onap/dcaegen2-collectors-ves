@@ -30,7 +30,7 @@ import java.nio.file.Paths;
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
-final class TestingUtilities {
+public final class TestingUtilities {
 
     private TestingUtilities() {
         // utility class, no objects allowed
@@ -40,10 +40,13 @@ final class TestingUtilities {
         return s.replace("'", "\"");
     }
 
-    static JsonObject readJSONFromFile(Path path) {
-        return rethrow(() -> (JsonObject) new JsonParser().parse(new String(readAllBytes(path))));
+    public static JsonObject readJSONFromFile(Path path) {
+        return rethrow(() -> (JsonObject) new JsonParser().parse(readFile(path)));
     }
 
+    public static String readFile(Path path) {
+        return rethrow(() -> new String(readAllBytes(path)));
+    }
     static Path createTemporaryFile() {
         return rethrow(() -> {
             Path temporaryDirectory = Files.createTempDirectory("temporaryDirectory");
@@ -70,7 +73,7 @@ final class TestingUtilities {
         try {
             return supplier.get();
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
