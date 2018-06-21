@@ -24,7 +24,6 @@ import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.DmaapPropertyReader;
 
-import java.net.MalformedURLException;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -53,7 +52,7 @@ public class DmaapPropertyReaderTest {
     private static final String FAULT_UEB_CAMBRIA_TOPIC_KEY = FAULT_UEB_KEY_PREFIX + ".cambria.topic";
     private static final String VES_ALERT_SND_AUTH_USERNAME_KEY = VES_ALERT_SND_KEY_PREFIX + ".basicAuthUsername";
 
-    public static final String NULL_TOSTRING = "null";
+    private static final String NULL_TOSTRING = "null";
 
     private static final Map<String, String> expectedCompleteGen2DmaapConfig = ImmutableMap.<String, String>builder()
             .put(ALERT_BASIC_AUTH_PWD_KEY, "SamplePassWD2")
@@ -106,7 +105,7 @@ public class DmaapPropertyReaderTest {
     }
 
     @Test
-    public void shouldCreateReaderWithCompleteGen2DmaapConfig() throws MalformedURLException {
+    public void shouldCreateReaderWithCompleteGen2DmaapConfig() {
         assertReaderPreservedAllEntriesAfterTransformation(fullGen2DmaapConfig, expectedCompleteGen2DmaapConfig);
     }
 

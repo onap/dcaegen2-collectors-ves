@@ -34,8 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.att.nsa.apiServer.CommonServlet;
 import com.att.nsa.configs.ConfigDbException;
-import com.att.nsa.drumlin.service.framework.DrumlinErrorHandler;
-import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
 import com.att.nsa.drumlin.service.framework.routing.DrumlinRequestRouter;
 import com.att.nsa.drumlin.service.framework.routing.playish.DrumlinPlayishRoutingFileSource;
 import com.att.nsa.drumlin.service.standards.HttpStatusCodes;
@@ -50,12 +48,15 @@ import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 public class RestfulCollectorServlet extends CommonServlet
 {
 
-	public static String authlist;
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger ( RestfulCollectorServlet.class );
+
+	private static String authCredentialsList;
 
 	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
 	{
 		super ( settings, "collector", false );
-		authlist = settings.getString(CommonStartup.KSETTING_AUTHLIST,null);
+		authCredentialsList = settings.getString(CommonStartup.KSETTING_AUTHLIST, null);
 	}
 
 
@@ -69,8 +70,7 @@ public class RestfulCollectorServlet extends CommonServlet
 	{
 		super.servletSetup ();
 
-		try
-		{
+		try {
 			// the base class provides a bunch of things like API authentication and ECOMP compliant
 			// logging. The Restful Collector likely doesn't need API authentication, so for now,
 			// we init the base class services with an in-memory (and empty!) config DB.
@@ -82,14 +82,8 @@ public class RestfulCollectorServlet extends CommonServlet
 			final DrumlinRequestRouter drr = getRequestRouter ();
 
 			// you can tell the request router what to do when a particular kind of exception is thrown.
-			drr.setHandlerForException( IllegalArgumentException.class, new DrumlinErrorHandler()
-			{
-				@Override
-				public void handle ( DrumlinRequestContext ctx, Throwable cause )
-				{
-					sendJsonReply ( ctx, HttpStatusCodes.k400_badRequest, cause.getMessage() );
-				}
-			});
+			drr.setHandlerForException(IllegalArgumentException.class,
+									   (ctx, cause) -> sendJsonReply (ctx, HttpStatusCodes.k400_badRequest, cause.getMessage() ));
 
 			// load the routes from the config file
 			final URL routes = findStream ( "routes.conf" );
@@ -99,52 +93,34 @@ public class RestfulCollectorServlet extends CommonServlet
 
 			if (CommonStartup.authflag > 0) {
 				NsaAuthenticator<NsaSimpleApiKey> NsaAuth;
-				NsaAuth = AuthlistHandler(authlist);
+				NsaAuth = createAuthenticator(authCredentialsList);
 
 				this.getSecurityManager().addAuthenticator(NsaAuth);
 			}
 
 			log.info ( "Restful Collector Servlet is up." );
 		}
-		catch ( SecurityException e )
-		{
-			throw new ServletException ( e );
-		}
-		catch ( IOException e )
-		{
-			throw new ServletException ( e );
-		}
-		catch ( ConfigDbException e )
-		{
+		catch ( SecurityException | IOException | ConfigDbException e ) {
 			throw new ServletException ( e );
 		}
 	}
 
-	public NsaAuthenticator<NsaSimpleApiKey> AuthlistHandler (String authlist)
-	{
-		NsaAuthenticator<NsaSimpleApiKey> NsaAuth = new SimpleAuthenticator ();
-		if (authlist != null)
-		{
-			String authpair[] = authlist.split("\\|");
-			for (String pair: authpair) {
+	public NsaAuthenticator<NsaSimpleApiKey> createAuthenticator(String authCredentials) {
+		NsaAuthenticator<NsaSimpleApiKey> authenticator = new SimpleAuthenticator();
+		if (authCredentials != null) {
+			String authpair[] = authCredentials.split("\\|");
+			for (String pair : authpair) {
 				String lineid[] = pair.split(",");
-				String listauthid =  lineid[0];
-				String listauthpwd =  new String(Base64.decodeBase64(lineid[1]));
-				((SimpleAuthenticator) NsaAuth).add(listauthid,listauthpwd);
+				String listauthid = lineid[0];
+				String listauthpwd = new String(Base64.decodeBase64(lineid[1]));
+				((SimpleAuthenticator) authenticator).add(listauthid, listauthpwd);
 			}
 
+		} else {
+			((SimpleAuthenticator) authenticator).add("admin", "collectorpasscode");
 		}
-		else
-		{
-			//add a default test account
-			((SimpleAuthenticator) NsaAuth).add("admin","collectorpasscode");
-		}
-		return NsaAuth;
-
+		return authenticator;
 	}
 
-
-	private static final long serialVersionUID = 1L;
-	private static final Logger log = LoggerFactory.getLogger ( RestfulCollectorServlet.class );
 }
 

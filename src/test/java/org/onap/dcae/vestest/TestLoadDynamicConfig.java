@@ -21,7 +21,6 @@ package org.onap.dcae.vestest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.onap.dcae.vestest.TestingUtilities.correctQuotes;
 import static org.onap.dcae.vestest.TestingUtilities.createTemporaryFile;
 
 import com.github.fge.jackson.JsonLoader;
@@ -46,7 +45,7 @@ public class TestLoadDynamicConfig {
     @Test
     public void shouldReadFileContent() throws IOException {
         // given
-        String expectedJSON = correctQuotes("{ 'field' : 1 }");
+        String expectedJSON = "{ \"field\" : 1 }";
         Files.write(temporaryFile, expectedJSON.getBytes());
 
         // when
@@ -62,7 +61,7 @@ public class TestLoadDynamicConfig {
         LoadDynamicConfig loadDynamicConfig = new LoadDynamicConfig();
         loadDynamicConfig.propFile = "src/test/resources/test_collector_ip_op.properties";
         loadDynamicConfig.configFile = "src/test/resources/controller-config_dmaap_ip.json";
-        loadDynamicConfig.dmaapoutputfile = temporaryFile.toString();
+        loadDynamicConfig.dMaaPOutputFile = temporaryFile.toString();
         String sampleConfiguration = LoadDynamicConfig.readFile(loadDynamicConfig.configFile);
 
         // when

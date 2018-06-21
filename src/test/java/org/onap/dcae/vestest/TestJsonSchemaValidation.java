@@ -34,7 +34,7 @@ public class TestJsonSchemaValidation {
 
     @Test
     public void shouldValidEventPassSchema_27_2() throws IOException {
-        String result = CommonStartup.schemavalidate(
+        String result = CommonStartup.validateAgainstSchema(
             readJSONFromFile("src/test/resources/VES_valid.txt").toString(),
             readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
         assertEquals(result, "true");
@@ -43,7 +43,7 @@ public class TestJsonSchemaValidation {
 
     @Test
     public void shouldInvalidEventDoesNotPassSchema_27_2() throws IOException {
-        String result = CommonStartup.schemavalidate(
+        String result = CommonStartup.validateAgainstSchema(
             readJSONFromFile("src/test/resources/VES_invalid.txt").toString(),
             readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
         assertEquals(result, "false");
