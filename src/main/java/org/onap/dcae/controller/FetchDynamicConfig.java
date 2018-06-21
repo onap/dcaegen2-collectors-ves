@@ -23,20 +23,13 @@ package org.onap.dcae.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.onap.dcae.commonFunction.CommonStartup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,16 +40,16 @@ public class FetchDynamicConfig {
 	private static final Logger log = LoggerFactory.getLogger(FetchDynamicConfig.class);
 
 	public static String configFile = "/opt/app/KV-Configuration.json";
-	static String url;
+	private static String url;
 	public static String retString;
 	public static String retCBSString;
-	public static Map<String, String> env;
+	private static Map<String, String> env;
 
 	public FetchDynamicConfig() {
 	}
 
 	public static void main(String[] args) {
-		Boolean areEqual = false;
+		Boolean areEqual;
 		// Call consul api and identify the CBS Service address and port
 		getconsul();
 		// Construct and invoke CBS API to get application Configuration
@@ -73,7 +66,7 @@ public class FetchDynamicConfig {
 		}
 	}
 
-	public static void getconsul() {
+	private static void getconsul() {
 
 		env = System.getenv();
 		for (Map.Entry<String, String> entry : env.entrySet()) {
@@ -107,13 +100,11 @@ public class FetchDynamicConfig {
 				ObjectMapper mapper = new ObjectMapper();
 
 				JsonNode tree1 = mapper.readTree(jsonObject.toString());
-				JsonNode tree2 = mapper.readTree(retCBSString.toString());
+				JsonNode tree2 = mapper.readTree(retCBSString);
 				areEqual = tree1.equals(tree2);
 				log.info("Comparison value:" + areEqual);
 			} else {
 				log.info("First time config file read: " + configFile);
-				// To allow first time file creation
-				areEqual = false;
 			}
 
 		} catch (IOException e) {
@@ -167,7 +158,7 @@ public class FetchDynamicConfig {
 
 	}
 
-	public static String executecurl(String url) {
+	private static String executecurl(String url) {
 
 		String[] command = { "curl", "-v", url };
 		ProcessBuilder process = new ProcessBuilder(command);

@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class ConfigProcessors {
 
-	private static Logger log = LoggerFactory.getLogger(ConfigProcessors.class);
+	private static final Logger log = LoggerFactory.getLogger(ConfigProcessors.class);
 	private static final String FIELD = "field";
 	private static final String OLD_FIELD = "oldField";
 	private static final String FILTER = "filter";
@@ -39,7 +39,7 @@ public class ConfigProcessors {
 	private static final String FILTER_NOT_MET = "Filter not met";
 	private static final String COMP_FALSE = "==false";
 
-	private JSONObject event;
+	private final JSONObject event;
 
 	public ConfigProcessors(JSONObject eventJson) {
 		event = eventJson;
@@ -170,7 +170,7 @@ public class ConfigProcessors {
 
 	private String performOperation(String operation, String value) {
 		log.info("performOperation");
-		if (operation != null && "convertMBtoKB".equals(operation)) {
+		if ("convertMBtoKB".equals(operation)) {
 			float kbValue = Float.parseFloat(value) * 1024;
 			value = String.valueOf(kbValue);
 		}
@@ -184,7 +184,7 @@ public class ConfigProcessors {
 		final String oldField = jsonObject.getString(OLD_FIELD);
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
 		final String operation = jsonObject.optString("operation");
-		String value = "";
+		String value;
 		if (filter == null || isFilterMet(filter)) {
 
 			value = getEventObjectVal(oldField).toString();
@@ -267,19 +267,19 @@ public class ConfigProcessors {
 		final JSONArray values = jsonObject.getJSONArray("concatenate");
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
 		if (filter == null || isFilterMet(filter)) {
-			String value = "";
+			StringBuilder value = new StringBuilder();
 			for (int i = 0; i < values.length(); i++) {
 
 				String tempVal = evaluate(values.getString(i));
 				if (!tempVal.equals(OBJECT_NOT_FOUND)) {
 					if (i == 0)
-						value = value + tempVal;
+						value.append(tempVal);
 					else
-						value = value + delimiter + tempVal;
+						value.append(delimiter).append(tempVal);
 				}
 			}
 
-			setEventObjectVal(field, value);
+			setEventObjectVal(field, value.toString());
 		} else
 			log.info(FILTER_NOT_MET);
 	}
@@ -323,8 +323,6 @@ public class ConfigProcessors {
 
 	private boolean checkFilter(JSONObject jo, String key, String logicKey) {
 		String filterValue = jo.getString(key);
-		boolean retVal = true;
-
 		if (filterValue.contains(":")) {
 			String[] splitVal = filterValue.split(":");
 			if ("matches".equals(splitVal[0])) {
@@ -368,26 +366,21 @@ public class ConfigProcessors {
 				}
 			}
 		}
-		return retVal;
+		return true;
 	}
 
 
 	public boolean isFilterMet(JSONObject jo) {
-		boolean retval = true;
-
 		for (String key : jo.keySet()) {
 			if ("not".equals(key)) {
 				JSONObject njo = jo.getJSONObject(key);
 				for (String njoKey : njo.keySet()) {
-
-					retval = checkFilter(njo, njoKey, key);
-					if (!retval)
-						return retval;
+					if (!checkFilter(njo, njoKey, key))
+						return false;
 				}
 			} else {
-				retval = checkFilter(jo, key, key);
-				if (!retval)
-					return retval;
+				if (!checkFilter(jo, key, key))
+					return false;
 			}
 		}
 		return true;
@@ -407,17 +400,16 @@ public class ConfigProcessors {
 			keySeriesStr = keySeriesStr.substring(0, keySeriesStr.length() - 1);
 		String[] keySet = keySeriesStr.split("\\.", keySeriesStr.length());
 		Object keySeriesObj = event;
-		for (int i = 0; i < (keySet.length); i++) {
-
+		for (String aKeySet : keySet) {
 			if (keySeriesObj != null) {
 				if (keySeriesObj instanceof String) {
 
 					log.info("STRING==" + keySeriesObj);
 				} else if (keySeriesObj instanceof JSONArray) {
-					keySeriesObj = ((JSONArray) keySeriesObj).optJSONObject(Integer.parseInt(keySet[i]));
+					keySeriesObj = ((JSONArray) keySeriesObj).optJSONObject(Integer.parseInt(aKeySet));
 
 				} else if (keySeriesObj instanceof JSONObject) {
-					keySeriesObj = ((JSONObject) keySeriesObj).opt(keySet[i]);
+					keySeriesObj = ((JSONObject) keySeriesObj).opt(aKeySet);
 
 				} else {
 					log.info("unknown object==" + keySeriesObj);

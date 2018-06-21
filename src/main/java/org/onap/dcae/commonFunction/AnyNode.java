@@ -45,27 +45,21 @@ import java.util.stream.StreamSupport;
  * @author koblosz
  */
 public class AnyNode {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AnyNode.class);
-    private Object obj;
+    private final Object obj;
+    private static final Logger log = LoggerFactory.getLogger(AnyNode.class);
 
-    /**
-     * @param filePath
-     * @return
-     * @throws IOException
-     */
     public static AnyNode parse(String filePath) throws IOException {
         try (FileReader fr = new FileReader(filePath)) {
-            JSONTokener tokener = new JSONTokener(fr);
-            return new AnyNode(new JSONObject(tokener));
+            return new AnyNode(new JSONObject(new JSONTokener(fr)));
         } catch (FileNotFoundException | JSONException e1) {
-            LOGGER.error("Could not find or parse file under path %s due to: %s", filePath, e1.toString());
+            log.error("Could not find or parse file under path %s due to: %s", filePath, e1.toString());
             e1.printStackTrace();
             throw e1;
         }
     }
 
     /**
-     * Returns keyset of underlying object. It is assumed that underlying object is of type org.json.JSONObject.
+     * Returns key set of underlying object. It is assumed that underlying object is of type org.json.JSONObject.
      *
      * @return Set of string keys present in underlying JSONObject
      */
@@ -131,12 +125,12 @@ public class AnyNode {
         AnyNode result = null;
         try {
             result = get(key);
-        } catch (JSONException ex) {
+        } catch (JSONException ignored) {
         }
         return Optional.ofNullable(result);
     }
 
-    public JSONObject asJsonObject() {
+    private JSONObject asJsonObject() {
         return (JSONObject) this.obj;
     }
 
@@ -159,14 +153,14 @@ public class AnyNode {
     /**
      * Converts this object to stream of underlying objects wrapped with AnyNode class. It is assumed that this is of type JSONArray.
      */
-    public Stream<AnyNode> asStream() {
+    private Stream<AnyNode> asStream() {
         return StreamSupport.stream(((JSONArray) this.obj).spliterator(), false).map(AnyNode::new);
     }
 
     /**
      * Checks if specified key is present in this. It is assumed that this is of type JSONObject.
      */
-    public boolean hasKey(String key) {
+    boolean hasKey(String key) {
         return getAsOptional(key).isPresent();
     }
 

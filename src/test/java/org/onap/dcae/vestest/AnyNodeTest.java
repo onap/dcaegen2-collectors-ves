@@ -51,7 +51,7 @@ public class AnyNodeTest {
 
     @Test(expected = IOException.class)
     public void testShouldRethrowExceptionWhenFileNotFound() throws IOException {
-        AnyNode.parse("not/existng/path");
+        AnyNode.parse("not/existing/path");
     }
 
     @Test

@@ -57,8 +57,9 @@ public class DmaapPublishersTest {
     @Mock
     private CambriaBatchingPublisher cambriaPublisher;
     private DmaapPublishers cut;
+
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() throws MalformedURLException, GeneralSecurityException {
