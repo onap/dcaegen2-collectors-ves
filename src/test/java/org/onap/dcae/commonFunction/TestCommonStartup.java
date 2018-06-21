@@ -19,6 +19,8 @@
  */
 package org.onap.dcae.commonFunction;
 
+import static java.util.Base64.getDecoder;
+import static java.util.Base64.getEncoder;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +36,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.json.JSONArray;
@@ -77,7 +78,7 @@ public class TestCommonStartup {
     @Test
     public void testParseStreamIdToStreamHashMapping() {
         // given
-        CommonStartup.streamid = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
+        CommonStartup.streamID = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
         EventProcessor eventProcessor = new EventProcessor();
 
         // when
@@ -95,7 +96,7 @@ public class TestCommonStartup {
 
         String user1 = "secureid";
         String password1Hashed = "IWRjYWVSb2FkbTEyMyEt";
-        String password1UnHashed = decode("IWRjYWVSb2FkbTEyMyEt");
+        String password1UnHashed = new String(getDecoder().decode("IWRjYWVSb2FkbTEyMyEt"));
         String user2 = "sample1";
         String password2Hashed = "c2FtcGxlMQ";
 
@@ -105,24 +106,17 @@ public class TestCommonStartup {
 
         DrumlinRequest drumlinRequestMock = Mockito.mock(DrumlinRequest.class);
 
-        String basicHeaderForUser1 = "Basic " + encode(user1, password1UnHashed);
+        String basicHeaderForUser1 = "Basic " + getEncoder().encodeToString((user1 + ":" + password1UnHashed).getBytes());
         when(drumlinRequestMock.getFirstHeader("Authorization")).thenReturn(basicHeaderForUser1);
 
         // when
-        SimpleAuthenticator simpleAuthenticator = (SimpleAuthenticator) rsv.AuthlistHandler(authlist);
+        SimpleAuthenticator simpleAuthenticator = (SimpleAuthenticator) rsv.createAuthenticator(authlist);
         NsaSimpleApiKey authentic = simpleAuthenticator.isAuthentic(drumlinRequestMock);
 
         // then
         assertEquals(authentic.getSecret(), password1UnHashed);
     }
 
-    private String decode(String hashedPassword) {
-        return new String(Base64.getDecoder().decode(hashedPassword.getBytes()));
-    }
-
-    private String encode(String user1, String password1UnHashed) {
-        return Base64.getEncoder().encodeToString((user1 + ":" + password1UnHashed).getBytes());
-    }
 
 }
 

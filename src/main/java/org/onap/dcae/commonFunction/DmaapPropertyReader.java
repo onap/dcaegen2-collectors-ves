@@ -68,15 +68,19 @@ public class DmaapPropertyReader {
         Map<String, String> transformedDmaapProperties = new HashMap<>();
         try {
             AnyNode root = AnyNode.parse(configFilePath);
-            if (root.hasKey("channels")) { // Check if dmaap config is handled by legacy controller/service/manager
+            if (isInLegacyFormat(root)) {
                 transformedDmaapProperties = getLegacyDmaapPropertiesWithChannels(root.get("channels"));
-            } else {//Handing new format from controllergen2/config_binding_service
+            } else {
                 transformedDmaapProperties = getDmaapPropertiesWithInfoData(root);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return transformedDmaapProperties;
+    }
+
+    private static boolean isInLegacyFormat(AnyNode root) {
+        return root.hasKey("channels");
     }
 
     private static Map<String, String> getLegacyDmaapPropertiesWithChannels(AnyNode channelsNode) {

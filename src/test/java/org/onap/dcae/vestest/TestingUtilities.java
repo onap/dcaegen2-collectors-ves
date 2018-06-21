@@ -36,10 +36,6 @@ final class TestingUtilities {
         // utility class, no objects allowed
     }
 
-    static String correctQuotes(String s) {
-        return s.replace("'", "\"");
-    }
-
     static JsonObject readJSONFromFile(Path path) {
         return rethrow(() -> (JsonObject) new JsonParser().parse(new String(readAllBytes(path))));
     }

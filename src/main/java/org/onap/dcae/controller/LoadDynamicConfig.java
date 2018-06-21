@@ -30,7 +30,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -40,9 +39,7 @@ public class LoadDynamicConfig {
 
 	public String propFile = "collector.properties";
 	public String configFile = "/opt/app/KV-Configuration.json";
-	static String url;
-	static String retString;
-	public String dmaapoutputfile = "./etc/DmaapConfig.json";
+	public String dMaaPOutputFile = "./etc/DmaapConfig.json";
 
 	public LoadDynamicConfig() {
 
@@ -93,12 +90,10 @@ public class LoadDynamicConfig {
 			// and write into dmaapconfig.json
 			if (key.startsWith("streams_publishes")) {
 				// VESCollector only have publish streams
-				try (FileWriter file = new FileWriter(dmaapoutputfile)) {
-					
+				try (FileWriter file = new FileWriter(dMaaPOutputFile)) {
 					String indentedretstring=(new JSONObject(jsonObject.get(key).toString())).toString(4);
 					file.write(indentedretstring);
 					log.info("Successfully written JSON Object to DmaapConfig.json");
-					file.close();
 				} catch (IOException e) {
 					log.info("Error in writing dmaap configuration into DmaapConfig.json", e);
 				}
@@ -124,7 +119,6 @@ public class LoadDynamicConfig {
 				line = br.readLine();
 			}
 			result = sb.toString();
-			br.close();
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage(), e);
 			e.printStackTrace();
