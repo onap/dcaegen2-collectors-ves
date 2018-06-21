@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_8c817c4f",
+        "filename": "src/main/java/org/onap/dcae/restapi/endpoints/EventReceipt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-21T10:36:11Z",
+      "side": 1,
+      "message": "maybe just \u0027return (CommonStartup.schemaFileJson.has(version))? CommonStartup.schemaFileJson.getString(version):\nCommonStartup.schemaFileJson.getString(\"v5\")` ?",
+      "range": {
+        "startLine": 242,
+        "startChar": 2,
+        "endLine": 247,
+        "endChar": 3
+      },
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0caecce7",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-21T10:36:11Z",
+      "side": 1,
+      "message": "do we need all those \u0027sout\u0027s?",
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_4ca4d407",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-21T10:36:11Z",
+      "side": 1,
+      "message": "why not ConfigProcessorTest?",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
