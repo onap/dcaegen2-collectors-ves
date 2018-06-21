@@ -30,38 +30,34 @@ import org.slf4j.LoggerFactory;
 
 class CambriaPublisherFactory {
 
-    private static Logger log = LoggerFactory.getLogger(CambriaPublisherFactory.class);
+    private final static Logger log = LoggerFactory.getLogger(CambriaPublisherFactory.class);
 
-    public CambriaBatchingPublisher createCambriaPublisher(String streamId)
+    CambriaBatchingPublisher createCambriaPublisher(String streamId)
             throws MalformedURLException, GeneralSecurityException {
         String authpwd = null;
         DmaapPropertyReader reader = DmaapPropertyReader.getInstance(CommonStartup.cambriaConfigFile);
-        Map<String, String> dmaapProperties  = reader.getDmaapProperties();
-        String ueburl = dmaapProperties.get(streamId + ".cambria.url");
+        Map<String, String> dMaaPProperties  = reader.getDmaapProperties();
+        String ueburl = dMaaPProperties.get(streamId + ".cambria.url");
 
         if (ueburl == null) {
-            ueburl = dmaapProperties.get(streamId + ".cambria.hosts");
+            ueburl = dMaaPProperties.get(streamId + ".cambria.hosts");
         }
         String topic = reader.getKeyValue(streamId + ".cambria.topic");
         String authuser = reader.getKeyValue(streamId + ".basicAuthUsername");
 
         if (authuser != null) {
-            authpwd = dmaapProperties.get(streamId + ".basicAuthPassword");
+            authpwd = dMaaPProperties.get(streamId + ".basicAuthPassword");
         }
 
         if ((authuser != null) && (authpwd != null)) {
             log.debug(String.format("URL:%sTOPIC:%sAuthUser:%sAuthpwd:%s", ueburl, topic, authuser, authpwd));
             return new CambriaClientBuilders.PublisherBuilder().usingHosts(ueburl).onTopic(topic).usingHttps()
                     .authenticatedByHttp(authuser, authpwd).logSendFailuresAfter(5)
-                    // .logTo(log)
-                    // .limitBatch(100, 10)
                     .build();
         } else {
             log.debug(String.format("URL:%sTOPIC:%s", ueburl, topic));
             return new CambriaClientBuilders.PublisherBuilder().usingHosts(ueburl).onTopic(topic)
-                    // .logTo(log)
                     .logSendFailuresAfter(5)
-                    // .limitBatch(100, 10)
                     .build();
         }
     }

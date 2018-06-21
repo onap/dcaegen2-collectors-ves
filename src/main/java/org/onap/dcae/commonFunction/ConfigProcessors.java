@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class ConfigProcessors {
 
-	private static Logger log = LoggerFactory.getLogger(ConfigProcessors.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ConfigProcessors.class);
 	private static final String FIELD = "field";
 	private static final String OLD_FIELD = "oldField";
 	private static final String FILTER = "filter";
@@ -39,7 +39,7 @@ public class ConfigProcessors {
 	private static final String FILTER_NOT_MET = "Filter not met";
 	private static final String COMP_FALSE = "==false";
 
-	private JSONObject event;
+	private final JSONObject event;
 
 	public ConfigProcessors(JSONObject eventJson) {
 		event = eventJson;
@@ -53,7 +53,7 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			getEventObjectVal(field);
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -64,7 +64,7 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			setEventObjectVal(field, value);
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -85,7 +85,7 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			setEventObjectVal("suppressEvent", "true");
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -99,7 +99,7 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			setEventObjectVal(field, value, fieldType);
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -111,7 +111,7 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			setEventObjectVal(field, value);
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -123,13 +123,13 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			removeEventKey(field);
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
 	private void renameArrayInArray(JSONObject jsonObject) // map
 	{
-		log.info("renameArrayInArray");
+		LOG.info("renameArrayInArray");
 		final String field = jsonObject.getString(FIELD);
 		final String oldField = jsonObject.getString(OLD_FIELD);
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
@@ -145,14 +145,14 @@ public class ConfigProcessors {
 				final String newArrayName = fsplit[1].substring(1);
 				final String value = oldValue.replaceAll(oldArrayName, newArrayName);
 
-				log.info("oldValue ==" + oldValue);
-				log.info("value ==" + value);
+				LOG.info("oldValue ==" + oldValue);
+				LOG.info("value ==" + value);
 				JSONArray ja = new JSONArray(value);
 				removeEventKey(oldfsplit[0]);
 				setEventObjectVal(fsplit[0], ja);
 			}
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -169,8 +169,8 @@ public class ConfigProcessors {
 	}
 
 	private String performOperation(String operation, String value) {
-		log.info("performOperation");
-		if (operation != null && "convertMBtoKB".equals(operation)) {
+		LOG.info("performOperation");
+		if ("convertMBtoKB".equals(operation)) {
 			float kbValue = Float.parseFloat(value) * 1024;
 			value = String.valueOf(kbValue);
 		}
@@ -184,7 +184,7 @@ public class ConfigProcessors {
 		final String oldField = jsonObject.getString(OLD_FIELD);
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
 		final String operation = jsonObject.optString("operation");
-		String value = "";
+		String value;
 		if (filter == null || isFilterMet(filter)) {
 
 			value = getEventObjectVal(oldField).toString();
@@ -197,12 +197,12 @@ public class ConfigProcessors {
 				removeEventKey(oldField);
 			}
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
 	private void mapToJArray(JSONObject jsonObject) {
-		log.info("mapToJArray");
+		LOG.info("mapToJArray");
 		String field = jsonObject.getString(FIELD);
 		String oldField = jsonObject.getString(OLD_FIELD);
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
@@ -214,7 +214,7 @@ public class ConfigProcessors {
 
 			String value = getEventObjectVal(oldField).toString();
 			if (!value.equals(OBJECT_NOT_FOUND)) {
-				log.info("old value ==" + value);
+				LOG.info("old value ==" + value);
 				// update old value based on attrMap
 				if (attrMap != null) {
 					// loop thru attrMap and update attribute name to new name
@@ -223,7 +223,7 @@ public class ConfigProcessors {
 					}
 				}
 
-				log.info("new value ==" + value);
+				LOG.info("new value ==" + value);
 				char c = value.charAt(0);
 				if (c != '[') {
 					// oldfield is JsonObject
@@ -250,7 +250,7 @@ public class ConfigProcessors {
 				removeEventKey(oldField);
 			}
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 	/**
@@ -267,21 +267,21 @@ public class ConfigProcessors {
 		final JSONArray values = jsonObject.getJSONArray("concatenate");
 		final JSONObject filter = jsonObject.optJSONObject(FILTER);
 		if (filter == null || isFilterMet(filter)) {
-			String value = "";
+			StringBuilder value = new StringBuilder();
 			for (int i = 0; i < values.length(); i++) {
 
 				String tempVal = evaluate(values.getString(i));
 				if (!tempVal.equals(OBJECT_NOT_FOUND)) {
 					if (i == 0)
-						value = value + tempVal;
+						value.append(tempVal);
 					else
-						value = value + delimiter + tempVal;
+						value.append(delimiter).append(tempVal);
 				}
 			}
 
-			setEventObjectVal(field, value);
+			setEventObjectVal(field, value.toString());
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 	public void subtractValue(JSONObject jsonObject) {
@@ -292,9 +292,9 @@ public class ConfigProcessors {
 		if (filter == null || isFilterMet(filter)) {
 			float value = 0;
 			for (int i = 0; i < values.length(); i++) {
-				log.info(values.getString(i));
+				LOG.info(values.getString(i));
 				String tempVal = evaluate(values.getString(i));
-				log.info("tempVal==" + tempVal);
+				LOG.info("tempVal==" + tempVal);
 				if (!tempVal.equals(OBJECT_NOT_FOUND)) {
 					if (i == 0)
 						value = value + Float.valueOf(tempVal);
@@ -302,10 +302,10 @@ public class ConfigProcessors {
 						value = value - Float.valueOf(tempVal);
 				}
 			}
-			log.info("value ==" + value);
+			LOG.info("value ==" + value);
 			setEventObjectVal(field, value, "number");
 		} else
-			log.info(FILTER_NOT_MET);
+			LOG.info(FILTER_NOT_MET);
 	}
 
 
@@ -323,19 +323,17 @@ public class ConfigProcessors {
 
 	private boolean checkFilter(JSONObject jo, String key, String logicKey) {
 		String filterValue = jo.getString(key);
-		boolean retVal = true;
-
 		if (filterValue.contains(":")) {
 			String[] splitVal = filterValue.split(":");
 			if ("matches".equals(splitVal[0])) {
 				if ("not".equals(logicKey)) {
 					if (getEventObjectVal(key).toString().matches(splitVal[1])) {
-						log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+						LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 						return false;
 					}
 				} else {
 					if (!(getEventObjectVal(key).toString().matches(splitVal[1]))) {
-						log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+						LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 						return false;
 					}
 				}
@@ -344,12 +342,12 @@ public class ConfigProcessors {
 			if ("contains".equals(splitVal[0])) {
 				if ("not".equals(logicKey)) {
 					if (getEventObjectVal(key).toString().contains(splitVal[1])) {
-						log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+						LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 						return false;
 					}
 				} else {
 					if (!(getEventObjectVal(key).toString().contains(splitVal[1]))) {
-						log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+						LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 						return false;
 					}
 				}
@@ -358,36 +356,31 @@ public class ConfigProcessors {
 		} else {
 			if ("not".equals(logicKey)) {
 				if (getEventObjectVal(key).toString().equals(filterValue)) {
-					log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+					LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 					return false;
 				}
 			} else {
 				if (!(getEventObjectVal(key).toString().equals(filterValue))) {
-					log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
+					LOG.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
 					return false;
 				}
 			}
 		}
-		return retVal;
+		return true;
 	}
 
 
 	public boolean isFilterMet(JSONObject jo) {
-		boolean retval = true;
-
 		for (String key : jo.keySet()) {
 			if ("not".equals(key)) {
 				JSONObject njo = jo.getJSONObject(key);
 				for (String njoKey : njo.keySet()) {
-
-					retval = checkFilter(njo, njoKey, key);
-					if (!retval)
-						return retval;
+					if (!checkFilter(njo, njoKey, key))
+						return false;
 				}
 			} else {
-				retval = checkFilter(jo, key, key);
-				if (!retval)
-					return retval;
+				if (!checkFilter(jo, key, key))
+					return false;
 			}
 		}
 		return true;
@@ -407,20 +400,19 @@ public class ConfigProcessors {
 			keySeriesStr = keySeriesStr.substring(0, keySeriesStr.length() - 1);
 		String[] keySet = keySeriesStr.split("\\.", keySeriesStr.length());
 		Object keySeriesObj = event;
-		for (int i = 0; i < (keySet.length); i++) {
-
+		for (String aKeySet : keySet) {
 			if (keySeriesObj != null) {
 				if (keySeriesObj instanceof String) {
 
-					log.info("STRING==" + keySeriesObj);
+					LOG.info("STRING==" + keySeriesObj);
 				} else if (keySeriesObj instanceof JSONArray) {
-					keySeriesObj = ((JSONArray) keySeriesObj).optJSONObject(Integer.parseInt(keySet[i]));
+					keySeriesObj = ((JSONArray) keySeriesObj).optJSONObject(Integer.parseInt(aKeySet));
 
 				} else if (keySeriesObj instanceof JSONObject) {
-					keySeriesObj = ((JSONObject) keySeriesObj).opt(keySet[i]);
+					keySeriesObj = ((JSONObject) keySeriesObj).opt(aKeySet);
 
 				} else {
-					log.info("unknown object==" + keySeriesObj);
+					LOG.info("unknown object==" + keySeriesObj);
 				}
 			}
 		}
@@ -443,7 +435,7 @@ public class ConfigProcessors {
 		if (keySeriesStr.contains("..")) {
 			keySeriesStr = keySeriesStr.replaceAll("\\.\\.", ".");
 		}
-		log.info("fieldType==" + fieldType);
+		LOG.info("fieldType==" + fieldType);
 
 		if (keySeriesStr.lastIndexOf(".") == keySeriesStr.length() - 1)
 			keySeriesStr = keySeriesStr.substring(0, keySeriesStr.length() - 1);
@@ -463,7 +455,7 @@ public class ConfigProcessors {
 																									// add
 																									// it
 				{
-					log.info("Object is null, must add it");
+					LOG.info("Object is null, must add it");
 					if (keySet[i + 1].matches("[0-9]*")) // if index then array
 						((JSONArray) keySeriesObj).put(Integer.parseInt(keySet[i]), new JSONArray());
 					else
@@ -486,11 +478,11 @@ public class ConfigProcessors {
 						((JSONObject) keySeriesObj).put(keySet[i], new JSONArray());
 					else
 						((JSONObject) keySeriesObj).put(keySet[i], new JSONObject());
-					log.info("Object is null, must add it");
+					LOG.info("Object is null, must add it");
 				}
 				keySeriesObj = ((JSONObject) keySeriesObj).opt(keySet[i]);
 			} else {
-				log.info("unknown object==" + keySeriesObj);
+				LOG.info("unknown object==" + keySeriesObj);
 			}
 		}
 		if ("number".equals(fieldType)) {

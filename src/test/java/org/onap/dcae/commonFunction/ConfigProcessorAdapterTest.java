@@ -42,7 +42,7 @@ public class ConfigProcessorAdapterTest {
 
 
     @Test
-    public void shouldCallIsFilterMetOnAdapter() throws Exception {
+    public void shouldCallIsFilterMetOnAdapter() {
         //given
         JSONObject parameter = new JSONObject();
         when(configProcessors.isFilterMet(parameter)).thenReturn(true);

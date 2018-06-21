@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class EventProcessor implements Runnable {
+class EventProcessor implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(EventProcessor.class);
     private static final String EVENT_LITERAL = "event";
@@ -53,8 +53,8 @@ public class EventProcessor implements Runnable {
 	static Map<String, String[]> streamidHash = new HashMap<>();
 	public JSONObject event;
 
-    public EventProcessor() {
-        streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamid);
+    EventProcessor() {
+        streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamID);
     }
 
     private Map<String, String[]> parseStreamIdToStreamHashMapping(String streamId) {
@@ -63,7 +63,6 @@ public class EventProcessor implements Runnable {
         for (String aList : list) {
             String domain = aList.split("=")[0];
             String[] streamIdList = aList.substring(aList.indexOf('=') + 1).split(",");
-
             streamidHash.put(domain, streamIdList);
         }
         return streamidHash;
@@ -72,12 +71,9 @@ public class EventProcessor implements Runnable {
 
     @Override
     public void run() {
-
         try {
-
-            event = CommonStartup.fProcessingInputQueue.take();
-
-            while (event != null) {
+            while (true) {
+                event = CommonStartup.fProcessingInputQueue.take();
                 // As long as the producer is running we remove elements from
                 // the queue.
                 log.info("QueueSize:" + CommonStartup.fProcessingInputQueue.size() + "\tEventProcessor\tRemoving element: " + event);
@@ -97,8 +93,6 @@ public class EventProcessor implements Runnable {
                     sendEventsToStreams(streamIdList);
                 }
                 log.debug("Message published" + event);
-                event = CommonStartup.fProcessingInputQueue.take();
-
             }
         } catch (InterruptedException e) {
             log.error("EventProcessor InterruptedException" + e.getMessage());

@@ -52,8 +52,6 @@ public class EventReceipt extends NsaBaseEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(EventReceipt.class);
 	private static final String MESSAGE = " Message:";
-	static String valresult;
-	static JSONObject customerror;
 
 	public static void receiveVESEvent(DrumlinRequestContext ctx) {
 		// the request body carries events. assume for now it's an array
@@ -64,7 +62,6 @@ public class EventReceipt extends NsaBaseEndpoint {
 
 
 		JSONObject jsonObject;
-		FileReader fr = null;
 		InputStream istr = null;
 		int arrayFlag = 0;
 		String vesVersion = null;
@@ -83,9 +80,6 @@ public class EventReceipt extends NsaBaseEndpoint {
 			if (m.find()) {
 				log.info("VES version:" + m.group());
 				vesVersion = m.group();
-				m = null;
-				p = null;
-
 			}
 			
 			final UUID uuid = UUID.randomUUID();
@@ -118,10 +112,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 				return;
 			}
 			
-			Boolean ErrorStatus = false;
-			ErrorStatus = schemaCheck( retkey,  arrayFlag, jsonObject,  vesVersion,  ctx,  uuid);
-			if (ErrorStatus)
-			{
+			if (schemaCheck(retkey, arrayFlag, jsonObject, vesVersion, ctx, uuid)) {
 				return;
 			}
 
@@ -137,10 +128,6 @@ public class EventReceipt extends NsaBaseEndpoint {
 			respondWithCustomMsginJson(ctx, ApiException.NO_SERVER_RESOURCES);
 			return;
 		} finally {
-			if (fr != null) {
-				safeClose(fr);
-			}
-
 			if (istr != null) {
 				safeClose(istr);
 			}
@@ -150,28 +137,28 @@ public class EventReceipt extends NsaBaseEndpoint {
 	}
 	
 	
-	public static String getUser( DrumlinRequestContext ctx){
-		String authorization = null;
-		authorization = ctx.request().getFirstHeader("Authorization");
-		 if (authorization != null && authorization.startsWith("Basic")) {
-		        // Authorization: Basic base64credentials
+	private static String getUser(DrumlinRequestContext ctx){
+		String authorization = ctx.request().getFirstHeader("Authorization");
+		if (authorization != null && authorization.startsWith("Basic")) {
 		        String base64Credentials = authorization.substring("Basic".length()).trim();
 		        String credentials = new String(Base64.getDecoder().decode(base64Credentials),
 		                Charset.forName("UTF-8"));
-		        // credentials = username:password
 		        final String[] values = credentials.split(":",2);
-		        log.debug("User:" + values[0].toString() + " Pwd:" + values[1].toString());
-		        return values[0].toString();
+		        log.debug("User:" + values[0] + " Pwd:" + values[1]);
+		        return values[0];
 		 }
 		 return null;
 		
 	}
-	public static Boolean schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,JSONObject jsonObject, String vesVersion,  DrumlinRequestContext ctx, UUID uuid) throws JSONException, QueueFullException, IOException
-	{
+
+	private static Boolean schemaCheck(NsaSimpleApiKey retkey, int arrayFlag,
+									   JSONObject jsonObject, String vesVersion,
+									   DrumlinRequestContext ctx, UUID uuid)
+		throws JSONException, QueueFullException, IOException {
+
 		JSONArray jsonArray;
 		JSONArray jsonArrayMod = new JSONArray();
 		JSONObject event;
-		Boolean ErrorStatus=false;
 		FileReader fr;
 		if (retkey != null || CommonStartup.authflag == 0) {
 			if (CommonStartup.schemaValidatorflag > 0) {
@@ -180,25 +167,24 @@ public class EventReceipt extends NsaBaseEndpoint {
 					fr = new FileReader(schemaFileVersion(vesVersion));
 					String schema = new JsonParser().parse(fr).toString();
 
-					valresult = CommonStartup.schemavalidate(jsonObject.toString(), schema);
-					if (valresult.equals("true")) {
-						log.info("Validation successful");
-					} else if (valresult.equals("false")) {
-						log.info("Validation failed");
-						respondWithCustomMsginJson(ctx, ApiException.SCHEMA_VALIDATION_FAILED);
-						ErrorStatus=true;
-						return ErrorStatus;
-					} else {
-						log.error("Validation errored" + valresult);
-						respondWithCustomMsginJson(ctx, ApiException.INVALID_JSON_INPUT);
-						ErrorStatus=true;
-						return ErrorStatus;
+					String valresult = CommonStartup.validateAgainstSchema(jsonObject.toString(), schema);
+					switch (valresult) {
+						case "true":
+							log.info("Validation successful");
+							break;
+						case "false":
+							log.info("Validation failed");
+							respondWithCustomMsginJson(ctx, ApiException.SCHEMA_VALIDATION_FAILED);
+							return true;
+						default:
+							log.error("Validation errored" + valresult);
+							respondWithCustomMsginJson(ctx, ApiException.INVALID_JSON_INPUT);
+							return true;
 					}
 				} else {
 					log.info("Validation failed");
 					respondWithCustomMsginJson(ctx, ApiException.SCHEMA_VALIDATION_FAILED);
-					ErrorStatus=true;
-					return ErrorStatus;
+					return true;
 				}
 				if (arrayFlag == 1) {
 					jsonArray = jsonObject.getJSONArray("eventList");
@@ -222,8 +208,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 				log.info(String.format("Rejecting request with content type %s Message:%s",
 						ctx.request().getContentType(), jsonObject));
 				respondWithCustomMsginJson(ctx, ApiException.INVALID_CONTENT_TYPE);
-				ErrorStatus=true;
-				return ErrorStatus;
+				return true;
 			}
 
 			CommonStartup.handleEvents(jsonArrayMod);
@@ -231,30 +216,18 @@ public class EventReceipt extends NsaBaseEndpoint {
 			log.info(String.format("Unauthorized request %s FROM %s %s %s %s", getUser(ctx), ctx.request().getRemoteAddress(), ctx.request().getContentType(), MESSAGE,
 					jsonObject));
 			respondWithCustomMsginJson(ctx, ApiException.UNAUTHORIZED_USER);
-			ErrorStatus=true;
-			return ErrorStatus;
+			return true;
 		}
-		return ErrorStatus;
+		return false;
 	}
 
-	public static void respondWithCustomMsginJson(DrumlinRequestContext ctx, ApiException apiException) {
+	private static void respondWithCustomMsginJson(DrumlinRequestContext ctx, ApiException apiException) {
 		ctx.response()
 			.sendErrorAndBody(apiException.httpStatusCode,
 				apiException.toJSON().toString(), MimeTypes.kAppJson);
 	}
 
-	public static void safeClose(FileReader fr) {
-		if (fr != null) {
-			try {
-				fr.close();
-			} catch (IOException e) {
-				log.error("Error closing file reader stream : " + e);
-			}
-		}
-
-	}
-
-	public static void safeClose(InputStream is) {
+	private static void safeClose(InputStream is) {
 		if (is != null) {
 			try {
 				is.close();
@@ -266,17 +239,12 @@ public class EventReceipt extends NsaBaseEndpoint {
 	}
 
 	public static String schemaFileVersion(String version) {
-		String filename = null;
-
 		if (CommonStartup.schemaFileJson.has(version)) {
-			filename = CommonStartup.schemaFileJson.getString(version);
+			return CommonStartup.schemaFileJson.getString(version);
 		} else {
-			filename = CommonStartup.schemaFileJson.getString("v5");
+			return CommonStartup.schemaFileJson.getString("v5");
 
 		}
-		log.info(String.format("VESversion: %s Schema File:%s", version, filename));
-		return filename;
-
 	}
 
 }
