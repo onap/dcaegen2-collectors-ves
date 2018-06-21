@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_ec984077",
+        "filename": "src/main/java/org/onap/dcae/restapi/endpoints/EventReceipt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-21T13:41:23Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "5a93c517_8c817c4f",
+      "range": {
+        "startLine": 242,
+        "startChar": 2,
+        "endLine": 247,
+        "endChar": 3
+      },
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_0caecce7",
         "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_2c8f0830",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-21T13:41:23Z",
+      "side": 1,
+      "message": "I don\u0027t know, I won\u0027t fix it here, I can remove them in separate mr.",
+      "parentUuid": "5a93c517_0caecce7",
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_4ca4d407",
         "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2018-06-21T10:36:11Z",
       "side": 1,
       "message": "why not ConfigProcessorTest?",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "681ec265f6f4aae9795870d8e1381f46c65edcf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0c948c42",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-21T13:41:23Z",
+      "side": 1,
+      "message": "because thats not what I want to do here, I could fix everything at once, but that would make hard to review this merge request",
+      "parentUuid": "5a93c517_4ca4d407",
       "range": {
         "startLine": 34,
         "startChar": 13,
