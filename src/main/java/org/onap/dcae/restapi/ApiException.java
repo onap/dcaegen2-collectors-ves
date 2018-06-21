@@ -33,9 +33,9 @@ public enum ApiException {
     UNAUTHORIZED_USER(ExceptionType.POLICY_EXCEPTION, "POL2000", "Unauthorized user", 401),
     NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503);
 
-    public final ExceptionType type;
-    public final String code;
-    public final String details;
+    private final ExceptionType type;
+    private final String code;
+    private final String details;
     public final int httpStatusCode;
 
     ApiException(ExceptionType type, String code, String details, int httpStatusCode) {

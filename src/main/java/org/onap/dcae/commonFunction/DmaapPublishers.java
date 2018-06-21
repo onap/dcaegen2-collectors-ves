@@ -25,7 +25,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
-import com.google.common.cache.RemovalNotification;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.GeneralSecurityException;
@@ -36,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 class DmaapPublishers {
 
-    private static Logger log = LoggerFactory.getLogger(DmaapPublishers.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DmaapPublishers.class);
     private final LoadingCache<String, CambriaBatchingPublisher> publishers;
 
     private DmaapPublishers(
@@ -50,13 +49,9 @@ class DmaapPublishers {
 
     static DmaapPublishers create(final CambriaPublisherFactory publisherFactory) {
         final LoadingCache<String, CambriaBatchingPublisher> cache = CacheBuilder.<String, CambriaBatchingPublisher>newBuilder()
-//            .expireAfterAccess(10, TimeUnit.MINUTES)
-                .removalListener(new RemovalListener<String, CambriaBatchingPublisher>() {
-                    @Override
-                    public void onRemoval(RemovalNotification<String, CambriaBatchingPublisher> notification) {
-                        if (notification.getValue() != null) {
-                            onCacheItemInvalidated(notification.getValue());
-                        }
+                .removalListener((RemovalListener<String, CambriaBatchingPublisher>) notification -> {
+                    if (notification.getValue() != null) {
+                        onCacheItemInvalidated(notification.getValue());
                     }
                 })
                 .build(new CacheLoader<String, CambriaBatchingPublisher>() {
@@ -66,7 +61,7 @@ class DmaapPublishers {
                         try {
                             return publisherFactory.createCambriaPublisher(streamId);
                         } catch (MalformedURLException | GeneralSecurityException e) {
-                            log.error("CambriaClientBuilders connection reader exception : streamID - " + streamId + " "
+                            LOG.error("CambriaClientBuilders connection reader exception : streamID - " + streamId + " "
                                     + e.getMessage());
                             throw e;
                         }
@@ -75,11 +70,11 @@ class DmaapPublishers {
         return new DmaapPublishers(cache);
     }
 
-    public CambriaBatchingPublisher getByStreamId(String streamId) {
+    CambriaBatchingPublisher getByStreamId(String streamId) {
         return publishers.getUnchecked(streamId);
     }
 
-    public void closeByStreamId(String streamId) {
+    void closeByStreamId(String streamId) {
         publishers.invalidate(streamId);
     }
 
@@ -87,10 +82,10 @@ class DmaapPublishers {
         try {
             final List<?> stuck = pub.close(20, TimeUnit.SECONDS);
             if (!stuck.isEmpty()) {
-                log.error(stuck.size() + " messages unsent");
+                LOG.error(stuck.size() + " messages unsent");
             }
         } catch (InterruptedException | IOException e) {
-            log.error("Caught Exception on Close event: {}", e);
+            LOG.error("Caught Exception on Close event: {}", e);
         }
     }
 }

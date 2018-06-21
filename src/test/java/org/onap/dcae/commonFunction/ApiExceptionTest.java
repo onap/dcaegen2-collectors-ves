@@ -44,7 +44,7 @@ public class ApiExceptionTest {
     @Test
     public void shouldConvertExceptionToBackwardCompatibleFormat() {
         JSONObject responseBody = ApiException.UNAUTHORIZED_USER.toJSON();
-        assertJSONEqual(responseBody, asJSON(""
+        assertEquals(responseBody.toString(), new JSONObject(""
             + "{                                             "
             + "  'requestError': {                           "
             + "     'PolicyException': {                     "
@@ -53,14 +53,7 @@ public class ApiExceptionTest {
             + "     }                                        "
             + "  }                                           "
             + "}                                             "
-        ));
-    }
-
-    private JSONObject asJSON(String jsonString) {
-        return new JSONObject(jsonString.replace("'", "\""));
-    }
-
-    private void assertJSONEqual(JSONObject o1, JSONObject o2) {
-        assertEquals(o1.toString(), o2.toString());
+            .replace("'", "\"")
+        ).toString());
     }
 }

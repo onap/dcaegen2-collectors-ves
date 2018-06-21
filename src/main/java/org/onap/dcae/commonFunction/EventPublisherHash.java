@@ -38,11 +38,6 @@ public class EventPublisherHash {
     private static volatile EventPublisherHash instance = new EventPublisherHash(DmaapPublishers.create());
     private final DmaapPublishers dmaapPublishers;
 
-    /**
-     * Returns event publisher
-     *
-     * @return event publisher
-     */
     public static EventPublisherHash getInstance() {
         return instance;
     }
@@ -52,14 +47,14 @@ public class EventPublisherHash {
         this.dmaapPublishers = dmaapPublishers;
     }
 
-    public void sendEvent(JSONObject event, String streamid) {
+    void sendEvent(JSONObject event, String streamid) {
         log.debug("EventPublisher.sendEvent: instance for publish is ready");
         clearVesUniqueId(event);
 
         try {
             sendEventUsingCachedPublisher(streamid, event);
         } catch (IOException | IllegalArgumentException e) {
-            log.error("Unable to publish event: {} streamid: {}. Exception: {}", event, streamid, e);
+            log.error("Unable to publish event: {} streamID: {}. Exception: {}", event, streamid, e);
             dmaapPublishers.closeByStreamId(streamid);
         }
     }
@@ -76,19 +71,15 @@ public class EventPublisherHash {
 
     private void sendEventUsingCachedPublisher(String streamid, JSONObject event) throws IOException {
         int pendingMsgs = dmaapPublishers.getByStreamId(streamid).send("MyPartitionKey", event.toString());
-        // this.wait(2000);
-
         if (pendingMsgs > 100) {
             log.info("Pending Message Count=" + pendingMsgs);
         }
-
         log.info("pub.send invoked - no error");
-        //CommonStartup.oplog.info(String.format("URL:%sTOPIC:%sEvent Published:%s", ueburl, topic, event));
         CommonStartup.oplog.info(String.format("StreamID:%s Event Published:%s ", streamid, event));
     }
 
     @VisibleForTesting
-    public CambriaBatchingPublisher getDmaapPublisher(String streamId) {
+    CambriaBatchingPublisher getDmaapPublisher(String streamId) {
         return dmaapPublishers.getByStreamId(streamId);
     }
 }
