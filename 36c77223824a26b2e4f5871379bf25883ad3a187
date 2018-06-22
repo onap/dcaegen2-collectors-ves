@@ -16,6 +16,40 @@
       "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0f255e09",
+        "filename": "src/test/java/org/onap/dcae/vestest/DmaapPropertyReaderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3541
+      },
+      "writtenOn": "2018-06-22T10:12:39Z",
+      "side": 1,
+      "message": "NULL_TO_STRING",
+      "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2f205af7",
+        "filename": "src/test/resources/test_collector_ip_op.properties",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3541
+      },
+      "writtenOn": "2018-06-22T10:12:39Z",
+      "side": 1,
+      "message": "This comments were useful. \nRevert this change.",
+      "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
