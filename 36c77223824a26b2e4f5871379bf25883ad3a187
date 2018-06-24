@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_221f1172",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-24T12:22:57Z",
+      "side": 1,
+      "message": "Fixed it everywhere, I hope.",
+      "parentUuid": "5a93c517_429edd08",
+      "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_62a19945",
         "filename": "src/main/java/org/onap/dcae/commonFunction/ConfigProcessors.java",
         "patchSetId": 4
