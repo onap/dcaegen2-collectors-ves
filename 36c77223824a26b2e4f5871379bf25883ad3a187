@@ -142,6 +142,24 @@
       "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_423a5de8",
+        "filename": "src/test/resources/test_collector_ip_op.properties",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-24T12:21:58Z",
+      "side": 1,
+      "message": "I remove it, because what will most probably happen, one will update info in original file, but forget to fix it here, and then you will have a problem. Comments more often than not should not exist.",
+      "parentUuid": "5a93c517_82306508",
+      "revId": "36c77223824a26b2e4f5871379bf25883ad3a187",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
