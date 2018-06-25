@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_85e86f17",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-06-25T09:12:38Z",
+      "side": 1,
+      "message": "There is a custom matcher for Optional which will yield more usable error message than \"expected true but was false\". Maybe there is some kind of plugin for vavr or a conversion method?",
+      "revId": "8140cb3f547596fc50b233786b1a61971fad32a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_05dc5f73",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-06-25T09:12:38Z",
+      "side": 1,
+      "message": "Add some descriptions (aka messages) to these assertions. If a test fails it won\u0027t be clear which assertion failed without looking at the code.",
+      "revId": "8140cb3f547596fc50b233786b1a61971fad32a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
