@@ -22,6 +22,7 @@ package org.onap.dcae.commonFunction;
 import static java.util.Base64.getDecoder;
 import static java.util.Base64.getEncoder;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.att.nsa.cmdLine.NsaCommandLineUtil;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.restapi.RestfulCollectorServlet;
 
 
@@ -79,7 +81,7 @@ public class TestCommonStartup {
     public void testParseStreamIdToStreamHashMapping() {
         // given
         CommonStartup.streamID = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
-        EventProcessor eventProcessor = new EventProcessor();
+        EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class));
 
         // when
         Map<String, String[]> streamHashMapping = EventProcessor.streamidHash;

@@ -27,6 +27,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import java.util.Map;
 import org.json.JSONObject;
+import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,8 +53,10 @@ class EventProcessor implements Runnable {
 
 	static Map<String, String[]> streamidHash = new HashMap<>();
 	public JSONObject event;
+    private EventPublisher eventPublisher;
 
-    EventProcessor() {
+    public EventProcessor(EventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
         streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamID);
     }
 
@@ -128,7 +131,7 @@ class EventProcessor implements Runnable {
         for (String aStreamIdList : streamIdList) {
             log.info("Invoking publisher for streamId:" + aStreamIdList);
             this.overrideEvent();
-            EventPublisherHash.getInstance().sendEvent(event, aStreamIdList);
+            eventPublisher.sendEvent(event, aStreamIdList);
 
         }
     }
