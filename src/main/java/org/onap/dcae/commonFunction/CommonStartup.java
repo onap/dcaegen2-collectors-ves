@@ -62,6 +62,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
 	private static final String KCONFIG = "c";
+	private static final String KSETTING_THREAD_COUNT = "collector.thread.count";
+	private static final int KDEFAULT_THREAD_COUNT = 20;
 	private static final String KSETTING_PORT = "collector.service.port";
 	private static final int KDEFAULT_PORT = 8080;
 	private static final String KSETTING_SECUREPORT = "collector.service.secure.port";
@@ -156,9 +158,10 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 			Thread commonStartupThread = new Thread(cs);
 			commonStartupThread.start();
 
+			int threadCount = settings.getInt(KSETTING_THREAD_COUNT, KDEFAULT_THREAD_COUNT);
 			EventProcessor ep = new EventProcessor();
-			ExecutorService executor = Executors.newFixedThreadPool(20);
-			for (int i = 0; i < 20; ++i) {
+			ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+			for (int i = 0; i < threadCount; ++i) {
 				executor.execute(ep);
 			}
 
