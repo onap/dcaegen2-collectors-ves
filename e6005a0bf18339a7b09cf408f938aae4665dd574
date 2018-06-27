@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_56e9bfb5",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-27T07:32:16Z",
+      "side": 1,
+      "message": "Will this be somehow used in production?\nAsking because collector.properties and things regarding deployment in dpo directory were not changed, only test file got a new line.",
+      "revId": "e6005a0bf18339a7b09cf408f938aae4665dd574",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
