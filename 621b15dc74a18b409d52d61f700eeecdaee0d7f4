@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_9929b79d",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPPublishersCacheTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2018-06-28T10:13:54Z",
+      "side": 1,
+      "message": "given",
+      "revId": "621b15dc74a18b409d52d61f700eeecdaee0d7f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
