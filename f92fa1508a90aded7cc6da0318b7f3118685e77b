@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_3ce9711a",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3885
+      },
+      "writtenOn": "2018-06-28T12:47:54Z",
+      "side": 1,
+      "message": "I assume that we know that 100 is an unusual and high number of events. This comment could be better suited in publisher itself - 100 as default, and possibility for configuration",
+      "revId": "f92fa1508a90aded7cc6da0318b7f3118685e77b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
