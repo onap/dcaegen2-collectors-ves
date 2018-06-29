@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_bf71f378",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "extract to separate method- will be easier to read",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 87
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7f6b6b85",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "can be inlined",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 86
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_df6cff9f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "same here - extract",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 87
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7f192b21",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/PublisherConfig.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "hmmm, maybe use https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/builder/ToStringBuilder.html or something similar?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_1f126709",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/VavrUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "i don\u0027t see any additional value behind this method",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 5
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5fd6af28",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "rename it to CommonStartupTest",
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_bfcd7388",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-06-29T12:31:32Z",
+      "side": 1,
+      "message": "maybe check whether assertj already has isEmpty (orIsNullOrEmpty)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 63
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
