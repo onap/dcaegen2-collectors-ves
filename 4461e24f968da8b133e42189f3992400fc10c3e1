@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_bf7b3328",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T13:16:14Z",
+      "side": 1,
+      "message": "what would be the name of that method?\nenclosing method is already a one liner, whose job is to parse legacy format. \nIMO splitting it more won\u0027t make it more readable.\n\nCan anyone else comment on that?",
+      "parentUuid": "5a93c517_bf71f378",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 87
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_7f6b6b85",
         "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
         "patchSetId": 12
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_df763f3f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T13:16:14Z",
+      "side": 1,
+      "message": "what can be inlined here? destinations? \nIt is not done on purpose, to hightlight that in this case \u0027destinations\u0027 is a one element list in case of new format.\nIts also consistent with the above method.",
+      "parentUuid": "5a93c517_7f6b6b85",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 86
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_7f192b21",
         "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/PublisherConfig.java",
         "patchSetId": 12
@@ -82,6 +130,30 @@
       "writtenOn": "2018-06-29T12:31:32Z",
       "side": 1,
       "message": "hmmm, maybe use https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/builder/ToStringBuilder.html or something similar?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9f70b741",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/PublisherConfig.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T13:16:14Z",
+      "side": 1,
+      "message": "I don\u0027t see a point, if you add a field, you still need to update to string method if you use ToStringBuilder.\nI could agree on some automatic generation thing like Lombok\u0027s @ToString, as it does it automatically, but here, it makes no difference to me.",
+      "parentUuid": "5a93c517_7f192b21",
       "range": {
         "startLine": 89,
         "startChar": 0,
@@ -145,6 +217,30 @@
       "writtenOn": "2018-06-29T12:31:32Z",
       "side": 1,
       "message": "maybe check whether assertj already has isEmpty (orIsNullOrEmpty)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 63
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7f75ab30",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T13:16:14Z",
+      "side": 1,
+      "message": "It does not, Option here is not a java built-in optional, it is vavrs Option",
+      "parentUuid": "5a93c517_bfcd7388",
       "range": {
         "startLine": 44,
         "startChar": 0,
