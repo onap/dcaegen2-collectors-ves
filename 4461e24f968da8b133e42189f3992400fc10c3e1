@@ -206,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_bfa25398",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T13:31:30Z",
+      "side": 1,
+      "message": "Not here.",
+      "parentUuid": "5a93c517_5fd6af28",
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_bfcd7388",
         "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
         "patchSetId": 12
