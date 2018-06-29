@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_9f99977b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T12:50:37Z",
+      "side": 1,
+      "message": "Of nullable won\u0027t work here, value is not a null reference, it might be a reference to an object representing a null, that is different.\nOption and Optional serve the same purpose, but Option is a more usable and functional equivalent that integrates very well with other vavr structures.",
+      "parentUuid": "5a93c517_ffc9bbac",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "f92fa1508a90aded7cc6da0318b7f3118685e77b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_3ce9711a",
         "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPEventPublisher.java",
         "patchSetId": 11
