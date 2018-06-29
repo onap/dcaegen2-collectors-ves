@@ -16,6 +16,24 @@
       "revId": "f92fa1508a90aded7cc6da0318b7f3118685e77b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_1ff6e7f9",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-06-29T10:10:35Z",
+      "side": 1,
+      "message": "We have no control over publisher, it is external lib. I\u0027ll let it stay like this.",
+      "parentUuid": "5a93c517_3ce9711a",
+      "revId": "f92fa1508a90aded7cc6da0318b7f3118685e77b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
