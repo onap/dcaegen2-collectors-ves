@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_62caf01b",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-07-02T07:26:29Z",
+      "side": 1,
+      "message": "For me it looks good. It can be merged in this form (code is readable)",
+      "parentUuid": "5a93c517_228628dc",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 87
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_7f6b6b85",
         "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
         "patchSetId": 12
