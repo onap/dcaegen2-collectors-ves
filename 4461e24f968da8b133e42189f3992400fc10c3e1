@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_228628dc",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-07-02T06:35:46Z",
+      "side": 1,
+      "message": "You are using channel object, furthermore getAsOption function on this object. In my opinion it will be better to pass this object to other function which will call getAsOption function for this kind of object.\n\nDo you have this strings like \"cambra.topic\", \"cambria.host\" in other classes in ves object? If not it will be better to store them as static private field (cosmetic change). If you have this strings in other classes, you can use them instead of this.",
+      "parentUuid": "5a93c517_bf7b3328",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 87
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_7f6b6b85",
         "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParser.java",
         "patchSetId": 12
@@ -112,6 +136,29 @@
         "startChar": 16,
         "endLine": 98,
         "endChar": 86
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e267e04f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/event/publishing/DMaaPPublishersCache.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-07-02T06:35:46Z",
+      "side": 1,
+      "message": "Skip this annotation. I think if u have unit tests in the same package it is useless right now (no benefits)",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 22
       },
       "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -224,6 +271,29 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_82761c05",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-07-02T06:35:46Z",
+      "side": 1,
+      "message": "You can store repeatable strings in private static final properties or by extracting them in one method. Optional change",
+      "range": {
+        "startLine": 43,
+        "startChar": 74,
+        "endLine": 43,
+        "endChar": 97
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_bfcd7388",
         "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPConfigurationParserTest.java",
         "patchSetId": 12
@@ -264,6 +334,29 @@
         "startChar": 0,
         "endLine": 46,
         "endChar": 63
+      },
+      "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_a271d80d",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/event/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-07-02T06:35:46Z",
+      "side": 1,
+      "message": "static field",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 49
       },
       "revId": "4461e24f968da8b133e42189f3992400fc10c3e1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
