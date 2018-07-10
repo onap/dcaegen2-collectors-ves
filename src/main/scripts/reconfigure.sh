@@ -5,6 +5,7 @@
 # PROJECT
 # ================================================================================
 # Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (C) 2018 Nokia Networks Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,14 +20,13 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+source bin/logger.sh
 
-
-if [ -z "$CONSUL_HOST" ] || [ -z "$CONFIG_BINDING_SERVICE" ] || [ -z "$HOSTNAME" ]; then
-                echo "INFO: USING STANDARD CONTROLLER"
-                /opt/app/manager/start-manager.sh
+if [ -z ${CONSUL_HOST} ] || [ -z ${CONFIG_BINDING_SERVICE} ] || [ -z ${HOSTNAME} ]; then
+    log "Using standard controller (start-manager.sh)"
+    /opt/app/manager/start-manager.sh
 else
-                echo "INFO: USING DCAEGEN2 CONTROLLER"
-                /opt/app/VESCollector/bin/VESrestfulCollector.sh stop
-                /opt/app/VESCollector/bin/VESrestfulCollector.sh start &
+    log "Using DCAEGEN2 controller (VESrestfulCollector.sh)"
+    bin/VESrestfulCollector.sh stop
+    bin/VESrestfulCollector.sh start &
 fi
-#while true; do sleep 1000; done
