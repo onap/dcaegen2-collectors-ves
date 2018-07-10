@@ -1,10 +1,8 @@
-#!/bin/sh
-
+#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
 # PROJECT
 # ================================================================================
-# Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
 # Copyright (C) 2018 Nokia Networks Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,13 +18,30 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-source bin/logger.sh
 
-if [ -z ${CONSUL_HOST} ] || [ -z ${CONFIG_BINDING_SERVICE} ] || [ -z ${HOSTNAME} ]; then
-    log "Using standard controller (start-manager.sh)"
-    /opt/app/manager/start-manager.sh
-else
-    log "Using DCAEGEN2 controller (VESrestfulCollector.sh)"
-    bin/VESrestfulCollector.sh stop
-    bin/VESrestfulCollector.sh start &
-fi
+
+###
+# A script that will build the image and run the container.
+# Considerations:
+#  - will use hosts network so it can access internet in 'proxy problem' scenarios
+#  - name of the container -> VESCollector
+#  - default ports exposed on host
+###
+
+# path to the location where pom.xml lives, using relative paths as it is easiest
+PROJECT_ROOT=$(realpath ../../../..)
+# if 'mvn' is not on path, pass a full path to it here
+MVN_EXECUTABLE=mvn
+# if 'docker' is not on path, pass a full path to it here
+DOCKER_EXECUTABLE=docker
+# produce the image and add into local docker repository
+${MVN_EXECUTABLE} clean package -f ${PROJECT_ROOT}/pom.xml
+# run it
+${DOCKER_EXECUTABLE} run \
+       --rm \
+       --net=host \
+       -it \
+       -p 8080:8080/tcp \
+       -p 8443:8443/tcp \
+       --name VESCollector \
+       onap/org.onap.dcaegen2.collectors.ves.vescollector:latest
