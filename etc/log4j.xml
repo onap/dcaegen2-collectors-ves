@@ -27,18 +27,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<param name="threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{ABSOLUTE}][%-5p][%-10t]%m%n" />
-		</layout>
-	</appender>
-
-	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<param name="threshold" value="INFO" />
-		<param name="File" value="logs/collector.log" />
-		<param name="MaxFileSize" value="32MB"/>
-		<param name="MaxBackupIndex" value="20"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<!-- param name="ConversionPattern" value="[%d{ABSOLUTE}][%-5p][%-10t][%-5c][%4L]%m%n" / -->
-			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n" />
+			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p][%-10t][%c] - %m%n"/>
 		</layout>
 	</appender>
 
@@ -48,7 +37,6 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 		<param name="MaxFileSize" value="32MB"/>
 		<param name="MaxBackupIndex" value="10"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<!-- param name="ConversionPattern" value="[%d{ABSOLUTE}][%-5p][%-10t][%-5c][%4L]%m%n" / -->
 			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n" />
 		</layout>
 	</appender>
@@ -59,33 +47,30 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 		<param name="MaxFileSize" value="32MB"/>
 		<param name="MaxBackupIndex" value="10"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<!-- param name="ConversionPattern" value="[%d{ABSOLUTE}][%-5p][%-10t][%-5c][%4L]%m%n" / -->
 			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n" />
 		</layout>
 	</appender>
-	
+
 	<appender name="EFILE" class="org.apache.log4j.RollingFileAppender">
 		<param name="threshold" value="INFO" />
 		<param name="File" value="logs/error.log" />
 		<param name="MaxFileSize" value="32MB"/>
 		<param name="MaxBackupIndex" value="5"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<!-- param name="ConversionPattern" value="[%d{ABSOLUTE}][%-5p][%-10t][%-5c][%4L]%m%n" / -->
 			<param name="ConversionPattern" value="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n" />
 		</layout>
 	</appender>
-	
+
 	<!--
 		ECOMP logging setup
-	
+
 		NOTES:
-		
+
 		1. files are written to "./logs/<filename>". You must setup the environment
 			so that ./logs is a symlink to the correct location according to the ECOMP
 			log standard. For example, "/opt/logs/DCAE/highlandParkVcScope". If that's
 			not possible, change the File setting in each appender appropriately.
 	  -->
-
 	<appender name="ECOMP_AUDIT" class="org.apache.log4j.RollingFileAppender">
 		<param name="threshold" value="DEBUG" />
 		<param name="File" value="./logs/ecomp/audit.log" />
@@ -165,25 +150,20 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
     <logger name="org.onap.dcae.commonFunction.EventPublisher" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
 	</logger>
-    
     
 	<logger name="com.att.nsa.apiClient.http.HttpClient" additivity="false">
 		<level value="info"/>
-		<appender-ref ref="FILE" />
 		<appender-ref ref="CONSOLE" />
 	</logger>
     
     <logger name="com.att.nsa.cambria.client.impl.CambriaSimplerBatchPublisher" additivity="false">
 		<level value="info"/>
-		<appender-ref ref="FILE" />
 		<appender-ref ref="CONSOLE" />
 	</logger>
 	
 	<root>
 		<level value="DEBUG" />
-		<appender-ref ref="FILE" />
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="ECOMP_AUDIT" />
 		<appender-ref ref="ECOMP_DEBUG" />
