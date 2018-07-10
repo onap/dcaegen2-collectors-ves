@@ -18,8 +18,8 @@ limitations under the License.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -191,7 +191,6 @@ limitations under the License.
                     <imageTags>
                         <tag>latest</tag>
                     </imageTags>
-
                     <baseImage>openjdk:8-jre-slim</baseImage>
                     <env>
                         <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
@@ -205,6 +204,10 @@ limitations under the License.
                     </resources>
                     <runs>
                         <run>chmod +x bin/*.sh</run> <!-- Maven is loosing file permissions during artifacts copy -->
+                        <run>
+                            <![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate && apt-get clean all]]>
+                        </run>
+                        <run>chmod 0644 etc/logrotate.conf</run>
                     </runs>
                     <exposes>
                         <expose>8080</expose>
@@ -241,7 +244,8 @@ limitations under the License.
                         </goals>
                         <configuration>
                             <image>${docker.image.name}:latest</image>
-                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}</newName>
+                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}
+                            </newName>
                             <pushImage>true</pushImage>
                         </configuration>
                     </execution>
@@ -253,7 +257,9 @@ limitations under the License.
                         </goals>
                         <configuration>
                             <image>${docker.image.name}:latest</image>
-                            <newName>${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}-${maven.build.timestamp}Z</newName>
+                            <newName>
+                                ${onap.nexus.dockerregistry.daily}/${docker.image.name}:${project.version}-${maven.build.timestamp}Z
+                            </newName>
                             <pushImage>true</pushImage>
                         </configuration>
                     </execution>
@@ -261,6 +267,25 @@ limitations under the License.
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>with-system-proxy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <buildArgs>
+                                <http_proxy>${env.http_proxy}</http_proxy>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <reporting>
         <plugins>
