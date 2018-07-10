@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_e7112405",
+        "filename": "src/main/scripts/devScripts/build_and_run.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2018-07-10T14:26:22Z",
+      "side": 1,
+      "message": "I think this file is unnecessary - docker image is now being build every time maven is executed and resulting image can be easily brought up using docker-compose.",
+      "revId": "f8e4ec4bffab73ae22bd21035e7009cb570f144d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_27086cd8",
+        "filename": "src/main/scripts/docker-entry.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2018-07-10T14:26:22Z",
+      "side": 1,
+      "message": "log files aren\u0027t very welcome in container-based architecture... how about redirecting everything to stdout?",
+      "revId": "f8e4ec4bffab73ae22bd21035e7009cb570f144d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_676674bd",
+        "filename": "src/main/scripts/logger.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2018-07-10T14:26:22Z",
+      "side": 1,
+      "message": "how about a common logger function that takes log severity as an argument?",
+      "revId": "f8e4ec4bffab73ae22bd21035e7009cb570f144d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
