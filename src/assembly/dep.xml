@@ -34,6 +34,9 @@ limitations under the License.
             <includes>
                 <include>**/*.sh</include>
             </includes>
+            <excludes>
+                <exclude>**/devScripts/*.sh</exclude>
+            </excludes>
             <fileMode>0755</fileMode>
             <lineEnding>unix</lineEnding>
         </fileSet>

@@ -195,6 +195,13 @@ limitations under the License.
                     <baseImage>openjdk:8-jre-slim</baseImage>
                     <env>
                         <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
+                        <APP_BASE_PATH>/opt/app/VESCollector</APP_BASE_PATH>
+                        <SCRIPTS_PATH>/opt/app/VESCollector/bin</SCRIPTS_PATH>
+                        <CONFIG_FILES_PATH>/opt/app/VESCollector/etc</CONFIG_FILES_PATH>
+                        <LIBRARIES_PATH>/opt/app/VESCollector/lib</LIBRARIES_PATH>
+                        <LOGS_PATH>/opt/app/VESCollector/logs</LOGS_PATH>
+                        <JAVA_EXECUTABLE>/docker-java-home/jre/bin/java</JAVA_EXECUTABLE>
+                        <MAIN_LOG_FILE>/opt/app/VESCollector/logs/collector.log</MAIN_LOG_FILE>
                     </env>
                     <workdir>/opt/app/VESCollector</workdir>
                     <resources>
@@ -210,7 +217,7 @@ limitations under the License.
                         <expose>8080</expose>
                         <expose>8443</expose>
                     </exposes>
-                    <cmd>bin/docker-entry.sh</cmd>
+                    <cmd>${SCRIPTS_PATH}/docker-entry.sh</cmd>
                 </configuration>
 
                 <executions>
