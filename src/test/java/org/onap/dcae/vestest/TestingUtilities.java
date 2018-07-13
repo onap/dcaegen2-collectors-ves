@@ -23,6 +23,8 @@ import static java.nio.file.Files.readAllBytes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.vavr.collection.HashMap;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +32,7 @@ import java.nio.file.Paths;
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
-final class TestingUtilities {
+public final class TestingUtilities {
 
     private TestingUtilities() {
         // utility class, no objects allowed
@@ -48,6 +50,17 @@ final class TestingUtilities {
             TestingUtilities.scheduleToBeDeletedAfterTests(temporaryFile);
             return temporaryFile;
         });
+    }
+
+    public static HashMap<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
+        java.util.HashMap<String, String[]> domainToStreamIdsMapping = new java.util.HashMap<>();
+        String[] topics = streamIdsProperty.split("\\|");
+        for (String t : topics) {
+            String domain = t.split("=")[0];
+            String[] streamIds = t.split("=")[1].split(",");
+            domainToStreamIdsMapping.put(domain, streamIds);
+        }
+        return HashMap.ofAll(domainToStreamIdsMapping);
     }
 
     private static Path createFile(String path) {
