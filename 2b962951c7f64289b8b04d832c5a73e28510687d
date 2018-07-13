@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_04103c4d",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-07-13T14:11:03Z",
+      "side": 1,
+      "message": "Refactor whole file, remove empty lines etc",
+      "revId": "2b962951c7f64289b8b04d832c5a73e28510687d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_e412f057",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-07-13T14:11:03Z",
+      "side": 1,
+      "message": "Javadoc on the class\n**\n * Abstraction over application configuration.\n * Its job is to provide easily discoverable (by method names lookup) and type safe access to configuration properties.\n *\n */",
+      "revId": "2b962951c7f64289b8b04d832c5a73e28510687d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_a41ce86b",
+        "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-07-13T14:11:03Z",
+      "side": 1,
+      "message": "add info that this was withdrawn from nsa.core.library as we will switch from it to something else in near future.\nOnce done, this info can be removed.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "2b962951c7f64289b8b04d832c5a73e28510687d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_c419f47a",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-07-13T14:11:03Z",
+      "side": 1,
+      "message": "do not copy it twice, it is already in |\nEventProcessorTest",
+      "revId": "2b962951c7f64289b8b04d832c5a73e28510687d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
