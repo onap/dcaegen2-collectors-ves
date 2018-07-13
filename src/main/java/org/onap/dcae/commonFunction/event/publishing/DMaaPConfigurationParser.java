@@ -59,8 +59,7 @@ public final class DMaaPConfigurationParser {
 
     private static Try<Map<String, PublisherConfig>> toConfigMap(AnyNode config) {
         return Try(() -> usesLegacyFormat(config) ? parseLegacyFormat(config) : parseNewFormat(config))
-            .mapFailure(enhanceError(
-                f("Parsing DMaaP configuration: '%s' failed, probably it is in unexpected format", config)));
+            .mapFailure(enhanceError(f("Parsing DMaaP configuration: '%s' failed, probably it is in unexpected format", config)));
     }
 
     private static boolean usesLegacyFormat(AnyNode dMaaPConfig) {
