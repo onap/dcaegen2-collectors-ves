@@ -22,6 +22,8 @@ package org.onap.dcae.commonFunction;
 
 import com.google.gson.Gson;
 import java.util.concurrent.atomic.AtomicReference;
+
+import io.vavr.collection.HashMap;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +31,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.vestest.TestingUtilities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -45,8 +48,7 @@ public class EventProcessorTest {
 
     @Before
     public void setUp() {
-        CommonStartup.streamID = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
-        CommonStartup.eventTransformFlag = 1;
+        CommonStartup.streamID = TestingUtilities.convertDMaaPStreamsPropertyToMap("fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling");
     }
 
     @Test

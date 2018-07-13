@@ -57,20 +57,8 @@ class EventProcessor implements Runnable {
 
     public EventProcessor(EventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
-        streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamID);
+        streamidHash = CommonStartup.streamID.toJavaMap();
     }
-
-    private Map<String, String[]> parseStreamIdToStreamHashMapping(String streamId) {
-        Map<String, String[]> streamidHash = new HashMap<>();
-        String[] list = streamId.split("\\|");
-        for (String aList : list) {
-            String domain = aList.split("=")[0];
-            String[] streamIdList = aList.substring(aList.indexOf('=') + 1).split(",");
-            streamidHash.put(domain, streamIdList);
-        }
-        return streamidHash;
-    }
-
 
     @Override
     public void run() {
@@ -108,7 +96,7 @@ class EventProcessor implements Runnable {
         // Set collector timestamp in event payload before publish
         addCurrentTimeToEvent(event);
 
-        if (CommonStartup.eventTransformFlag == 1) {
+        if (CommonStartup.eventTransformFlag ) {
             // read the mapping json file
             try (FileReader fr = new FileReader("./etc/eventTransform.json")) {
                 log.info("parse eventTransform.json");

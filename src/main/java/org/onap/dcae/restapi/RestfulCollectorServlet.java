@@ -27,6 +27,7 @@ import java.net.URL;
 import javax.servlet.ServletException;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.commonFunction.CommonStartup;
 import org.onap.dcae.commonFunction.VESLogger;
 import org.slf4j.Logger;
@@ -53,10 +54,10 @@ public class RestfulCollectorServlet extends CommonServlet
 
 	private static String authCredentialsList;
 
-	public RestfulCollectorServlet ( rrNvReadable settings ) throws loadException, missingReqdSetting
+	public RestfulCollectorServlet ( ApplicationSettings settings ) throws loadException, missingReqdSetting
 	{
-		super ( settings, "collector", false );
-		authCredentialsList = settings.getString(CommonStartup.KSETTING_AUTHLIST, null);
+		super ( settings.torrNvReadable(), "collector", false );
+		authCredentialsList = settings.validAuthorizationCredentials();
 	}
 
 
@@ -91,7 +92,7 @@ public class RestfulCollectorServlet extends CommonServlet
 			final DrumlinPlayishRoutingFileSource drs = new DrumlinPlayishRoutingFileSource ( routes );
 			drr.addRouteSource ( drs );
 
-			if (CommonStartup.authflag > 0) {
+			if (CommonStartup.authflag) {
 				NsaAuthenticator<NsaSimpleApiKey> NsaAuth;
 				NsaAuth = createAuthenticator(authCredentialsList);
 

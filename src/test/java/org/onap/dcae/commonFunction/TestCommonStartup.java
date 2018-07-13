@@ -39,13 +39,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import io.vavr.collection.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.CLIUtils;
 import org.onap.dcae.commonFunction.CommonStartup.QueueFullException;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.restapi.RestfulCollectorServlet;
+import org.onap.dcae.vestest.TestingUtilities;
 
 
 public class TestCommonStartup {
@@ -80,9 +85,9 @@ public class TestCommonStartup {
     @Test
     public void testParseStreamIdToStreamHashMapping() {
         // given
-        CommonStartup.streamID = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
-        EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class));
 
+        CommonStartup.streamID = TestingUtilities.convertDMaaPStreamsPropertyToMap("fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling");
+        EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class));
         // when
         Map<String, String[]> streamHashMapping = EventProcessor.streamidHash;
 
@@ -94,7 +99,7 @@ public class TestCommonStartup {
     @Test
     public void testAuthListHandler() throws loadException, missingReqdSetting {
         // given
-        final nvReadableStack settings = new nvReadableStack();
+        ApplicationSettings settings = new ApplicationSettings(new String[]{}, CLIUtils::processCmdLine);
 
         String user1 = "secureid";
         String password1Hashed = "IWRjYWVSb2FkbTEyMyEt";
@@ -118,8 +123,6 @@ public class TestCommonStartup {
         // then
         assertEquals(authentic.getSecret(), password1UnHashed);
     }
-
-
 }
 
 
