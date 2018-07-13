@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,6 @@ import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import java.util.Map;
 import org.json.JSONObject;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.slf4j.Logger;
@@ -40,37 +39,24 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 class EventProcessor implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(EventProcessor.class);
     private static final String EVENT_LITERAL = "event";
     private static final String COMMON_EVENT_HEADER = "commonEventHeader";
-    static final Type EVENT_LIST_TYPE = new TypeToken<List<Event>>() {
-    }.getType();
+    static final Type EVENT_LIST_TYPE = new TypeToken<List<Event>>() {}.getType();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
 
-	static Map<String, String[]> streamidHash = new HashMap<>();
-	public JSONObject event;
+    static Map<String, String[]> streamidHash = new HashMap<>();
+    public JSONObject event;
     private EventPublisher eventPublisher;
 
     public EventProcessor(EventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
-        streamidHash = parseStreamIdToStreamHashMapping(CommonStartup.streamID);
+        streamidHash = CommonStartup.streamID.toJavaMap();
     }
-
-    private Map<String, String[]> parseStreamIdToStreamHashMapping(String streamId) {
-        Map<String, String[]> streamidHash = new HashMap<>();
-        String[] list = streamId.split("\\|");
-        for (String aList : list) {
-            String domain = aList.split("=")[0];
-            String[] streamIdList = aList.substring(aList.indexOf('=') + 1).split(",");
-            streamidHash.put(domain, streamIdList);
-        }
-        return streamidHash;
-    }
-
 
     @Override
     public void run() {
@@ -101,14 +87,13 @@ class EventProcessor implements Runnable {
             log.error("EventProcessor InterruptedException" + e.getMessage());
             Thread.currentThread().interrupt();
         }
-
     }
 
     public void overrideEvent() {
         // Set collector timestamp in event payload before publish
         addCurrentTimeToEvent(event);
 
-        if (CommonStartup.eventTransformFlag == 1) {
+        if (CommonStartup.eventTransformFlag) {
             // read the mapping json file
             try (FileReader fr = new FileReader("./etc/eventTransform.json")) {
                 log.info("parse eventTransform.json");
@@ -118,13 +103,11 @@ class EventProcessor implements Runnable {
                 log.error("Couldn't find file ./etc/eventTransform.json" + e.toString());
             }
         }
-        // Remove VESversion from event. This field is for internal use and must
-        // be removed after use.
+        // Remove VESversion from event. This field is for internal use and must be removed after use.
         if (event.has("VESversion"))
             event.remove("VESversion");
 
         log.debug("Modified event:" + event);
-
     }
 
     private void sendEventsToStreams(String[] streamIdList) {
@@ -132,7 +115,6 @@ class EventProcessor implements Runnable {
             log.info("Invoking publisher for streamId:" + aStreamIdList);
             this.overrideEvent();
             eventPublisher.sendEvent(event, aStreamIdList);
-
         }
     }
 
@@ -145,7 +127,6 @@ class EventProcessor implements Runnable {
     }
 
     void parseEventsJson(List<Event> eventsTransform, ConfigProcessorAdapter configProcessorAdapter) {
-
         // load VESProcessors class at runtime
         for (Event eventTransform : eventsTransform) {
             JSONObject filterObj = new JSONObject(eventTransform.filter.toString());

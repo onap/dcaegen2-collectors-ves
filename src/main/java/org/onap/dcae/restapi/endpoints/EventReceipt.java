@@ -100,7 +100,7 @@ public class EventReceipt extends NsaBaseEndpoint {
 			}
 
 			try {
-				if (CommonStartup.authflag == 1) {
+				if (CommonStartup.authflag) {
 					userId = getUser (ctx);
 					retkey = NsaBaseEndpoint.getAuthenticatedUser(ctx);
 				}
@@ -160,8 +160,8 @@ public class EventReceipt extends NsaBaseEndpoint {
 		JSONArray jsonArrayMod = new JSONArray();
 		JSONObject event;
 		FileReader fr;
-		if (retkey != null || CommonStartup.authflag == 0) {
-			if (CommonStartup.schemaValidatorflag > 0) {
+		if (retkey != null || !CommonStartup.authflag) {
+			if (CommonStartup.schemaValidatorflag) {
 				if ((arrayFlag == 1) && (jsonObject.has("eventList") && (!jsonObject.has("event")))
 						|| ((arrayFlag == 0) && (!jsonObject.has("eventList") && (jsonObject.has("event"))))) {
 					fr = new FileReader(schemaFileVersion(vesVersion));
