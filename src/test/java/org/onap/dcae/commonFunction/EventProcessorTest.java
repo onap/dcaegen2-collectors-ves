@@ -22,6 +22,8 @@ package org.onap.dcae.commonFunction;
 
 import com.google.gson.Gson;
 import java.util.concurrent.atomic.AtomicReference;
+
+import io.vavr.collection.HashMap;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +47,7 @@ public class EventProcessorTest {
 
     @Before
     public void setUp() {
-        CommonStartup.streamID = "fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling";
-        CommonStartup.eventTransformFlag = 1;
+        CommonStartup.streamID = convertDMaaPStreamsPropertyToMap("fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling");
     }
 
     @Test
@@ -82,6 +83,17 @@ public class EventProcessorTest {
         //then
         verify(configProcessorAdapter, times(3)).runConfigProcessorFunctionByName(stringArgumentCaptor.capture(), jsonObjectArgumentCaptor.capture());
         assertThat(stringArgumentCaptor.getAllValues()).contains("concatenateValue", "addAttribute", "map");
+    }
+
+    private HashMap<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
+        java.util.HashMap<String, String[]> domainToStreamIdsMapping = new java.util.HashMap<>();
+        String[] topics = streamIdsProperty.split("\\|");
+        for (String t : topics) {
+            String domain = t.split("=")[0];
+            String[] streamIds = t.split("=")[1].split(",");
+            domainToStreamIdsMapping.put(domain, streamIds);
+        }
+        return HashMap.ofAll(domainToStreamIdsMapping);
     }
 
 }
