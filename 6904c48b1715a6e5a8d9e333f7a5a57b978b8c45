@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_aada6f15",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-16T12:15:37Z",
+      "side": 1,
+      "message": "it will be good to have those values stored as a consts",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 76
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_8a30d357",
+        "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-16T12:15:37Z",
+      "side": 1,
+      "message": "i see at least two problems here - but i don\u0027t know if it\u0027s worth to invest with resolving them if this logic will be removed\n1. each block containing \u0027return\u0027 should be extracted to separate method \n2. 4 returns in whole method - in general i\u0027m not a fan when method contains more then one return, but here we have 4",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 23
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_cad7bbec",
+        "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-16T12:15:37Z",
+      "side": 1,
+      "message": "weird formatting",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_2a35ff45",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-16T12:15:37Z",
+      "side": 1,
+      "message": "get rid off asterisk",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_0af5a382",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-16T12:15:37Z",
+      "side": 1,
+      "message": "rename it to commonStartupTest",
+      "range": {
+        "startLine": 56,
+        "startChar": 13,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
