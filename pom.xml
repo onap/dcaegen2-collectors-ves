@@ -205,7 +205,8 @@ limitations under the License.
                     <runs>
                         <run>chmod +x bin/*.sh</run> <!-- Maven is loosing file permissions during artifacts copy -->
                         <run>
-                            <![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate && apt-get clean all]]>
+                            <![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate && apt-get install -y procps && apt-get install -y vim && apt-get clean all]]>
+
                         </run>
                         <run>chmod 0644 etc/logrotate.conf</run>
                     </runs>
