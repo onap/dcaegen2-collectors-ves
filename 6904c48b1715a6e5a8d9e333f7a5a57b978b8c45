@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_6a4a2785",
+        "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-07-18T08:51:46Z",
+      "side": 1,
+      "message": "read java doc",
+      "parentUuid": "1a9dcd25_8a30d357",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 23
+      },
+      "revId": "6904c48b1715a6e5a8d9e333f7a5a57b978b8c45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_cad7bbec",
         "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
         "patchSetId": 3
