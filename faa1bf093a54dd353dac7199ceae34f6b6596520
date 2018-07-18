@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_7a31900a",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-18T06:03:36Z",
+      "side": 1,
+      "message": "why not empty map?",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_9a36dc02",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-18T06:03:36Z",
+      "side": 1,
+      "message": "use Map instead of HashMap if possible",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 19
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_1a22ccb9",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-18T06:03:36Z",
+      "side": 1,
+      "message": "extract and split those logic to separate methods",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_da2b0493",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-18T06:03:36Z",
+      "side": 1,
+      "message": "i\u0027d like to have very small \u0027main\u0027, so please extract(or split if possible) to separate methods",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_5a405456",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-07-18T06:03:36Z",
+      "side": 1,
+      "message": "rename it to CommonStartupTest",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
