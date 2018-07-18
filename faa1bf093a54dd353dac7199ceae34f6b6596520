@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_9d6336b1",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-07-18T08:51:46Z",
+      "side": 1,
+      "message": "this logic will bew removed or change in next pull request applying spring boot",
+      "parentUuid": "1a9dcd25_1a22ccb9",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_da2b0493",
         "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
         "patchSetId": 4
