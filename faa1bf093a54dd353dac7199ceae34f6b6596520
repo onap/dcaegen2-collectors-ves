@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_9d0a56d1",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-07-18T09:00:35Z",
+      "side": 1,
+      "message": "true",
+      "parentUuid": "1a9dcd25_7a31900a",
+      "range": {
+        "startLine": 135,
+        "startChar": 19,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_9a36dc02",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-18T06:03:36Z",
       "side": 1,
       "message": "use Map instead of HashMap if possible",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 19
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_7d050ac1",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-07-18T09:00:35Z",
+      "side": 1,
+      "message": "true",
+      "parentUuid": "1a9dcd25_9a36dc02",
       "range": {
         "startLine": 152,
         "startChar": 12,
@@ -129,6 +177,30 @@
       "writtenOn": "2018-07-18T06:03:36Z",
       "side": 1,
       "message": "rename it to CommonStartupTest",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "faa1bf093a54dd353dac7199ceae34f6b6596520",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_3d0f82e3",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/TestCommonStartup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-07-18T09:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a9dcd25_5a405456",
       "range": {
         "startLine": 55,
         "startChar": 13,
