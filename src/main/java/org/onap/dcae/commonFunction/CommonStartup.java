@@ -23,14 +23,8 @@ package org.onap.dcae.commonFunction;
 import com.att.nsa.apiServer.ApiServer;
 import com.att.nsa.apiServer.ApiServerConnector;
 import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
-import com.att.nsa.cmdLine.NsaCommandLineUtil;
-import com.att.nsa.drumlin.service.framework.DrumlinServlet;
-import com.att.nsa.drumlin.till.nv.impl.nvPropertiesFile;
-import com.att.nsa.drumlin.till.nv.impl.nvReadableStack;
-import com.att.nsa.drumlin.till.nv.impl.nvReadableTable;
 import com.att.nsa.drumlin.till.nv.rrNvReadable;
 import com.att.nsa.drumlin.till.nv.rrNvReadable.loadException;
-import com.att.nsa.drumlin.till.nv.rrNvReadable.missingReqdSetting;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
@@ -39,99 +33,75 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.catalina.LifecycleException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.CLIUtils;
 import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.restapi.RestfulCollectorServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
-    private static final String KCONFIG = "c";
-    private static final String KSETTING_PORT = "collector.service.port";
-    private static final int KDEFAULT_PORT = 8080;
-    private static final String KSETTING_SECUREPORT = "collector.service.secure.port";
-    private static final int KDEFAULT_SECUREPORT = -1;
-    private static final String KSETTING_KEYSTOREPASSFILE = "collector.keystore.passwordfile";
-    private static final String KDEFAULT_KEYSTOREPASSFILE = "../etc/passwordfile";
-    private static final String KSETTING_KEYSTOREFILE = "collector.keystore.file.location";
-    private static final String KDEFAULT_KEYSTOREFILE = "../etc/keystore";
-    private static final String KSETTING_KEYALIAS = "collector.keystore.alias";
-    private static final String KDEFAULT_KEYALIAS = "tomcat";
-    private static final String KSETTING_DMAAPCONFIGS = "collector.dmaapfile";
-    private static final String[] KDEFAULT_DMAAPCONFIGS = new String[]{"/etc/DmaapConfig.json"};
-    private static final String KSETTING_SCHEMAVALIDATOR = "collector.schema.checkflag";
-    private static final int KDEFAULT_SCHEMAVALIDATOR = -1;
-    private static final String KSETTING_SCHEMAFILE = "collector.schema.file";
-    private static final String KDEFAULT_SCHEMAFILE = "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}";
-    private static final String KSETTING_DMAAPSTREAMID = "collector.dmaap.streamid";
-    private static final String KSETTING_AUTHFLAG = "header.authflag";
-    private static final int KDEFAULT_AUTHFLAG = 0;
-    private static final String KSETTING_EVENTTRANSFORMFLAG = "event.transform.flag";
-    private static final int KDEFAULT_EVENTTRANSFORMFLAG = 1;
     private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
     public static final Logger inlog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.input");
     static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.output");
     public static final Logger eplog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.error");
 
-    public static final String KSETTING_AUTHLIST = "header.authlist";
-    static final int KDEFAULT_MAXQUEUEDEVENTS = 1024 * 4;
-    public static int schemaValidatorflag = -1;
-    public static int authflag = 1;
-    static int eventTransformFlag = 1;
+    static int maxQueueEvent = 1024 * 4;
+    public static boolean schemaValidatorflag = false;
+    public static boolean authflag = false;
+    static boolean eventTransformFlag = true;
     public static JSONObject schemaFileJson;
     static String cambriaConfigFile;
-    public static String streamID;
+    public static io.vavr.collection.Map<String , String [] > streamID;
 
     static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApiServer fTomcatServer = null;
     private static final Logger log = LoggerFactory.getLogger(CommonStartup.class);
 
-    private CommonStartup(rrNvReadable settings) throws loadException, IOException, rrNvReadable.missingReqdSetting {
+    private CommonStartup(ApplicationSettings settings) throws loadException, IOException, rrNvReadable.missingReqdSetting {
         final List<ApiServerConnector> connectors = new LinkedList<>();
 
-        if (settings.getInt(KSETTING_PORT, KDEFAULT_PORT) > 0) {
-            connectors.add(new ApiServerConnector.Builder(settings.getInt(KSETTING_PORT, KDEFAULT_PORT)).secure(false)
-                               .build());
+        if (!settings.authorizationEnabled()) {
+            connectors.add(new ApiServerConnector.Builder(settings.httpPort()).secure(false).build());
         }
 
-        final int securePort = settings.getInt(KSETTING_SECUREPORT, KDEFAULT_SECUREPORT);
-        final String keystoreFile = settings.getString(KSETTING_KEYSTOREFILE, KDEFAULT_KEYSTOREFILE);
-        final String keystorePasswordFile = settings.getString(KSETTING_KEYSTOREPASSFILE, KDEFAULT_KEYSTOREPASSFILE);
-        final String keyAlias = settings.getString(KSETTING_KEYALIAS, KDEFAULT_KEYALIAS);
+        final int securePort = settings.httpsPort();
+        final String keystoreFile = settings.keystoreFileLocation();
+        final String keystorePasswordFile = settings.keystorePasswordFileLocation();
+        final String keyAlias = settings.keystoreAlias();
 
-        if (securePort > 0) {
+        if (settings.authorizationEnabled()) {
             String keystorePassword = readFile(keystorePasswordFile);
             connectors.add(new ApiServerConnector.Builder(securePort).secure(true)
-                               .keystorePassword(keystorePassword).keystoreFile(keystoreFile).keyAlias(keyAlias).build());
+                    .keystorePassword(keystorePassword).keystoreFile(keystoreFile).keyAlias(keyAlias).build());
 
         }
 
-        schemaValidatorflag = settings.getInt(KSETTING_SCHEMAVALIDATOR, KDEFAULT_SCHEMAVALIDATOR);
-        if (schemaValidatorflag > 0) {
-            String schemaFile = settings.getString(KSETTING_SCHEMAFILE, KDEFAULT_SCHEMAFILE);
-            schemaFileJson = new JSONObject(schemaFile);
+        schemaValidatorflag = settings.jsonSchemaValidationEnabled();
+        maxQueueEvent = settings.maximumAllowedQueuedEvents();
+        if (schemaValidatorflag) {
+            schemaFileJson = settings.jsonSchema();
 
         }
-        authflag = settings.getInt(CommonStartup.KSETTING_AUTHFLAG, CommonStartup.KDEFAULT_AUTHFLAG);
-        String[] currentConfigFile = settings.getStrings(KSETTING_DMAAPCONFIGS, KDEFAULT_DMAAPCONFIGS);
-        cambriaConfigFile = currentConfigFile[0];
-        streamID = settings.getString(KSETTING_DMAAPSTREAMID, null);
-        eventTransformFlag = settings.getInt(KSETTING_EVENTTRANSFORMFLAG, KDEFAULT_EVENTTRANSFORMFLAG);
+        authflag = settings.authorizationEnabled();
+        cambriaConfigFile = settings.cambriaConfigurationFileLocation();
+        streamID = settings.dMaaPStreamsMapping();
+        eventTransformFlag = settings.eventTransformingEnabled();
 
         fTomcatServer = new ApiServer.Builder(connectors, new RestfulCollectorServlet(settings)).encodeSlashes(true)
             .name("collector").build();
@@ -139,19 +109,12 @@ public class CommonStartup extends NsaBaseEndpoint implements Runnable {
 
     public static void main(String[] args) {
         try {
-            final Map<String, String> argMap = NsaCommandLineUtil.processCmdLine(args, true);
-            final String config = NsaCommandLineUtil.getSetting(argMap, KCONFIG, "collector.properties");
-            final URL settingStream = DrumlinServlet.findStream(config, CommonStartup.class);
 
-            final nvReadableStack settings = new nvReadableStack();
-            settings.push(new nvPropertiesFile(settingStream));
-            settings.push(new nvReadableTable(argMap));
-
-            fProcessingInputQueue = new LinkedBlockingQueue<>(CommonStartup.KDEFAULT_MAXQUEUEDEVENTS);
+            fProcessingInputQueue = new LinkedBlockingQueue<>(CommonStartup.maxQueueEvent);
 
             VESLogger.setUpEcompLogging();
 
-            CommonStartup cs = new CommonStartup(settings);
+            CommonStartup cs = new CommonStartup(new ApplicationSettings(args, CLIUtils::processCmdLine));
 
             Thread commonStartupThread = new Thread(cs);
             commonStartupThread.start();
