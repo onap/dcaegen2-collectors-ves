@@ -19,15 +19,16 @@
  */
 package org.onap.dcae.commonFunction;
 
-import static io.vavr.API.Set;
-
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
-import java.util.stream.StreamSupport;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.stream.StreamSupport;
+
+import static io.vavr.API.Set;
 
 /**
  * This class is a wrapper for 2 most used entities of org.json lib: JSONArray and JSONObject and comprises utility
@@ -108,6 +109,5 @@ public class AnyNode {
     private JSONObject asJsonObject() {
         return (JSONObject) this.obj;
     }
-
 
 }

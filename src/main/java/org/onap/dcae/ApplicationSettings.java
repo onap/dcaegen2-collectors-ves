@@ -21,41 +21,50 @@
 
 package org.onap.dcae;
 
-import com.att.nsa.drumlin.till.nv.impl.nvReadableStack;
-import com.att.nsa.drumlin.till.nv.impl.nvReadableTable;
-import com.att.nsa.drumlin.till.nv.rrNvReadable;
 import com.google.common.annotations.VisibleForTesting;
 import io.vavr.Function1;
 import io.vavr.collection.HashMap;
+import io.vavr.collection.List;
 import io.vavr.collection.Map;
-import org.apache.commons.configuration.ConfigurationConverter;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Base64;
+
+import static java.util.Arrays.stream;
 
 /**
  * Abstraction over application configuration.
  * Its job is to provide easily discoverable (by method names lookup) and type safe access to configuration properties.
  */
+@Component
 public class ApplicationSettings {
 
     private static final Logger inlog = LoggerFactory.getLogger(ApplicationSettings.class);
     private static final String COLLECTOR_PROPERTIES = "etc/collector.properties";
+
+    private final String appInvocationDir;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
+        this(args, argsParser, System.getProperty("user.dir"));
+    }
+
+    public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser, String appInvocationDir) {
+        this.appInvocationDir = appInvocationDir;
         properties.setDelimiterParsingDisabled(true);
         Map<String, String> parsedArgs = argsParser.apply(args);
         loadProperties(Paths.get(new File(COLLECTOR_PROPERTIES).getAbsolutePath()).toString());
         loadCommandLineProperties(parsedArgs);
         parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
     }
-
     private void loadCommandLineProperties(Map<String, String> parsedArgs) {
         parsedArgs.get("c").forEach(e -> {
             properties.clear();
@@ -63,7 +72,7 @@ public class ApplicationSettings {
         });
     }
 
-    private void loadProperties(String property){
+    private void loadProperties(String property) {
         try {
             properties.load(property);
         } catch (ConfigurationException ex) {
@@ -72,8 +81,13 @@ public class ApplicationSettings {
         }
     }
 
-    public String validAuthorizationCredentials() {
-        return properties.getString("header.authlist", null);
+    public Map<String, String> validAuthorizationCredentials() {
+        return prepareUsersMap(properties.getString("header.authlist", null));
+    }
+
+    private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
+        return allowedUsers == null ? HashMap.empty() : List.ofAll(stream(allowedUsers.split("\\|")))
+                .toMap(t -> t.split(",")[0].trim(), t -> new String(Base64.getDecoder().decode(t.split(",")[1])).trim());
     }
 
     public int maximumAllowedQueuedEvents() {
@@ -110,11 +124,11 @@ public class ApplicationSettings {
     }
 
     public String keystorePasswordFileLocation() {
-        return properties.getString("collector.keystore.passwordfile", "./etc/passwordfile");
+        return prependWithUserDirOnRelative(properties.getString("collector.keystore.passwordfile", "etc/passwordfile"));
     }
 
     public String keystoreFileLocation() {
-        return properties.getString("collector.keystore.file.location", "../etc/keystore");
+        return prependWithUserDirOnRelative(properties.getString("collector.keystore.file.location", "etc/keystore"));
     }
 
     public String keystoreAlias() {
@@ -126,7 +140,7 @@ public class ApplicationSettings {
     }
 
     public String cambriaConfigurationFileLocation() {
-        return properties.getString("collector.dmaapfile", "./etc/DmaapConfig.json");
+        return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
     }
 
     public Map<String, String[]> dMaaPStreamsMapping() {
@@ -136,17 +150,6 @@ public class ApplicationSettings {
         } else {
             return convertDMaaPStreamsPropertyToMap(streamIdsProperty);
         }
-    }
-
-    /*
-     * Kept back here for backward compatibility.
-     * RestfulCollectorServlet upon its initialization requires options to be represented
-     * as object represented by rrNvReadable interface, so we define a a handy transformation function here.
-     */
-    public rrNvReadable torrNvReadable() {
-        final nvReadableStack settings = new nvReadableStack();
-        settings.push(new nvReadableTable(ConfigurationConverter.getProperties(properties)));
-        return settings;
     }
 
     private Map<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
@@ -166,6 +169,13 @@ public class ApplicationSettings {
         } else {
             properties.addProperty(key, value);
         }
+    }
+
+    public String prependWithUserDirOnRelative(String filePath) {
+        if (!Paths.get(filePath).isAbsolute()) {
+            filePath = Paths.get(appInvocationDir, filePath).toString();
+        }
+        return filePath;
     }
 
     @VisibleForTesting

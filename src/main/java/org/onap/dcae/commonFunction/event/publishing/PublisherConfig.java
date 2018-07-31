@@ -21,6 +21,7 @@ package org.onap.dcae.commonFunction.event.publishing;
 
 import io.vavr.collection.List;
 import io.vavr.control.Option;
+
 import java.util.Objects;
 
 /**
@@ -76,9 +77,9 @@ public final class PublisherConfig {
         }
         PublisherConfig that = (PublisherConfig) o;
         return Objects.equals(destinations, that.destinations) &&
-            Objects.equals(topic, that.topic) &&
-            Objects.equals(userName, that.userName) &&
-            Objects.equals(password, that.password);
+                Objects.equals(topic, that.topic) &&
+                Objects.equals(userName, that.userName) &&
+                Objects.equals(password, that.password);
     }
 
     @Override
@@ -89,10 +90,10 @@ public final class PublisherConfig {
     @Override
     public String toString() {
         return "PublisherConfig{" +
-            "destinations=" + destinations +
-            ", topic='" + topic + '\'' +
-            ", userName='" + userName + '\'' +
-            ", password='" + password + '\'' +
-            '}';
+                "destinations=" + destinations +
+                ", topic='" + topic + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
