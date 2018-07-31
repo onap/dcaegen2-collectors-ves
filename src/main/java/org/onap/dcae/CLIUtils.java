@@ -24,36 +24,29 @@ package org.onap.dcae;
 import java.util.HashMap;
 
 /**
- *  CLIUtils extracted from nsaServerLibrary this implementation will be removed once we switch to different API library
+ * CLIUtils extracted from nsaServerLibrary this implementation will be removed once we switch to different API library
  */
 public class CLIUtils {
 
-    public static io.vavr.collection.HashMap<String, String>  processCmdLine (String[] args) {
-        final HashMap<String,String> map = new HashMap<String,String> ();
+    public static io.vavr.collection.HashMap<String, String> processCmdLine(String[] args) {
+        final HashMap<String, String> map = new HashMap<String, String>();
 
         String lastKey = null;
-        for ( String arg : args )
-        {
-            if ( arg.startsWith ( "-" ) )
-            {
-                if ( lastKey != null )
-                {
-                    map.put ( lastKey.substring(1), "" );
+        for (String arg : args) {
+            if (arg.startsWith("-")) {
+                if (lastKey != null) {
+                    map.put(lastKey.substring(1), "");
                 }
                 lastKey = arg;
-            }
-            else
-            {
-                if ( lastKey != null )
-                {
-                    map.put ( lastKey.substring(1), arg );
+            } else {
+                if (lastKey != null) {
+                    map.put(lastKey.substring(1), arg);
                 }
                 lastKey = null;
             }
         }
-        if ( lastKey != null )
-        {
-            map.put ( lastKey.substring(1), "" );
+        if (lastKey != null) {
+            map.put(lastKey.substring(1), "");
         }
         return io.vavr.collection.HashMap.ofAll(map);
     }

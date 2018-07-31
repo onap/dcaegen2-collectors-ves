@@ -181,7 +181,7 @@ public class ApplicationSettingsTest {
         String keystoreFileLocation = fromTemporaryConfiguration().keystoreFileLocation();
 
         // then
-        assertEquals("../etc/keystore", keystoreFileLocation);
+        assertEquals("./etc/keystore", keystoreFileLocation);
     }
 
 
@@ -347,24 +347,24 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration(
-                "header.authlist=pasza,123jsad1|someoneelse,12asd31"
+        Map<String, String> allowedUsers = fromTemporaryConfiguration(
+                "header.authlist=pasza,c2ltcGxlcGFzc3dvcmQNCg==|someoneelse,c2ltcGxlcGFzc3dvcmQNCg=="
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals("pasza,123jsad1|someoneelse,12asd31", userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertEquals(allowedUsers.get("pasza").get(), "simplepassword");
+        assertEquals(allowedUsers.get("someoneelse").get(), "simplepassword");
     }
 
     @Test
     public void shouldbyDefaultThereShouldBeNoValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
+        Map<String, String> userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
                 validAuthorizationCredentials();
 
         // then
-        assertNull(userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertTrue(userToBase64PasswordDelimitedByCommaSeparatedByPipes.isEmpty());
     }
-
 
     @Test
     public void shouldReturnIfEventTransformingIsEnabled() throws IOException {

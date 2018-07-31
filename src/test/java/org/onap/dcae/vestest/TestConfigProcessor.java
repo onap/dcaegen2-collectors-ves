@@ -64,11 +64,11 @@ public class TestConfigProcessor {
 
         final JSONObject jsonObject = getFileAsJsonObject();
         final String functionRole = (jsonObject.getJSONObject("event")).getJSONObject("commonEventHeader")
-            .get("functionalRole").toString();
+                .get("functionalRole").toString();
         System.out.println("event==" + jsonObject.toString());
         System.out.println("functionRole==" + functionRole);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.commonEventHeader.nfNamingCode\",\"oldField\": \"event.commonEventHeader.functionalRole\"}");
+                "{\"field\": \"event.commonEventHeader.nfNamingCode\",\"oldField\": \"event.commonEventHeader.functionalRole\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.commonEventHeader.nfNamingCode").toString();
@@ -82,15 +82,15 @@ public class TestConfigProcessor {
 
         final JSONObject jsonObject = getFileAsJsonObject();
         final String alarmAdditionalInformation = (jsonObject.getJSONObject("event")).getJSONObject("faultFields")
-            .get("alarmAdditionalInformation").toString();
+                .get("alarmAdditionalInformation").toString();
         System.out.println("event==" + jsonObject.toString());
         System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.eventAdditionalInformation\",\"oldField\": \"event.faultFields.alarmAdditionalInformation\"}");
+                "{\"field\": \"event.faultFields.eventAdditionalInformation\",\"oldField\": \"event.faultFields.alarmAdditionalInformation\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventAdditionalInformation")
-            .toString();
+                .toString();
         System.out.println("modified event==" + jsonObject.toString());
         System.out.println("responseData==" + responseData);
         assertEquals(alarmAdditionalInformation, responseData);
@@ -104,14 +104,14 @@ public class TestConfigProcessor {
         System.out.println("event==" + jsonObject.toString());
         //System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.vNicPerformanceArray[]\",\"oldField\": \"event.faultFields.errors\",\"attrMap\":{\"receiveDiscards\":\"receivedDiscardedPacketsAccumulated\"}}");
+                "{\"field\": \"event.faultFields.vNicPerformanceArray[]\",\"oldField\": \"event.faultFields.errors\",\"attrMap\":{\"receiveDiscards\":\"receivedDiscardedPacketsAccumulated\"}}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors.receiveDiscards").toString();
         System.out.println("receiveDiscards==" + receiveDiscards);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent
-            .getEventObjectVal("event.faultFields.vNicPerformanceArray[0].receivedDiscardedPacketsAccumulated")
-            .toString();
+                .getEventObjectVal("event.faultFields.vNicPerformanceArray[0].receivedDiscardedPacketsAccumulated")
+                .toString();
         System.out.println("modified event==" + jsonObject.toString());
         System.out.println("responseData==" + responseData);
         assertEquals(receiveDiscards, responseData);
@@ -125,7 +125,7 @@ public class TestConfigProcessor {
         System.out.println("event==" + jsonObject.toString());
         //System.out.println("functionRole==" + functionRole);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
+                "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.addAttribute(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
@@ -142,7 +142,7 @@ public class TestConfigProcessor {
         System.out.println("event==" + jsonObject.toString());
         //System.out.println("functionRole==" + functionRole);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
+                "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.updateAttribute(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
@@ -156,16 +156,16 @@ public class TestConfigProcessor {
 
         final JSONObject jsonObject = getFileAsJsonObject();
         final String eventType = (jsonObject.getJSONObject("event")).getJSONObject("commonEventHeader").get("eventType")
-            .toString();
+                .toString();
         final String domain = (jsonObject.getJSONObject("event")).getJSONObject("commonEventHeader").get("domain")
-            .toString();
+                .toString();
         final String alarmCondition = (jsonObject.getJSONObject("event")).getJSONObject("faultFields")
-            .get("alarmCondition").toString();
+                .get("alarmCondition").toString();
         System.out.println("event==" + jsonObject.toString());
         final String eventName = domain + "_" + eventType + "_" + alarmCondition;
         System.out.println("eventName==" + eventName);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"],\"delimiter\":\"_\"}");
+                "{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"],\"delimiter\":\"_\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.concatenateValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.commonEventHeader.eventName").toString();
@@ -179,14 +179,14 @@ public class TestConfigProcessor {
 
         final JSONObject jsonObject = getFileAsJsonObject();
         final String memoryConfigured = (jsonObject.getJSONObject("event")).getJSONObject("faultFields")
-            .get("memoryConfigured").toString();
+                .get("memoryConfigured").toString();
         final String memoryUsed = (jsonObject.getJSONObject("event")).getJSONObject("faultFields").get("memoryUsed")
-            .toString();
+                .toString();
         System.out.println("event==" + jsonObject.toString());
         System.out.println("memoryConfigured==" + memoryConfigured);
         System.out.println("memoryUsed==" + memoryUsed);
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.memoryFree\",\"subtract\": [\"$event.faultFields.memoryConfigured\",\"$event.faultFields.memoryUsed\"]}");
+                "{\"field\": \"event.faultFields.memoryFree\",\"subtract\": [\"$event.faultFields.memoryConfigured\",\"$event.faultFields.memoryUsed\"]}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.subtractValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.memoryFree").toString();
@@ -202,7 +202,7 @@ public class TestConfigProcessor {
         System.out.println("event==" + jsonObject.toString());
         System.out.println("Testing SetValue");
         final JSONObject jsonArgs = new JSONObject(
-            "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
+                "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.setValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();

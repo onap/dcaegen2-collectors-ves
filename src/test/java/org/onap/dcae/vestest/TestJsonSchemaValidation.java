@@ -28,24 +28,24 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.nio.file.Paths;
 import org.junit.Test;
-import org.onap.dcae.commonFunction.CommonStartup;
+import org.onap.dcae.SchemaValidator;
 
 public class TestJsonSchemaValidation {
 
     @Test
     public void shouldValidEventPassSchema_27_2() throws IOException {
-        String result = CommonStartup.validateAgainstSchema(
-            readJSONFromFile("src/test/resources/VES_valid.txt").toString(),
-            readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
+        String result = SchemaValidator.validateAgainstSchema(
+                readJSONFromFile("src/test/resources/VES_valid.txt").toString(),
+                readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
         assertEquals(result, "true");
     }
 
 
     @Test
     public void shouldInvalidEventDoesNotPassSchema_27_2() throws IOException {
-        String result = CommonStartup.validateAgainstSchema(
-            readJSONFromFile("src/test/resources/VES_invalid.txt").toString(),
-            readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
+        String result = SchemaValidator.validateAgainstSchema(
+                readJSONFromFile("src/test/resources/VES_invalid.txt").toString(),
+                readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
         assertEquals(result, "false");
     }
 
