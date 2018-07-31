@@ -21,40 +21,42 @@
 package org.onap.dcae.commonFunction;
 
 import com.google.gson.Gson;
-import java.util.concurrent.atomic.AtomicReference;
-
-import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-
-import java.util.List;
+import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.CLIUtils;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.vestest.TestingUtilities;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.onap.dcae.commonFunction.EventProcessor.EVENT_LIST_TYPE;
 
 public class EventProcessorTest {
 
     private final String ev = "{\"event\": {\"commonEventHeader\": {	\"reportingEntityName\": \"VM name will be provided by ECOMP\",	\"startEpochMicrosec\": 1477012779802988,\"lastEpochMicrosec\": 1477012789802988,\"eventId\": \"83\",\"sourceName\": \"Dummy VM name - No Metadata available\",\"sequence\": 83,\"priority\": \"Normal\",\"functionalRole\": \"vFirewall\",\"domain\": \"measurementsForVfScaling\",\"reportingEntityId\": \"VM UUID will be provided by ECOMP\",\"sourceId\": \"Dummy VM UUID - No Metadata available\",\"version\": 1.1},\"measurementsForVfScalingFields\": {\"measurementInterval\": 10,\"measurementsForVfScalingVersion\": 1.1,\"vNicUsageArray\": [{\"multicastPacketsIn\": 0,\"bytesIn\": 3896,\"unicastPacketsIn\": 0,	\"multicastPacketsOut\": 0,\"broadcastPacketsOut\": 0,		\"packetsOut\": 28,\"bytesOut\": 12178,\"broadcastPacketsIn\": 0,\"packetsIn\": 58,\"unicastPacketsOut\": 0,\"vNicIdentifier\": \"eth0\"}]}}}";
 
+    Map<String, String[]> streamID;
+    private ApplicationSettings properties;
+
     @Before
     public void setUp() {
-        CommonStartup.streamID = TestingUtilities.convertDMaaPStreamsPropertyToMap("fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling");
+        streamID = TestingUtilities.convertDMaaPStreamsPropertyToMap("fault=sec_fault|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling");
+        properties = new ApplicationSettings(new String[]{}, CLIUtils::processCmdLine);
+        streamID = properties.dMaaPStreamsMapping();
     }
 
     @Test
     public void testLoad() {
         //given
-        EventProcessor ec = new EventProcessor(mock(EventPublisher.class));
+        EventProcessor ec = new EventProcessor(mock(EventPublisher.class), properties);
         ec.event = new org.json.JSONObject(ev);
         //when
         ec.overrideEvent();
@@ -67,7 +69,7 @@ public class EventProcessorTest {
     @Test
     public void shouldParseJsonEvents() throws ReflectiveOperationException {
         //given
-        EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class));
+        EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class), properties);
         String event_json = "[{ \"filter\": {\"event.commonEventHeader.domain\":\"heartbeat\",\"VESversion\":\"v4\"},\"processors\":[" +
                 "{\"functionName\": \"concatenateValue\",\"args\":{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"], \"delimiter\":\"_\"}}" +
                 ",{\"functionName\": \"addAttribute\",\"args\":{\"field\": \"event.heartbeatFields.heartbeatFieldsVersion\",\"value\": \"1.0\",\"fieldType\": \"number\"}}" +
@@ -87,4 +89,3 @@ public class EventProcessorTest {
     }
 
 }
-

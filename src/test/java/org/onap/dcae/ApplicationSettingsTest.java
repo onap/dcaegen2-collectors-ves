@@ -162,7 +162,7 @@ public class ApplicationSettingsTest {
         String passwordFileLocation = fromTemporaryConfiguration().keystorePasswordFileLocation();
 
         // then
-        assertEquals("./etc/passwordfile", passwordFileLocation);
+        assertEquals("etc/passwordfile", passwordFileLocation);
     }
 
     @Test
@@ -181,7 +181,7 @@ public class ApplicationSettingsTest {
         String keystoreFileLocation = fromTemporaryConfiguration().keystoreFileLocation();
 
         // then
-        assertEquals("../etc/keystore", keystoreFileLocation);
+        assertEquals("etc/keystore", keystoreFileLocation);
     }
 
 
@@ -218,7 +218,7 @@ public class ApplicationSettingsTest {
         String dmaapConfigFileLocation = fromTemporaryConfiguration().cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("./etc/DmaapConfig.json", dmaapConfigFileLocation);
+        assertEquals("etc/DmaapConfig.json", dmaapConfigFileLocation);
     }
 
     @Test
@@ -347,24 +347,24 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration(
-                "header.authlist=pasza,123jsad1|someoneelse,12asd31"
+        Map<String, String> allowedUsers = fromTemporaryConfiguration(
+                "header.authlist=pasza,c2ltcGxlcGFzc3dvcmQNCg==|someoneelse,c2ltcGxlcGFzc3dvcmQNCg=="
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals("pasza,123jsad1|someoneelse,12asd31", userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertEquals(allowedUsers.get("pasza").get(), "simplepassword");
+        assertEquals(allowedUsers.get("someoneelse").get(), "simplepassword");
     }
 
     @Test
     public void shouldbyDefaultThereShouldBeNoValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
+        Map<String, String> userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
                 validAuthorizationCredentials();
 
         // then
-        assertNull(userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertTrue(userToBase64PasswordDelimitedByCommaSeparatedByPipes.isEmpty());
     }
-
 
     @Test
     public void shouldReturnIfEventTransformingIsEnabled() throws IOException {
@@ -402,7 +402,7 @@ public class ApplicationSettingsTest {
                 .cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("./etc/DmaapConfig.json", cambriaConfigurationFileLocation);
+        assertEquals("etc/DmaapConfig.json", cambriaConfigurationFileLocation);
     }
 
     private static ApplicationSettings fromTemporaryConfiguration(String... fileLines)
@@ -410,8 +410,7 @@ public class ApplicationSettingsTest {
         File tempConfFile = File.createTempFile("doesNotMatter", "doesNotMatter");
         Files.write(tempConfFile.toPath(), Arrays.asList(fileLines));
         tempConfFile.deleteOnExit();
-        return new ApplicationSettings(new String[]{"-c", tempConfFile.toString()}, args -> processCmdLine(args));
+        return new ApplicationSettings(new String[]{"-c", tempConfFile.toString()}, args -> processCmdLine(args), "");
     }
-
 
 }

@@ -1,15 +1,16 @@
-/*-
+/*
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,14 +19,28 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.restapi.endpoints;
+package org.onap.dcae.restapi;
 
-import com.att.nsa.apiServer.endpoints.NsaBaseEndpoint;
-import com.att.nsa.drumlin.service.framework.context.DrumlinRequestContext;
+import org.onap.dcae.ApplicationSettings;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class Ui extends NsaBaseEndpoint {
+@Configuration
+public class ApiConfiguration implements WebMvcConfigurer {
+    private final ApplicationSettings applicationSettings;
+    private Logger errorLogger;
 
-    public static void hello(DrumlinRequestContext ctx) {
-        ctx.renderer().renderTemplate("templates/hello.html");
+    @Autowired
+    ApiConfiguration(ApplicationSettings applicationSettings, Logger errorLogger) {
+        this.applicationSettings = applicationSettings;
+        this.errorLogger = errorLogger;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ApiAuthInterceptor(applicationSettings, errorLogger));
     }
 }

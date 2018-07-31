@@ -33,16 +33,29 @@ public enum ApiException {
     UNAUTHORIZED_USER(ExceptionType.POLICY_EXCEPTION, "POL2000", "Unauthorized user", 401),
     NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503);
 
+    public final int httpStatusCode;
     private final ExceptionType type;
     private final String code;
     private final String details;
-    public final int httpStatusCode;
 
     ApiException(ExceptionType type, String code, String details, int httpStatusCode) {
         this.type = type;
         this.code = code;
         this.details = details;
         this.httpStatusCode = httpStatusCode;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject exceptionTypeNode = new JSONObject();
+        exceptionTypeNode.put("messageId", code);
+        exceptionTypeNode.put("text", details);
+
+        JSONObject requestErrorNode = new JSONObject();
+        requestErrorNode.put(type.toString(), exceptionTypeNode);
+
+        JSONObject rootNode = new JSONObject();
+        rootNode.put("requestError", requestErrorNode);
+        return rootNode;
     }
 
     public enum ExceptionType {
@@ -52,19 +65,6 @@ public enum ApiException {
         public String toString() {
             return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, this.name());
         }
-    }
-
-    public JSONObject toJSON() {
-        JSONObject exceptionTypeNode = new JSONObject();
-        exceptionTypeNode.put("messageId", code );
-        exceptionTypeNode.put("text", details);
-
-        JSONObject requestErrorNode = new JSONObject();
-        requestErrorNode.put(type.toString(), exceptionTypeNode);
-
-        JSONObject rootNode = new JSONObject();
-        rootNode.put("requestError", requestErrorNode);
-        return rootNode;
     }
 
 }
