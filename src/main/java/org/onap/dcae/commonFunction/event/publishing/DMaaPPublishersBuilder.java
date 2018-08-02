@@ -33,7 +33,6 @@ import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
  */
 final class DMaaPPublishersBuilder {
 
-    @SuppressWarnings("mapFailure takes a generic varargs, unchecked because of Javas type system limitation, actually safe to do")
     static Try<CambriaBatchingPublisher> buildPublisher(PublisherConfig config) {
         return Try(() -> builder(config).build())
                 .mapFailure(enhanceError(f("DMaaP client builder throws exception for this configuration: '%s'", config)));

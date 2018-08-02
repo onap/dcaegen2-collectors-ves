@@ -149,6 +149,26 @@ public class ApplicationSettingsTest {
     }
 
     @Test
+    public void shouldReturnConfigurationUpdateInterval() throws IOException {
+        // when
+        int updateFrequency = fromTemporaryConfiguration("collector.dynamic.config.update.frequency=10")
+                .configurationUpdateFrequency();
+
+        // then
+        assertEquals(10, updateFrequency);
+    }
+
+    @Test
+    public void shouldReturnDefaultConfigurationUpdateInterval() throws IOException {
+        // when
+        int updateFrequency = fromTemporaryConfiguration()
+                .configurationUpdateFrequency();
+
+        // then
+        assertEquals(5, updateFrequency);
+    }
+
+    @Test
     public void shouldReturnLocationOfThePasswordFile() throws IOException {
         // when
         String passwordFileLocation = fromTemporaryConfiguration("collector.keystore.passwordfile=/somewhere/password").keystorePasswordFileLocation();
@@ -207,7 +227,7 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnDMAAPConfigFileLocation() throws IOException {
         // when
-        String dmaapConfigFileLocation = fromTemporaryConfiguration("collector.dmaapfile=/somewhere/dmaapFile").cambriaConfigurationFileLocation();
+        String dmaapConfigFileLocation = fromTemporaryConfiguration("collector.dmaapfile=/somewhere/dmaapFile").dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/dmaapFile"), dmaapConfigFileLocation);
@@ -216,7 +236,7 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnDefaultDMAAPConfigFileLocation() throws IOException {
         // when
-        String dmaapConfigFileLocation = fromTemporaryConfiguration().cambriaConfigurationFileLocation();
+        String dmaapConfigFileLocation = fromTemporaryConfiguration().dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("etc/DmaapConfig.json"), dmaapConfigFileLocation);
@@ -390,7 +410,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnCambriaConfigurationFileLocation() throws IOException {
         // when
         String cambriaConfigurationFileLocation = fromTemporaryConfiguration("collector.dmaapfile=/somewhere/dmaapConfig")
-                .cambriaConfigurationFileLocation();
+                .dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/dmaapConfig"), cambriaConfigurationFileLocation);
@@ -400,7 +420,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnDefaultCambriaConfigurationFileLocation() throws IOException {
         // when
         String cambriaConfigurationFileLocation = fromTemporaryConfiguration()
-                .cambriaConfigurationFileLocation();
+                .dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("etc/DmaapConfig.json"), cambriaConfigurationFileLocation);
