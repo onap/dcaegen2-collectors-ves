@@ -21,13 +21,18 @@ package org.onap.dcae.commonFunction.event.publishing;
 
 import io.vavr.API;
 import io.vavr.API.Match.Case;
+import io.vavr.Function0;
+import io.vavr.Function1;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import org.slf4j.Logger;
 
 import static io.vavr.API.$;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
-final class VavrUtils {
+public final class VavrUtils {
 
     private VavrUtils() {
         // utils aggregator
@@ -36,7 +41,7 @@ final class VavrUtils {
     /**
      * Shortcut for 'string interpolation'
      */
-    static String f(String msg, Object... args) {
+    public static String f(String msg, Object... args) {
         return String.format(msg, args);
     }
 
@@ -44,8 +49,17 @@ final class VavrUtils {
      * Wrap failure with a more descriptive message of what has failed and chain original cause. Used to provide a
      * context for errors instead of raw exception.
      */
-    static Case<Throwable, Throwable> enhanceError(String msg) {
+    public static Case<Throwable, Throwable> enhanceError(String msg) {
         return API.Case($(), e -> new RuntimeException(msg, e));
     }
+
+    public static Case<Throwable, Throwable> enhanceError(String pattern, Object... arguments) {
+        return API.Case($(), e -> new RuntimeException(f(pattern, arguments), e));
+    }
+
+    public static Consumer<Throwable> logError(Logger withLogger) {
+        return e -> withLogger.error(e.getMessage(), e);
+    }
+
 
 }
