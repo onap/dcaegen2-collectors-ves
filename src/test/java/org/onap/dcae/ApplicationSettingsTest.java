@@ -28,6 +28,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -153,7 +154,7 @@ public class ApplicationSettingsTest {
         String passwordFileLocation = fromTemporaryConfiguration("collector.keystore.passwordfile=/somewhere/password").keystorePasswordFileLocation();
 
         // then
-        assertEquals("/somewhere/password", passwordFileLocation);
+        assertEquals(sanitizePath("/somewhere/password"), passwordFileLocation);
     }
 
     @Test
@@ -162,7 +163,7 @@ public class ApplicationSettingsTest {
         String passwordFileLocation = fromTemporaryConfiguration().keystorePasswordFileLocation();
 
         // then
-        assertEquals("./etc/passwordfile", passwordFileLocation);
+        assertEquals(sanitizePath("etc/passwordfile"), passwordFileLocation);
     }
 
     @Test
@@ -172,7 +173,7 @@ public class ApplicationSettingsTest {
                 .keystoreFileLocation();
 
         // then
-        assertEquals("/somewhere/keystore", keystoreFileLocation);
+        assertEquals(sanitizePath("/somewhere/keystore"), keystoreFileLocation);
     }
 
     @Test
@@ -181,7 +182,7 @@ public class ApplicationSettingsTest {
         String keystoreFileLocation = fromTemporaryConfiguration().keystoreFileLocation();
 
         // then
-        assertEquals("../etc/keystore", keystoreFileLocation);
+        assertEquals(sanitizePath("etc/keystore"), keystoreFileLocation);
     }
 
 
@@ -209,7 +210,7 @@ public class ApplicationSettingsTest {
         String dmaapConfigFileLocation = fromTemporaryConfiguration("collector.dmaapfile=/somewhere/dmaapFile").cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("/somewhere/dmaapFile", dmaapConfigFileLocation);
+        assertEquals(sanitizePath("/somewhere/dmaapFile"), dmaapConfigFileLocation);
     }
 
     @Test
@@ -218,7 +219,7 @@ public class ApplicationSettingsTest {
         String dmaapConfigFileLocation = fromTemporaryConfiguration().cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("./etc/DmaapConfig.json", dmaapConfigFileLocation);
+        assertEquals(sanitizePath("etc/DmaapConfig.json"), dmaapConfigFileLocation);
     }
 
     @Test
@@ -347,24 +348,24 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration(
-                "header.authlist=pasza,123jsad1|someoneelse,12asd31"
+        Map<String, String> allowedUsers = fromTemporaryConfiguration(
+                "header.authlist=pasza,c2ltcGxlcGFzc3dvcmQNCg==|someoneelse,c2ltcGxlcGFzc3dvcmQNCg=="
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals("pasza,123jsad1|someoneelse,12asd31", userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertEquals(allowedUsers.get("pasza").get(), "simplepassword");
+        assertEquals(allowedUsers.get("someoneelse").get(), "simplepassword");
     }
 
     @Test
     public void shouldbyDefaultThereShouldBeNoValidCredentials() throws IOException {
         // when
-        String userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
+        Map<String, String> userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
                 validAuthorizationCredentials();
 
         // then
-        assertNull(userToBase64PasswordDelimitedByCommaSeparatedByPipes);
+        assertTrue(userToBase64PasswordDelimitedByCommaSeparatedByPipes.isEmpty());
     }
-
 
     @Test
     public void shouldReturnIfEventTransformingIsEnabled() throws IOException {
@@ -392,7 +393,7 @@ public class ApplicationSettingsTest {
                 .cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("/somewhere/dmaapConfig", cambriaConfigurationFileLocation);
+        assertEquals(sanitizePath("/somewhere/dmaapConfig"), cambriaConfigurationFileLocation);
     }
 
     @Test
@@ -402,7 +403,7 @@ public class ApplicationSettingsTest {
                 .cambriaConfigurationFileLocation();
 
         // then
-        assertEquals("./etc/DmaapConfig.json", cambriaConfigurationFileLocation);
+        assertEquals(sanitizePath("etc/DmaapConfig.json"), cambriaConfigurationFileLocation);
     }
 
     private static ApplicationSettings fromTemporaryConfiguration(String... fileLines)
@@ -410,8 +411,10 @@ public class ApplicationSettingsTest {
         File tempConfFile = File.createTempFile("doesNotMatter", "doesNotMatter");
         Files.write(tempConfFile.toPath(), Arrays.asList(fileLines));
         tempConfFile.deleteOnExit();
-        return new ApplicationSettings(new String[]{"-c", tempConfFile.toString()}, args -> processCmdLine(args));
+        return new ApplicationSettings(new String[]{"-c", tempConfFile.toString()}, args -> processCmdLine(args), "");
     }
 
-
+    private String sanitizePath(String path) {
+        return Paths.get(path).toString();
+    }
 }

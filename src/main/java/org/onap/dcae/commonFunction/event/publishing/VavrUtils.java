@@ -19,10 +19,10 @@
  */
 package org.onap.dcae.commonFunction.event.publishing;
 
-import static io.vavr.API.$;
-
 import io.vavr.API;
 import io.vavr.API.Match.Case;
+
+import static io.vavr.API.$;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
