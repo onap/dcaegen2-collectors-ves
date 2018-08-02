@@ -26,9 +26,11 @@ import org.onap.dcae.commonFunction.EventProcessor;
 import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.commonFunction.event.publishing.PublisherConfig;
+import org.onap.dcae.controller.ConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,9 +40,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
@@ -61,21 +61,39 @@ public class VesApplication {
 
         fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
 
-        app.setAddCommandLineProperties(true);
-        app.run();
-
+        EventPublisher publisher = EventPublisher.createPublisher(oplog,
+                DMaaPConfigurationParser
+                        .parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation()))
+                        .get());
+        spawnDynamicConfigUpdateThread(publisher, properties);
         EventProcessor ep = new EventProcessor(EventPublisher.createPublisher(oplog, getDmapConfig()), properties);
 
         ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
         for (int i = 0; i < MAX_THREADS; ++i) {
             executor.execute(ep);
         }
+
+        app.setBannerMode(Banner.Mode.OFF);
+        app.setAddCommandLineProperties(true);
+        app.run();
     }
 
+    private static void spawnDynamicConfigUpdateThread(EventPublisher eventPublisher, ApplicationSettings properties) {
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+        ConfigLoader configLoader = ConfigLoader
+                .create(eventPublisher::reconfigure,
+                        Paths.get(properties.dMaaPConfigurationFileLocation()),
+                        properties.configurationFileLocation());
+        scheduledThreadPoolExecutor
+                .scheduleAtFixedRate(() -> configLoader.updateConfig(),
+                        properties.configurationUpdateFrequency(),
+                        properties.configurationUpdateFrequency(),
+                        TimeUnit.MINUTES);
+    }
 
     private static Map<String, PublisherConfig> getDmapConfig() {
         return DMaaPConfigurationParser.
-                parseToDomainMapping(Paths.get(properties.cambriaConfigurationFileLocation())).get();
+                parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation())).get();
     }
 
     @Bean

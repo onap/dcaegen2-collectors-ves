@@ -1,0 +1,222 @@
+{
+    "ves-fault-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-thresholdCrossingAlert-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-sipsignaling": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-statechange": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-heartbeat": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-other": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-other-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-mobileflow-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-sipsignaling-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-measurement-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-mobileflow": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-syslog": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-syslog-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-voicequality": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-voicequality-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-heartbeat-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-statechange-secondary": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-fault": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-measurement": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    },
+    "ves-thresholdCrossingAlert": {
+        "aaf_username": null,
+        "dmaap_info": {
+            "topic_url": "http://UEBHOST:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV",
+            "location": "mtl5",
+            "client_id": null,
+            "client_role": null
+        },
+        "type": "message_router",
+        "aaf_password": null
+    }
+}

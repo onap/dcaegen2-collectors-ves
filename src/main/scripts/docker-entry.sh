@@ -54,13 +54,13 @@ else
 fi
 
 log "Scheduling application to be started, looping indefinitely to hold the docker process"
-bin/VESrestfulCollector.sh stop
-bin/VESrestfulCollector.sh start &
+bin/appController.sh stop
+bin/appController.sh start &
 
 # Add below if config polling should be enabled. More specific to K8 deployment in ONAP
 if [ ! -z ${CBSPOLLTIMER} ]; then
     log "Configuration poll time (${CBSPOLLTIMER}) (env var 'CBSPOLLTIMER') found, enabling configuration polling from CBS"
-    bin/VESConfigPoller.sh &
+    bin/configurationPoller.sh &
 fi
 
 while true; do sleep 1000; done
