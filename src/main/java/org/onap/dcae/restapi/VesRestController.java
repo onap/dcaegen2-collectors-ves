@@ -23,7 +23,6 @@ package org.onap.dcae.restapi;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.StreamSupport.stream;
-import static org.springframework.http.ResponseEntity.accepted;
 import static org.springframework.http.ResponseEntity.ok;
 
 import com.att.nsa.clock.SaClock;

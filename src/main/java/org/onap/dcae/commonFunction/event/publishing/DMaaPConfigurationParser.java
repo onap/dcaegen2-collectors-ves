@@ -29,6 +29,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.json.JSONObject;
+
 import static io.vavr.API.*;
 import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.enhanceError;
 import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
@@ -43,6 +45,11 @@ public final class DMaaPConfigurationParser {
         return readFromFile(configLocation)
                 .flatMap(DMaaPConfigurationParser::toJSON)
                 .flatMap(DMaaPConfigurationParser::toConfigMap);
+    }
+
+    public static Try<Map<String, PublisherConfig>> parseToDomainMapping(JSONObject config) {
+        return toJSON(config.toString())
+            .flatMap(DMaaPConfigurationParser::toConfigMap);
     }
 
     private static Try<String> readFromFile(Path configLocation) {

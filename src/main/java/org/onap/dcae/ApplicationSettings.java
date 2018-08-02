@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
-import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
@@ -48,9 +48,8 @@ import static java.util.Arrays.stream;
 public class ApplicationSettings {
 
     private static final Logger inlog = LoggerFactory.getLogger(ApplicationSettings.class);
-    private static final String COLLECTOR_PROPERTIES = "etc/collector.properties";
-
     private final String appInvocationDir;
+    private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
@@ -61,20 +60,14 @@ public class ApplicationSettings {
         this.appInvocationDir = appInvocationDir;
         properties.setDelimiterParsingDisabled(true);
         Map<String, String> parsedArgs = argsParser.apply(args);
-        loadProperties(Paths.get(new File(COLLECTOR_PROPERTIES).getAbsolutePath()).toString());
-        loadCommandLineProperties(parsedArgs);
+        configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
+        loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
     }
-    private void loadCommandLineProperties(Map<String, String> parsedArgs) {
-        parsedArgs.get("c").forEach(e -> {
-            properties.clear();
-            loadProperties(e);
-        });
-    }
 
-    private void loadProperties(String property) {
+    private void loadPropertiesFromFile() {
         try {
-            properties.load(property);
+            properties.load(configurationFileLocation);
         } catch (ConfigurationException ex) {
             inlog.error("Cannot load properties cause:", ex);
             throw new RuntimeException(ex);
@@ -88,6 +81,14 @@ public class ApplicationSettings {
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty() : List.ofAll(stream(allowedUsers.split("\\|")))
                 .toMap(t -> t.split(",")[0].trim(), t -> new String(Base64.getDecoder().decode(t.split(",")[1])).trim());
+    }
+
+    private String findOutConfigurationFileLocation(Map<String, String> parsedArgs) {
+        return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/collector.properties"));
+    }
+
+    public Path configurationFileLocation() {
+        return Paths.get(configurationFileLocation);
     }
 
     public int maximumAllowedQueuedEvents() {
@@ -115,6 +116,10 @@ public class ApplicationSettings {
         return properties.getInt("collector.service.secure.port", 8443);
     }
 
+    public int configurationUpdateFrequency() {
+        return properties.getInt("collector.dynamic.config.update.frequency", 5);
+    }
+
     public boolean httpsEnabled() {
         return httpsPort() > 0;
     }
@@ -139,7 +144,7 @@ public class ApplicationSettings {
         return properties.getString("exceptionConfig", null);
     }
 
-    public String cambriaConfigurationFileLocation() {
+    public String dMaaPConfigurationFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
     }
 
