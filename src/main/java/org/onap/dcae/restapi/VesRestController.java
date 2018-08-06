@@ -102,7 +102,10 @@ public class VesRestController {
             "/eventListener/v4",
             "/eventListener/v4/eventBatch",
             "/eventListener/v5",
-            "/eventListener/v5/eventBatch"}, consumes = "application/json")
+            "/eventListener/v5/eventBatch",
+    		"/eventListener/v7",
+			"/eventListener/v7/eventBatch"},    		
+    		consumes = "application/json")
     ResponseEntity<String> receiveEvent(@RequestBody String jsonPayload, HttpServletRequest httpServletRequest) {
         String request = httpServletRequest.getRequestURI();
         extractVersion(request);
@@ -139,7 +142,8 @@ public class VesRestController {
             errorLog.error("EVENT_RECEIPT_FAILURE: QueueFull " + ApiException.NO_SERVER_RESOURCES);
             return errorResponse(ApiException.NO_SERVER_RESOURCES);
         }
-        return ok().contentType(MediaType.APPLICATION_JSON).body("Message Accepted");
+        //HttpStatus.SC_NO_CONTENT
+        return org.springframework.http.ResponseEntity.accepted().contentType(MediaType.APPLICATION_JSON).body("Accepted");
     }
 
     private void extractVersion(String httpServletRequest) {
