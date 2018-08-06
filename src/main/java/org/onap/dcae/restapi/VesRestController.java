@@ -102,7 +102,10 @@ public class VesRestController {
             "/eventListener/v4",
             "/eventListener/v4/eventBatch",
             "/eventListener/v5",
-            "/eventListener/v5/eventBatch"}, consumes = "application/json")
+            "/eventListener/v5/eventBatch",
+    		"/eventListener/v7",
+			"/eventListener/v7/eventBatch"},    		
+    		consumes = "application/json")
     ResponseEntity<String> receiveEvent(@RequestBody String jsonPayload, HttpServletRequest httpServletRequest) {
         String request = httpServletRequest.getRequestURI();
         extractVersion(request);
