@@ -32,26 +32,52 @@ import org.onap.dcae.SchemaValidator;
 
 public class TestJsonSchemaValidation {
 
-    @Test
-    public void shouldValidEventPassSchema_27_2() throws IOException {
-        String result = SchemaValidator.validateAgainstSchema(
-                readJSONFromFile("src/test/resources/VES_valid.txt").toString(),
-                readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
-        assertEquals(result, "true");
-    }
+  @Test
+  public void shouldValidEventPassSchema_27_2() throws IOException {
+    String result =
+        SchemaValidator.validateAgainstSchema(
+            readJSONFromFile("src/test/resources/ves4_valid.json").toString(),
+            readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
+    assertEquals(result, "true");
+  }
 
+  @Test
+  public void shouldInvalidEventDoesNotPassSchema_27_2() throws IOException {
+    String result =
+        SchemaValidator.validateAgainstSchema(
+            readJSONFromFile("src/test/resources/ves4_invalid.json").toString(),
+            readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
+    assertEquals(result, "false");
+  }
 
-    @Test
-    public void shouldInvalidEventDoesNotPassSchema_27_2() throws IOException {
-        String result = SchemaValidator.validateAgainstSchema(
-                readJSONFromFile("src/test/resources/VES_invalid.txt").toString(),
-                readJSONFromFile("etc/CommonEventFormat_27.2.json").toString());
-        assertEquals(result, "false");
-    }
+  @Test
+  public void shouldValidEventPassSchema_30_0_1() throws IOException {
+    String result =
+        SchemaValidator.validateAgainstSchema(
+            readJSONFromFile("src/test/resources/ves7_valid.json").toString(),
+            readJSONFromFile("etc/CommonEventFormat_30.0.1.json").toString());
+    assertEquals(result, "true");
+  }
 
+  @Test
+  public void shouldValidEventBatchPassSchema_30_0_1() throws IOException {
+    String result =
+        SchemaValidator.validateAgainstSchema(
+            readJSONFromFile("src/test/resources/ves7_batch_valid.json").toString(),
+            readJSONFromFile("etc/CommonEventFormat_30.0.1.json").toString());
+    assertEquals(result, "true");
+  }
 
-    private static JsonObject readJSONFromFile(String path) throws IOException {
-        return (JsonObject) new JsonParser().parse(new String(readAllBytes(Paths.get(path))));
-    }
+  @Test
+  public void shouldInvalidEventDoesNotPassSchema_30_0_1() throws IOException {
+    String result =
+        SchemaValidator.validateAgainstSchema(
+            readJSONFromFile("src/test/resources/ves7_invalid.json").toString(),
+            readJSONFromFile("etc/CommonEventFormat_30.0.1.json").toString());
+    assertEquals(result, "false");
+  }
+
+  private static JsonObject readJSONFromFile(String path) throws IOException {
+    return (JsonObject) new JsonParser().parse(new String(readAllBytes(Paths.get(path))));
+  }
 }
-
