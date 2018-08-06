@@ -31,6 +31,22 @@
 			"stripHpId": "true",
 			"type": "out",
 			"cambria.hosts": "onap-dmaap"
-		}		
+		},
+		{
+			"name": "ves-notification",
+			"cambria.topic": "unauthenticated.VES_NOTIFICATION_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "onap-dmaap"
+		},
+		{
+			"name": "ves-pnfRegistration",
+			"cambria.topic": "unauthenticated.VES_PNFREG_OUTPUT",
+			"class": "HpCambriaOutputStream",
+			"stripHpId": "true",
+			"type": "out",
+			"cambria.hosts": "onap-dmaap"
+		}					
 	]
 }
