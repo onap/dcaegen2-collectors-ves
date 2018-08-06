@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0b17e3ee",
+        "filename": "src/main/scripts/configurationPoller.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-06T07:45:10Z",
+      "side": 1,
+      "message": "Actually, I don\u0027t think that this info should be there. Also, DMaaPConfigurationParser does not update this file, it only reads it. It is being updated by ConfigLoader.",
+      "parentUuid": "1a76adc5_c836d103",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 26,
+        "endChar": 50
+      },
+      "revId": "561d3c038ec07a8d947ef1fe1713d7c9d3627e37",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_a831150d",
         "filename": "src/main/scripts/docker-entry.sh",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-06T04:21:53Z",
       "side": 1,
       "message": "This could be renamed, possibly CBSPOLLRESTART flag instead as the timer is now specified under collector.properties (current naming will cause confusion as to which one is being used).",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 24
+      },
+      "revId": "561d3c038ec07a8d947ef1fe1713d7c9d3627e37",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8b2bf32f",
+        "filename": "src/main/scripts/docker-entry.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-06T07:45:10Z",
+      "side": 1,
+      "message": "Actually, this check is not needed and I\u0027m removing it.\nNow, the configuration polling is enabled all the time. Whether it takes effect is dependent of existance of \"CONSUL_HOST\" \"CONFIG_BINDING_SERVICE\" and \"HOSTNAME\" variables. If they are there, dynamic configuration will be triggered.",
+      "parentUuid": "1a76adc5_a831150d",
       "range": {
         "startLine": 61,
         "startChar": 12,
