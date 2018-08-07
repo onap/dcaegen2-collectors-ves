@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_9a2c974c",
+        "filename": "etc/DmaapConfig.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-07T06:11:19Z",
+      "side": 1,
+      "message": "please reformat the code base",
+      "revId": "6ec09bec666082b8325dab0cab79363096c92114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_da020fb4",
+        "filename": "src/main/java/org/onap/dcae/restapi/SwaggerConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-07T06:11:19Z",
+      "side": 1,
+      "message": "please reformat the code base",
+      "revId": "6ec09bec666082b8325dab0cab79363096c92114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3af6a3d8",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-07T06:11:19Z",
+      "side": 1,
+      "message": "please reformat the code base",
+      "revId": "6ec09bec666082b8325dab0cab79363096c92114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_faffcba8",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestJsonSchemaValidation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-07T06:11:19Z",
+      "side": 1,
+      "message": "please reformat the code base",
+      "revId": "6ec09bec666082b8325dab0cab79363096c92114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
