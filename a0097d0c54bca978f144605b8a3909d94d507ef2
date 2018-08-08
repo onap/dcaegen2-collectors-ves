@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_1d7e3caf",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-08-08T10:19:28Z",
+      "side": 1,
+      "message": "make it constant",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 193,
+        "endChar": 64
+      },
+      "revId": "a0097d0c54bca978f144605b8a3909d94d507ef2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dd4f6491",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 3873
+      },
+      "writtenOn": "2018-08-08T10:19:28Z",
+      "side": 1,
+      "message": "make it constant",
+      "range": {
+        "startLine": 293,
+        "startChar": 55,
+        "endLine": 298,
+        "endChar": 18
+      },
+      "revId": "a0097d0c54bca978f144605b8a3909d94d507ef2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
