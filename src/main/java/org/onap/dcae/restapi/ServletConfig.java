@@ -22,7 +22,6 @@
 package org.onap.dcae.restapi;
 
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.SchemaValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ import static java.nio.file.Files.readAllBytes;
 @Component
 public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
-    private static final Logger log = LoggerFactory.getLogger(SchemaValidator.class);
+    private static final Logger log = LoggerFactory.getLogger(ServletConfig.class);
 
     @Autowired
     private ApplicationSettings properties;

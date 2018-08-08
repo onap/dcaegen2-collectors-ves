@@ -20,6 +20,11 @@ package org.onap.dcae;
  * ============LICENSE_END=========================================================
  */
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.github.fge.jsonschema.core.report.ProcessingReport;
+import com.github.fge.jsonschema.main.JsonSchema;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import org.json.JSONObject;
@@ -28,6 +33,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
@@ -35,6 +41,7 @@ import java.util.Objects;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 import static org.onap.dcae.CLIUtils.processCmdLine;
+import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 
 public class ApplicationSettingsTest {
 
@@ -281,22 +288,25 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnJSONSchema() throws IOException {
+    public void shouldReturnJSONSchema() throws IOException, ProcessingException {
         // when
-        JSONObject jsonSchema = fromTemporaryConfiguration("collector.schema.file={\"v1\": {}}")
-                .jsonSchema();
+        String sampleJsonSchema = "{" +
+                "  \"type\": \"object\"," +
+                "  \"properties\": {" +
+                "     \"state\": { \"type\": \"string\" }" +
+                "  }" +
+                "}";
+        Path temporarySchemaFile = createTemporaryFile(sampleJsonSchema);
+
+        // when
+        JsonSchema schema = fromTemporaryConfiguration(String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                .jsonSchema("v1");
 
         // then
-        assertEquals(new JSONObject("{\"v1\": {}}").toMap(), jsonSchema.toMap());
-    }
-
-    @Test
-    public void shouldReturnDefaultJSONSchema() throws IOException {
-        // when
-        JSONObject jsonSchema = fromTemporaryConfiguration().jsonSchema();
-
-        // then
-        assertEquals(new JSONObject("{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}").toMap(), jsonSchema.toMap());
+        JsonNode incorrectTestObject = new ObjectMapper().readTree("{ \"state\": 1 }");
+        JsonNode correctTestObject = new ObjectMapper().readTree("{ \"state\": \"hi\" }");
+        assertFalse(schema.validate(incorrectTestObject).isSuccess());
+        assertTrue(schema.validate(correctTestObject).isSuccess());
     }
 
     @Test
