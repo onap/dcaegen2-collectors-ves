@@ -21,8 +21,14 @@
 
 package org.onap.dcae;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jackson.JsonLoader;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.github.fge.jsonschema.main.JsonSchema;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.google.common.annotations.VisibleForTesting;
 import io.vavr.Function1;
+import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
@@ -34,10 +40,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
+import static io.vavr.API.Tuple;
+import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.stream;
 
 /**
@@ -47,10 +56,12 @@ import static java.util.Arrays.stream;
 @Component
 public class ApplicationSettings {
 
-    private static final Logger inlog = LoggerFactory.getLogger(ApplicationSettings.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);
+    private static final String FALLBACK_VES_VERSION = "v5";
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
+    private final Map<String, JsonSchema> loadedJsonSchemas;
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
         this(args, argsParser, System.getProperty("user.dir"));
@@ -63,13 +74,14 @@ public class ApplicationSettings {
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
+        loadedJsonSchemas = loadJsonSchemas();
     }
 
     private void loadPropertiesFromFile() {
         try {
             properties.load(configurationFileLocation);
         } catch (ConfigurationException ex) {
-            inlog.error("Cannot load properties cause:", ex);
+            log.error("Cannot load properties cause:", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -103,9 +115,28 @@ public class ApplicationSettings {
         return properties.getInt("header.authflag", 0) > 0;
     }
 
-    public JSONObject jsonSchema() {
-        return new JSONObject(
-                properties.getString("collector.schema.file", "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}"));
+    public JsonSchema jsonSchema(String version) {
+        return loadedJsonSchemas.get(version)
+                .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
+                .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
+    }
+
+    private Map<String, JsonSchema> loadJsonSchemas() {
+        return jsonSchema().toMap().entrySet().stream()
+                .map(versionToFilePath -> readSchemaForVersion(versionToFilePath))
+                .collect(HashMap.collector());
+    }
+
+    private Tuple2<String, JsonSchema> readSchemaForVersion(java.util.Map.Entry<String, Object> versionToFilePath) {
+        try {
+            String schemaContent = new String(
+                    readAllBytes(Paths.get(versionToFilePath.getValue().toString())));
+            JsonNode schemaNode = JsonLoader.fromString(schemaContent);
+            JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
+            return Tuple(versionToFilePath.getKey(), schema);
+        } catch (IOException | ProcessingException e) {
+            throw new RuntimeException("Could not read schema from path: " + versionToFilePath.getValue(), e);
+        }
     }
 
     public int httpPort() {
@@ -157,6 +188,11 @@ public class ApplicationSettings {
         }
     }
 
+    private JSONObject jsonSchema() {
+        return new JSONObject(properties.getString("collector.schema.file",
+                "{\"v5\":\"./etc/CommonEventFormat_28.3.json\"}"));
+    }
+
     private Map<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
         java.util.HashMap<String, String[]> domainToStreamIdsMapping = new java.util.HashMap<>();
         String[] topics = streamIdsProperty.split("\\|");
@@ -176,7 +212,7 @@ public class ApplicationSettings {
         }
     }
 
-    public String prependWithUserDirOnRelative(String filePath) {
+    private String prependWithUserDirOnRelative(String filePath) {
         if (!Paths.get(filePath).isAbsolute()) {
             filePath = Paths.get(appInvocationDir, filePath).toString();
         }

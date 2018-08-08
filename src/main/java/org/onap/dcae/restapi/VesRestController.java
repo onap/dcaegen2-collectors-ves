@@ -21,7 +21,6 @@
 
 package org.onap.dcae.restapi;
 
-import static java.util.Optional.ofNullable;
 import static java.util.stream.StreamSupport.stream;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -39,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.CollectorSchemas;
 import org.onap.dcae.commonFunction.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,35 +52,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VesRestController {
+    private static final Logger log = LoggerFactory.getLogger(VesRestController.class);
 
-    private static final Logger LOG = LoggerFactory.getLogger(VesRestController.class);
+    private final ApplicationSettings applicationSettings;
+    private final LinkedBlockingQueue<JSONObject> inputQueue;
 
-    private static final String FALLBACK_VES_VERSION = "v5";
-
-    @Autowired
-    private ApplicationSettings collectorProperties;
-
-    @Autowired
-    private CollectorSchemas schemas;
+    private final Logger metricsLog;
+    private final Logger errorLog;
+    private final Logger incomingRequestsLogger;
 
     @Autowired
-    @Qualifier("metriclog")
-    private Logger metriclog;
-
-    @Autowired
-    @Qualifier("incomingRequestsLogger")
-    private Logger incomingRequestsLogger;
-
-    @Autowired
-    @Qualifier("errorLog")
-    private Logger errorLog;
-
-    private LinkedBlockingQueue<JSONObject> inputQueue;
-    private String version;
-
-    @Autowired
-    VesRestController(@Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+    VesRestController(ApplicationSettings applicationSettings,
+                      @Qualifier("metricsLog") Logger metricsLog,
+                      @Qualifier("errorLog") Logger errorLog,
+                      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
                       @Qualifier("inputQueue") LinkedBlockingQueue<JSONObject> inputQueue) {
+        this.applicationSettings = applicationSettings;
+        this.metricsLog = metricsLog;
+        this.errorLog = errorLog;
         this.incomingRequestsLogger = incomingRequestsLogger;
         this.inputQueue = inputQueue;
     }
@@ -105,7 +92,7 @@ public class VesRestController {
             "/eventListener/v5/eventBatch"}, consumes = "application/json")
     ResponseEntity<String> receiveEvent(@RequestBody String jsonPayload, HttpServletRequest httpServletRequest) {
         String request = httpServletRequest.getRequestURI();
-        extractVersion(request);
+        String version = extractVersion(request);
 
         JSONObject jsonObject;
         try {
@@ -119,7 +106,7 @@ public class VesRestController {
                 "Received a VESEvent '%s', marked with unique identifier '%s', on api version '%s', from host: '%s'",
                 jsonObject, uuid, version, httpServletRequest.getRemoteHost()));
 
-        if (collectorProperties.jsonSchemaValidationEnabled()) {
+        if (applicationSettings.jsonSchemaValidationEnabled()) {
             if (isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
                 if (!conformsToSchema(jsonObject, version)) {
                     return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
@@ -142,8 +129,8 @@ public class VesRestController {
         return ok().contentType(MediaType.APPLICATION_JSON).body("Message Accepted");
     }
 
-    private void extractVersion(String httpServletRequest) {
-        version = httpServletRequest.split("/")[2];
+    private String extractVersion(String httpServletRequest) {
+        return httpServletRequest.split("/")[2];
     }
 
     private ResponseEntity<String> errorResponse(ApiException noServerResources) {
@@ -153,24 +140,23 @@ public class VesRestController {
 
     private boolean putEventsOnProcessingQueue(JSONArray arrayOfEvents) {
         for (int i = 0; i < arrayOfEvents.length(); i++) {
-            metriclog.info("EVENT_PUBLISH_START");
+            metricsLog.info("EVENT_PUBLISH_START");
             if (!inputQueue.offer((JSONObject) arrayOfEvents.get(i))) {
                 return false;
             }
         }
-        LOG.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
-        metriclog.info("EVENT_PUBLISH_END");
+        log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
+        metricsLog.info("EVENT_PUBLISH_END");
         return true;
     }
 
     private boolean conformsToSchema(JSONObject payload, String version) {
         try {
-            JsonSchema schema = ofNullable(schemas.getJSONSchemasMap(version).get(version))
-                    .orElse(schemas.getJSONSchemasMap(version).get(FALLBACK_VES_VERSION));
+            JsonSchema schema = applicationSettings.jsonSchema(version);
             ProcessingReport report = schema.validate(JsonLoader.fromString(payload.toString()));
             if (!report.isSuccess()) {
-                LOG.warn("Schema validation failed for event: " + payload);
-                stream(report.spliterator(), false).forEach(e -> LOG.warn(e.getMessage()));
+                log.warn("Schema validation failed for event: " + payload);
+                stream(report.spliterator(), false).forEach(e -> log.warn(e.getMessage()));
                 return false;
             }
             return report.isSuccess();
