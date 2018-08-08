@@ -109,7 +109,7 @@ public class VesApplication {
     }
 
     @Bean
-    @Qualifier("metriclog")
+    @Qualifier("metricsLog")
     public Logger incomingRequestsMetricsLogger() {
         return metriclog;
     }

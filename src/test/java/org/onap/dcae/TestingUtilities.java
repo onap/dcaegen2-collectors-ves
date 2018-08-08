@@ -82,7 +82,6 @@ public final class TestingUtilities {
         T get() throws Exception;
     }
 
-
     public static void assertFailureHasInfo(Try any, String... msgPart) {
         Java6Assertions.assertThat(any.isFailure()).isTrue();
         AbstractThrowableAssert<?, ? extends Throwable> o = Java6Assertions.assertThat(any.getCause())
