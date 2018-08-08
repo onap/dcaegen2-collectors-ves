@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_783bbeeb",
+        "filename": "swagger_vescollector_1.3.1.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-08-08T14:36:30Z",
+      "side": 1,
+      "message": "this file is in yaml format instead of json format",
+      "revId": "4ef00014c7811e8b7e869b84c132487f70ea77a5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
