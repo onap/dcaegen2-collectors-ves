@@ -45,6 +45,30 @@
       "revId": "a0097d0c54bca978f144605b8a3909d94d507ef2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1d55dc1c",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-08-08T10:25:29Z",
+      "side": 1,
+      "message": "?",
+      "parentUuid": "1a76adc5_dd4f6491",
+      "range": {
+        "startLine": 293,
+        "startChar": 55,
+        "endLine": 298,
+        "endChar": 18
+      },
+      "revId": "a0097d0c54bca978f144605b8a3909d94d507ef2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
