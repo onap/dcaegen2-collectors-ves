@@ -3,6 +3,60 @@
 		"filter":
 		{
 			"event.commonEventHeader.domain":"heartbeat", 
+			"VESversion":"v7"
+		},
+	
+		"processors": 
+		[
+	    	{
+	        	"functionName": "addAttribute",
+	        	"args":{
+	        		"field": "event.heartbeatFields.heartbeatFieldsVersion",
+	        		"value": "2.0"
+	        	}
+	    	}
+		]
+	},
+	{
+		"filter":
+		{
+			"event.commonEventHeader.domain":"fault", 
+			"VESversion":"v7"
+		},
+		"processors": 
+		[
+	    	{
+	    		"functionName": "addAttribute",
+	    		"args":{
+	    			"field": "event.faultFields.faultFieldsVersion",
+	    			"value": "3.0",
+	    			"fieldType": "number"
+	    		}
+	    	}
+		]
+	},
+	{
+		"filter":
+		{
+			"event.commonEventHeader.domain":"thresholdCrossingAlert", 
+			"VESversion":"v7"
+		},
+		"processors": 
+		[
+	    	{
+	    		"functionName": "addAttribute",
+	    		"args":{
+	    			"field": "event.thresholdCrossingFields.thresholdCrossingFieldsVersion",
+	    			"value": "3.0",
+	    			"fieldType": "number"
+	    		}
+	    	}
+		]
+	},
+	{
+		"filter":
+		{
+			"event.commonEventHeader.domain":"heartbeat", 
 			"VESversion":"v4"
 		},
 	
