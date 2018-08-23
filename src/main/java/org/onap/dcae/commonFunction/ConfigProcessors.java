@@ -38,6 +38,7 @@ public class ConfigProcessors {
     private static final String REGEX = "\\[\\]";
     private static final String OBJECT_NOT_FOUND = "ObjectNotFound";
     private static final String FILTER_NOT_MET = "Filter not met";
+    private static final String MAP_TYPE = "mapType";
     private static final String COMP_FALSE = "==false";
 
     private final JSONObject event;
@@ -155,17 +156,43 @@ public class ConfigProcessors {
             log.info(FILTER_NOT_MET);
     }
 
+    private void renameObject(JSONObject jsonObject) // map
+    {
+        log.info("renameArrayInArray");
+        final String field = jsonObject.getString(FIELD);
+        final String oldField = jsonObject.getString(OLD_FIELD);
+        final JSONObject filter = jsonObject.optJSONObject(FILTER);
 
+        if (filter == null || isFilterMet(filter)) {
+
+            final JSONObject oldValue = (JSONObject) getEventObjectVal(oldField);
+            if (!oldValue.equals(OBJECT_NOT_FOUND)) {
+                setEventObjectVal(field, oldValue);
+                removeEventKey(oldField);
+            }
+        } else
+            log.info(FILTER_NOT_MET);
+    }
+    
     public void map(JSONObject jsonObject) {
 
         final String field = jsonObject.getString(FIELD);
+        final String mapType = jsonObject.optString(MAP_TYPE, "");
         if (field.contains("[]")) {
             if (field.matches(".*\\[\\]\\..*\\[\\]"))
                 renameArrayInArray(jsonObject);
             else
                 mapToJArray(jsonObject);
-        } else
-            mapAttribute(jsonObject);
+        }
+        else if (mapType.equals("hashmapToNameValueArray"))
+        	mapHashmapToNameValueArray(jsonObject);
+        else if (mapType.equals("nameValueArrayToHashmap"))
+        	mapNameValueArrayToHashmap(jsonObject);
+    	else if (mapType.equals("renameObject"))
+    		renameObject(jsonObject);
+    		
+        else
+        mapAttribute(jsonObject);
     }
 
     private String performOperation(String operation, String value) {
@@ -249,6 +276,74 @@ public class ConfigProcessors {
 
                 removeEventKey(oldField);
             }
+        } else
+            log.info(FILTER_NOT_MET);
+    }
+    
+    // this method is to support the mapping 5.x to VES7.x format for additionalInformation field
+    private void mapNameValueArrayToHashmap(JSONObject jsonObject) {
+        log.info("mapNameValueArrayToHashmap");
+        String field = jsonObject.getString(FIELD);
+        String oldField = jsonObject.getString(FIELD);
+        final JSONObject filter = jsonObject.optJSONObject(FILTER);
+
+        if (filter == null || isFilterMet(filter)) {
+        	JSONObject newHashMap = new JSONObject(); // this will hold the newly mapped hashmap elements
+            JSONArray arrayValue = (JSONArray) getEventObjectVal(oldField); // old Array structure value
+            JSONObject tempJObj = null;
+            String tempName = "";
+            String tempValue = "";
+            if (!arrayValue.equals(OBJECT_NOT_FOUND)) {
+                log.info("old value ==" + arrayValue.toString());
+                // Loop thru the JSONArray, get the name:value pair and write to new JSONObject as hashmap elements
+                for (int i = 0; i < arrayValue.length(); i++) {
+
+                	tempJObj = arrayValue.getJSONObject(i);
+                    if (tempJObj != null) {
+                        tempName = tempJObj.get("name").toString();
+                        tempValue = tempJObj.get("value").toString();
+                        newHashMap.put(tempName, tempValue);
+                    }
+                }
+                // remove the old Array structure
+                removeEventKey(oldField);
+                //Add the new Hashmap 
+                setEventObjectVal(field, newHashMap);
+            }
+        } else
+            log.info(FILTER_NOT_MET);
+    }
+    
+ // this method is to support the mapping 7.x to VES5.x format for additionalInformation field
+    private void mapHashmapToNameValueArray(JSONObject jsonObject) {
+        log.info("mapHashmapToNameValueArray");
+        System.out.println("mapHashmapToNameValueArray");
+        String field = jsonObject.getString(FIELD);
+        String oldField = jsonObject.getString(FIELD);
+        final JSONObject filter = jsonObject.optJSONObject(FILTER);
+
+        if (filter == null || isFilterMet(filter)) {
+        	JSONArray newArray = new JSONArray(); // this will hold the new name:value JSONObject
+        	JSONObject nameValJObj;
+        	System.out.println("object ==" + getEventObjectVal(oldField).toString());
+        	if (!getEventObjectVal(oldField).toString().equals(OBJECT_NOT_FOUND)) {
+        		
+	            JSONObject hashMap = (JSONObject) getEventObjectVal(oldField); // old hashmap structure value
+	            if (hashMap != null) {
+	                log.info("old value ==" + hashMap.toString());
+	                // Loop thru the hashMap JSONObject, get the hashmap elements add them as name:value JsonObject into the newArray
+	                for (String key : hashMap.keySet()) {
+	                	nameValJObj = new JSONObject(); //create new object so not to overwrite in memory for Array insertion
+	                	nameValJObj.put("name", key);
+	                	nameValJObj.put("value", hashMap.get(key));
+	                	newArray.put(nameValJObj);
+	                }
+	                // remove the old hashMap structure
+	                removeEventKey(oldField);
+	                //Add the newArray containing the name:value Object
+	                setEventObjectVal(field, newArray);
+	            }
+        	}
         } else
             log.info(FILTER_NOT_MET);
     }

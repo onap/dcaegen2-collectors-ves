@@ -20,6 +20,7 @@
 package org.onap.dcae.vestest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -116,7 +117,69 @@ public class TestConfigProcessor {
         System.out.println("responseData==" + responseData);
         assertEquals(receiveDiscards, responseData);
     }
+    
+     @Test
+    public void testMapRenameObject() {
 
+        final JSONObject jsonObject = getFileAsJsonObject();
+        //final String receiveDiscards = (((jsonObject.getJSONObject("event")).getJSONObject("faultFields")).get("errors")).get("receiveDiscards").toString();
+        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
+        final JSONObject jsonArgs = new JSONObject(
+                "{\"field\": \"event.faultFields.faultVFScalingFields\",\"oldField\": \"event.faultFields.errors\",\"mapType\":\"renameObject\"}");
+        ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+        final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors").toString();
+        System.out.println("receiveDiscards==" + receiveDiscards);
+        cpEvent.map(jsonArgs);
+        final String responseData = cpEvent
+                .getEventObjectVal("event.faultFields.faultVFScalingFields")
+                .toString();
+        System.out.println("modified event==" + jsonObject.toString());
+        System.out.println("responseData==" + responseData);
+        assertEquals(receiveDiscards, responseData);
+    }
+    @Test
+    public void testMapHashmapToNameValueArray() {
+
+        final JSONObject jsonObject = getFileAsJsonObject();
+        //final String receiveDiscards = (((jsonObject.getJSONObject("event")).getJSONObject("faultFields")).get("errors")).get("receiveDiscards").toString();
+        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
+        final JSONObject jsonArgs = new JSONObject(
+                "{\"field\": \"event.faultFields.errors\",\"mapType\":\"hashmapToNameValueArray\"}");
+        ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+        final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors").toString();
+        System.out.println("receiveDiscards==" + receiveDiscards);
+        cpEvent.map(jsonArgs);
+        final String responseData = cpEvent
+                .getEventObjectVal("event.faultFields.errors")
+                .toString();
+        System.out.println("modified event==" + jsonObject.toString());
+        System.out.println("responseData==" + responseData);
+        assertNotEquals(receiveDiscards, responseData);
+    }
+
+    @Test
+    public void testMapNameValueArrayToHashmap() {
+
+        final JSONObject jsonObject = getFileAsJsonObject();
+        //final String receiveDiscards = (((jsonObject.getJSONObject("event")).getJSONObject("faultFields")).get("errors")).get("receiveDiscards").toString();
+        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
+        final JSONObject jsonArgs = new JSONObject(
+                "{\"field\": \"event.faultFields.alarmAdditionalInformation\",\"mapType\":\"nameValueArrayToHashmap\"}");
+        ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
+        final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.alarmAdditionalInformation").toString();
+        System.out.println("receiveDiscards==" + receiveDiscards);
+        cpEvent.map(jsonArgs);
+        final String responseData = cpEvent
+                .getEventObjectVal("event.faultFields.alarmAdditionalInformation")
+                .toString();
+        System.out.println("modified event==" + jsonObject.toString());
+        System.out.println("responseData==" + responseData);
+        assertNotEquals(receiveDiscards, responseData);
+    }
+    
     @Test
     public void testAttrAdd() {
 
@@ -304,6 +367,6 @@ public class TestConfigProcessor {
 
         System.out.println("responseData==" + responseData);
         assertEquals("true", responseData);
-    }
+    } 
 }  
 

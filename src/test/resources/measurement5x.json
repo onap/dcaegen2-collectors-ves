@@ -1,0 +1,98 @@
+ {
+	"VESversion":"v5",
+ 	"event": {
+ 		"commonEventHeader": {
+ 			"startEpochMicrosec": 1534868302434191,
+ 			"eventId": "measurementsForVfScaling_vAfx_127.0.0.1",
+ 			"nfcNamingCode": "AFX",
+ 			"reportingEntityId": "bgtnj05vmh01afx",
+ 			"eventType": "applicationVnf",
+ 			"priority": "Normal",
+ 			"version": 3,
+ 			"reportingEntityName": "AFXM",
+ 			"sequence": 0,
+ 			"domain": "measurementsForVfScaling",
+ 			"lastEpochMicrosec": 1534868602564759,
+ 			"eventName": "measurementsForVfScaling_vAfx",
+ 			"sourceName": "bgtnj05vmh01afx",
+ 			"nfNamingCode": "AFX"
+ 		},
+ 		"measurementsForVfScalingFields": {
+ 			"cpuUsageArray": [{
+ 				"cpuUsageNice": 0,
+ 				"percentUsage": 0.39,
+ 				"cpuIdentifier": "all",
+ 				"cpuIdle": 99.61,
+ 				"cpuUsageSystem": 0,
+ 				"cpuUsageUser": 0.22
+ 			}, {
+ 				"cpuUsageNice": 0,
+ 				"percentUsage": 0.36,
+ 				"cpuIdentifier": "cpu0",
+ 				"cpuIdle": 99.64,
+ 				"cpuUsageSystem": 0,
+ 				"cpuUsageUser": 0.21
+ 			}, {
+ 				"cpuUsageNice": 0,
+ 				"percentUsage": 0.34,
+ 				"cpuIdentifier": "cpu1",
+ 				"cpuIdle": 99.66,
+ 				"cpuUsageSystem": 0,
+ 				"cpuUsageUser": 0.2
+ 			}, {
+ 				"cpuUsageNice": 0,
+ 				"percentUsage": 0.52,
+ 				"cpuIdentifier": "cpu2",
+ 				"cpuIdle": 99.48,
+ 				"cpuUsageSystem": 0,
+ 				"cpuUsageUser": 0.3
+ 			}, {
+ 				"cpuUsageNice": 0,
+ 				"percentUsage": 0.33,
+ 				"cpuIdentifier": "cpu3",
+ 				"cpuIdle": 99.67,
+ 				"cpuUsageSystem": 0,
+ 				"cpuUsageUser": 0.19
+ 			}],
+ 			"measurementInterval": 300,
+ 			"measurementsForVfScalingVersion": 2,
+ 			"vNicPerformanceArray": [{
+ 				"transmittedOctetsDelta": 1533682,
+ 				"receivedMulticastPacketsAccumulated": 0,
+ 				"receivedMulticastPacketsDelta": 0,
+ 				"receivedOctetsAccumulated": 1.215192543E9,
+ 				"receivedTotalPacketsDelta": 7988,
+ 				"vNicIdentifier": "ens2   DNS2_RSLOTPORT_VLAN_CLASSTYPE",
+ 				"valuesAreSuspect": "true",
+ 				"transmittedTotalPacketsDelta": 9326,
+ 				"transmittedTotalPacketsAccumulated": 7460880,
+ 				"receivedOctetsDelta": 548159,
+ 				"transmittedOctetsAccumulated": 1.055825979E9,
+ 				"receivedTotalPacketsAccumulated": 1.3555845E7
+ 			}, {
+ 				"transmittedOctetsDelta": 0,
+ 				"receivedMulticastPacketsAccumulated": 0,
+ 				"receivedMulticastPacketsDelta": 0,
+ 				"receivedOctetsAccumulated": 5412138,
+ 				"receivedTotalPacketsDelta": 0,
+ 				"vNicIdentifier": "lo   DNS1_RSLOTPORT_VLAN_CLASSTYPE",
+ 				"valuesAreSuspect": "true",
+ 				"transmittedTotalPacketsDelta": 0,
+ 				"transmittedTotalPacketsAccumulated": 53567,
+ 				"receivedOctetsDelta": 0,
+ 				"transmittedOctetsAccumulated": 5412138,
+ 				"receivedTotalPacketsAccumulated": 53567
+ 			}],
+ 			"memoryUsageArray": [{
+ 				"memorySlabUnrecl": 17560,
+ 				"memoryCached": 976988,
+ 				"memoryFree": 6446628,
+ 				"memorySlabRecl": 83908,
+ 				"memoryBuffered": 198020,
+ 				"memoryUsed": 353492,
+ 				"vmIdentifier": "RAM",
+ 				"memoryConfigured": 8076596
+ 			}]
+ 		}
+ 	}
+ }
