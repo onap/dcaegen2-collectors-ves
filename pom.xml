@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 ================================================================================
 Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
@@ -16,14 +17,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ============LICENSE_END=========================================================
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.oparent</groupId>
         <artifactId>oparent</artifactId>
-        <version>0.1.1</version>
-        <relativePath />
+        <version>1.2.0</version>
+        <relativePath/>
     </parent>
     <groupId>org.onap.dcaegen2.collectors.ves</groupId>
     <artifactId>VESCollector</artifactId>
