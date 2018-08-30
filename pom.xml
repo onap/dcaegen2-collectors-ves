@@ -196,16 +196,16 @@ limitations under the License.
                         </resource>
                     </resources>
                     <runs>
-                        <run>chmod +x bin/*.sh</run>
                         <!-- Maven is loosing file permissions during artifacts copy -->
-                        <run><![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate && apt-get install -y procps && apt-get install -y vim && apt-get clean all]]></run>
+                        <run>chmod +x bin/*.sh</run>
+                        <run><![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate procps && apt-get clean all]]></run>
                         <run>chmod 0644 etc/logrotate.conf</run>
                     </runs>
                     <exposes>
                         <expose>8080</expose>
                         <expose>8443</expose>
                     </exposes>
-                    <entryPoint>bin/docker-entry.sh</entryPoint>
+                    <cmd>bin/docker-entry.sh</cmd>
                 </configuration>
                 <executions>
                     <execution>
