@@ -1,0 +1,15 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Piotr Bochenski <piotr.bochenski@nokia.com>
+Code-Review+1: Zlatko Murgoski <zlatko.murgoski@nokia.com>
+Code-Review+1: Przemyslaw Wasala <przemyslaw.wasala@nokia.com>
+Code-Review+1: Marcin Migdal <marcin.migdal@nokia.com>
+Code-Review+1: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Code-Review+1: Pawel Szalapski <pawel.szalapski@nokia.com>
+Code-Review+1: Damian Nowak <damain.nowak@nokia.com>
+Code-Review+1: Jakub Zieba <jakub.zieba@nokia.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Thu, 30 Aug 2018 16:55:08 +0000
+Reviewed-on: https://gerrit.onap.org/r/63307
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
