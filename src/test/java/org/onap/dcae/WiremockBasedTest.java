@@ -17,18 +17,16 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static io.vavr.API.Map;
+package org.onap.dcae;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.vavr.collection.Map;
 import org.junit.Rule;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static io.vavr.API.Map;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
@@ -51,7 +49,7 @@ public class WiremockBasedTest {
 
     protected Map<String, String> wiremockBasedEnvProps() {
         return Map(
-            "CONSUL_HOST", "http://localhost",
+            "CONSUL_HOST", "localhost",
             "CONSUL_PORT", "" + wireMockRule.port(),
             "HOSTNAME", "VESCollector",
             "CONFIG_BINDING_SERVICE", "CBSName"
@@ -61,7 +59,7 @@ public class WiremockBasedTest {
     protected String validLocalCBSConf() {
         return ""
             + "[{ "
-            + "\"ServiceAddress\": \"http://localhost\","
+            + "\"ServiceAddress\": \"localhost\","
             + "\"ServicePort\":" + wireMockRule.port()
             + "}]";
     }

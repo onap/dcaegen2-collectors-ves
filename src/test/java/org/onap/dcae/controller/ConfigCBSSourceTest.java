@@ -20,18 +20,15 @@
  */
 package org.onap.dcae.controller;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.onap.dcae.TestingUtilities.assertFailureHasInfo;
-import static org.onap.dcae.controller.ConfigSource.getAppConfig;
-
 import io.vavr.control.Try;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.onap.dcae.WiremockBasedTest;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.onap.dcae.TestingUtilities.assertFailureHasInfo;
+import static org.onap.dcae.controller.ConfigSource.getAppConfig;
 
 public class ConfigCBSSourceTest extends WiremockBasedTest {
 
@@ -82,7 +79,7 @@ public class ConfigCBSSourceTest extends WiremockBasedTest {
         // given
         String notAListCatalog = ""
             + "{"
-            + "\"ServiceAddress\":\"http://localhost\","
+            + "\"ServiceAddress\":\"localhost\","
             + "\"ServicePort\":" + wireMockRule.port()
             + "}";
 
@@ -145,7 +142,7 @@ public class ConfigCBSSourceTest extends WiremockBasedTest {
     }
 
     private Try<JSONObject> tryToGetConfig() {
-        return getAppConfig(new EnvProps("http://localhost", wireMockRule.port(), "CBSName", "VESCollector"));
+        return getAppConfig(new EnvProps("http", "localhost", wireMockRule.port(), "http", "CBSName", "VESCollector"));
     }
 }
 

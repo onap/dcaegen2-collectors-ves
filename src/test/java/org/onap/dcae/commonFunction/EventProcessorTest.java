@@ -40,15 +40,23 @@ import static org.onap.dcae.commonFunction.EventProcessor.EVENT_LIST_TYPE;
 
 public class EventProcessorTest {
 
-    private final String ev = "{\"event\": {\"commonEventHeader\": {	\"reportingEntityName\": \"VM name will be provided by ECOMP\",	\"startEpochMicrosec\": 1477012779802988,\"lastEpochMicrosec\": 1477012789802988,\"eventId\": \"83\",\"sourceName\": \"Dummy VM name - No Metadata available\",\"sequence\": 83,\"priority\": \"Normal\",\"functionalRole\": \"vFirewall\",\"domain\": \"measurementsForVfScaling\",\"reportingEntityId\": \"VM UUID will be provided by ECOMP\",\"sourceId\": \"Dummy VM UUID - No Metadata available\",\"version\": 1.1},\"measurementsForVfScalingFields\": {\"measurementInterval\": 10,\"measurementsForVfScalingVersion\": 1.1,\"vNicUsageArray\": [{\"multicastPacketsIn\": 0,\"bytesIn\": 3896,\"unicastPacketsIn\": 0,	\"multicastPacketsOut\": 0,\"broadcastPacketsOut\": 0,		\"packetsOut\": 28,\"bytesOut\": 12178,\"broadcastPacketsIn\": 0,\"packetsIn\": 58,\"unicastPacketsOut\": 0,\"vNicIdentifier\": \"eth0\"}]}}}";
+    private final String ev = "{\"event\": {\"commonEventHeader\": {	\"reportingEntityName\": "
+        + "\"VM name will be provided by ECOMP\",	\"startEpochMicrosec\": 1477012779802988,\"lastEpochMicrosec\": "
+        + "1477012789802988,\"eventId\": \"83\",\"sourceName\": \"Dummy VM name - No Metadata available\","
+        + "\"sequence\": 83,\"priority\": \"Normal\",\"functionalRole\": \"vFirewall\",\"domain\": "
+        + "\"measurementsForVfScaling\",\"reportingEntityId\": \"VM UUID will be provided by ECOMP\","
+        + "\"sourceId\": \"Dummy VM UUID - No Metadata available\",\"version\": 1.1},\"measurementsForVfScalingFields\":"
+        + " {\"measurementInterval\": 10,\"measurementsForVfScalingVersion\": 1.1,\"vNicUsageArray\": "
+        + "[{\"multicastPacketsIn\": 0,\"bytesIn\": 3896,\"unicastPacketsIn\": 0,	"
+        + "\"multicastPacketsOut\": 0,\"broadcastPacketsOut\": 0,		"
+        + "\"packetsOut\": 28,\"bytesOut\": 12178,\"broadcastPacketsIn\": "
+        + "0,\"packetsIn\": 58,\"unicastPacketsOut\": 0,\"vNicIdentifier\": \"eth0\"}]}}}";
 
-    private Map<String, String[]> streamID;
     private ApplicationSettings properties;
 
     @Before
     public void setUp() {
         properties = new ApplicationSettings(new String[]{}, CLIUtils::processCmdLine);
-        streamID = properties.dMaaPStreamsMapping();
     }
 
     @Test
@@ -68,10 +76,15 @@ public class EventProcessorTest {
     public void shouldParseJsonEvents() throws ReflectiveOperationException {
         //given
         EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class), properties);
-        String event_json = "[{ \"filter\": {\"event.commonEventHeader.domain\":\"heartbeat\",\"VESversion\":\"v4\"},\"processors\":[" +
-                "{\"functionName\": \"concatenateValue\",\"args\":{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"], \"delimiter\":\"_\"}}" +
-                ",{\"functionName\": \"addAttribute\",\"args\":{\"field\": \"event.heartbeatFields.heartbeatFieldsVersion\",\"value\": \"1.0\",\"fieldType\": \"number\"}}" +
-                ",{\"functionName\": \"map\",\"args\":{\"field\": \"event.commonEventHeader.nfNamingCode\",\"oldField\": \"event.commonEventHeader.functionalRole\"}}]}]";
+        String event_json =
+            "[{ \"filter\": {\"event.commonEventHeader.domain\":\"heartbeat\",\"VESversion\":\"v4\"},\"processors\":["
+                + "{\"functionName\": \"concatenateValue\",\"args\":{\"field\":\"event.commonEventHeader.eventName\","
+                + "\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\","
+                + "\"$event.faultFields.alarmCondition\"], \"delimiter\":\"_\"}}"
+                + ",{\"functionName\": \"addAttribute\",\"args\":{\"field\": "
+                + "\"event.heartbeatFields.heartbeatFieldsVersion\",\"value\": \"1.0\",\"fieldType\": \"number\"}}"
+                + ",{\"functionName\": \"map\",\"args\":{\"field\": \"event.commonEventHeader.nfNamingCode\","
+                + "\"oldField\": \"event.commonEventHeader.functionalRole\"}}]}]";
         List<Event> events = new Gson().fromJson(event_json, EVENT_LIST_TYPE);
         EventProcessor.ConfigProcessorAdapter configProcessorAdapter = mock(EventProcessor.ConfigProcessorAdapter.class);
 

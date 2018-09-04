@@ -20,25 +20,24 @@
  */
 package org.onap.dcae.controller;
 
-import static io.vavr.API.Try;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.enhanceError;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.logError;
-import static org.onap.dcae.controller.Conversions.toList;
-
 import io.vavr.CheckedRunnable;
 import io.vavr.Tuple2;
 import io.vavr.collection.Map;
 import io.vavr.control.Try;
-import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static io.vavr.API.Try;
+import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.*;
+import static org.onap.dcae.controller.Conversions.toList;
 
 class ConfigFilesFacade {
 
@@ -100,6 +99,7 @@ class ConfigFilesFacade {
 
     private PropertiesConfiguration readProperties() throws ConfigurationException {
         PropertiesConfiguration propertiesConfiguration = new PropertiesConfiguration();
+        propertiesConfiguration.setDelimiterParsingDisabled(true);
         propertiesConfiguration.load(propertiesPath.toFile());
         return propertiesConfiguration;
     }
@@ -109,10 +109,18 @@ class ConfigFilesFacade {
             PropertiesConfiguration propertiesConfiguration = new PropertiesConfiguration(propertiesPath.toFile());
             propertiesConfiguration.setEncoding(null);
             for (Tuple2<String, String> property : properties) {
-                propertiesConfiguration.addProperty(property._1, property._2);
+                updateProperty(propertiesConfiguration, property);
             }
             propertiesConfiguration.save();
         };
+    }
+
+    private void updateProperty(PropertiesConfiguration propertiesConfiguration, Tuple2<String, String> property) {
+        if (propertiesConfiguration.containsKey(property._1)) {
+            propertiesConfiguration.setProperty(property._1, property._2);
+        } else {
+            propertiesConfiguration.addProperty(property._1, property._2);
+        }
     }
 
     private String indentConfiguration(String configuration) {

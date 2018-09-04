@@ -43,7 +43,7 @@ final class ConfigSource {
             .peek(strBody -> log.info(f("Received following CBS configuration from Consul '%s'", strBody)))
             .flatMap(strBody -> toJsonArray(strBody))
             .flatMap(json -> withdrawCatalog(json))
-            .flatMap(json -> constructFullCBSUrl(json))
+            .flatMap(json -> constructFullCBSUrl(envProps, json))
             .flatMap(cbsUrl -> callCBSForAppConfig(envProps, cbsUrl))
             .flatMap(strBody -> toJson(strBody))
             .peek(jsonNode -> log.info(f("Received app configuration: '%s'", jsonNode)))
@@ -51,12 +51,14 @@ final class ConfigSource {
     }
 
     private static Try<String> callConsulForCBSConfiguration(EnvProps envProps) {
-        return executeGet(envProps.consulHost + ":" + envProps.consulPort + "/v1/catalog/service/" + envProps.cbsName)
+        return executeGet(envProps.consulProtocol + "://" + envProps.consulHost + ":" +
+            envProps.consulPort + "/v1/catalog/service/" + envProps.cbsName)
             .mapFailure(enhanceError("Unable to retrieve CBS configuration from Consul"));
     }
 
-    private static Try<String> constructFullCBSUrl(JSONObject json) {
-        return Try(() -> json.get("ServiceAddress").toString() + ":" + json.get("ServicePort").toString())
+    private static Try<String> constructFullCBSUrl(EnvProps envProps, JSONObject json) {
+        return Try(() -> envProps.cbsProtocol + "://" + json.get("ServiceAddress").toString() + ":" +
+            json.get("ServicePort").toString())
             .mapFailure(enhanceError("ServiceAddress / ServicePort missing from CBS conf: '%s'", json));
     }
 

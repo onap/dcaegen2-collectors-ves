@@ -26,14 +26,18 @@ import java.util.Objects;
  */
 final class EnvProps {
 
+    final String consulProtocol;
     final String consulHost;
     final int consulPort;
     final String cbsName;
+    final String cbsProtocol;
     final String appName;
 
-    EnvProps(String consulHost, int consulPort, String cbsName, String appName) {
+    EnvProps(String consulProtocol, String consulHost, int consulPort, String cbsProtocol, String cbsName, String appName) {
+        this.consulProtocol = consulProtocol;
         this.consulHost = consulHost;
         this.consulPort = consulPort;
+        this.cbsProtocol = cbsProtocol;
         this.cbsName = cbsName;
         this.appName = appName;
     }
@@ -41,8 +45,10 @@ final class EnvProps {
     @Override
     public String toString() {
         return "EnvProps{" +
-            "consulHost='" + consulHost + '\'' +
+            "consulProtocol='" + consulProtocol + '\'' +
+            ", consulHost='" + consulHost + '\'' +
             ", consulPort=" + consulPort +
+            ", cbsProtocol='" + cbsProtocol + '\'' +
             ", cbsName='" + cbsName + '\'' +
             ", appName='" + appName + '\'' +
             '}';
@@ -58,13 +64,15 @@ final class EnvProps {
         }
         EnvProps envProps = (EnvProps) o;
         return consulPort == envProps.consulPort &&
+            Objects.equals(consulProtocol, envProps.consulProtocol) &&
             Objects.equals(consulHost, envProps.consulHost) &&
+            Objects.equals(cbsProtocol, envProps.cbsProtocol) &&
             Objects.equals(cbsName, envProps.cbsName) &&
             Objects.equals(appName, envProps.appName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(consulHost, consulPort, cbsName, appName);
+        return Objects.hash(consulProtocol, consulHost, consulPort, cbsProtocol, cbsName, appName);
     }
 }
