@@ -38,7 +38,9 @@ Variables set manually / coming from deployment system:
 - COLLECTOR_IP
 - DMAAPHOST - should contain an address to DMaaP, so that event publishing can work
 - CBSPOLLTIMER - it should be put in here if we want to automatically fetch configuration from CBS.
-- CONSUL_HOST - used with conjunction with CBSPOLLTIMER, should be a host address (without port! e.g http://my-ip-or-host) where Consul service lies
+- CONSUL_PROTOCOL - Consul protocol by default set to **http**, if it is need to change it then that can be set to different value 
+- CONSUL_HOST - used with conjunction with CBSPOLLTIMER, should be a host address (without port! e.g my-ip-or-host) where Consul service lies
+- CBS_PROTOCOL - Config Binding Service protocol by default set to **http**, if it is need to change it then that can be set to different value
 - CONFIG_BINDING_SERVICE - used with conjunction with CBSPOLLTIMER, should be a name of CBS as it is registered in Consul
 - HOSTNAME - used with conjunction with CBSPOLLTIMER, should be a name of VESCollector application as it is registered in CBS catalog
 

@@ -19,19 +19,18 @@
  */
 package org.onap.dcae;
 
-import static java.nio.file.Files.readAllBytes;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import io.vavr.control.Try;
+import org.assertj.core.api.AbstractThrowableAssert;
+import org.assertj.core.api.Java6Assertions;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Java6Assertions;
-import org.json.JSONObject;
+
+import static java.nio.file.Files.readAllBytes;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

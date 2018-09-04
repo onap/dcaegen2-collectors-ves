@@ -19,57 +19,56 @@
  */
 package org.onap.dcae.vestest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.onap.dcae.commonFunction.VESLogger.REQUEST_ID;
-
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
-import java.util.UUID;
 import org.junit.Test;
 import org.onap.dcae.commonFunction.VESLogger;
 
+import java.util.UUID;
+
+import static org.junit.Assert.*;
+import static org.onap.dcae.commonFunction.VESLogger.REQUEST_ID;
+
 public class TestVESLogger {
 
-	@Test
-	public void shouldOnLoggingContextInitializationPutRandomUUIDAsRequestID() {
-		LoggingContext commonLoggingContext = VESLogger.getCommonLoggingContext();
-		String requestId = commonLoggingContext.get(REQUEST_ID, "default");
+    @Test
+    public void shouldOnLoggingContextInitializationPutRandomUuidAsRequestId() {
+        LoggingContext commonLoggingContext = VESLogger.getCommonLoggingContext();
+        String requestId = commonLoggingContext.get(REQUEST_ID, "default");
 
-		assertNotNull(requestId);
-		assertNotSame(requestId, "default");
+        assertNotNull(requestId);
+        assertNotSame(requestId, "default");
 
-	}
+    }
 
-	@Test
-	public void shouldOnLoggingContextInitializationPutGivenUUIDAsRequestIDAndSupplyEndTimestamp() {
-		final UUID uuid = UUID.randomUUID();
-		LoggingContext loggingContextForThread = VESLogger.getLoggingContextForThread(uuid);
-		String requestId = loggingContextForThread.get(REQUEST_ID, "default");
-		String endTimestamp = loggingContextForThread.get(EcompFields.kEndTimestamp, "default");
+    @Test
+    public void shouldOnLoggingContextInitializationPutGivenUuuidAsRequestIdAndSupplyEndTimestamp() {
+        final UUID uuid = UUID.randomUUID();
+        LoggingContext loggingContextForThread = VESLogger.getLoggingContextForThread(uuid);
+        String requestId = loggingContextForThread.get(REQUEST_ID, "default");
+        String endTimestamp = loggingContextForThread.get(EcompFields.kEndTimestamp, "default");
 
-		assertNotNull(requestId);
-		assertNotNull(endTimestamp);
-		assertNotSame(endTimestamp, "default");
-		assertEquals(requestId, uuid.toString());
-	}
+        assertNotNull(requestId);
+        assertNotNull(endTimestamp);
+        assertNotSame(endTimestamp, "default");
+        assertEquals(requestId, uuid.toString());
+    }
 
-	@Test
-	public void shouldOnLoggingContextInitializationPutGivenUUIDAsRequestIDAndSupplyEndTimestampAndCompleteStatusCode() {
-		final UUID uuid = UUID.randomUUID();
-		LoggingContext loggingContextForThread = VESLogger.getLoggingContextForThread(uuid.toString());
-		String requestId = loggingContextForThread.get(REQUEST_ID, "default");
-		String statusCode = loggingContextForThread.get("statusCode", "default");
-		String endTimestamp = loggingContextForThread.get(EcompFields.kEndTimestamp, "default");
+    @Test
+    public void shouldOnLoggingContextInitializationPutGivenUuidAsRequestIdAndSupplyEndTimestampAndCompleteStatusCode() {
+        final UUID uuid = UUID.randomUUID();
+        LoggingContext loggingContextForThread = VESLogger.getLoggingContextForThread(uuid.toString());
+        String requestId = loggingContextForThread.get(REQUEST_ID, "default");
+        String statusCode = loggingContextForThread.get("statusCode", "default");
+        String endTimestamp = loggingContextForThread.get(EcompFields.kEndTimestamp, "default");
 
-		assertNotNull(requestId);
-		assertNotNull(endTimestamp);
-		assertNotNull(statusCode);
-		assertNotSame(endTimestamp, "default");
-		assertEquals(requestId, uuid.toString());
-		assertEquals(statusCode, "COMPLETE");
-	}
+        assertNotNull(requestId);
+        assertNotNull(endTimestamp);
+        assertNotNull(statusCode);
+        assertNotSame(endTimestamp, "default");
+        assertEquals(requestId, uuid.toString());
+        assertEquals(statusCode, "COMPLETE");
+    }
 
 }
 

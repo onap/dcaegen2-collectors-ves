@@ -217,6 +217,7 @@ public class ApplicationSettings {
         if (!Paths.get(filePath).isAbsolute()) {
             filePath = Paths.get(appInvocationDir, filePath).toString();
         }
+        log.info("Attempt to load configuration from {}", filePath);
         return filePath;
     }
 

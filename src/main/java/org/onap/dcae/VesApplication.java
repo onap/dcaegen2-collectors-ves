@@ -42,8 +42,7 @@ import org.springframework.context.annotation.Lazy;
 import java.nio.file.Paths;
 import java.util.concurrent.*;
 
-@SpringBootApplication
-@EnableAutoConfiguration(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
+@SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
 
     private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
