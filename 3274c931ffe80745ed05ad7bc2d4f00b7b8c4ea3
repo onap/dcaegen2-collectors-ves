@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_cfe653b0",
+        "filename": "src/main/java/org/onap/dcae/controller/ConfigSource.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-09-04T07:27:54Z",
+      "side": 1,
+      "message": "so, for consul we make it configurable, but for CBS we don\u0027t?",
+      "revId": "3274c931ffe80745ed05ad7bc2d4f00b7b8c4ea3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2ff6e763",
+        "filename": "src/main/java/org/onap/dcae/controller/EnvPropertiesReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-09-04T07:27:54Z",
+      "side": 1,
+      "message": "add entry about it in README",
+      "revId": "3274c931ffe80745ed05ad7bc2d4f00b7b8c4ea3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
