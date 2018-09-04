@@ -51,7 +51,7 @@ public class WiremockBasedTest {
 
     protected Map<String, String> wiremockBasedEnvProps() {
         return Map(
-            "CONSUL_HOST", "http://localhost",
+            "CONSUL_HOST", "localhost",
             "CONSUL_PORT", "" + wireMockRule.port(),
             "HOSTNAME", "VESCollector",
             "CONFIG_BINDING_SERVICE", "CBSName"
@@ -61,7 +61,7 @@ public class WiremockBasedTest {
     protected String validLocalCBSConf() {
         return ""
             + "[{ "
-            + "\"ServiceAddress\": \"http://localhost\","
+            + "\"ServiceAddress\": \"localhost\","
             + "\"ServicePort\":" + wireMockRule.port()
             + "}]";
     }
