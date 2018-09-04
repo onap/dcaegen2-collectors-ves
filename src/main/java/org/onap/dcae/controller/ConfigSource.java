@@ -51,12 +51,13 @@ final class ConfigSource {
     }
 
     private static Try<String> callConsulForCBSConfiguration(EnvProps envProps) {
-        return executeGet(envProps.consulHost + ":" + envProps.consulPort + "/v1/catalog/service/" + envProps.cbsName)
+        return executeGet(envProps.consulProtocol + "://" + envProps.consulHost + ":" +
+            envProps.consulPort + "/v1/catalog/service/" + envProps.cbsName)
             .mapFailure(enhanceError("Unable to retrieve CBS configuration from Consul"));
     }
 
     private static Try<String> constructFullCBSUrl(JSONObject json) {
-        return Try(() -> json.get("ServiceAddress").toString() + ":" + json.get("ServicePort").toString())
+        return Try(() -> "http://" + json.get("ServiceAddress").toString() + ":" + json.get("ServicePort").toString())
             .mapFailure(enhanceError("ServiceAddress / ServicePort missing from CBS conf: '%s'", json));
     }
 

@@ -82,7 +82,7 @@ public class ConfigCBSSourceTest extends WiremockBasedTest {
         // given
         String notAListCatalog = ""
             + "{"
-            + "\"ServiceAddress\":\"http://localhost\","
+            + "\"ServiceAddress\":\"localhost\","
             + "\"ServicePort\":" + wireMockRule.port()
             + "}";
 
@@ -145,7 +145,7 @@ public class ConfigCBSSourceTest extends WiremockBasedTest {
     }
 
     private Try<JSONObject> tryToGetConfig() {
-        return getAppConfig(new EnvProps("http://localhost", wireMockRule.port(), "CBSName", "VESCollector"));
+        return getAppConfig(new EnvProps("http","localhost", wireMockRule.port(), "CBSName", "VESCollector"));
     }
 }
 

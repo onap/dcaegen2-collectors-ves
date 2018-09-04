@@ -36,11 +36,12 @@ final class EnvPropertiesReader {
     static Option<EnvProps> readEnvProps(Map<String, String> environmentVariables) {
         log.info("Loading necessary environment variables for dynamic configuration update");
         int consulPort = getConsulPort(environmentVariables);
+        String consulProtocol = getConsulProtocol(environmentVariables);
         Option<String> consulHost = getConsulHost(environmentVariables);
         Option<String> cbsServiceName = getCBSName(environmentVariables);
         Option<String> vesCollectorAppName = getAppName(environmentVariables);
         return Option.sequence(List(consulHost, cbsServiceName, vesCollectorAppName))
-            .map(e -> new EnvProps(e.get(0), consulPort, e.get(1), e.get(2)))
+            .map(e -> new EnvProps(consulProtocol, e.get(0), consulPort, e.get(1), e.get(2)))
             .onEmpty(() -> log.warn("Some required environment variables are missing"))
             .peek(props -> log.info(f("Discovered following environment variables: '%s'", props)));
     }
@@ -72,6 +73,13 @@ final class EnvPropertiesReader {
         return environmentVariables.get("CONSUL_HOST")
             .onEmpty(() -> log.warn("Consul host (env var: 'CONSUL_HOST') (without port) "
                 + "is missing from environment variables."));
+    }
+
+    private static String getConsulProtocol(Map<String, String> environmentVariables) {
+        return environmentVariables.get("CONSUL_PROTOCOL")
+            .onEmpty(() -> log.warn("Consul protocol (env var: 'CONSUL_PROTOCOL') is missing "
+                + "from environment variables."))
+            .getOrElse("http");
     }
 
 }
