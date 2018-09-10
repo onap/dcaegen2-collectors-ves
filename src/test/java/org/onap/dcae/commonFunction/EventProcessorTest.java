@@ -18,10 +18,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.commonFunction;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.onap.dcae.commonFunction.EventProcessor.EVENT_LIST_TYPE;
+
 import com.google.gson.Gson;
-import io.vavr.collection.Map;
+import java.util.List;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,13 +40,6 @@ import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.CLIUtils;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.onap.dcae.commonFunction.EventProcessor.EVENT_LIST_TYPE;
 
 public class EventProcessorTest {
 

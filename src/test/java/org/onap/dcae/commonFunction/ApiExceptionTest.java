@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.commonFunction;
 
 import static org.junit.Assert.assertEquals;
