@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +21,16 @@
 
 package org.onap.dcae;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static io.vavr.API.Map;
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.vavr.collection.Map;
 import org.junit.Rule;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static io.vavr.API.Map;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

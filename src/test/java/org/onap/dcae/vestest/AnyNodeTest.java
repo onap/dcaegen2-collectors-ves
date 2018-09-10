@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.vestest;
 
 import static org.assertj.core.api.Assertions.assertThat;

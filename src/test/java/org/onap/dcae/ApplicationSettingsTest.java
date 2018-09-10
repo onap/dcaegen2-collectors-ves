@@ -1,10 +1,9 @@
-package org.onap.dcae;
-
 /*-
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +19,23 @@ package org.onap.dcae;
  * ============LICENSE_END=========================================================
  */
 
+package org.onap.dcae;
+
+import static java.util.Collections.singletonList;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.onap.dcae.CLIUtils.processCmdLine;
+import static org.onap.dcae.TestingUtilities.createTemporaryFile;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.github.fge.jsonschema.main.JsonSchema;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,11 +43,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
-
-import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
-import static org.onap.dcae.CLIUtils.processCmdLine;
-import static org.onap.dcae.TestingUtilities.createTemporaryFile;
+import org.junit.Test;
 
 public class ApplicationSettingsTest {
 
@@ -290,12 +294,12 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnJSONSchema() throws IOException, ProcessingException {
         // when
-        String sampleJsonSchema = "{" +
-            "  \"type\": \"object\"," +
-            "  \"properties\": {" +
-            "     \"state\": { \"type\": \"string\" }" +
-            "  }" +
-            "}";
+        String sampleJsonSchema = "{"
+            + "  \"type\": \"object\","
+            + "  \"properties\": {"
+            + "     \"state\": { \"type\": \"string\" }" 
+            + "  }" 
+            + "}";
         Path temporarySchemaFile = createTemporaryFile(sampleJsonSchema);
 
         // when

@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +20,17 @@
  */
 package org.onap.dcae;
 
-import io.vavr.control.Try;
-import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Java6Assertions;
-import org.json.JSONObject;
+import static java.nio.file.Files.readAllBytes;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import io.vavr.control.Try;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import static java.nio.file.Files.readAllBytes;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.AbstractThrowableAssert;
+import org.assertj.core.api.Java6Assertions;
+import org.json.JSONObject;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

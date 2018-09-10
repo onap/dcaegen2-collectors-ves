@@ -22,15 +22,13 @@ package org.onap.dcae.vestest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.JSONObject;
 import org.junit.Test;
-
 import org.onap.dcae.commonFunction.ConfigProcessors;
-
 
 public class TestConfigProcessor {
 

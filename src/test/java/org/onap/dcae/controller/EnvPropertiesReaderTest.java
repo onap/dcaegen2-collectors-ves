@@ -18,6 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.controller;
 
 import static io.vavr.API.Map;

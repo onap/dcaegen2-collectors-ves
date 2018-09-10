@@ -18,17 +18,22 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcae.controller;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.onap.dcae.TestingUtilities.assertFailureHasInfo;
+import static org.onap.dcae.controller.ConfigSource.getAppConfig;
 
 import io.vavr.control.Try;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.onap.dcae.WiremockBasedTest;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.onap.dcae.TestingUtilities.assertFailureHasInfo;
-import static org.onap.dcae.controller.ConfigSource.getAppConfig;
 
 public class ConfigCBSSourceTest extends WiremockBasedTest {
 
