@@ -129,6 +129,7 @@ node_templates:
         header.authlist: userid1,base64encodepwd1|userid2,base64encodepwd2
         streams_subscribes: {}
         collector.inputQueue.maxPending: 8096
+        collector.maxThreads: 20
         collector.schema.file: "./etc/CommonEventFormat_27.2.json"
         collector.keystore.alias: dynamically generated
       image:

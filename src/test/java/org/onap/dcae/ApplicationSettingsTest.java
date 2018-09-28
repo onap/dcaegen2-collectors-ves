@@ -264,6 +264,16 @@ public class ApplicationSettingsTest {
     }
 
     @Test
+    public void shouldReturnMaximumThreads() throws IOException {
+        // when
+        int maximumThreads = fromTemporaryConfiguration("collector.maxThreads=2000")
+            .maximumThreads();
+
+        // then
+        assertEquals(2000, maximumThreads);
+    }
+
+    @Test
     public void shouldReturnDefaultMaximumAllowedQueuedEvents() throws IOException {
         // when
         int maximumAllowedQueuedEvents = fromTemporaryConfiguration().maximumAllowedQueuedEvents();

@@ -1,6 +1,7 @@
 {
 	"header.authflag": 1,
 	"collector.inputQueue.maxPending": 8096,
+	"collector.maxThreads": 20,
 	"collector.keystore.alias": "dynamically generated",
 	"collector.schema.checkflag": 1,
 	"collector.keystore.file.location": "/opt/app/dcae-certificate/keystore.jks",

@@ -49,7 +49,6 @@ public class VesApplication {
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.commonFunction.input");
     private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.output");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.error");
-    private static final int MAX_THREADS = 20;
     public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
 
@@ -67,8 +66,9 @@ public class VesApplication {
         spawnDynamicConfigUpdateThread(publisher, properties);
         EventProcessor ep = new EventProcessor(EventPublisher.createPublisher(oplog, getDmapConfig()), properties);
 
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
-        for (int i = 0; i < MAX_THREADS; ++i) {
+        int maxThreads = properties.maximumThreads();
+        ExecutorService executor = Executors.newFixedThreadPool(maxThreads);
+        for (int i = 0; i < maxThreads; ++i) {
             executor.execute(ep);
         }
 
