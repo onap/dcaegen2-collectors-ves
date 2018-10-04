@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_1c3732e5",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "intellij:\n\ncrtl + alt + L reformat code\ncrtl + alt + O organise imports",
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_fc390ed9",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "private static final",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_bc3386f5",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "private final, here and elsewhere",
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_9c524212",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "// given \n\n// when\n\n// then\n\nconvention, please reformat all testcases to that.",
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_7c4d1e72",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "brackets should be left at the end of the upper line, here and elsewhere",
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_3c579604",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 3625
+      },
+      "writtenOn": "2018-10-04T10:15:18Z",
+      "side": 1,
+      "message": "this is an implementation detail, it is a non-sense to check it",
+      "revId": "70f7b417b166d8507f7c3332c64ea6bb34ccfc7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
