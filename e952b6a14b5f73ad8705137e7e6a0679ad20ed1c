@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_5cecdac7",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-10-04T12:03:33Z",
+      "side": 1,
+      "message": "pls remove asterisk",
+      "revId": "e952b6a14b5f73ad8705137e7e6a0679ad20ed1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_bcdaa615",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-10-04T12:03:33Z",
+      "side": 1,
+      "message": "Use MockitoJUnitRunner instead inline mock creation.\nSee here: http://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/junit/MockitoJUnitRunner.html",
+      "revId": "e952b6a14b5f73ad8705137e7e6a0679ad20ed1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_5c037a73",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-10-04T12:03:33Z",
+      "side": 1,
+      "message": "code duplication. You can extract request creation to separate method and reuse it.",
+      "revId": "e952b6a14b5f73ad8705137e7e6a0679ad20ed1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
