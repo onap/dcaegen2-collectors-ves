@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_d048a8ce",
+        "filename": "src/main/java/org/onap/dcae/restapi/ServletConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-11-07T12:10:12Z",
+      "side": 1,
+      "message": "create separate method rather control method by boolean value.\n\npls create two methods.\n1. createSSLWithoutTLSAuthorization\n2. createSSLWithTLSAuthorization.\n\nor (better solution):\ncreate separate class SslConfiguration and use builder pattern.",
+      "revId": "ccc8092edac6296abb0ee975f4343b73411482e2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
