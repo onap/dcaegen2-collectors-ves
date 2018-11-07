@@ -248,6 +248,14 @@
 			"policy_editable": false,
 			"designer_editable": true
 		},
+        {
+          "name": "collector.service.secure.clientauth",
+          "value": 0,
+          "description": "Mutual TLS authentication flag; enables an authentication of the client to the server",
+          "sourced_at_deployment": false,
+          "policy_editable": false,
+          "designer_editable": false
+        },
 		{
 			"name": "collector.keystore.file.location",
 			"value": "/opt/app/dcae-certificate/keystore.jks",
@@ -272,6 +280,22 @@
 			"policy_editable": false,
 			"designer_editable": false
 		},
+        {
+          "name": "collector.truststore.file.location",
+          "value": "/opt/app/dcae-certificate/truststore.jks",
+          "description": "fs location of truststore file in vm",
+          "sourced_at_deployment": false,
+          "policy_editable": false,
+          "designer_editable": false
+        },
+        {
+          "name": "collector.truststore.passwordfile",
+          "value": "/opt/app/dcae-certificate/.trustpassword",
+          "description": "location of truststore password file in vm",
+          "sourced_at_deployment": false,
+          "policy_editable": false,
+          "designer_editable": false
+        },
 		{
 			"name": "collector.inputQueue.maxPending",
 			"value": 8096,

@@ -24,13 +24,30 @@ import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.vavr.control.Try;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Java6Assertions;
 import org.json.JSONObject;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
+import javax.net.ssl.SSLContext;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
@@ -67,11 +84,11 @@ public final class TestingUtilities {
      * Exception in test case usually means there is something wrong, it should never be catched, but rather thrown to
      * be handled by JUnit framework.
      */
-    private static <T> T rethrow(CheckedSupplier<T> supplier) {
+    public static <T> T rethrow(CheckedSupplier<T> supplier) {
         try {
             return supplier.get();
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -84,9 +101,43 @@ public final class TestingUtilities {
     public static void assertFailureHasInfo(Try any, String... msgPart) {
         Java6Assertions.assertThat(any.isFailure()).isTrue();
         AbstractThrowableAssert<?, ? extends Throwable> o = Java6Assertions.assertThat(any.getCause())
-            .hasCauseInstanceOf(Exception.class);
+                .hasCauseInstanceOf(Exception.class);
         for (String s : msgPart) {
             o.hasStackTraceContaining(s);
         }
+    }
+
+    public static SSLContextBuilder sslBuilderWithTrustStore(final Path trustStore, final String pass) {
+        return rethrow(() ->
+                new SSLContextBuilder()
+                        .loadTrustMaterial(trustStore.toFile(), pass.toCharArray())
+        );
+    }
+
+    public static SSLContextBuilder configureKeyStore(
+            final SSLContextBuilder builder,
+            final Path keyStore,
+            final String pass) {
+        return rethrow(() -> {
+            KeyStore cks = KeyStore.getInstance(KeyStore.getDefaultType());
+            cks.load(new FileInputStream(keyStore.toFile()), pass.toCharArray());
+
+            builder.loadKeyMaterial(cks, pass.toCharArray());
+
+            return builder;
+        });
+    }
+
+    public static RestTemplate createRestTemplateWithSsl(final SSLContext context) {
+        final SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(context);
+        final HttpClient httpClient = HttpClients
+                .custom()
+                .setSSLSocketFactory(socketFactory)
+                .build();
+
+        final HttpComponentsClientHttpRequestFactory factory =
+                new HttpComponentsClientHttpRequestFactory(httpClient);
+
+        return new RestTemplate(factory);
     }
 }

@@ -37,7 +37,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -167,8 +166,20 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(properties.getString("collector.keystore.file.location", "etc/keystore"));
     }
 
+    public boolean clientTlsAuthenticationEnabled() {
+        return httpsEnabled() && properties.getInt("collector.service.secure.clientauth", 0) > 0;
+    }
+
     public String keystoreAlias() {
         return properties.getString("collector.keystore.alias", "tomcat");
+    }
+
+    public String truststorePasswordFileLocation() {
+        return prependWithUserDirOnRelative(properties.getString("collector.truststore.passwordfile", "etc/trustpasswordfile"));
+    }
+
+    public String truststoreFileLocation() {
+        return prependWithUserDirOnRelative(properties.getString("collector.truststore.file.location", "etc/truststore"));
     }
 
     public String exceptionConfigFileLocation() {
