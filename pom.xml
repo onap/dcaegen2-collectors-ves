@@ -27,7 +27,7 @@ limitations under the License.
     </parent>
     <groupId>org.onap.dcaegen2.collectors.ves</groupId>
     <artifactId>VESCollector</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.4.1-SNAPSHOT</version>
     <name>dcaegen2-collectors-ves</name>
     <description>VESCollector</description>
     <properties>
@@ -85,6 +85,11 @@ limitations under the License.
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>
@@ -334,7 +339,7 @@ limitations under the License.
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.3.1</version>
+            <version>2.8.5</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -404,15 +409,27 @@ limitations under the License.
         </dependency>
         <!-- TESTING -->
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.18.0</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.23.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -436,7 +453,13 @@ limitations under the License.
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>5.1.0.RELEASE</version>
+            <version>5.1.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.1.0.RELEASE</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

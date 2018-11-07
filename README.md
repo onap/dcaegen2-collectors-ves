@@ -99,8 +99,9 @@ STEPS FOR SETUP/TEST
         Note: If DMAAPHOST provided is invalid, you will see exception around publish on the collector.logs (collector queues and attempts to resend the event hence exceptions reported will be periodic).   If you don’t want to see the error, publish to dmaap can be disabled by changing either “collector.dmaap.streamid” on etc/collector.properties OR by modifying the “name” defined on  etc/DmaapConfig.json. 
 
 	Any changes to property within container requires collector restart
-	/opt/app/VESCollector/bin/VESrestfulCollector.sh stop
-	/opt/app/VESCollector/bin/VESrestfulCollector.sh start 
+	cd /opt/app/VESCollector/
+	./bin/appController.sh stop
+	./bin/appController.sh start 
 
 5)	If DMAAP instance (and DMAAPHOST passed during VESCollector startup) and VES input is valid, then events will be pushed to below topics depending on the domain
 	Fault :http://<dmaaphost>:3904/events/unauthenticated.SEC_FAULT_OUTPUT
@@ -119,9 +120,9 @@ Authentication is disabled on the container for R1; below are the steps for enab
      Note: The actual credentials is stored part of header.authlist parameter. This is list of userid,password (base64encoded) values. Default configuration has below set
                 sample1,c2FtcGxlMQ==|vdnsagg,dmRuc2FnZw==, where password maps to same value as username.
 3) Restart the collector
-                cd /opt/app/VESCollector/bin
-                ./VESrestfulCollector.sh stop
-                ./VESrestfulCollector.sh start                               
+                cd /opt/app/VESCollector
+                ./bin/appController.sh stop
+                ./bin/appController.sh start                               
 4) Exit from container and ensure tcp port on VM is not hanging on finwait – you can execute “netstat -an | grep 8443” . If under FIN_WAIT2, wait for server to release.
 5) Simulate via curl (Note - username/pwd will be required)      
 	Example of successfull POST:
@@ -147,3 +148,37 @@ Authentication is disabled on the container for R1; below are the steps for enab
 
 Note: In general support for HTTPS also require certificate/keystore be installed on target VM with FS mapped into the container for VESCollector to load. For demo and testing purpose - a self signed certificate is included within docker build. When deployed via DCAEGEN2 platform - these configuration will be overridden dynamically to map to required path/certificate name. This will be exercised post R1 though.
 ```
+
+A client's certificate verification is disabled on the container for R1; below are the steps for enabling mutual TLS authentication for VESCollector. 
+```
+1) Login to the container
+2) Open /opt/app/VESCollector/etc/collector.properties and edit below properties
+                a) Comment below property (with authentication enabled, standard http should be disabled)
+	                collector.service.port=8080
+                b) Enable a client's certificate verification  
+	                collector.service.secure.clientauth=1
+3) Restart the collector
+                cd /opt/app/VESCollector
+                ./bin/appController.sh stop
+                ./bin/appController.sh start
+4) Exit from container and ensure tcp port on VM is not hanging on finwait – you can execute “netstat -an | grep 8443” . If under FIN_WAIT2, wait for server to release.
+5) In order for VESCollector to accept a connection from a client, the clinet has to use TLS certificate signed by CA that is present in VESCollector truststore. If a default VESCollector truststore is used then a client's certificate may be generated using following steps:    
+                a) Generate a client's private key
+                    openssl genrsa -out client.key 2048
+                b) Create the signing
+                    openssl req -new -key client.key -out client.csr
+                c) Create the client's certificate (CA key password should be obtained from [VESCollectorRepository]/certs/password)
+                    openssl x509 -req -in client.csr -CA [VESCollectorRepository]/certs/rootCA.crt -CAkey [VESCollectorRepository]/certs/rootCA.key -CAcreateserial -out client.crt -days 500 -sha256
+6) Simulate via curl (assuming that the certificate was created via step 5)
+    Example of successfull POST:
+        curl -i -X POST -d @event.json --header "Content-Type: application/json" https://localhost:8443/eventListener/v7 -k --cacert [VESCollectorRepository]/certs/rootCA.crt --cert client.crt --key client.key
+        HTTP/1.1 100 
+        
+        HTTP/1.1 202 
+        Content-Type: application/json
+        Content-Length: 8
+        Date: Wed, 21 Nov 2018 11:37:58 GMT
+        
+    Example of authentication failure (without a client's certificate):
+        curl -i -X POST -d @event.json --header "Content-Type: application/json" https://localhost:8443/eventListener/v7 -k
+        curl: (35) error:14094412:SSL routines:ssl3_read_bytes:sslv3 alert bad certificate
