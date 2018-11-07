@@ -22,15 +22,16 @@
 package org.onap.dcae.restapi;
 
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.commonFunction.SSLContextCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.nio.file.Files.readAllBytes;
@@ -45,31 +46,48 @@ public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableSer
 
     @Override
     public void customize(ConfigurableServletWebServerFactory container) {
-        if (properties.authorizationEnabled()) {
-            container.setSsl(createSSL());
+        final boolean hasClientTslAuthorization = properties.clientTlsAuthorizationEnabled();
+
+        if (hasClientTslAuthorization || properties.authorizationEnabled()) {
+            log.info("Enabling SSL");
+
+            final Path keyStore = toAbsPath(properties.keystoreFileLocation());
+            log.info("Using keyStore path: " + keyStore);
+
+            final Path keyStorePasswordLocation = toAbsPath(properties.keystorePasswordFileLocation());
+            final String keyStorePassword = getKeyStorePassword(keyStorePasswordLocation);
+            log.info("Using keyStore password from: " + keyStorePasswordLocation);
+
+            final String alias = properties.keystoreAlias();
+            final SSLContextCreator sslContextCreator = SSLContextCreator.create(keyStore, alias, keyStorePassword);
+
+            if (hasClientTslAuthorization) {
+                log.info("Enabling TLS client authorization");
+
+                final Path trustStore = toAbsPath(properties.truststoreFileLocation());
+                log.info("Using trustStore path: " + trustStore);
+
+                final Path trustPasswordFileLocation = toAbsPath(properties.truststorePasswordFileLocation());
+                final String trustStorePassword = getKeyStorePassword(trustPasswordFileLocation);
+                log.info("Using trustStore password from: " + trustPasswordFileLocation);
+
+                sslContextCreator.withTlsClientAuthorization(trustStore, trustStorePassword);
+            }
+
+            container.setSsl(sslContextCreator.build());
             container.setPort(properties.httpsPort());
         } else {
             container.setPort(properties.httpPort());
         }
     }
 
-    private Ssl createSSL() {
-        log.info("Enabling SSL");
-        Ssl ssl = new Ssl();
-        ssl.setEnabled(true);
-        String keyStore = Paths.get(properties.keystoreFileLocation()).toAbsolutePath().toString();
-        log.info("Using keyStore path: " + keyStore);
-        ssl.setKeyStore(keyStore);
-        String keyPasswordFileLocation = Paths.get(properties.keystorePasswordFileLocation()).toAbsolutePath().toString();
-        log.info("Using keyStore password from: " + keyPasswordFileLocation);
-        ssl.setKeyPassword(getKeyStorePassword(keyPasswordFileLocation));
-        ssl.setKeyAlias(properties.keystoreAlias());
-        return ssl;
+    private Path toAbsPath(final String path) {
+        return Paths.get(path).toAbsolutePath();
     }
 
-    private String getKeyStorePassword(String location) {
+    private String getKeyStorePassword(final Path location) {
         try {
-            return new String(readAllBytes(Paths.get(location)));
+            return new String(readAllBytes(location));
         } catch (IOException e) {
             log.error("Could not read keystore password from: '" + location + "'.", e);
             throw new RuntimeException(e);
