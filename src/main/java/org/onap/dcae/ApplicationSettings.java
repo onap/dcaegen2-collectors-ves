@@ -54,7 +54,6 @@ import static java.util.Arrays.stream;
  * Abstraction over application configuration.
  * Its job is to provide easily discoverable (by method names lookup) and type safe access to configuration properties.
  */
-@Component
 public class ApplicationSettings {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);

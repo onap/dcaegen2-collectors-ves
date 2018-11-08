@@ -195,12 +195,12 @@ limitations under the License.
                             <directory>${project.build.directory}/${project.artifactId}-${project.version}</directory>
                         </resource>
                     </resources>
-                    <runs>
-                        <!-- Maven is loosing file permissions during artifacts copy -->
-                        <run>chmod +x bin/*.sh</run>
-                        <run><![CDATA[apt-get update && apt-get install -y --no-install-recommends logrotate procps && apt-get clean all]]></run>
-                        <run>chmod 0644 etc/logrotate.conf</run>
-                    </runs>
+                    <!--<runs>-->
+                        <!--&lt;!&ndash; Maven is loosing file permissions during artifacts copy &ndash;&gt;-->
+                        <!--<run>chmod +x bin/*.sh</run>-->
+                        <!--<run><![CDATA[apt-get update && apt-get install -y &#45;&#45;no-install-recommends logrotate procps && apt-get clean all]]></run>-->
+                        <!--<run>chmod 0644 etc/logrotate.conf</run>-->
+                    <!--</runs>-->
                     <exposes>
                         <expose>8080</expose>
                         <expose>8443</expose>
@@ -308,20 +308,10 @@ limitations under the License.
                 <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.0.3.RELEASE</version>
+                <version>2.1.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-			<dependency>
-				<groupId>org.apache.tomcat.embed</groupId>
-				<artifactId>tomcat-embed-core</artifactId>
-				<version>8.5.32</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.tomcat.embed</groupId>
-				<artifactId>tomcat-embed-el</artifactId>
-				<version>8.5.32</version>
-			</dependency>	            
         </dependencies>
     </dependencyManagement>
     <dependencies>
