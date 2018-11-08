@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_c3821f52",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-11-08T08:39:03Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e3872360",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-11-08T08:39:03Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_43962f96",
+        "filename": "src/main/java/org/onap/dcae/restapi/ServletConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-11-08T08:39:03Z",
+      "side": 1,
+      "message": "refactor this method",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
