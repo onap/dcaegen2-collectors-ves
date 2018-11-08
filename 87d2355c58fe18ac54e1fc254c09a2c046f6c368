@@ -50,6 +50,23 @@
       "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a3b59bce",
+        "filename": "src/main/java/org/onap/dcae/restapi/ServletConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2018-11-08T10:54:49Z",
+      "side": 1,
+      "message": "Consider renaming this method to \"toAbsolutePath\"",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
