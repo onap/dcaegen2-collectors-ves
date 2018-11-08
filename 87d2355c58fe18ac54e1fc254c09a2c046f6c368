@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_e3e2c3d4",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2018-11-08T10:59:48Z",
+      "side": 1,
+      "message": "You can extract those 4 line to a method. configureKeyStore or smth",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_e3872360",
         "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
         "patchSetId": 2
@@ -30,6 +47,23 @@
       "writtenOn": "2018-11-08T08:39:03Z",
       "side": 1,
       "message": "inline",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_83e737e4",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2018-11-08T10:59:48Z",
+      "side": 1,
+      "message": "Same here. Extract to a method configureTrustStore",
       "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
