@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_a3727be3",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2018-11-08T12:33:52Z",
+      "side": 1,
+      "message": "I find this coding style more verbose. We may vote which version is better and decide to leave it as it is or inline this code.",
+      "parentUuid": "9adffdf1_c3821f52",
+      "revId": "87d2355c58fe18ac54e1fc254c09a2c046f6c368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_e3e2c3d4",
         "filename": "src/main/java/org/onap/dcae/commonFunction/SSLContextCreator.java",
         "patchSetId": 2
