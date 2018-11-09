@@ -21,6 +21,12 @@
 package org.onap.dcae;
 
 import io.vavr.collection.Map;
+import java.nio.file.Paths;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
 import org.onap.dcae.commonFunction.EventProcessor;
 import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
@@ -30,17 +36,12 @@ import org.onap.dcae.controller.ConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
-
-import java.nio.file.Paths;
-import java.util.concurrent.*;
 
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
@@ -72,7 +73,6 @@ public class VesApplication {
             executor.execute(ep);
         }
 
-        app.setBannerMode(Banner.Mode.OFF);
         app.setAddCommandLineProperties(true);
         app.run();
     }
