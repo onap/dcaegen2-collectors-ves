@@ -166,7 +166,7 @@ public class ConfigProcessors {
         if (filter == null || isFilterMet(filter)) {
 
             final JSONObject oldValue = (JSONObject) getEventObjectVal(oldField);
-            if (!oldValue.equals(OBJECT_NOT_FOUND)) {
+            if (!oldValue.toString().equals(OBJECT_NOT_FOUND)) {
                 setEventObjectVal(field, oldValue);
                 removeEventKey(oldField);
             }
@@ -293,7 +293,7 @@ public class ConfigProcessors {
             JSONObject tempJObj = null;
             String tempName = "";
             String tempValue = "";
-            if (!arrayValue.equals(OBJECT_NOT_FOUND)) {
+            if (!arrayValue.toString().equals(OBJECT_NOT_FOUND)) {
                 log.info("old value ==" + arrayValue.toString());
                 // Loop thru the JSONArray, get the name:value pair and write to new JSONObject as hashmap elements
                 for (int i = 0; i < arrayValue.length(); i++) {
@@ -301,7 +301,7 @@ public class ConfigProcessors {
                 	tempJObj = arrayValue.getJSONObject(i);
                     if (tempJObj != null) {
                         tempName = tempJObj.get("name").toString();
-                        tempValue = tempJObj.get("value").toString();
+                        tempValue = tempJObj.get(VALUE).toString();
                         newHashMap.put(tempName, tempValue);
                     }
                 }
