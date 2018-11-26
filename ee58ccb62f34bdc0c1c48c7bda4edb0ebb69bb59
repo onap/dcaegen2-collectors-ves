@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_8e03a1b7",
+        "filename": "README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T22:39:12Z",
+      "side": 1,
+      "message": "This will be targeted for R4, but pls rephrase  to - \"by default\"",
+      "range": {
+        "startLine": 152,
+        "startChar": 65,
+        "endLine": 152,
+        "endChar": 71
+      },
+      "revId": "ee58ccb62f34bdc0c1c48c7bda4edb0ebb69bb59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4e2db945",
+        "filename": "README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T22:39:12Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 165,
+        "startChar": 71,
+        "endLine": 165,
+        "endChar": 77
+      },
+      "revId": "ee58ccb62f34bdc0c1c48c7bda4edb0ebb69bb59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_6ebafdc1",
+        "filename": "README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T22:39:12Z",
+      "side": 1,
+      "message": "With -k,  --cacert doesn\u0027t have to be included.",
+      "range": {
+        "startLine": 174,
+        "startChar": 121,
+        "endLine": 174,
+        "endChar": 174
+      },
+      "revId": "ee58ccb62f34bdc0c1c48c7bda4edb0ebb69bb59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
