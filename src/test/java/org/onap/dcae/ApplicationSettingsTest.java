@@ -443,6 +443,27 @@ public class ApplicationSettingsTest {
         assertEquals(sanitizePath("etc/DmaapConfig.json"), cambriaConfigurationFileLocation);
     }
 
+    @Test
+    public void shouldReturnRoutesConfiguration() throws IOException {
+        // when
+        String routesConfiguration = fromTemporaryConfiguration(
+            "routes=/eventListener/v1,/eventListener/v1/eventBatch")
+            .routes();
+
+        // then
+        assertEquals("/eventListener/v1,/eventListener/v1/eventBatch", routesConfiguration);
+    }
+
+    @Test
+    public void shouldReturnDefaultRoutesConfiguration() throws IOException {
+        // when
+        String routesConfiguration = fromTemporaryConfiguration()
+            .routes();
+
+        // then
+        assertEquals("/eventListener/v5,/eventListener/v5/eventBatch", routesConfiguration);
+    }
+    
     private static ApplicationSettings fromTemporaryConfiguration(String... fileLines)
         throws IOException {
         File tempConfFile = File.createTempFile("doesNotMatter", "doesNotMatter");

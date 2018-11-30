@@ -33,6 +33,8 @@ import com.github.fge.jsonschema.main.JsonSchema;
 
 import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Stream;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
@@ -80,22 +82,14 @@ public class VesRestController {
     }
 
     //refactor in next iteration
-    @PostMapping(value = {"/eventListener/v1",
-            "/eventListener/v1/eventBatch",
-            "/eventListener/v2",
-            "/eventListener/v2/eventBatch",
-            "/eventListener/v3",
-            "/eventListener/v3/eventBatch",
-            "/eventListener/v4",
-            "/eventListener/v4/eventBatch",
-            "/eventListener/v5",
-            "/eventListener/v5/eventBatch",
-            "/eventListener/v7",
-            "/eventListener/v7/eventBatch"}, consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     ResponseEntity<String> receiveEvent(@RequestBody String jsonPayload, HttpServletRequest httpServletRequest) {
         String request = httpServletRequest.getRequestURI();
         String version = extractVersion(request);
 
+        if (!validRoute(request))
+        	return ResponseEntity.badRequest().body(ApiException.NOT_FOUND.toJSON().toString() + "uri==" + request + "\n");
+        
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(jsonPayload);
@@ -135,6 +129,12 @@ public class VesRestController {
 
     private String extractVersion(String httpServletRequest) {
         return httpServletRequest.split("/")[2];
+    }
+    
+    private boolean validRoute(String httpServletRequest) {
+    	String routes = applicationSettings.routes();
+    	return Stream.of( routes.split("\\s*,\\s*") )
+    			.anyMatch(x -> httpServletRequest.equals(x));	
     }
 
     private ResponseEntity<String> errorResponse(ApiException noServerResources) {

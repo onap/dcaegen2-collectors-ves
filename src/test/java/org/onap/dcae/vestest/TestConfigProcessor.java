@@ -43,7 +43,7 @@ public class TestConfigProcessor {
             final String jsonText = jo.toString();
             jsonObject = new JSONObject(jsonText);
         } catch (Exception e) {
-            System.out.println("Exception while opening the file");
+            //System.out.println("Exception while opening the file");
             e.printStackTrace();
         } finally {
             //close the file
@@ -51,7 +51,7 @@ public class TestConfigProcessor {
                 try {
                     fr.close();
                 } catch (IOException e) {
-                    System.out.println("Error closing file reader stream : " + e.toString());
+                    //System.out.println("Error closing file reader stream : " + e.toString());
                 }
             }
         }
@@ -64,15 +64,15 @@ public class TestConfigProcessor {
         final JSONObject jsonObject = getFileAsJsonObject();
         final String functionRole = (jsonObject.getJSONObject("event")).getJSONObject("commonEventHeader")
                 .get("functionalRole").toString();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("functionRole==" + functionRole);
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("functionRole==" + functionRole);
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.commonEventHeader.nfNamingCode\",\"oldField\": \"event.commonEventHeader.functionalRole\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.commonEventHeader.nfNamingCode").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals(functionRole, responseData);
     }
 
@@ -82,8 +82,8 @@ public class TestConfigProcessor {
         final JSONObject jsonObject = getFileAsJsonObject();
         final String alarmAdditionalInformation = (jsonObject.getJSONObject("event")).getJSONObject("faultFields")
                 .get("alarmAdditionalInformation").toString();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("alarmAdditionalInformation==" + alarmAdditionalInformation);
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.eventAdditionalInformation\",\"oldField\": "
                     + "\"event.faultFields.alarmAdditionalInformation\"}");
@@ -91,8 +91,8 @@ public class TestConfigProcessor {
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventAdditionalInformation")
                 .toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals(alarmAdditionalInformation, responseData);
     }
 
@@ -100,19 +100,19 @@ public class TestConfigProcessor {
     public void testJSONObjectMapToArray() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.vNicPerformanceArray[]\",\"oldField\": "
                     + "\"event.faultFields.errors\",\"attrMap\":{\"receiveDiscards\":\"receivedDiscardedPacketsAccumulated\"}}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors.receiveDiscards").toString();
-        System.out.println("receiveDiscards==" + receiveDiscards);
+        //System.out.println("receiveDiscards==" + receiveDiscards);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent
                 .getEventObjectVal("event.faultFields.vNicPerformanceArray[0].receivedDiscardedPacketsAccumulated")
                 .toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals(receiveDiscards, responseData);
     }
     
@@ -120,36 +120,36 @@ public class TestConfigProcessor {
     public void testMapRenameObject() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.faultVFScalingFields\",\"oldField\": \"event.faultFields.errors\",\"mapType\":\"renameObject\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors").toString();
-        System.out.println("receiveDiscards==" + receiveDiscards);
+        //System.out.println("receiveDiscards==" + receiveDiscards);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent
                 .getEventObjectVal("event.faultFields.faultVFScalingFields")
                 .toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals(receiveDiscards, responseData);
     }
     @Test
     public void testMapHashmapToNameValueArray() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.errors\",\"mapType\":\"hashmapToNameValueArray\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.errors").toString();
-        System.out.println("receiveDiscards==" + receiveDiscards);
+        //System.out.println("receiveDiscards==" + receiveDiscards);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent
                 .getEventObjectVal("event.faultFields.errors")
                 .toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertNotEquals(receiveDiscards, responseData);
     }
 
@@ -157,18 +157,18 @@ public class TestConfigProcessor {
     public void testMapNameValueArrayToHashmap() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.alarmAdditionalInformation\",\"mapType\":\"nameValueArrayToHashmap\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         final String receiveDiscards = cpEvent.getEventObjectVal("event.faultFields.alarmAdditionalInformation").toString();
-        System.out.println("receiveDiscards==" + receiveDiscards);
+        //System.out.println("receiveDiscards==" + receiveDiscards);
         cpEvent.map(jsonArgs);
         final String responseData = cpEvent
                 .getEventObjectVal("event.faultFields.alarmAdditionalInformation")
                 .toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertNotEquals(receiveDiscards, responseData);
     }
     
@@ -176,14 +176,14 @@ public class TestConfigProcessor {
     public void testAttrAdd() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.addAttribute(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("2.0", responseData);
     }
 
@@ -191,14 +191,14 @@ public class TestConfigProcessor {
     public void testAttrUpdate() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.updateAttribute(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("2.0", responseData);
     }
 
@@ -212,16 +212,16 @@ public class TestConfigProcessor {
                 .toString();
         final String alarmCondition = (jsonObject.getJSONObject("event")).getJSONObject("faultFields")
                 .get("alarmCondition").toString();
-        System.out.println("event==" + jsonObject.toString());
+        //System.out.println("event==" + jsonObject.toString());
         final String eventName = domain + "_" + eventType + "_" + alarmCondition;
-        System.out.println("eventName==" + eventName);
+        //System.out.println("eventName==" + eventName);
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\":\"event.commonEventHeader.eventName\",\"concatenate\": [\"$event.commonEventHeader.domain\",\"$event.commonEventHeader.eventType\",\"$event.faultFields.alarmCondition\"],\"delimiter\":\"_\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.concatenateValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.commonEventHeader.eventName").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals(eventName, responseData);
     }
 
@@ -233,16 +233,16 @@ public class TestConfigProcessor {
                 .get("memoryConfigured").toString();
         final String memoryUsed = (jsonObject.getJSONObject("event")).getJSONObject("faultFields").get("memoryUsed")
                 .toString();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("memoryConfigured==" + memoryConfigured);
-        System.out.println("memoryUsed==" + memoryUsed);
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("memoryConfigured==" + memoryConfigured);
+        //System.out.println("memoryUsed==" + memoryUsed);
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.memoryFree\",\"subtract\": [\"$event.faultFields.memoryConfigured\",\"$event.faultFields.memoryUsed\"]}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.subtractValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.memoryFree").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("1980.0", responseData);
     }
 
@@ -250,15 +250,15 @@ public class TestConfigProcessor {
     public void testSetValue() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing SetValue");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing SetValue");
         final JSONObject jsonArgs = new JSONObject(
                 "{\"field\": \"event.faultFields.version\",\"value\": \"2.0\",\"fieldType\": \"number\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.setValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("2.0", responseData);
     }
 
@@ -266,13 +266,13 @@ public class TestConfigProcessor {
     public void testSetEventObjectVal() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing SetEventObjectVal");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing SetEventObjectVal");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.setEventObjectVal("event.faultFields.version", "2.0", "number");
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.version").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("2.0", responseData);
     }
 
@@ -280,14 +280,14 @@ public class TestConfigProcessor {
     public void testGetValue() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing GetValue");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing GetValue");
         final JSONObject jsonArgs = new JSONObject("{\"field\": \"event.faultFields.eventSeverity\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.getValue(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventSeverity").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("CRITICAL", responseData);
     }
 
@@ -295,13 +295,13 @@ public class TestConfigProcessor {
     public void testGetEventObjectVal() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing GetEventObjectVal");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing GetEventObjectVal");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.getEventObjectVal("event.faultFields.eventSeverity");
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.eventSeverity").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("CRITICAL", responseData);
     }
 
@@ -309,14 +309,14 @@ public class TestConfigProcessor {
     public void testRemoveAttribute() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing removeAttribute");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing removeAttribute");
         final JSONObject jsonArgs = new JSONObject("{\"field\": \"event.faultFields.memoryUsed\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
         cpEvent.removeAttribute(jsonArgs);
         final String responseData = cpEvent.getEventObjectVal("event.faultFields.memoryUsed").toString();
-        System.out.println("modified event==" + jsonObject.toString());
-        System.out.println("responseData==" + responseData);
+        //System.out.println("modified event==" + jsonObject.toString());
+        //System.out.println("responseData==" + responseData);
         assertEquals("ObjectNotFound", responseData);
     }
 
@@ -324,8 +324,8 @@ public class TestConfigProcessor {
     public void testIsFilterMet() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing isFilterMet");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing isFilterMet");
         final JSONObject jsonArgs = new JSONObject("{\"event.faultFields.eventSeverity\":\"CRITICAL\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
 
@@ -335,7 +335,7 @@ public class TestConfigProcessor {
             responseData = "notCRITICAL";
         }
 
-        System.out.println("responseData==" + responseData);
+        //System.out.println("responseData==" + responseData);
         assertEquals("CRITICAL", responseData);
     }
 
@@ -343,15 +343,15 @@ public class TestConfigProcessor {
     public void testSuppressEvent() {
 
         final JSONObject jsonObject = getFileAsJsonObject();
-        System.out.println("event==" + jsonObject.toString());
-        System.out.println("Testing SuppressEvent");
+        //System.out.println("event==" + jsonObject.toString());
+        //System.out.println("Testing SuppressEvent");
         final JSONObject jsonArgs = new JSONObject("{\"event.faultFields.eventSeverity\":\"CRITICAL\"}");
         ConfigProcessors cpEvent = new ConfigProcessors(jsonObject);
 
         cpEvent.suppressEvent(jsonArgs);
         String responseData = cpEvent.getEventObjectVal("suppressEvent").toString();
 
-        System.out.println("responseData==" + responseData);
+        //System.out.println("responseData==" + responseData);
         assertEquals("true", responseData);
     } 
 }  

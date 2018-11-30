@@ -21,13 +21,15 @@ package org.onap.dcae.restapi;
 
 import com.google.common.base.CaseFormat;
 import org.json.JSONObject;
+import org.onap.dcae.restapi.ApiException.ExceptionType;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
 public enum ApiException {
 
-    INVALID_JSON_INPUT(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Incorrect JSON payload", 400),
+	NOT_FOUND(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Not Found. The requested resource is not available.", 404),
+	INVALID_JSON_INPUT(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Incorrect JSON payload", 400),
     SCHEMA_VALIDATION_FAILED(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (JSON does not conform to schema)", 400),
     INVALID_CONTENT_TYPE(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (Incorrect request Content-Type)", 400),
     UNAUTHORIZED_USER(ExceptionType.POLICY_EXCEPTION, "POL2000", "Unauthorized user", 401),
