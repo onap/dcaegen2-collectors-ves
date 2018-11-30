@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_db3cf2e4",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-30T20:22:14Z",
+      "side": 1,
+      "message": "this should include v7 also for onap",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 97
+      },
+      "revId": "fbf07dfae34ec1ad66e3dc0dfb1e63f24a25b1bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
