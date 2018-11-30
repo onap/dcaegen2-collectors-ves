@@ -57,6 +57,7 @@ public class ApplicationSettings {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);
     private static final String FALLBACK_VES_VERSION = "v5";
+    private static final String FALLBACK_ROUTES = "/eventListener/v5,/eventListener/v5/eventBatch";
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
@@ -74,6 +75,7 @@ public class ApplicationSettings {
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
         loadedJsonSchemas = loadJsonSchemas();
+        loadRoutes(parsedArgs);
     }
 
     private void loadPropertiesFromFile() {
@@ -190,6 +192,23 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
     }
 
+    private String findOutRoutesFileLocation(Map<String, String> parsedArgs) {
+        return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/routes.properties"));
+    }
+    
+	private  void loadRoutes(Map<String, String> parsedArgs) {
+        try {
+            properties.load(findOutRoutesFileLocation(parsedArgs));
+        } catch (ConfigurationException ex) {
+            log.error("Cannot load routes.properties cause:", ex);
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    public String routes() {
+        return properties.getString("routes", FALLBACK_ROUTES);
+    }
+    
     public Map<String, String[]> dMaaPStreamsMapping() {
         String streamIdsProperty = properties.getString("collector.dmaap.streamid", null);
         if (streamIdsProperty == null) {
