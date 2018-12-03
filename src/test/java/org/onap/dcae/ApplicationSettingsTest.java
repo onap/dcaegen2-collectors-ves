@@ -389,8 +389,8 @@ public class ApplicationSettingsTest {
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals(allowedUsers.get("pasza").get(), "simplepassword");
-        assertEquals(allowedUsers.get("someoneelse").get(), "simplepassword");
+        assertEquals(allowedUsers.get("pasza").get(), "c2ltcGxlcGFzc3dvcmQNCg==");
+        assertEquals(allowedUsers.get("someoneelse").get(), "c2ltcGxlcGFzc3dvcmQNCg==");
     }
 
     @Test
