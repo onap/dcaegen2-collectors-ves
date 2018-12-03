@@ -113,7 +113,7 @@ public class TLSTest extends TLSTestBase {
             when(settings.keystoreFileLocation()).thenReturn(KEYSTORE.toString());
             when(settings.keystorePasswordFileLocation()).thenReturn(KEYSTORE_PASSWORD_FILE.toString());
             when(settings.authorizationEnabled()).thenReturn(true);
-            when(settings.validAuthorizationCredentials()).thenReturn(HashMap.of(USERNAME, PASSWORD));
+            when(settings.validAuthorizationCredentials()).thenReturn(HashMap.of(USERNAME, "cdc979674e4308aaa73863ace054665314ab27f5008d1747c4cc0a046efb4ae052504f121415b309"));
         }
     }
 

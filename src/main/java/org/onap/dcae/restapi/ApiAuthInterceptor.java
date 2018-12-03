@@ -20,19 +20,21 @@
 package org.onap.dcae.restapi;
 
 import io.vavr.control.Option;
+import java.io.IOException;
+import java.util.Base64;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Base64;
 
 final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
+    private final Pbkdf2PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
     private final ApplicationSettings applicationSettings;
 
     private Logger errorLog;
@@ -40,6 +42,7 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     ApiAuthInterceptor(ApplicationSettings applicationSettings, Logger errorLog) {
         this.applicationSettings = applicationSettings;
         this.errorLog = errorLog;
+        this.passwordEncoder.setAlgorithm(SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
     }
 
     @Override
@@ -65,7 +68,7 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             String providedPassword = decodedData.split(":")[1].trim();
             Option<String> maybeSavedPassword = applicationSettings.validAuthorizationCredentials().get(providedUser);
             boolean userRegistered = maybeSavedPassword.isDefined();
-            return userRegistered && maybeSavedPassword.get().equals(providedPassword);
+            return userRegistered && passwordEncoder.matches(providedPassword,maybeSavedPassword.get());
         } catch (Exception e) {
             LOG.warn(String.format("Could not check if user is authorized (header: '%s')), probably malformed header.",
                     authorizationHeader), e);
