@@ -91,7 +91,7 @@ public class ApplicationSettings {
 
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty() : List.ofAll(stream(allowedUsers.split("\\|")))
-                .toMap(t -> t.split(",")[0].trim(), t -> new String(Base64.getDecoder().decode(t.split(",")[1])).trim());
+                .toMap(t -> t.split(",")[0].trim(), t -> new String(t.split(",")[1]).trim());
     }
 
     private String findOutConfigurationFileLocation(Map<String, String> parsedArgs) {
