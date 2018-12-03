@@ -32,6 +32,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @Configuration
 public class ApiConfiguration implements WebMvcConfigurer {
+
     private final ApplicationSettings applicationSettings;
     private Logger errorLogger;
 

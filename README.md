@@ -29,6 +29,14 @@ Run the image using docker-compose.yml
 docker-compose up
 ```
 
+### Generate auth credential 
+
+Util "crypt_password.py" to generate new cryptographic password is stored in dcaegen2/sdk
+
+```
+python crypt_password.py -p TestPassword
+```
+
 ### Environment variables in Docker Container
 Most of the configuration of how VESCollector should be started and managed is done through environment variables.
 Some of them are set during the image build process and some of them are defined manually or by
