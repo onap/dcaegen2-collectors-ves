@@ -139,9 +139,9 @@ public class ApiAuthInterceptionTest {
     public void shouldSucceed() throws IOException {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
-
         when(settings.authorizationEnabled()).thenReturn(true);
-        when(settings.validAuthorizationCredentials()).thenReturn(CREDENTIALS);
+        when(settings.validAuthorizationCredentials()).thenReturn(
+            HashMap.of(USERNAME, "$2a$10$BsZkEynNm/93wbAeeZuxJeu6IHRyQl4XReqDg2BtYOFDhUsz20.3G"));
         when(response.getWriter()).thenReturn(writer);
 
         // when
