@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_75039242",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2018-12-03T14:12:09Z",
+      "side": 1,
+      "message": "I know this is an old code, however, I believe it would be good to simplify it a bit. \n\nList.ofAll(stream(allowedUsers.split(\"\\\\|\"))) probably can be replaced with just List.of(allowedUsers.split(\"\\\\|\")).\n\nIn order to remove duplication of split it can be moved inside map function .map(t -\u003e t.split(\",\")), then creation of the map would be: .toMap(t -\u003e t[0].trim(), t -\u003e t[1].trim());\n\nI am not sure about this, although part \"new String()\" seems unnecessary. \n\nThere is also one thing that should be taken into consideration. If allowedUsers string is malformed then the application will crash because of t[index] reference. Is this an expected behavior?",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 93
+      },
+      "revId": "69c405c3410665ed864344a631e61b5e91b1c279",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
