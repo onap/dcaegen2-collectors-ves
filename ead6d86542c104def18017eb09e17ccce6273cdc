@@ -164,6 +164,29 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_24771a3c",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-04T15:49:45Z",
+      "side": 1,
+      "message": "Why all this line are commented ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 14
+      },
+      "revId": "ead6d86542c104def18017eb09e17ccce6273cdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_89f5bfcc",
         "filename": "src/test/resources/testroutes.properties",
         "patchSetId": 2
