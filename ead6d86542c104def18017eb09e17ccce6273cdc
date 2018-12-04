@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_e4891227",
+        "filename": "etc/routes.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-04T15:34:47Z",
+      "side": 1,
+      "message": "and all configuration properties are stored in collector.properties",
+      "parentUuid": "9adffdf1_e92d6b47",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 6
+      },
+      "revId": "ead6d86542c104def18017eb09e17ccce6273cdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_0931cfa1",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 2
