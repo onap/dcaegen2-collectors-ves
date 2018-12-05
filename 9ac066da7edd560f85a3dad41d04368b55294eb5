@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e17a5ff0",
+        "filename": "etc/routes.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-05T21:24:45Z",
+      "side": 1,
+      "message": "consider renaming this file to uri.conf (properties would imply dynamically configurable, which is not true)",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 290
+      },
+      "revId": "9ac066da7edd560f85a3dad41d04368b55294eb5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_017e83e4",
+        "filename": "src/test/java/org/onap/dcae/vestest/TestConfigProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-05T21:24:45Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "9ac066da7edd560f85a3dad41d04368b55294eb5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
