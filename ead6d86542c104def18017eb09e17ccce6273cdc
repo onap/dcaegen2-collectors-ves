@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_41732b15",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-05T21:27:43Z",
+      "side": 1,
+      "message": "Valid point on api description; need to ensure the swagger definition file creation can be supported.\n\nAnd exposing version alone serves less value add here as some part of uri is still hardcoded.",
+      "parentUuid": "9adffdf1_a942030e",
+      "range": {
+        "startLine": 85,
+        "startChar": 29,
+        "endLine": 85,
+        "endChar": 40
+      },
+      "revId": "ead6d86542c104def18017eb09e17ccce6273cdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_295613d3",
         "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
         "patchSetId": 2
