@@ -19,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.publishing;
 
 import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.att.nsa.clock.SaClock;
@@ -28,13 +28,13 @@ import com.att.nsa.logging.log4j.EcompFields;
 import io.vavr.collection.Map;
 import io.vavr.control.Try;
 import org.json.JSONObject;
-import org.onap.dcae.commonFunction.VESLogger;
+import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

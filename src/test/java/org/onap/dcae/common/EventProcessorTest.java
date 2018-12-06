@@ -19,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.onap.dcae.commonFunction.EventProcessor.EVENT_LIST_TYPE;
+import static org.onap.dcae.common.EventProcessor.EVENT_LIST_TYPE;
 
 import com.google.gson.Gson;
 import java.util.List;
@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.CLIUtils;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.EventPublisher;
 
 
 public class EventProcessorTest {
