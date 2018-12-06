@@ -18,11 +18,11 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.publishing;
 
 import static io.vavr.API.List;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser.parseToDomainMapping;
+import static org.onap.dcae.common.publishing.DMaaPConfigurationParser.parseToDomainMapping;
 
 import io.vavr.collection.Map;
 import io.vavr.control.Try;
@@ -38,7 +38,8 @@ public class DMaaPConfigurationParserTest {
     @Test
     public void testParseCredentialsForGen2() {
         Path path = Paths.get("src/test/resources/testParseDMaaPCredentialsGen2.json");
-        Try<Map<String, PublisherConfig>> publisherConfigs = parseToDomainMapping(path);
+        Try<Map<String, PublisherConfig>> publisherConfigs = DMaaPConfigurationParser
+            .parseToDomainMapping(path);
 
         PublisherConfig authCredentialsNulls = publisherConfigs.get().get("auth-credentials-null").getOrNull();
         assertThat(authCredentialsNulls.userName().isEmpty()).isTrue();
@@ -60,7 +61,8 @@ public class DMaaPConfigurationParserTest {
     @Test
     public void testParseCredentialsForLegacy() {
         Path path = Paths.get("src/test/resources/testParseDMaaPCredentialsLegacy.json");
-        Try<Map<String, PublisherConfig>> publisherConfigs = parseToDomainMapping(path);
+        Try<Map<String, PublisherConfig>> publisherConfigs = DMaaPConfigurationParser
+            .parseToDomainMapping(path);
 
         PublisherConfig authCredentialsNull = publisherConfigs.get().get("auth-credentials-null").getOrNull();
         assertThat(authCredentialsNull.userName().isEmpty()).isTrue();
@@ -82,7 +84,8 @@ public class DMaaPConfigurationParserTest {
     @Test
     public void testParseGen2() {
         Path path = Paths.get("src/test/resources/testParseDMaaPGen2.json");
-        Try<Map<String, PublisherConfig>> publisherConfigs = parseToDomainMapping(path);
+        Try<Map<String, PublisherConfig>> publisherConfigs = DMaaPConfigurationParser
+            .parseToDomainMapping(path);
 
         PublisherConfig withEventsSegment = publisherConfigs.get().get("event-segments-with-port").getOrNull();
         assertThat(withEventsSegment.destinations()).isEqualTo(List("UEBHOST:3904"));

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import static io.vavr.API.List;
 import static io.vavr.API.Try;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
 
 final class EnvPropertiesReader {
 

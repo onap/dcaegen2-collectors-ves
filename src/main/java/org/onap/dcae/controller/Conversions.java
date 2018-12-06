@@ -19,7 +19,7 @@
  */
 package org.onap.dcae.controller;
 
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.enhanceError;
+import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
 
 import io.vavr.API;
 import io.vavr.collection.List;
