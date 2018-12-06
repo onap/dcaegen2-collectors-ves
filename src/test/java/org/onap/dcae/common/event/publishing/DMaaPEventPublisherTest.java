@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.event.publishing;
 
 import static io.vavr.API.Option;
 import static org.mockito.ArgumentMatchers.anyString;

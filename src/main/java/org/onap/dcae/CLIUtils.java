@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class CLIUtils {
 
     public static io.vavr.collection.HashMap<String, String> processCmdLine(String[] args) {
-        final HashMap<String, String> map = new HashMap<String, String>();
+        final HashMap<String, String> map = new HashMap<>();
 
         String lastKey = null;
         for (String arg : args) {

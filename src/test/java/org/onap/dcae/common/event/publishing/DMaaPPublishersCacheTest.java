@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.event.publishing;
 
 import static io.vavr.API.List;
 import static io.vavr.API.Map;
@@ -35,8 +35,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.dcae.commonFunction.event.publishing.DMaaPPublishersCache.CambriaPublishersCacheLoader;
-import org.onap.dcae.commonFunction.event.publishing.DMaaPPublishersCache.OnPublisherRemovalListener;
+import org.onap.dcae.common.event.publishing.DMaaPPublishersCache.CambriaPublishersCacheLoader;
+import org.onap.dcae.common.event.publishing.DMaaPPublishersCache.OnPublisherRemovalListener;
 
 
 public class DMaaPPublishersCacheTest {

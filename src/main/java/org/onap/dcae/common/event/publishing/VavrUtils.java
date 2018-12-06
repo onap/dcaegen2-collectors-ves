@@ -17,14 +17,11 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.event.publishing;
 
 import io.vavr.API;
 import io.vavr.API.Match.Case;
-import io.vavr.Function0;
-import io.vavr.Function1;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import org.slf4j.Logger;
 
 import static io.vavr.API.$;

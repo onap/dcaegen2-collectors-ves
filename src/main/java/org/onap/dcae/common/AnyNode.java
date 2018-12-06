@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
@@ -27,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.stream.StreamSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.vavr.API.Set;
 
@@ -38,6 +40,8 @@ import static io.vavr.API.Set;
  * @author koblosz
  */
 public class AnyNode {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnyNode.class);
 
     private Object obj;
 
@@ -82,11 +86,12 @@ public class AnyNode {
     public Option<AnyNode> getAsOption(String key) {
         try {
             AnyNode value = get(key);
-            if (value.toString().equals("null")) {
+            if ("null".equals(value.toString())) {
                 return Option.none();
             }
             return Option.some(value);
         } catch (JSONException ex) {
+            LOGGER.warn("Cannot create option object cause: ", ex);
             return Option.none();
         }
     }

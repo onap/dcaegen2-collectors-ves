@@ -17,37 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.controller;
+package org.onap.dcae.common.event.publishing;
 
-import static org.onap.dcae.common.event.publishing.VavrUtils.enhanceError;
-
-import io.vavr.API;
-import io.vavr.collection.List;
-import io.vavr.control.Try;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.StreamSupport;
-import org.json.JSONArray;
+import io.vavr.collection.Map;
 import org.json.JSONObject;
+import org.slf4j.Logger;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
-interface Conversions {
+public interface EventPublisher {
 
-    static Try<JSONObject> toJson(String strBody) {
-        return API.Try(() -> new JSONObject(strBody))
-            .mapFailure(enhanceError("Value '%s' is not a valid JSON document", strBody));
+    static EventPublisher createPublisher(Logger outputLogger, Map<String, PublisherConfig> dMaaPConfig) {
+        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig), outputLogger);
     }
 
-    static Try<JSONArray> toJsonArray(String strBody) {
-        return API.Try(() -> new JSONArray(strBody))
-            .mapFailure(enhanceError("Value '%s' is not a valid JSON array", strBody));
-    }
+    void sendEvent(JSONObject event, String domain);
 
-    static <T> List<T> toList(Iterator<T> iterator) {
-        return List.ofAll(StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
-    }
-
+    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }

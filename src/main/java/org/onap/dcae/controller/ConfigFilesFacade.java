@@ -36,7 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static io.vavr.API.Try;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.*;
+import static org.onap.dcae.common.event.publishing.VavrUtils.*;
 import static org.onap.dcae.controller.Conversions.toList;
 
 class ConfigFilesFacade {

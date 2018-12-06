@@ -27,19 +27,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 import static org.onap.dcae.TestingUtilities.readFile;
 import static org.onap.dcae.TestingUtilities.readJSONFromFile;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.event.publishing.VavrUtils.f;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.onap.dcae.WiremockBasedTest;
-import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.common.event.publishing.DMaaPConfigurationParser;
+import org.onap.dcae.common.event.publishing.EventPublisher;
 
 public class ConfigLoaderIntegrationE2ETest extends WiremockBasedTest {
 

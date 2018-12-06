@@ -20,7 +20,7 @@
  */
 package org.onap.dcae.controller;
 
-import static org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser.parseToDomainMapping;
+import static org.onap.dcae.common.event.publishing.DMaaPConfigurationParser.parseToDomainMapping;
 import static org.onap.dcae.controller.ConfigParsing.getDMaaPConfig;
 import static org.onap.dcae.controller.ConfigParsing.getProperties;
 import static org.onap.dcae.controller.EnvPropertiesReader.readEnvProps;
@@ -33,8 +33,7 @@ import io.vavr.control.Try;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import org.json.JSONObject;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
-import org.onap.dcae.commonFunction.event.publishing.PublisherConfig;
+import org.onap.dcae.common.event.publishing.PublisherConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
