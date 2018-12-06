@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
@@ -29,7 +29,7 @@ import io.vavr.collection.Map;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.VesApplication;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.common.event.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

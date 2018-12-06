@@ -18,7 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.event.publishing;
 
 import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.google.common.cache.*;
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static io.vavr.API.Option;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.event.publishing.VavrUtils.f;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

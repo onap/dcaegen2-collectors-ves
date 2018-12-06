@@ -23,7 +23,7 @@ import io.vavr.collection.Map;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
-import org.onap.dcae.commonFunction.event.publishing.PublisherConfig;
+import org.onap.dcae.common.event.publishing.PublisherConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

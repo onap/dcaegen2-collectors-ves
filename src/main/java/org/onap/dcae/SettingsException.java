@@ -1,8 +1,9 @@
-/*-
+/*
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +18,21 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction;
 
-import com.google.gson.JsonObject;
+package org.onap.dcae;
 
-import java.util.List;
+import org.apache.commons.configuration.ConfigurationException;
 
-class Event {
-    final JsonObject filter;
-    final List<Processor> processors;
+/**
+ * @author Zlatko Murgoski 06.12.18
+ */
+public class SettingsException extends RuntimeException {
 
-    Event(JsonObject filter, List<Processor> processors) {
-        this.filter = filter;
-        this.processors = processors;
-    }
+  public SettingsException(String message, Exception ex) {
+    super(message,ex);
+  }
+
+  public SettingsException(ConfigurationException ex) {
+    super(ex);
+  }
 }

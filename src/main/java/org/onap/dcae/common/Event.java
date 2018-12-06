@@ -1,8 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
- * org.onap.dcaegen2.collectors.ves
+ * PROJECT
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,18 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common;
 
-import io.vavr.collection.Map;
-import org.json.JSONObject;
-import org.slf4j.Logger;
+import com.google.gson.JsonObject;
 
-/**
- * @author Pawel Szalapski (pawel.szalapski@nokia.com)
- */
-public interface EventPublisher {
+import java.util.List;
 
-    static EventPublisher createPublisher(Logger outputLogger, Map<String, PublisherConfig> dMaaPConfig) {
-        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig), outputLogger);
+class Event {
+    final JsonObject filter;
+    final List<Processor> processors;
+
+    Event(JsonObject filter, List<Processor> processors) {
+        this.filter = filter;
+        this.processors = processors;
     }
-
-    void sendEvent(JSONObject event, String domain);
-
-    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }
