@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.publishing;
 
 import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.att.nsa.cambria.client.CambriaClientBuilders;
@@ -25,8 +25,8 @@ import com.att.nsa.cambria.client.CambriaClientBuilders.PublisherBuilder;
 import io.vavr.control.Try;
 
 import static io.vavr.API.Try;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.enhanceError;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)

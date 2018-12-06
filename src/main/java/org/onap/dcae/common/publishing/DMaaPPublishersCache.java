@@ -18,7 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.publishing;
 
 import com.att.nsa.cambria.client.CambriaBatchingPublisher;
 import com.google.common.cache.*;
@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static io.vavr.API.Option;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
 
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
@@ -94,7 +93,7 @@ class DMaaPPublishersCache {
                     TimeUnit unit = TimeUnit.SECONDS;
                     java.util.List<?> stuck = publisher.close(timeout, unit);
                     if (!stuck.isEmpty()) {
-                        log.error(f("Publisher got stuck and did not manage to close in '%s' '%s', "
+                        log.error(VavrUtils.f("Publisher got stuck and did not manage to close in '%s' '%s', "
                                 + "%s messages were dropped", stuck.size(), timeout, unit));
                     }
                 } catch (InterruptedException | IOException e) {
@@ -111,7 +110,7 @@ class DMaaPPublishersCache {
             return dMaaPConfiguration.get()
                     .get(domain)
                     .toTry(() -> new RuntimeException(
-                            f("DMaaP configuration contains no configuration for domain: '%s'", domain)))
+                            VavrUtils.f("DMaaP configuration contains no configuration for domain: '%s'", domain)))
                     .flatMap(DMaaPPublishersBuilder::buildPublisher)
                     .get();
         }

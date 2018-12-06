@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,33 +21,18 @@
 
 package org.onap.dcae;
 
-import java.util.HashMap;
+import org.apache.commons.configuration.ConfigurationException;
 
 /**
- * CLIUtils extracted from nsaServerLibrary this implementation will be removed once we switch to different API library
+ * @author Zlatko Murgoski 06.12.18
  */
-public class CLIUtils {
+public class SettingsException extends RuntimeException {
 
-    public static io.vavr.collection.HashMap<String, String> processCmdLine(String[] args) {
-        final HashMap<String, String> map = new HashMap<>();
+  public SettingsException(String message, Exception ex) {
+    super(message,ex);
+  }
 
-        String lastKey = null;
-        for (String arg : args) {
-            if (arg.startsWith("-")) {
-                if (lastKey != null) {
-                    map.put(lastKey.substring(1), "");
-                }
-                lastKey = arg;
-            } else {
-                if (lastKey != null) {
-                    map.put(lastKey.substring(1), arg);
-                }
-                lastKey = null;
-            }
-        }
-        if (lastKey != null) {
-            map.put(lastKey.substring(1), "");
-        }
-        return io.vavr.collection.HashMap.ofAll(map);
-    }
+  public SettingsException(ConfigurationException ex) {
+    super(ex);
+  }
 }

@@ -22,7 +22,7 @@ package org.onap.dcae.controller;
 
 import static io.vavr.API.Try;
 import static io.vavr.API.Tuple;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
 import static org.onap.dcae.controller.Conversions.toList;
 
 import io.vavr.collection.Map;

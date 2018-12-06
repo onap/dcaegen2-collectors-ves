@@ -72,7 +72,7 @@ public class ApplicationSettings {
         Map<String, String> parsedArgs = argsParser.apply(args);
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
-        parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
+        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::updateProperty);
         loadedJsonSchemas = loadJsonSchemas();
     }
 
@@ -81,7 +81,7 @@ public class ApplicationSettings {
             properties.load(configurationFileLocation);
         } catch (ConfigurationException ex) {
             log.error("Cannot load properties cause:", ex);
-            throw new RuntimeException(ex);
+            throw new SettingsException(ex);
         }
     }
 
@@ -122,7 +122,7 @@ public class ApplicationSettings {
 
     private Map<String, JsonSchema> loadJsonSchemas() {
         return jsonSchema().toMap().entrySet().stream()
-                .map(versionToFilePath -> readSchemaForVersion(versionToFilePath))
+                .map(this::readSchemaForVersion)
                 .collect(HashMap.collector());
     }
 
@@ -134,7 +134,8 @@ public class ApplicationSettings {
             JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
             return Tuple(versionToFilePath.getKey(), schema);
         } catch (IOException | ProcessingException e) {
-            throw new RuntimeException("Could not read schema from path: " + versionToFilePath.getValue(), e);
+            log.error("Could not read schema from path: ", e);
+            throw new SettingsException("Could not read schema from path: " + versionToFilePath.getValue(), e);
         }
     }
 

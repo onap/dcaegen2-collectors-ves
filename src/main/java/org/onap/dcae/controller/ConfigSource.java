@@ -21,8 +21,8 @@
 package org.onap.dcae.controller;
 
 import static io.vavr.API.Try;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.enhanceError;
-import static org.onap.dcae.commonFunction.event.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
 import static org.onap.dcae.controller.Conversions.toJson;
 import static org.onap.dcae.controller.Conversions.toJsonArray;
 

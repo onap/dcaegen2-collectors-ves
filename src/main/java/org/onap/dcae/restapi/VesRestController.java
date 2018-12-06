@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.commonFunction.VESLogger;
+import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +79,6 @@ public class VesRestController {
         return "Welcome to VESCollector";
     }
 
-    //refactor in next iteration
     @PostMapping(value = {"/eventListener/v1",
             "/eventListener/v1/eventBatch",
             "/eventListener/v2",

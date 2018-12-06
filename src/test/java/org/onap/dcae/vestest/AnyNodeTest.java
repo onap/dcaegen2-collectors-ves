@@ -26,7 +26,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.dcae.commonFunction.AnyNode;
+import org.onap.dcae.common.AnyNode;
 
 /**
  * Created by koblosz on 07.06.18.

@@ -103,18 +103,18 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 		<layout class="com.att.nsa.logging.log4j.EcompLayout"><param name="ConversionPattern" value="ECOMP_DEBUG" /></layout>
 	</appender>
 	
-	<logger name="org.onap.dcae.commonFunction.input" additivity="false">
+	<logger name="org.onap.dcae.common.input" additivity="false">
             <level value="INFO"/>
             <appender-ref ref="IFILE"/>
     </logger> 
 
-    <logger name="org.onap.dcae.commonFunction.output" additivity="false">
+    <logger name="org.onap.dcae.common.output" additivity="false">
             <level value="INFO"/>
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="OFILE"/>
     </logger> 
 
-	<logger name="org.onap.dcae.commonFunction.error" additivity="false">
+	<logger name="org.onap.dcae.common.error" additivity="false">
             <level value="DEBUG"/>
             <appender-ref ref="EFILE"/>
             <appender-ref ref="CONSOLE" />
@@ -147,7 +147,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 		<appender-ref ref="ECOMP_DEBUG" />
 	</logger>
     
-    <logger name="org.onap.dcae.commonFunction.EventPublisher" additivity="false">
+    <logger name="org.onap.dcae.common.EventPublisher" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="CONSOLE" />
 	</logger>

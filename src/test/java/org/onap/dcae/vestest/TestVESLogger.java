@@ -23,13 +23,13 @@ package org.onap.dcae.vestest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.onap.dcae.commonFunction.VESLogger.REQUEST_ID;
+import static org.onap.dcae.common.VESLogger.REQUEST_ID;
 
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import java.util.UUID;
 import org.junit.Test;
-import org.onap.dcae.commonFunction.VESLogger;
+import org.onap.dcae.common.VESLogger;
 
 public class TestVESLogger {
 
