@@ -28,10 +28,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
-import org.onap.dcae.commonFunction.EventProcessor;
-import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
-import org.onap.dcae.commonFunction.event.publishing.PublisherConfig;
+import org.onap.dcae.common.EventProcessor;
+import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
+import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.PublisherConfig;
 import org.onap.dcae.controller.ConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,9 +47,9 @@ import org.springframework.context.annotation.Lazy;
 public class VesApplication {
 
     private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
-    private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.commonFunction.input");
-    private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.output");
-    private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.commonFunction.error");
+    private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
+    private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.common.output");
+    private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
     private static final int MAX_THREADS = 20;
     public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
@@ -84,7 +84,7 @@ public class VesApplication {
                         Paths.get(properties.dMaaPConfigurationFileLocation()),
                         properties.configurationFileLocation());
         scheduledThreadPoolExecutor
-                .scheduleAtFixedRate(() -> configLoader.updateConfig(),
+                .scheduleAtFixedRate(configLoader::updateConfig,
                         properties.configurationUpdateFrequency(),
                         properties.configurationUpdateFrequency(),
                         TimeUnit.MINUTES);
