@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_63f50fca",
+        "filename": "src/main/java/org/onap/dcae/CLIUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-12-10T08:54:04Z",
+      "side": 1,
+      "message": "You should use Map interface, not HashMap",
+      "revId": "2427d4e17cde1db01b218ccbe8e384ad5384d3a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
