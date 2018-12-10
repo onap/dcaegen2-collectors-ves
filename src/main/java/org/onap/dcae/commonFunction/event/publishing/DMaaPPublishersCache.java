@@ -99,6 +99,7 @@ class DMaaPPublishersCache {
                     }
                 } catch (InterruptedException | IOException e) {
                     log.error("Could not close Cambria publisher, some messages might have been dropped", e);
+                    Thread.currentThread().interrupt();
                 }
             }
         }
