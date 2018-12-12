@@ -1,0 +1,9 @@
+Code-Review+1: Andrzej Szukuć <andrzej.szukuc@nokia.com>
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Wed, 12 Dec 2018 21:25:56 +0000
+Reviewed-on: https://gerrit.onap.org/r/74133
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
