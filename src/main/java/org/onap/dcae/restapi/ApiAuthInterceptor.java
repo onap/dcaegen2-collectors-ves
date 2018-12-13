@@ -25,15 +25,15 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final CryptPassword cryptPassword = new CryptPassword();
     private final ApplicationSettings applicationSettings;
 
     private Logger errorLog;
@@ -66,7 +66,7 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             String providedPassword = decodedData.split(":")[1].trim();
             Option<String> maybeSavedPassword = applicationSettings.validAuthorizationCredentials().get(providedUser);
             boolean userRegistered = maybeSavedPassword.isDefined();
-            return userRegistered && passwordEncoder.matches(providedPassword,maybeSavedPassword.get());
+            return userRegistered && cryptPassword.matches(providedPassword,maybeSavedPassword.get());
         } catch (Exception e) {
             LOG.warn(String.format("Could not check if user is authorized (header: '%s')), probably malformed header.",
                     authorizationHeader), e);
