@@ -31,10 +31,15 @@ docker-compose up
 
 ### Generate auth credential 
 
-Util "crypt_password.py" to generate new cryptographic password is stored in dcaegen2/sdk
+Library to generate new cryptographic password is stored in dcaegen2/sdk -"security/crypt-password"
 
+or already build artifact from: 
+
+https://nexus.onap.org/#nexus-search;quick~crypt-password
+
+How to use:
 ```
-python crypt_password.py -p TestPassword
+java -jar crypt-password-<version>.jar password_to_crypt
 ```
 
 ### Environment variables in Docker Container

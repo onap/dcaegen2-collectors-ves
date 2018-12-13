@@ -462,6 +462,11 @@ limitations under the License.
             <version>2.1.0.RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk.security.crypt</groupId>
+            <artifactId>crypt-password</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
