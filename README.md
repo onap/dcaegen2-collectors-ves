@@ -31,7 +31,7 @@ docker-compose up
 
 ### Generate auth credential 
 
-Util "crypt_password.py" to generate new cryptographic password is stored in dcaegen2/sdk
+Library to generate new cryptographic password is stored in dcaegen2/sdk -"security/crypt-password"
 
 ```
 python crypt_password.py -p TestPassword
