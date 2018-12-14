@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_be6b00f0",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-14T14:38:03Z",
+      "side": 1,
+      "message": "More explicit steps will be good. Like commands to  retrieving the jar from nexus and/or building this repo to generate the jar.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_fe65081e",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-14T14:38:03Z",
+      "side": 1,
+      "message": "this command should be modified accordingly as well\n\nAs noted on different gerrit, we could keep both version and host crypt_password.py under dcaegen2/utils.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
