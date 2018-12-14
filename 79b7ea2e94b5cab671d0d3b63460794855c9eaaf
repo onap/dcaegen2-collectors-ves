@@ -93,6 +93,30 @@
       "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e1a80ddd",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-14T16:26:28Z",
+      "side": 1,
+      "message": "Jar would suffice; python is just another option. As you already had the tool, was thinking we can retain both. If that\u0027s problem of maintenance, then we can go with jar option only.",
+      "parentUuid": "9adffdf1_7e27d8ca",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
