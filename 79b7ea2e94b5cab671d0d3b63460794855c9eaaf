@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_be39c0f3",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-14T15:06:17Z",
+      "side": 1,
+      "message": "Information how to build is stored in security/crypt-password repo in README. Good point how to download jar from nexus this will be useful.",
+      "parentUuid": "9adffdf1_be6b00f0",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_fe65081e",
         "filename": "README.md",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-14T14:38:03Z",
       "side": 1,
       "message": "this command should be modified accordingly as well\n\nAs noted on different gerrit, we could keep both version and host crypt_password.py under dcaegen2/utils.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7e27d8ca",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-14T15:06:17Z",
+      "side": 1,
+      "message": "I already abandon changes with python scripts I think jar will be more useful, what do You think ?",
+      "parentUuid": "9adffdf1_fe65081e",
       "range": {
         "startLine": 35,
         "startChar": 0,
