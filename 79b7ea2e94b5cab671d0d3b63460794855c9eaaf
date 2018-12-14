@@ -117,6 +117,30 @@
       "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a1c9a55a",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-14T19:54:07Z",
+      "side": 1,
+      "message": "Jar will provide more functionality what we can use in another components so jar on this moment is sufficient in my opinion",
+      "parentUuid": "9adffdf1_e1a80ddd",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "79b7ea2e94b5cab671d0d3b63460794855c9eaaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
