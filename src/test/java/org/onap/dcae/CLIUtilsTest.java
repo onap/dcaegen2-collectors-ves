@@ -22,33 +22,36 @@
 package org.onap.dcae;
 
 import io.vavr.collection.Map;
+import org.junit.Test;
 
-import java.util.HashMap;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CLIUtils {
+public class CLIUtilsTest {
 
-    public static Map<String, String> processCmdLine(String[] args) {
-        final java.util.Map<String, String> map = new HashMap<>();
+    @Test
+    public void shouldConvertArgsToPropertiesMap() {
+        // given
+        String[] args = {"-withOutValue", "-collector.service.port", "8000", "-collector.service.secure.port", "8443"};
 
-        String argumentName = null;
+        //when
+        Map<String, String> properties = CLIUtils.processCmdLine(args);
 
-        for (String arg : args) {
-            if (isArgumentName(arg)) {
-                argumentName = resolveArgumentName(arg);
-                map.put(argumentName, "");
-            } else {
-                map.put(argumentName, arg);
-            }
-        }
-
-        return io.vavr.collection.HashMap.ofAll(map);
+        //then
+        assertThat(properties.get("collector.service.port").get()).isEqualTo("8000");
+        assertThat(properties.get("collector.service.secure.port").get()).isEqualTo("8443");
+        assertThat(properties.get("withOutValue").get()).isEqualTo("");
     }
 
-    private static String resolveArgumentName(String arg) {
-        return arg.substring(1);
+    @Test
+    public void shouldReturnEmptyMapIfThereIsNoArgs() {
+        //given
+        String[] args = {};
+
+        //when
+        Map<String, String> properties = CLIUtils.processCmdLine(args);
+
+        //then
+        assertThat(properties).isEmpty();
     }
 
-    private static boolean isArgumentName(String arg) {
-        return arg.startsWith("-");
-    }
 }
