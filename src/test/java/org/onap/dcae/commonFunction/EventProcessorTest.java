@@ -63,19 +63,6 @@ public class EventProcessorTest {
     }
 
     @Test
-    public void testLoad() {
-        //given
-        EventProcessor ec = new EventProcessor(mock(EventPublisher.class), properties);
-        ec.event = new org.json.JSONObject(ev);
-        //when
-        ec.overrideEvent();
-
-        //then
-        Boolean hasSourceNameNode = ec.event.getJSONObject("event").getJSONObject("commonEventHeader").has("sourceName");
-        assertTrue(hasSourceNameNode);
-    }
-
-    @Test
     public void shouldParseJsonEvents() throws ReflectiveOperationException {
         //given
         EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class), properties);
@@ -89,7 +76,7 @@ public class EventProcessorTest {
                 + ",{\"functionName\": \"map\",\"args\":{\"field\": \"event.commonEventHeader.nfNamingCode\","
                 + "\"oldField\": \"event.commonEventHeader.functionalRole\"}}]}]";
         List<Event> events = new Gson().fromJson(event_json, EVENT_LIST_TYPE);
-        EventProcessor.ConfigProcessorAdapter configProcessorAdapter = mock(EventProcessor.ConfigProcessorAdapter.class);
+        ConfigProcessorAdapter configProcessorAdapter = mock(ConfigProcessorAdapter.class);
 
         when(configProcessorAdapter.isFilterMet(any(JSONObject.class))).thenReturn(true);
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
