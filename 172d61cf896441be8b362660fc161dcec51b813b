@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_000d0237",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-12-19T15:42:58Z",
+      "side": 1,
+      "message": "Want to double check..\n\n\"sendEventsToStreams\" is expecting an array of strings but the \".forEach\" is on an array of strings so isn\u0027t the lambda\u0027s input actually simply a string?  So \"streamIds\" here is actually \"streamId\"?  Which means either the signature of \"sendEventsToStreams\" should change or \".forEach\" should not be used here?",
+      "revId": "172d61cf896441be8b362660fc161dcec51b813b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
