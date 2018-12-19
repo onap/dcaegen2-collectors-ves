@@ -38,7 +38,7 @@ public class ConfigProcessorAdapterTest {
     private ConfigProcessors configProcessors;
 
     @InjectMocks
-    private EventProcessor.ConfigProcessorAdapter configProcessorAdapter;
+    private ConfigProcessorAdapter configProcessorAdapter;
 
 
     @Test
