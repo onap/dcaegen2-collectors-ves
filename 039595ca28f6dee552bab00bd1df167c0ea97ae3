@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Michael Hwang <mhwang@research.att.com>
+Submitted-by: Michael Hwang <mhwang@research.att.com>
+Submitted-at: Wed, 19 Dec 2018 15:22:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/74611
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
