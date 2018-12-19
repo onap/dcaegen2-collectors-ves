@@ -29,6 +29,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
 import org.onap.dcae.commonFunction.EventProcessor;
+import org.onap.dcae.commonFunction.EventSender;
 import org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
 import org.onap.dcae.commonFunction.event.publishing.PublisherConfig;
@@ -66,7 +67,8 @@ public class VesApplication {
                         .parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation()))
                         .get());
         spawnDynamicConfigUpdateThread(publisher, properties);
-        EventProcessor ep = new EventProcessor(EventPublisher.createPublisher(oplog, getDmapConfig()), properties);
+        EventProcessor ep = new EventProcessor(
+            new EventSender(EventPublisher.createPublisher(oplog, getDmapConfig()), properties));
 
         ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
         for (int i = 0; i < MAX_THREADS; ++i) {
