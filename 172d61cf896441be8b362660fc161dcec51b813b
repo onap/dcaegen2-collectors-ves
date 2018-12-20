@@ -16,6 +16,24 @@
       "revId": "172d61cf896441be8b362660fc161dcec51b813b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4be56bdb",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2018-12-20T10:42:54Z",
+      "side": 1,
+      "message": "Everything works fine .forEach is needed here but this is not JDK implementation so in this use case this is just a little tricky.\n\nhttp://www.vavr.io/",
+      "parentUuid": "9adffdf1_000d0237",
+      "revId": "172d61cf896441be8b362660fc161dcec51b813b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
