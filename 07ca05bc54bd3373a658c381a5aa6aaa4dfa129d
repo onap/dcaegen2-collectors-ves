@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_9d1e34ba",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/EventSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-12-21T16:29:19Z",
+      "side": 1,
+      "message": "Ok my confusion has been cleared.  `get` returns what\u0027s known as an `Option` and the `forEach` is on the `Option` and not on the array.",
+      "revId": "07ca05bc54bd3373a658c381a5aa6aaa4dfa129d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
