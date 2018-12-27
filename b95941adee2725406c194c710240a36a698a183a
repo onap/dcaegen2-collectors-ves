@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_8e8efc77",
+        "filename": "src/test/java/org/onap/dcae/commonFunction/EventProcessorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-27T22:08:47Z",
+      "side": 0,
+      "message": "These test could be retained (handled under ConfigProcessorAdapter); pls add them part of junit refactoring planned.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "b95941adee2725406c194c710240a36a698a183a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
