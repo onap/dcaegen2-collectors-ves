@@ -50,7 +50,6 @@ public class EventProcessor implements Runnable {
     private static final String COMMON_EVENT_HEADER = "commonEventHeader";
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
 
-    public JSONObject event;
     private EventPublisher eventPublisher;
     private Map<String, String[]> streamidHash;
     private ApplicationSettings properties;
@@ -66,7 +65,7 @@ public class EventProcessor implements Runnable {
     public void run() {
         try {
             while (true) {
-                event = VesApplication.fProcessingInputQueue.take();
+                JSONObject event = VesApplication.fProcessingInputQueue.take();
                 // As long as the producer is running we remove elements from
                 // the queue.
                 log.info("QueueSize:" + VesApplication.fProcessingInputQueue.size() + "\tEventProcessor\tRemoving element: " + event);
@@ -81,7 +80,7 @@ public class EventProcessor implements Runnable {
                         .onEmpty(() -> {
                             log.error("No StreamID defined for publish - Message dropped" + event);
                         }).forEach(streamIds -> {
-                    sendEventsToStreams(streamIds);
+                    sendEventsToStreams(event, streamIds);
                 });
                 log.debug("Message published" + event);
             }
@@ -91,7 +90,7 @@ public class EventProcessor implements Runnable {
         }
     }
 
-    public void overrideEvent() {
+    public void overrideEvent(JSONObject event) {
         // Set collector timestamp in event payload before publish
         addCurrentTimeToEvent(event);
 
@@ -112,10 +111,10 @@ public class EventProcessor implements Runnable {
         log.debug("Modified event:" + event);
     }
 
-    private void sendEventsToStreams(String[] streamIdList) {
+    private void sendEventsToStreams(JSONObject event, String[] streamIdList) {
         for (String aStreamIdList : streamIdList) {
             log.info("Invoking publisher for streamId:" + aStreamIdList);
-            this.overrideEvent();
+            overrideEvent(event);
             eventPublisher.sendEvent(event, aStreamIdList);
         }
     }
