@@ -63,19 +63,6 @@ public class EventProcessorTest {
     }
 
     @Test
-    public void testLoad() {
-        //given
-        EventProcessor ec = new EventProcessor(mock(EventPublisher.class), properties);
-        ec.event = new org.json.JSONObject(ev);
-        //when
-        ec.overrideEvent();
-
-        //then
-        Boolean hasSourceNameNode = ec.event.getJSONObject("event").getJSONObject("commonEventHeader").has("sourceName");
-        assertTrue(hasSourceNameNode);
-    }
-
-    @Test
     public void shouldParseJsonEvents() throws ReflectiveOperationException {
         //given
         EventProcessor eventProcessor = new EventProcessor(mock(EventPublisher.class), properties);
