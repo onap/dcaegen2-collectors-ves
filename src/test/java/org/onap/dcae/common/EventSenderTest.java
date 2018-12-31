@@ -18,7 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.EventPublisher;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class EventSenderTest {

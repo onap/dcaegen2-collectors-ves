@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import io.vavr.collection.List;
 import io.vavr.collection.Set;

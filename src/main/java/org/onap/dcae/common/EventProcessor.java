@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;

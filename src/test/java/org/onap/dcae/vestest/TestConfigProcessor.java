@@ -28,7 +28,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.onap.dcae.commonFunction.ConfigProcessors;
+import org.onap.dcae.common.ConfigProcessors;
 
 public class TestConfigProcessor {
 

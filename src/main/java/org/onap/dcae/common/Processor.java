@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import com.google.gson.JsonObject;
 

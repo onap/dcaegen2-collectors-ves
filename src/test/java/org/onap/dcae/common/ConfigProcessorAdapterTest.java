@@ -17,7 +17,7 @@
 //        ============LICENSE_END=========================================================
 //
 //
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;

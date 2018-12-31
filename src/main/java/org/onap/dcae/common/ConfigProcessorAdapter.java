@@ -19,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import java.lang.reflect.Method;
 import org.json.JSONObject;

@@ -18,11 +18,11 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction.event.publishing;
+package org.onap.dcae.common.publishing;
 
 import static io.vavr.API.List;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.onap.dcae.commonFunction.event.publishing.DMaaPConfigurationParser.parseToDomainMapping;
+import static org.onap.dcae.common.publishing.DMaaPConfigurationParser.parseToDomainMapping;
 
 import io.vavr.collection.Map;
 import io.vavr.control.Try;

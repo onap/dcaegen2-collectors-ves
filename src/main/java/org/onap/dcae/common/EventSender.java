@@ -18,23 +18,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.commonFunction;
+package org.onap.dcae.common;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import io.vavr.collection.Map;
-import io.vavr.control.Option;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.commonFunction.event.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
