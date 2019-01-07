@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_0a974f49",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/ConfigProcessors.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-01-07T08:44:37Z",
+      "side": 1,
+      "message": "it is better to remove unused code, than comment out",
+      "revId": "b4f67b5a2e822e4ab06c3fb02fe5995284ceed89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_2a949341",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/ConfigProcessors.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-01-07T08:44:37Z",
+      "side": 1,
+      "message": "the same comment as above",
+      "revId": "b4f67b5a2e822e4ab06c3fb02fe5995284ceed89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
