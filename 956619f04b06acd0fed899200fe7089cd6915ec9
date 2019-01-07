@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_8aa33fb1",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-01-07T08:42:50Z",
+      "side": 1,
+      "message": "Static final field name must be CAPITALIZED",
+      "revId": "956619f04b06acd0fed899200fe7089cd6915ec9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_aaa8838d",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-01-07T08:42:50Z",
+      "side": 1,
+      "message": "Logger probably has method error(msg, ex) and that method should be used",
+      "revId": "956619f04b06acd0fed899200fe7089cd6915ec9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
