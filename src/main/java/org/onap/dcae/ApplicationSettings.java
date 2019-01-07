@@ -42,12 +42,10 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 
 import static io.vavr.API.Tuple;
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
-import static java.util.Arrays.stream;
 
 /**
  * Abstraction over application configuration.
