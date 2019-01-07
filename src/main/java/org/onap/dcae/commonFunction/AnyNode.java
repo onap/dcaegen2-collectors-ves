@@ -25,6 +25,8 @@ import io.vavr.control.Option;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.StreamSupport;
 
@@ -40,6 +42,7 @@ import static io.vavr.API.Set;
 public class AnyNode {
 
     private Object obj;
+    private static final Logger log = LoggerFactory.getLogger(AnyNode.class);
 
     private AnyNode(Object object) {
         this.obj = object;
@@ -82,11 +85,12 @@ public class AnyNode {
     public Option<AnyNode> getAsOption(String key) {
         try {
             AnyNode value = get(key);
-            if (value.toString().equals("null")) {
+            if (("null").equals(value.toString())) {
                 return Option.none();
             }
             return Option.some(value);
         } catch (JSONException ex) {
+        	log.error("Error in AnyNode.getAsOption"+ex);
             return Option.none();
         }
     }
