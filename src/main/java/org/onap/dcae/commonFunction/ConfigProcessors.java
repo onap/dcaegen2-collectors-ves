@@ -317,7 +317,7 @@ public class ConfigProcessors {
  // this method is to support the mapping 7.x to VES5.x format for additionalInformation field
     private void mapHashmapToNameValueArray(JSONObject jsonObject) {
         log.info("mapHashmapToNameValueArray");
-        System.out.println("mapHashmapToNameValueArray");
+        //System.out.println("mapHashmapToNameValueArray");
         String field = jsonObject.getString(FIELD);
         String oldField = jsonObject.getString(FIELD);
         final JSONObject filter = jsonObject.optJSONObject(FILTER);
@@ -325,7 +325,7 @@ public class ConfigProcessors {
         if (filter == null || isFilterMet(filter)) {
         	JSONArray newArray = new JSONArray(); // this will hold the new name:value JSONObject
         	JSONObject nameValJObj;
-        	System.out.println("object ==" + getEventObjectVal(oldField).toString());
+        	//System.out.println("object ==" + getEventObjectVal(oldField).toString());
         	if (!getEventObjectVal(oldField).toString().equals(OBJECT_NOT_FOUND)) {
         		
 	            JSONObject hashMap = (JSONObject) getEventObjectVal(oldField); // old hashmap structure value
