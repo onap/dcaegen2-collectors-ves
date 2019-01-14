@@ -86,7 +86,7 @@ public class VesApplication {
                         Paths.get(properties.dMaaPConfigurationFileLocation()),
                         properties.configurationFileLocation());
         scheduledThreadPoolExecutor
-                .scheduleAtFixedRate(() -> configLoader.updateConfig(),
+                .scheduleAtFixedRate(configLoader::updateConfig,
                         properties.configurationUpdateFrequency(),
                         properties.configurationUpdateFrequency(),
                         TimeUnit.MINUTES);
