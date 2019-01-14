@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
@@ -165,7 +166,7 @@ public class VesRestController {
             }
             return report.isSuccess();
         } catch (Exception e) {
-            throw new RuntimeException("Unable to validate against schema", e);
+            throw new ApplicationException("Unable to validate against schema", e);
         }
     }
 

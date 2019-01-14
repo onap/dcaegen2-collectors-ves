@@ -68,7 +68,7 @@ public class ConfigLoader {
         log.info("Trying to dynamically update config from Config Binding Service");
         readEnvProps(envVariablesSupplier.get())
             .onEmpty(() -> log.warn(SKIP_MSG))
-            .forEach(props -> updateConfig(props));
+            .forEach(this::updateConfig);
     }
 
     private void updateConfig(EnvProps props) {

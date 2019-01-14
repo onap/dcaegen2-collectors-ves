@@ -21,6 +21,7 @@
 
 package org.onap.dcae.restapi;
 
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.SSLContextCreator;
 import org.slf4j.Logger;
@@ -100,7 +101,7 @@ public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableSer
             return new String(readAllBytes(location));
         } catch (IOException e) {
             log.error("Could not read keystore password from: '" + location + "'.", e);
-            throw new RuntimeException(e);
+            throw new ApplicationException(e);
         }
     }
 }
