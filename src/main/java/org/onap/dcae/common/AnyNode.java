@@ -82,7 +82,7 @@ public class AnyNode {
     public Option<AnyNode> getAsOption(String key) {
         try {
             AnyNode value = get(key);
-            if (value.toString().equals("null")) {
+            if ("null".equals(value.toString())) {
                 return Option.none();
             }
             return Option.some(value);

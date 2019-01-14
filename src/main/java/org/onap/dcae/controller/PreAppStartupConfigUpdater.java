@@ -35,14 +35,14 @@ import org.slf4j.LoggerFactory;
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
 public class PreAppStartupConfigUpdater {
-    private final static Logger log = LoggerFactory.getLogger(PreAppStartupConfigUpdater.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(PreAppStartupConfigUpdater.class);
 
     private static final Path DEFAULT_CONFIGURATION_FILE_PATH = Paths.get("etc/collector.properties");
     private static final Path DEFAULT_DMAAP_FILE_PATH = Paths.get("etc/DmaapConfig.json");
     private static final Consumer<Map<String, PublisherConfig>> NO_OP_CONSUMER = c -> { };
 
     public static void main(String[] args) {
-        log.info("Running initial configuration update, before the application gets started.");
+        LOGGER.info("Running initial configuration update, before the application gets started.");
         ConfigLoader.create(NO_OP_CONSUMER, DEFAULT_DMAAP_FILE_PATH, DEFAULT_CONFIGURATION_FILE_PATH)
             .updateConfig();
     }

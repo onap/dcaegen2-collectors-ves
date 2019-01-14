@@ -46,9 +46,9 @@ class DMaaPEventPublisher implements EventPublisher {
     private final DMaaPPublishersCache publishersCache;
     private final Logger outputLogger;
 
-    DMaaPEventPublisher(DMaaPPublishersCache DMaaPPublishersCache,
+    DMaaPEventPublisher(DMaaPPublishersCache publishersCache,
                         Logger outputLogger) {
-        this.publishersCache = DMaaPPublishersCache;
+        this.publishersCache = publishersCache;
         this.outputLogger = outputLogger;
     }
 

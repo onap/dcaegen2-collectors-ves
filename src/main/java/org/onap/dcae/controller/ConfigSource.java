@@ -26,6 +26,7 @@ import static org.onap.dcae.common.publishing.VavrUtils.f;
 import static org.onap.dcae.controller.Conversions.toJson;
 import static org.onap.dcae.controller.Conversions.toJsonArray;
 
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import io.vavr.control.Try;
 import org.json.JSONArray;
@@ -41,11 +42,11 @@ final class ConfigSource {
         log.info("Fetching app configuration from CBS");
         return callConsulForCBSConfiguration(envProps)
             .peek(strBody -> log.info(f("Received following CBS configuration from Consul '%s'", strBody)))
-            .flatMap(strBody -> toJsonArray(strBody))
-            .flatMap(json -> withdrawCatalog(json))
+            .flatMap(Conversions::toJsonArray)
+            .flatMap(ConfigSource::withdrawCatalog)
             .flatMap(json -> constructFullCBSUrl(envProps, json))
             .flatMap(cbsUrl -> callCBSForAppConfig(envProps, cbsUrl))
-            .flatMap(strBody -> toJson(strBody))
+            .flatMap(Conversions::toJson)
             .peek(jsonNode -> log.info(f("Received app configuration: '%s'", jsonNode)))
             .onFailure(exc -> log.error("Could not fetch application config", exc));
     }
@@ -83,7 +84,7 @@ final class ConfigSource {
                 res -> res.getStatus() == 200,
                 res -> new RuntimeException(f("HTTP call (GET '%s') failed with status %s and body '%s'",
                     url, res.getStatus(), res.getBody())))
-            .map(res -> res.getBody())
+            .map(HttpResponse::getBody)
             .peek(body -> log.info(f("HTTP GET on '%s' returned body '%s'", url, body)));
     }
 
