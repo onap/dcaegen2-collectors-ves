@@ -21,6 +21,10 @@
 
 package org.onap.dcae;
 
+import static io.vavr.API.Tuple;
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
@@ -32,22 +36,15 @@ import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.annotation.Nullable;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-
-import static io.vavr.API.Tuple;
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.util.Arrays.stream;
 
 /**
  * Abstraction over application configuration.
@@ -72,7 +69,7 @@ public class ApplicationSettings {
         Map<String, String> parsedArgs = argsParser.apply(args);
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
-        parsedArgs.filterKeys(k -> !k.equals("c")).forEach(this::updateProperty);
+        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::updateProperty);
         loadedJsonSchemas = loadJsonSchemas();
     }
 
@@ -81,7 +78,7 @@ public class ApplicationSettings {
             properties.load(configurationFileLocation);
         } catch (ConfigurationException ex) {
             log.error("Cannot load properties cause:", ex);
-            throw new RuntimeException(ex);
+            throw new ApplicationException(ex);
         }
     }
 
@@ -124,7 +121,7 @@ public class ApplicationSettings {
 
     private Map<String, JsonSchema> loadJsonSchemas() {
         return jsonSchema().toMap().entrySet().stream()
-                .map(versionToFilePath -> readSchemaForVersion(versionToFilePath))
+                .map(this::readSchemaForVersion)
                 .collect(HashMap.collector());
     }
 
@@ -136,7 +133,7 @@ public class ApplicationSettings {
             JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
             return Tuple(versionToFilePath.getKey(), schema);
         } catch (IOException | ProcessingException e) {
-            throw new RuntimeException("Could not read schema from path: " + versionToFilePath.getValue(), e);
+            throw new ApplicationException("Could not read schema from path: " + versionToFilePath.getValue(), e);
         }
     }
 

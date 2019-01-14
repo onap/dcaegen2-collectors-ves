@@ -53,7 +53,7 @@ class ConfigFilesFacade {
 
     Try<Map<String, String>> readCollectorProperties() {
         log.info(f("Reading collector properties from path: '%s'", propertiesPath));
-        return Try(() -> readProperties())
+        return Try(this::readProperties)
             .map(prop -> toList(prop.getKeys()).toMap(k -> k, k -> (String) prop.getProperty(k)))
             .mapFailure(enhanceError("Unable to read properties configuration from path '%s'", propertiesPath))
             .onFailure(logError(log))
