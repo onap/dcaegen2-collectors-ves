@@ -16,6 +16,24 @@
       "revId": "ae17181bb9c2d662f0aed3dd438c9955480c8ae5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_373860ee",
+        "filename": "src/main/java/org/onap/dcae/controller/EnvPropertiesReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-01-17T12:40:50Z",
+      "side": 1,
+      "message": "Java naming conventions says something different but if it is  coding style used in this project please change sonar rules.",
+      "parentUuid": "9adffdf1_051babca",
+      "revId": "ae17181bb9c2d662f0aed3dd438c9955480c8ae5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
