@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_dc431a11",
+        "filename": "src/main/java/org/onap/dcae/controller/PreAppStartupConfigUpdater.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-01-28T19:57:00Z",
+      "side": 1,
+      "message": "This change should be reverted also",
+      "range": {
+        "startLine": 38,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "c1b15ed585741e46d48ac2ff2368a5683873cdd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7c4eae3c",
+        "filename": "src/main/java/org/onap/dcae/controller/PreAppStartupConfigUpdater.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-01-28T19:57:00Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "c1b15ed585741e46d48ac2ff2368a5683873cdd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
