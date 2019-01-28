@@ -34,6 +34,24 @@
       "revId": "ae17181bb9c2d662f0aed3dd438c9955480c8ae5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4ba9a622",
+        "filename": "src/main/java/org/onap/dcae/controller/EnvPropertiesReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-01-28T04:57:55Z",
+      "side": 1,
+      "message": "Agree to Tony\u0027s comment; all ONAP projects follow Google java style. This does appear consistent to sonar reporting as well (don\u0027t see the log variable reported) - https://sonar.onap.org/project/issues?fileUuids\u003dAWUgzL3WwGn37Jfbxljm\u0026id\u003dorg.onap.dcaegen2.collectors.ves%3AVESCollector\u0026open\u003dAWUgzL7HwGn37Jfbxlk2\u0026resolved\u003dfalse",
+      "parentUuid": "9adffdf1_373860ee",
+      "revId": "ae17181bb9c2d662f0aed3dd438c9955480c8ae5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
