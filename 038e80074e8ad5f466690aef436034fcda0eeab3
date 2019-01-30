@@ -1,0 +1,10 @@
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Verified+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Verified+1: Tony Hansen <tony@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Wed, 30 Jan 2019 22:09:36 +0000
+Reviewed-on: https://gerrit.onap.org/r/75738
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
