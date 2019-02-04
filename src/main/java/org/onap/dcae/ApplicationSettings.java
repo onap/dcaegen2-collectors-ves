@@ -69,7 +69,7 @@ public class ApplicationSettings {
         Map<String, String> parsedArgs = argsParser.apply(args);
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
-        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::updateProperty);
+        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
         loadedJsonSchemas = loadJsonSchemas();
     }
 
@@ -198,6 +198,22 @@ public class ApplicationSettings {
         }
     }
 
+    public void store() {
+        try {
+            properties.save("collector.properties");
+        } catch (ConfigurationException e) {
+            log.error("Cannot save property cause: ", e);
+        }
+    }
+
+    public void addOrUpdate(String key, String value) {
+        if (properties.containsKey(key)) {
+            properties.setProperty(key, value);
+        } else {
+            properties.addProperty(key, value);
+        }
+    }
+
     private JSONObject jsonSchema() {
         return new JSONObject(properties.getString("collector.schema.file",
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION)));
@@ -212,14 +228,6 @@ public class ApplicationSettings {
             domainToStreamIdsMapping.put(domain, streamIds);
         }
         return HashMap.ofAll(domainToStreamIdsMapping);
-    }
-
-    private void updateProperty(String key, String value) {
-        if (properties.containsKey(key)) {
-            properties.setProperty(key, value);
-        } else {
-            properties.addProperty(key, value);
-        }
     }
 
     private String prependWithUserDirOnRelative(String filePath) {

@@ -34,7 +34,11 @@ public class ApplicationException extends RuntimeException {
     super(message,ex);
   }
 
-  public ApplicationException(IOException ex) {
+  public ApplicationException(Exception ex) {
     super(ex);
+  }
+
+  public ApplicationException(String message) {
+    super(message);
   }
 }
