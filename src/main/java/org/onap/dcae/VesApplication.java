@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
@@ -54,47 +56,76 @@ public class VesApplication {
     private static final int MAX_THREADS = 20;
     public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
+    private static ConfigurableApplicationContext context;
+    private static ConfigLoader configLoader;
+    private static EventProcessor eventProcessor;
+    private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+    private static SpringApplication app;
+    private static EventPublisher eventPublisher;
+    private static ScheduledFuture<?> scheduleFeatures;
+    private static ExecutorService executor;
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(VesApplication.class);
-
-        properties = new ApplicationSettings(args, CLIUtils::processCmdLine);
-
-        fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
-
-        EventPublisher publisher = EventPublisher.createPublisher(oplog,
-                DMaaPConfigurationParser
-                        .parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation()))
-                        .get());
-        spawnDynamicConfigUpdateThread(publisher, properties);
-        EventProcessor ep = new EventProcessor(
-            new EventSender(EventPublisher.createPublisher(oplog, getDmapConfig()), properties));
-
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
-        for (int i = 0; i < MAX_THREADS; ++i) {
-            executor.execute(ep);
-        }
-
-        app.setAddCommandLineProperties(true);
-        app.run();
+      app = new SpringApplication(VesApplication.class);
+      properties = new ApplicationSettings(args, CLIUtils::processCmdLine);
+      scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+      init();
+      app.setAddCommandLineProperties(true);
+      context = app.run();
+      configLoader.updateConfig();
     }
 
-    private static void spawnDynamicConfigUpdateThread(EventPublisher eventPublisher, ApplicationSettings properties) {
-        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
-        ConfigLoader configLoader = ConfigLoader
-                .create(eventPublisher::reconfigure,
-                        Paths.get(properties.dMaaPConfigurationFileLocation()),
-                        properties.configurationFileLocation());
-        scheduledThreadPoolExecutor
-                .scheduleAtFixedRate(configLoader::updateConfig,
-                        properties.configurationUpdateFrequency(),
-                        properties.configurationUpdateFrequency(),
-                        TimeUnit.MINUTES);
+    public static void restartApplication() {
+      Thread thread = new Thread(() -> {
+        context.close();
+        properties.reloadProperties();
+        scheduleFeatures.cancel(true);
+        init();
+        context = SpringApplication.run(VesApplication.class);
+      });
+      thread.setDaemon(false);
+      thread.start();
+    }
+
+    private static void init() {
+      fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
+      createConfigLoader();
+      createSchedulePoolExecutor();
+      createExecutors();
+    }
+
+    private static void createExecutors() {
+      eventPublisher = EventPublisher.createPublisher(oplog, getDmapConfig());
+      eventProcessor = new EventProcessor(new EventSender(eventPublisher, properties));
+
+      executor = Executors.newFixedThreadPool(MAX_THREADS);
+      for (int i = 0; i < MAX_THREADS; ++i) {
+        executor.execute(eventProcessor);
+      }
+    }
+
+    private static void createSchedulePoolExecutor() {
+      scheduleFeatures = scheduledThreadPoolExecutor.scheduleAtFixedRate(configLoader::updateConfig,
+          properties.configurationUpdateFrequency(),
+          properties.configurationUpdateFrequency(),
+          TimeUnit.MINUTES);
+    }
+
+    private static void createConfigLoader() {
+      configLoader = ConfigLoader.create(getEventPublisher()::reconfigure,
+          Paths.get(properties.dMaaPConfigurationFileLocation()),
+          properties.configurationFileLocation());
+    }
+
+
+    private static EventPublisher getEventPublisher() {
+      return EventPublisher.createPublisher(oplog, DMaaPConfigurationParser
+          .parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation())).get());
     }
 
     private static Map<String, PublisherConfig> getDmapConfig() {
-        return DMaaPConfigurationParser.
-                parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation())).get();
+      return DMaaPConfigurationParser
+          .parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation())).get();
     }
 
     @Bean

@@ -21,6 +21,16 @@
 
 package org.onap.dcae.restapi;
 
+import static java.nio.file.Files.readAllBytes;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.SSLContextCreator;
@@ -31,12 +41,6 @@ import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static java.nio.file.Files.readAllBytes;
 
 @Component
 public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
@@ -49,28 +53,51 @@ public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableSer
     @Override
     public void customize(ConfigurableServletWebServerFactory container) {
         final boolean hasClientTlsAuthentication = properties.clientTlsAuthenticationEnabled();
-
         if (hasClientTlsAuthentication || properties.authorizationEnabled()) {
-            container.setSsl(hasClientTlsAuthentication ? httpsContextWithTlsAuthentication() : simpleHttpsContext());
-            container.setPort(properties.httpsPort());
+             container.setSsl(hasClientTlsAuthentication ? httpsContextWithTlsAuthentication() : simpleHttpsContext());
+            int port = properties.httpsPort();
+            container.setPort(port);
+            log.info("Application https port: " + port);
         } else {
-            container.setPort(properties.httpPort());
+            int port = properties.httpPort();
+            container.setPort(port);
+            log.info("Application http port: " + port);
         }
+        
     }
 
     private SSLContextCreator simpleHttpsContextBuilder() {
         log.info("Enabling SSL");
 
-        final Path keyStore = toAbsolutePath(properties.keystoreFileLocation());
-        log.info("Using keyStore path: " + keyStore);
+        final Path keyStorePath = toAbsolutePath(properties.keystoreFileLocation());
+        log.info("Using keyStore path: " + keyStorePath);
 
         final Path keyStorePasswordLocation = toAbsolutePath(properties.keystorePasswordFileLocation());
         final String keyStorePassword = getKeyStorePassword(keyStorePasswordLocation);
         log.info("Using keyStore password from: " + keyStorePasswordLocation);
+        return SSLContextCreator.create(keyStorePath, getKeyStoreAlias(keyStorePath, keyStorePassword), keyStorePassword);
+    }
 
-        final String alias = properties.keystoreAlias();
+    private String getKeyStoreAlias(Path keyStorePath, String keyStorePassword) {
+        KeyStore keyStore = getKeyStore();
+        try(InputStream keyStoreData = new FileInputStream(keyStorePath.toString())){
+            keyStore.load(keyStoreData, keyStorePassword.toCharArray());
+            String alias = keyStore.aliases().nextElement();
+            log.info("Actual key store alias is: ", alias);
+            return alias;
+        } catch (IOException | GeneralSecurityException ex) {
+            log.error("Cannot load Key Store alias cause: " + ex);
+            throw new ApplicationException(ex);
+        }
+    }
 
-        return SSLContextCreator.create(keyStore, alias, keyStorePassword);
+    private KeyStore getKeyStore() {
+        try {
+            return KeyStore.getInstance(KeyStore.getDefaultType());
+        } catch (KeyStoreException ex) {
+            log.error("Cannot create Key Store instance cause: " + ex);
+            throw new ApplicationException(ex);
+        }
     }
 
     private Ssl simpleHttpsContext() {
