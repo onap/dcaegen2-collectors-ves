@@ -69,7 +69,7 @@ public class ApplicationSettings {
         Map<String, String> parsedArgs = argsParser.apply(args);
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
-        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::updateProperty);
+        parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
         loadedJsonSchemas = loadJsonSchemas();
     }
 
@@ -169,10 +169,6 @@ public class ApplicationSettings {
         return httpsEnabled() && properties.getInt("collector.service.secure.clientauth", 0) > 0;
     }
 
-    public String keystoreAlias() {
-        return properties.getString("collector.keystore.alias", "tomcat");
-    }
-
     public String truststorePasswordFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.truststore.passwordfile", "etc/trustpasswordfile"));
     }
@@ -198,6 +194,14 @@ public class ApplicationSettings {
         }
     }
 
+    public void addOrUpdate(String key, String value) {
+        if (properties.containsKey(key)) {
+            properties.setProperty(key, value);
+        } else {
+            properties.addProperty(key, value);
+        }
+    }
+
     private JSONObject jsonSchema() {
         return new JSONObject(properties.getString("collector.schema.file",
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION)));
@@ -212,14 +216,6 @@ public class ApplicationSettings {
             domainToStreamIdsMapping.put(domain, streamIds);
         }
         return HashMap.ofAll(domainToStreamIdsMapping);
-    }
-
-    private void updateProperty(String key, String value) {
-        if (properties.containsKey(key)) {
-            properties.setProperty(key, value);
-        } else {
-            properties.addProperty(key, value);
-        }
     }
 
     private String prependWithUserDirOnRelative(String filePath) {
