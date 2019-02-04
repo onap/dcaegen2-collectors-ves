@@ -37,10 +37,12 @@ import org.onap.dcae.controller.ConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
@@ -54,6 +56,8 @@ public class VesApplication {
     private static final int MAX_THREADS = 20;
     public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
+    private static ConfigurableApplicationContext context;
+    private static ApplicationArguments arguments;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(VesApplication.class);
@@ -76,7 +80,8 @@ public class VesApplication {
         }
 
         app.setAddCommandLineProperties(true);
-        app.run();
+        context = app.run();
+        arguments =  context.getBean(ApplicationArguments.class);
     }
 
     private static void spawnDynamicConfigUpdateThread(EventPublisher eventPublisher, ApplicationSettings properties) {
@@ -95,6 +100,16 @@ public class VesApplication {
     private static Map<String, PublisherConfig> getDmapConfig() {
         return DMaaPConfigurationParser.
                 parseToDomainMapping(Paths.get(properties.dMaaPConfigurationFileLocation())).get();
+    }
+
+    public static void restart(){
+        Thread thread = new Thread(() -> {
+            context.close();
+            context = SpringApplication.run(VesApplication.class, arguments.getSourceArgs());
+        });
+
+        thread.setDaemon(false);
+        thread.start();
     }
 
     @Bean

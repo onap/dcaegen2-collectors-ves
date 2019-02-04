@@ -33,6 +33,7 @@ import io.vavr.control.Try;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import org.json.JSONObject;
+import org.onap.dcae.VesApplication;
 import org.onap.dcae.common.publishing.PublisherConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,9 +67,11 @@ public class ConfigLoader {
 
     public void updateConfig() {
         log.info("Trying to dynamically update config from Config Binding Service");
-        readEnvProps(envVariablesSupplier.get())
-            .onEmpty(() -> log.warn(SKIP_MSG))
-            .forEach(this::updateConfig);
+        Map<String, String> environmentVariables = envVariablesSupplier.get();
+        readEnvProps(environmentVariables).onEmpty(() -> log.warn(SKIP_MSG)).forEach(this::updateConfig);
+        if(environmentVariables.size() !=0){
+            VesApplication.restart();
+        }
     }
 
     private void updateConfig(EnvProps props) {
