@@ -215,25 +215,6 @@ public class ApplicationSettingsTest {
         assertEquals(sanitizePath("etc/keystore"), keystoreFileLocation);
     }
 
-
-    @Test
-    public void shouldReturnKeystoreAlias() throws IOException {
-        // when
-        String keystoreAlias = fromTemporaryConfiguration("collector.keystore.alias=alias").keystoreAlias();
-
-        // then
-        assertEquals("alias", keystoreAlias);
-    }
-
-    @Test
-    public void shouldReturnDefaultKeystoreAlias() throws IOException {
-        // when
-        String keystoreAlias = fromTemporaryConfiguration().keystoreAlias();
-
-        // then
-        assertEquals("tomcat", keystoreAlias);
-    }
-
     @Test
     public void shouldReturnDMAAPConfigFileLocation() throws IOException {
         // when
