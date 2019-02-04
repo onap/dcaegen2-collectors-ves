@@ -198,6 +198,15 @@ public class ApplicationSettings {
         }
     }
 
+    public void saveProperty(String key, String value) {
+        try {
+            update(key, value);
+            properties.save("collector.properties");
+        } catch (ConfigurationException e) {
+            log.error("Cannot save property cause: ", e);
+        }
+    }
+
     private JSONObject jsonSchema() {
         return new JSONObject(properties.getString("collector.schema.file",
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION)));
@@ -215,8 +224,13 @@ public class ApplicationSettings {
     }
 
     private void updateProperty(String key, String value) {
+        update(key, value);
+    }
+
+    private void update(String key, String value) {
         if (properties.containsKey(key)) {
             properties.setProperty(key, value);
+
         } else {
             properties.addProperty(key, value);
         }

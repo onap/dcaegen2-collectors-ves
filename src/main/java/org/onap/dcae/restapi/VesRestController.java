@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.VesApplication;
 import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
