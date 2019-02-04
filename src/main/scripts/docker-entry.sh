@@ -57,7 +57,4 @@ log "Scheduling application to be started, looping indefinitely to hold the dock
 bin/appController.sh stop
 bin/appController.sh start &
 
-log "Enabling configuration polling from CBS"
-bin/configurationPoller.sh &
-
 while true; do sleep 1000; done

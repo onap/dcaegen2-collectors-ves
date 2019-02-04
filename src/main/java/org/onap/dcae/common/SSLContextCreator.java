@@ -20,9 +20,8 @@
 
 package org.onap.dcae.common;
 
-import org.springframework.boot.web.server.Ssl;
-
 import java.nio.file.Path;
+import org.springframework.boot.web.server.Ssl;
 
 public class SSLContextCreator {
     private final String keyStorePassword;
@@ -53,7 +52,6 @@ public class SSLContextCreator {
 
     private void configureKeyStore(final Ssl ssl) {
         final String keyStore = keyStoreFile.toAbsolutePath().toString();
-
         ssl.setKeyStore(keyStore);
         ssl.setKeyPassword(keyStorePassword);
         ssl.setKeyAlias(certAlias);
