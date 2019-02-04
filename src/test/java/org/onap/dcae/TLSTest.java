@@ -109,7 +109,6 @@ public class TLSTest extends TLSTestBase {
 
         @Override
         protected void configureSettings(ApplicationSettings settings) {
-            when(settings.keystoreAlias()).thenReturn(KEYSTORE_ALIAS);
             when(settings.keystoreFileLocation()).thenReturn(KEYSTORE.toString());
             when(settings.keystorePasswordFileLocation()).thenReturn(KEYSTORE_PASSWORD_FILE.toString());
             when(settings.authorizationEnabled()).thenReturn(true);
