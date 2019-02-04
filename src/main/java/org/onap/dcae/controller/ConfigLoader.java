@@ -33,6 +33,8 @@ import io.vavr.control.Try;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import org.json.JSONObject;
+import org.onap.dcae.AliasConfig;
+import org.onap.dcae.VesApplication;
 import org.onap.dcae.common.publishing.PublisherConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,30 +47,32 @@ public class ConfigLoader {
     private final ConfigFilesFacade configFilesFacade;
     private final Function1<EnvProps, Try<JSONObject>> configurationSource;
     private final Function0<Map<String, String>> envVariablesSupplier;
+    private AliasConfig aliasConfig;
 
     ConfigLoader(Consumer<Map<String, PublisherConfig>> eventPublisherReconfigurer,
-                 ConfigFilesFacade configFilesFacade,
-                 Function1<EnvProps, Try<JSONObject>> configurationSource,
-                 Function0<Map<String, String>> envVariablesSupplier) {
+                ConfigFilesFacade configFilesFacade,
+                Function1<EnvProps, Try<JSONObject>> configurationSource,
+                Function0<Map<String, String>> envVariablesSupplier, AliasConfig aliasConfig) {
         this.eventPublisherReconfigurer = eventPublisherReconfigurer;
         this.configFilesFacade = configFilesFacade;
         this.configurationSource = configurationSource;
         this.envVariablesSupplier = envVariablesSupplier;
+        this.aliasConfig = aliasConfig;
     }
 
-    public static ConfigLoader create(Consumer<Map<String, PublisherConfig>> eventPublisherReconfigurer,
-                                      Path dMaaPConfigFile, Path propertiesConfigFile) {
+    public static ConfigLoader create(
+        Consumer<Map<String, PublisherConfig>> eventPublisherReconfigurer,
+        Path dMaaPConfigFile, Path propertiesConfigFile, AliasConfig aliasConfig) {
         return new ConfigLoader(eventPublisherReconfigurer,
             new ConfigFilesFacade(dMaaPConfigFile, propertiesConfigFile),
             ConfigSource::getAppConfig,
-            () -> HashMap.ofAll(System.getenv()));
+            () -> HashMap.ofAll(System.getenv()),aliasConfig);
     }
 
     public void updateConfig() {
         log.info("Trying to dynamically update config from Config Binding Service");
-        readEnvProps(envVariablesSupplier.get())
-            .onEmpty(() -> log.warn(SKIP_MSG))
-            .forEach(this::updateConfig);
+        Map<String, String> environmentVariables = envVariablesSupplier.get();
+        readEnvProps(environmentVariables).onEmpty(() -> log.warn(SKIP_MSG)).forEach(this::updateConfig);
     }
 
     private void updateConfig(EnvProps props) {
@@ -96,14 +100,19 @@ public class ConfigLoader {
             .onSuccess(oldProps -> compareAndOverwritePropertiesConfig(newConf, oldProps));
     }
 
-    private void compareAndOverwritePropertiesConfig(JSONObject newConf, Map<String, String> oldProps) {
+    private void compareAndOverwritePropertiesConfig(JSONObject newConf,
+        Map<String, String> oldProps) {
         Map<String, String> newProperties = getProperties(newConf);
         if (!oldProps.equals(newProperties)) {
             configFilesFacade.writeProperties(newProperties)
-                .onSuccess(__ -> log.info("New properties configuration written to file"))
+                .onSuccess(__ -> {
+                    log.info("New properties configuration written to file");
+                    aliasConfig.updateKeystoreAlias();
+                    VesApplication.restartApplication(); })
                 .onFailure(logSkip());
         } else {
-            log.info("Collector properties from CBS are the same as currently used ones. " + SKIP_MSG);
+            log.info(
+                "Collector properties from CBS are the same as currently used ones. " + SKIP_MSG);
         }
     }
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 ###
 # ============LICENSE_START=======================================================
@@ -22,25 +22,25 @@
 ###
 source bin/logger.sh
 
-updateKeystore() {
-    log "Updating keystore configuration"
-    aliasParameterName="collector.keystore.alias"
-    originalPropertyFile="etc/collector.properties"
-    temporaryPropertyFile="etc/collector.properties.tmp"
-    keystorePath=`grep collector.keystore.file.location ${originalPropertyFile} | tr -d '[:space:]' | cut -d"=" -f2`
-    keystorePasswordFile=`grep collector.keystore.passwordfile ${originalPropertyFile} | tr -d '[:space:]' | cut -d"=" -f2`
-    temporaryAlias=`/usr/bin/keytool -list -keystore $keystorePath < $keystorePasswordFile | grep "PrivateKeyEntry" | cut -d"," -f1`
-    newAlias=`echo $temporaryAlias | cut -d":" -f2`
-    sed "s~$aliasParameterName=.*~$aliasParameterName=$newAlias~g" ${originalPropertyFile} > ${temporaryPropertyFile}
-    echo `cat ${temporaryPropertyFile} > ${originalPropertyFile}`
-    rm ${temporaryPropertyFile}
-    log "Keystore configuration updated"
-}
-
-tryToPollConfiguration() {
-    log "Trying to poll configuration from CBS before application starts"
-    ${JAVA_HOME}/bin/java -cp "etc:lib/*" org.onap.dcae.controller.PreAppStartupConfigUpdater
-}
+#updateKeystore() {
+#    log "Updating keystore configuration"
+#    aliasParameterName="collector.keystore.alias"
+#    originalPropertyFile="etc/collector.properties"
+#    temporaryPropertyFile="etc/collector.properties.tmp"
+#    keystorePath=`grep collector.keystore.file.location ${originalPropertyFile} | tr -d '[:space:]' | cut -d"=" -f2`
+#    keystorePasswordFile=`grep collector.keystore.passwordfile ${originalPropertyFile} | tr -d '[:space:]' | cut -d"=" -f2`
+#    temporaryAlias=`/usr/bin/keytool -list -keystore $keystorePath < $keystorePasswordFile | grep "PrivateKeyEntry" | cut -d"," -f1`
+#    newAlias=`echo $temporaryAlias | cut -d":" -f2`
+#    sed "s~$aliasParameterName=.*~$aliasParameterName=$newAlias~g" ${originalPropertyFile} > ${temporaryPropertyFile}
+#    echo `cat ${temporaryPropertyFile} > ${originalPropertyFile}`
+#    rm ${temporaryPropertyFile}
+#    log "Keystore configuration updated"
+#}
+#
+#tryToPollConfiguration() {
+#    log "Trying to poll configuration from CBS before application starts"
+#    ${JAVA_HOME}/bin/java -cp "etc:lib/*" org.onap.dcae.controller.PreAppStartupConfigUpdater
+#}
 
 start() {
     log "Starting application"
@@ -78,7 +78,7 @@ stop() {
 }
 
 case $1 in
-  "start")    tryToPollConfiguration; updateKeystore; start ;;
+  "start")    start ;;
   "stop")     stop ;;
   "restart")  stop; start ;;
   *)          echo "Bad usage. Should be: /bin/bash <this> start/stop"
