@@ -22,11 +22,11 @@ package org.onap.dcae.controller;
 
 import static io.vavr.API.Map;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 import static org.onap.dcae.TestingUtilities.readFile;
 import static org.onap.dcae.TestingUtilities.readJSONFromFile;
@@ -36,15 +36,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.WiremockBasedTest;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.EventPublisher;
-
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ConfigLoaderIntegrationE2ETest extends WiremockBasedTest {
+
+    @Mock
+    private ApplicationSettings properties;
 
     @Test
     public void testSuccessfulE2EFlow() {
         // given
+        when(properties.authorizationEnabled()).thenReturn(true);
         Path dMaaPConfigFile = createTemporaryFile("{}");
         Path collectorPropertiesFile = createTemporaryFile("");
         Path dMaaPConfigSource = Paths.get("src/test/resources/testParseDMaaPCredentialsGen2.json");
@@ -54,11 +62,8 @@ public class ConfigLoaderIntegrationE2ETest extends WiremockBasedTest {
 
         EventPublisher eventPublisherMock = mock(EventPublisher.class);
         ConfigFilesFacade configFilesFacade = new ConfigFilesFacade(dMaaPConfigFile, collectorPropertiesFile);
-
-        // when
-        ConfigLoader configLoader = new ConfigLoader(eventPublisherMock::reconfigure, configFilesFacade, ConfigSource::getAppConfig, () -> wiremockBasedEnvProps());
+        ConfigLoader configLoader = new ConfigLoader(eventPublisherMock::reconfigure, configFilesFacade, ConfigSource::getAppConfig, () -> wiremockBasedEnvProps(), properties);
         configLoader.updateConfig();
-
         // then
         assertThat(readJSONFromFile(dMaaPConfigSource).toString()).isEqualTo(dMaaPConf.toString());
         assertThat(readFile(collectorPropertiesFile).trim()).isEqualTo("collector.port = 8080");
@@ -81,7 +86,8 @@ public class ConfigLoaderIntegrationE2ETest extends WiremockBasedTest {
         configFilesFacade.writeDMaaPConfiguration(dMaaPConf);
 
         // when
-        ConfigLoader configLoader = new ConfigLoader(eventPublisherMock::reconfigure, configFilesFacade, ConfigSource::getAppConfig, () -> wiremockBasedEnvProps());
+        ConfigLoader configLoader = new ConfigLoader(eventPublisherMock::reconfigure, configFilesFacade, ConfigSource::getAppConfig, () -> wiremockBasedEnvProps(),
+            properties);
         configLoader.updateConfig();
 
         // then
