@@ -197,8 +197,6 @@ node_types:
         type: string
       docker_collector.inputQueue.maxPending:
         type: string
-      docker_collector.keystore.alias:
-        type: string
       docker_collector.keystore.file.location:
         type: string
       docker_collector.keystore.passwordfile:
