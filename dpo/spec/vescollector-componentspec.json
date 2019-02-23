@@ -322,7 +322,7 @@
 		},
 		{
 			"name": "header.authlist",
-			"value": "sample1,c2FtcGxlMQ==|userid1,base64encodepwd1|userid2,base64encodepwd2",
+			"value": "sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|userid1,$2a$10$61gNubgJJl9lh3nvQvY9X.x4e5ETWJJ7ao7ZhJEvmfJigov26Z6uq|userid2,$2a$10$G52y/3uhuhWAMy.bx9Se8uzWinmbJa.dlm1LW6bYPdPkkywLDPLiy",
 			"description": "List of id and base 64 encoded password.For each onboarding VNF - unique userid and password should be assigned and communicated to VNF owner. Password value should be base64 encoded in config here",
 			"policy_editable": false,
 			"sourced_at_deployment": true,

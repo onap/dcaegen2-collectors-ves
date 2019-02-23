@@ -235,5 +235,5 @@
 		}
 	},
 	"event.transform.flag": 1,
-	"header.authlist": "sample1,c2FtcGxlMQ==|userid1,base64encodepwd1|userid2,base64encodepwd2"
+	"header.authlist": "sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|userid1,$2a$10$61gNubgJJl9lh3nvQvY9X.x4e5ETWJJ7ao7ZhJEvmfJigov26Z6uq|userid2,$2a$10$G52y/3uhuhWAMy.bx9Se8uzWinmbJa.dlm1LW6bYPdPkkywLDPLiy"
 }

@@ -130,8 +130,10 @@ Authentication is disabled on the container for R1; below are the steps for enab
 	                collector.service.port=8080
                 b) Enable basic-authentication 
 	                header.authflag=1
-     Note: The actual credentials is stored part of header.authlist parameter. This is list of userid,password (base64encoded) values. Default configuration has below set
-                sample1,c2FtcGxlMQ==|vdnsagg,dmRuc2FnZw==, where password maps to same value as username.
+     Note: The actual credentials is stored part of header.authlist parameter. This is list of userid,password values. Default configuration has below set
+                sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|vdnsagg,$2a$10$C45JhiRSY.qXTBfzWST3Q.AmwKlPRMc67c33O0U9hOH8KSGaweN4m
+                where password maps to same value as username.
+                Passowd is generated using crypt-password tool
 3) Restart the collector
                 cd /opt/app/VESCollector
                 ./bin/appController.sh stop
