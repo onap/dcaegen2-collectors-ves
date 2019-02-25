@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a734ae0_338450f9",
+        "filename": "src/main/java/org/onap/dcae/controller/ConfigLoader.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-02-25T03:33:12Z",
+      "side": 1,
+      "message": "For cases when both dmaap and configuration changes, consecutive separate restart will be triggered. Some optimization would be preferred.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "6f0a53c8ceeaa27686ae4c9eeb2632aa7e90b344",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6f4d149_ad1d4ffe",
+        "filename": "src/main/java/org/onap/dcae/restapi/ServletConfig.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-02-25T03:33:12Z",
+      "side": 1,
+      "message": "log keystorealias identified",
+      "range": {
+        "startLine": 77,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "6f0a53c8ceeaa27686ae4c9eeb2632aa7e90b344",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
