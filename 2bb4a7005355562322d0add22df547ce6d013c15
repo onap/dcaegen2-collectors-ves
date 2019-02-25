@@ -68,6 +68,30 @@
       "revId": "2bb4a7005355562322d0add22df547ce6d013c15",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d70c6d0_d03f48a7",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T08:00:49Z",
+      "side": 1,
+      "message": "We have reference to this tool in Generate auth credential section",
+      "parentUuid": "4db182be_6da4be7e",
+      "range": {
+        "startLine": 136,
+        "startChar": 43,
+        "endLine": 136,
+        "endChar": 62
+      },
+      "revId": "2bb4a7005355562322d0add22df547ce6d013c15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
