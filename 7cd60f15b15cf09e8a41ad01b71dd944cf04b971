@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95770cdd_945684a0",
+        "filename": "src/main/java/org/onap/dcae/restapi/ServletConfig.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-01T04:18:34Z",
+      "side": 1,
+      "message": "This comes up as null.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 59
+      },
+      "revId": "7cd60f15b15cf09e8a41ad01b71dd944cf04b971",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
