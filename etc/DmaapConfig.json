@@ -1,52 +1,52 @@
 {
-	"channels": [
-		{
-			"name": "ves-measurement",
-			"cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		},
-		{
-			"name": "ves-fault",
-			"cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		},
-		{
-			"name": "ves-heartbeat",
-			"cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		},
-		{
-			"name": "ves-other",
-			"cambria.topic": "unauthenticated.SEC_OTHER_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		},
-		{
-			"name": "ves-notification",
-			"cambria.topic": "unauthenticated.VES_NOTIFICATION_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		},
-		{
-			"name": "ves-pnfRegistration",
-			"cambria.topic": "unauthenticated.VES_PNFREG_OUTPUT",
-			"class": "HpCambriaOutputStream",
-			"stripHpId": "true",
-			"type": "out",
-			"cambria.hosts": "onap-dmaap"
-		}
-	]
+  "channels": [
+    {
+      "name": "ves-measurement",
+      "cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-fault",
+      "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-heartbeat",
+      "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-other",
+      "cambria.topic": "unauthenticated.SEC_OTHER_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-notification",
+      "cambria.topic": "unauthenticated.VES_NOTIFICATION_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-pnfRegistration",
+      "cambria.topic": "unauthenticated.VES_PNFREG_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    }
+  ]
 }

@@ -21,10 +21,10 @@ description: >
   This handcrafted blueprint will install the ves collector and provision the needed message router topics. This blueprint can be used to verify that a platform installation is operational and working correctly.
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - https://NEXUS_REPO_HOST:8443/repository/NEXUS_RAW/type_files/docker/2.2.0/node-type.yaml
-  - https://NEXUS_REPO_HOST:8443/repository/NEXUS_RAW/type_files/relationship/1.0.0/node-type.yaml
-  - http://NEXUS_REPO_HOST:8081/repository/NEXUS_RAW/type_files/dmaap/dmaap_mr.yaml
+- http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+- https://NEXUS_REPO_HOST:8443/repository/NEXUS_RAW/type_files/docker/2.2.0/node-type.yaml
+- https://NEXUS_REPO_HOST:8443/repository/NEXUS_RAW/type_files/relationship/1.0.0/node-type.yaml
+- http://NEXUS_REPO_HOST:8081/repository/NEXUS_RAW/type_files/dmaap/dmaap_mr.yaml
 
 inputs:
 
@@ -70,7 +70,7 @@ node_templates:
     type: dcae.nodes.Topic
     properties:
       topic_name: sec-fault-unsecure
-  
+
   topic01:
     type: dcae.nodes.Topic
     properties:
@@ -80,7 +80,7 @@ node_templates:
     type: dcae.nodes.Topic
     properties:
       topic_name: sec-measurement-unsecure
-  
+
   topic03:
     type: dcae.nodes.Topic
     properties:
@@ -139,34 +139,34 @@ node_templates:
           timeout: "1s"
           endpoint: "/"
       streams_publishes:
-        - name: topic00
-          location: { get_input: topic00_location }
-          client_role: { get_input: topic00_client_role }
-          type: message_router
-        - name: topic01
-          location: { get_input: topic01_location }
-          client_role: { get_input: topic01_client_role }
-          type: message_router
-        - name: topic02
-          location: { get_input: topic02_location }
-          client_role: { get_input: topic02_client_role }
-          type: message_router
-        - name: topic03
-          location: { get_input: topic03_location }
-          client_role: { get_input: topic03_client_role }
-          type: message_router
+      - name: topic00
+        location: { get_input: topic00_location }
+        client_role: { get_input: topic00_client_role }
+        type: message_router
+      - name: topic01
+        location: { get_input: topic01_location }
+        client_role: { get_input: topic01_client_role }
+        type: message_router
+      - name: topic02
+        location: { get_input: topic02_location }
+        client_role: { get_input: topic02_client_role }
+        type: message_router
+      - name: topic03
+        location: { get_input: topic03_location }
+        client_role: { get_input: topic03_client_role }
+        type: message_router
       streams_subscribes: []
     relationships:
-      - type: dcae.relationships.component_contained_in
-        target: docker_host
-      - type: dcae.relationships.publish_events
-        target: topic00
-      - type: dcae.relationships.publish_events
-        target: topic01
-      - type: dcae.relationships.publish_events
-        target: topic02
-      - type: dcae.relationships.publish_events
-        target: topic03
+    - type: dcae.relationships.component_contained_in
+      target: docker_host
+    - type: dcae.relationships.publish_events
+      target: topic00
+    - type: dcae.relationships.publish_events
+      target: topic01
+    - type: dcae.relationships.publish_events
+      target: topic02
+    - type: dcae.relationships.publish_events
+      target: topic03
     interfaces:
       cloudify.interfaces.lifecycle:
         stop:
@@ -177,7 +177,7 @@ node_templates:
   docker_host:
     type: dcae.nodes.SelectedDockerHost
     properties:
-        location_id:
-          { get_input: location_id }
-        docker_host_override:
-          { get_input: docker_host_override }
+      location_id:
+        { get_input: location_id }
+      docker_host_override:
+        { get_input: docker_host_override }

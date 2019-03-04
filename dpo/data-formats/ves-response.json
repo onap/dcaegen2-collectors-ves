@@ -4,9 +4,8 @@
     "version": "1.0.0",
     "description": "VES collector response"
   },
- "dataformatversion": "1.0.0",
-   "unstructured": {
-        "encoding": "UTF-8"
-    }
-
+  "dataformatversion": "1.0.0",
+  "unstructured": {
+    "encoding": "UTF-8"
+  }
 }

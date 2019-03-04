@@ -1,149 +1,142 @@
 {
-                "ves_syslog": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_statechange": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-
-                "ves_thresholdCrossingAlert": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_heartbeat": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-
-                "ves_other": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_mobileflow": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_sipsignaling": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_voicequality": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_fault": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_measurement": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                
-                
-                "ves_syslog_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_statechange_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-
-                "ves_thresholdCrossingAlert_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_heartbeat_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-
-                "ves_other_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_mobileflow_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_sipsignaling_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_voicequality_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_fault_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                },
-                "ves_measurement_secondary": {
-                        "type": "message_router",
-                        "dmaap_info": {
-                                "location": "mtl5",
-                                "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
-                        }
-                }                
-
+  "ves_syslog": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_statechange": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_thresholdCrossingAlert": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_heartbeat": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_other": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_mobileflow": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_sipsignaling": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_voicequality": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_fault": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_measurement": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_syslog_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_statechange_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_thresholdCrossingAlert_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_heartbeat_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_other_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_mobileflow_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_sipsignaling_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_voicequality_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_fault_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  },
+  "ves_measurement_secondary": {
+    "type": "message_router",
+    "dmaap_info": {
+      "location": "mtl5",
+      "topic_url": "http://dmaap-mr-hostname:3904/events/DCAE-SE-COLLECTOR-EVENTS-DEV"
+    }
+  }
 }
