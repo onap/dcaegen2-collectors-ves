@@ -130,7 +130,6 @@ node_templates:
         streams_subscribes: {}
         collector.inputQueue.maxPending: 8096
         collector.schema.file: "./etc/CommonEventFormat_27.2.json"
-        collector.keystore.alias: dynamically generated
       image:
         NEXUS_REPO_HOST:18443/dcae-dev-raw/dcae-controller-ves-collector:1.1.3
       docker_config:

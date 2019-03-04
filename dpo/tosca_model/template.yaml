@@ -27,7 +27,6 @@ topology_template:
       properties:
         docker_collector.dmaap.streamid: fault=sec_fault,roadm-sec-to-hp|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert
         docker_collector.inputQueue.maxPending: '8096'
-        docker_collector.keystore.alias: dynamically generated
         docker_collector.keystore.file.location: /opt/app/dcae-certificate/keystore.jks
         docker_collector.keystore.passwordfile: /opt/app/dcae-certificate/.password
         docker_collector.schema.checkflag: '1'

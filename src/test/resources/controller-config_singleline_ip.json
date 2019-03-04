@@ -1,1 +1,128 @@
-{"header.authflag": "1", "collector.schema.file": "{\"v1\": \"./etc/CommonEventFormat_27.2.json\", \"v2\": \"./etc/CommonEventFormat_27.2.json\", \"v3\": \"./etc/CommonEventFormat_27.2.json\", \"v4\": \"./etc/CommonEventFormat_27.2.json\", \"v5\": \"./etc/CommonEventFormat_28.4.json\"}", "collector.keystore.passwordfile": "/opt/app/dcae-certificate/.password", "tomcat.maxthreads": "200", "collector.dmaap.streamid": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling", "streams_subscribes": {}, "collector.inputQueue.maxPending": "8096", "collector.keystore.alias": "dynamically generated", "streams_publishes": {"ves-mobileflow": {"type": "message_router", "dmaap_info": {"client_id": "1517590629043", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-MOBILEFLOW-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-measurement": {"type": "message_router", "dmaap_info": {"client_id": "1517590433916", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-ENC-MEASUREMENT-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-voicequality": {"type": "message_router", "dmaap_info": {"client_id": "1517590778397", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-VES-VOICEQUALITY-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-thresholdCrossingAlert": {"type": "message_router", "dmaap_info": {"client_id": "1517590728150", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-TCA-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-fault": {"type": "message_router", "dmaap_info": {"client_id": "1517590384670", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-FAULT-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-heartbeat": {"type": "message_router", "dmaap_info": {"client_id": "1517590530041", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-HEARTBEAT-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-sipsignaling": {"type": "message_router", "dmaap_info": {"client_id": "1517590828736", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-VES-SIPSIGNALING-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-syslog": {"type": "message_router", "dmaap_info": {"client_id": "1517590482019", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-SYSLOG-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-other": {"type": "message_router", "dmaap_info": {"client_id": "1517590581045", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-OTHER-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}, "ves-statechange": {"type": "message_router", "dmaap_info": {"client_id": "1517590677649", "client_role": "com.att.secCollector.member", "location": "rdm5bdcc2", "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-STATECHANGE-OUTPUT-v1"}, "aaf_username": "userid@namespace", "aaf_password": "authpwd"}}, "collector.schema.checkflag": "1", "services_calls": {}, "event.transform.flag": "1", "collector.keystore.file.location": "/opt/app/dcae-certificate/keystore.jks", "header.authlist": "sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|userid1,$2a$10$61gNubgJJl9lh3nvQvY9X.x4e5ETWJJ7ao7ZhJEvmfJigov26Z6uq|userid2,$2a$10$G52y/3uhuhWAMy.bx9Se8uzWinmbJa.dlm1LW6bYPdPkkywLDPLiy", "collector.service.secure.port": "8443", "collector.service.port": "-1"}
+{
+  "header.authflag": "1",
+  "collector.schema.file": "{\"v1\": \"./etc/CommonEventFormat_27.2.json\", \"v2\": \"./etc/CommonEventFormat_27.2.json\", \"v3\": \"./etc/CommonEventFormat_27.2.json\", \"v4\": \"./etc/CommonEventFormat_27.2.json\", \"v5\": \"./etc/CommonEventFormat_28.4.json\"}",
+  "collector.keystore.passwordfile": "/opt/app/dcae-certificate/.password",
+  "tomcat.maxthreads": "200",
+  "collector.dmaap.streamid": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling",
+  "streams_subscribes": {},
+  "collector.inputQueue.maxPending": "8096",
+  "streams_publishes": {
+    "ves-mobileflow": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590629043",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-MOBILEFLOW-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-measurement": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590433916",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-ENC-MEASUREMENT-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-voicequality": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590778397",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-VES-VOICEQUALITY-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-thresholdCrossingAlert": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590728150",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-TCA-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-fault": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590384670",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-FAULT-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-heartbeat": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590530041",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-HEARTBEAT-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-sipsignaling": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590828736",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-VES-SIPSIGNALING-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-syslog": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590482019",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-SYSLOG-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-other": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590581045",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-OTHER-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    },
+    "ves-statechange": {
+      "type": "message_router",
+      "dmaap_info": {
+        "client_id": "1517590677649",
+        "client_role": "com.att.secCollector.member",
+        "location": "rdm5bdcc2",
+        "topic_url": "https://DMAAPHOST:3905/events/com.att.dcae.dmaap.FTL.24256-SEC-STATECHANGE-OUTPUT-v1"
+      },
+      "aaf_username": "userid@namespace",
+      "aaf_password": "authpwd"
+    }
+  },
+  "collector.schema.checkflag": "1",
+  "services_calls": {},
+  "event.transform.flag": "1",
+  "collector.keystore.file.location": "/opt/app/dcae-certificate/keystore.jks",
+  "header.authlist": "sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|userid1,$2a$10$61gNubgJJl9lh3nvQvY9X.x4e5ETWJJ7ao7ZhJEvmfJigov26Z6uq|userid2,$2a$10$G52y/3uhuhWAMy.bx9Se8uzWinmbJa.dlm1LW6bYPdPkkywLDPLiy",
+  "collector.service.secure.port": "8443",
+  "collector.service.port": "-1"
+}
