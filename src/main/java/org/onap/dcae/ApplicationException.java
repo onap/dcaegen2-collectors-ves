@@ -21,7 +21,6 @@
 
 package org.onap.dcae;
 
-import java.io.IOException;
 import org.apache.commons.configuration.ConfigurationException;
 
 public class ApplicationException extends RuntimeException {
