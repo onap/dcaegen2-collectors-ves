@@ -25,6 +25,7 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.configuration.AuthMethodType;
 import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws IOException {
-        if (applicationSettings.authorizationEnabled()) {
+        if (applicationSettings.authMethod().equalsIgnoreCase(AuthMethodType.BASIC_AUTH)) {
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
                 response.setStatus(400);
