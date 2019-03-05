@@ -209,7 +209,7 @@ node_types:
         type: string
       docker_collector.service.secure.port:
         type: string
-      docker_header.authflag:
+      docker_auth.method:
         type: string
       docker_header.authlist:
         type: string

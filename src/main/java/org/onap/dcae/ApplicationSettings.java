@@ -43,6 +43,7 @@ import javax.annotation.Nullable;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
+import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,10 +120,6 @@ public class ApplicationSettings {
         return properties.getInt("collector.schema.checkflag", -1) > 0;
     }
 
-    public boolean authorizationEnabled() {
-        return properties.getInt("header.authflag", 0) > 0;
-    }
-
     public JsonSchema jsonSchema(String version) {
         return loadedJsonSchemas.get(version)
                 .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
@@ -175,10 +172,6 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(properties.getString("collector.keystore.file.location", "etc/keystore"));
     }
 
-    public boolean clientTlsAuthenticationEnabled() {
-        return httpsEnabled() && properties.getInt("collector.service.secure.clientauth", 0) > 0;
-    }
-
     public String truststorePasswordFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.truststore.passwordfile", "etc/trustpasswordfile"));
     }
@@ -193,6 +186,10 @@ public class ApplicationSettings {
 
     public String dMaaPConfigurationFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
+    }
+
+    public String authMethod(){
+        return properties.getString("auth.method", AuthMethodType.NO_AUTH.value());
     }
 
     public Map<String, String[]> dMaaPStreamsMapping() {

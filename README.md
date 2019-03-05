@@ -129,7 +129,7 @@ Authentication is disabled on the container by default; below are the steps for 
                 a) Comment below property (with authentication enabled, standard http should be disabled)
 	                collector.service.port=8080
                 b) Enable basic-authentication 
-	                header.authflag=1
+	                auth.method=basicAuth	                
      Note: The actual credentials is stored part of header.authlist parameter. This is list of userid,password values. Default configuration has below set
                 sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|vdnsagg,$2a$10$C45JhiRSY.qXTBfzWST3Q.AmwKlPRMc67c33O0U9hOH8KSGaweN4m
                 where password maps to same value as username.
@@ -171,7 +171,9 @@ A client's certificate verification is disabled on the container by default; bel
                 a) Comment below property (with authentication enabled, standard http should be disabled)
 	                collector.service.port=8080
                 b) Enable a client's certificate verification  
-	                collector.service.secure.clientauth=1
+	                auth.method=certOnly ( only certificate verification )
+	                or
+	                auth.method=certBasicAuth ( certificate verification with basic auth verification )
 3) Restart the collector
                 cd /opt/app/VESCollector
                 ./bin/appController.sh stop
