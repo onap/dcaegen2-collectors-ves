@@ -344,22 +344,12 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnIfAuthorizationIsEnabled() throws IOException {
+    public void shouldAuthorizationBeDisabledByDefault() throws IOException {
         // when
-        boolean authorizationEnabled = fromTemporaryConfiguration("header.authflag=1")
-            .authorizationEnabled();
+        boolean authorizationEnabled = fromTemporaryConfiguration().authMethod().contains("noAuth");
 
         // then
         assertTrue(authorizationEnabled);
-    }
-
-    @Test
-    public void shouldAuthorizationBeDisabledByDefault() throws IOException {
-        // when
-        boolean authorizationEnabled = fromTemporaryConfiguration().authorizationEnabled();
-
-        // then
-        assertFalse(authorizationEnabled);
     }
 
     @Test

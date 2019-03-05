@@ -100,7 +100,7 @@ node_templates:
         collector.service.secure.port: -1
         tomcat.maxthreads: '200'
         collector.keystore.file.location: "/opt/app/dcae-certificate/keystore.jks"
-        header.authflag: 0
+        auth.method: "noAuth"
         collector.service.port: 8080
         streams_publishes:
           sec_fault_unsecure:
