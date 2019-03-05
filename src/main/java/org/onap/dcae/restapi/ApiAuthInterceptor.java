@@ -25,6 +25,7 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.configuration.AuthMethodType;
 import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,28 +35,40 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
     private final CryptPassword cryptPassword = new CryptPassword();
-    private final ApplicationSettings applicationSettings;
+    private final ApplicationSettings settings;
+    private Logger errorLogger;
 
-    private Logger errorLog;
 
-    ApiAuthInterceptor(ApplicationSettings applicationSettings, Logger errorLog) {
-        this.applicationSettings = applicationSettings;
-        this.errorLog = errorLog;
+    public ApiAuthInterceptor(ApplicationSettings applicationSettings, Logger errorLogger) {
+        this.settings = applicationSettings;
+        this.errorLogger = errorLogger;
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                             Object handler) throws IOException {
-        if (applicationSettings.authorizationEnabled()) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws IOException {
+
+        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value())){
+            if (request.getAttribute("javax.servlet.request.X509Certificate") != null){
+                return true;
+            }
+        }
+
+        if (isBasicAuth()) {
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
                 response.setStatus(400);
-                errorLog.error("EVENT_RECEIPT_FAILURE: Unauthorized user");
+                errorLogger.error("EVENT_RECEIPT_FAILURE: Unauthorized user");
                 response.getWriter().write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
                 return false;
             }
         }
         return true;
+    }
+
+    private boolean isBasicAuth() {
+        return settings.authMethod().equalsIgnoreCase(AuthMethodType.BASIC_AUTH.value())
+            || settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
     }
 
     private boolean isAuthorized(String authorizationHeader) {
@@ -64,7 +77,7 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             String decodedData = new String(Base64.getDecoder().decode(encodedData));
             String providedUser = decodedData.split(":")[0].trim();
             String providedPassword = decodedData.split(":")[1].trim();
-            Option<String> maybeSavedPassword = applicationSettings.validAuthorizationCredentials().get(providedUser);
+            Option<String> maybeSavedPassword = settings.validAuthorizationCredentials().get(providedUser);
             boolean userRegistered = maybeSavedPassword.isDefined();
             return userRegistered && cryptPassword.matches(providedPassword,maybeSavedPassword.get());
         } catch (Exception e) {
