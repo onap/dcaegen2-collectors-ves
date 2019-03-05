@@ -102,7 +102,7 @@ For R1 as only measurement and faults are expected in ONAP, configuration are pr
 ```
 STEPS FOR SETUP/TEST
 1)	Get the VESCollector image from Nexus
-		docker pull nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1
+		docker pull nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:latest
 2)	Start the container (change the DMAAPHOST environment value to running DMAAP instance host)
 		docker run -d -p 8080:8080/tcp -p 8443:8443/tcp -P -e DMAAPHOST='10.0.0.174' nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1
 3)	Login into container and tail /opt/app/VESCollector/logs/collector.log
@@ -122,14 +122,14 @@ STEPS FOR SETUP/TEST
 6)	When test is done – do ensure to remove the container (docker rm -f <containerid>) to avoid port conflict
 ```
 
-Authentication is disabled on the container by default; below are the steps for enabling HTTPS/authentication for VESCollector. 
+Authentication is set by default to "noauth" (via auth.method property) on the container; below are the steps for enabling HTTPS/authentication for VESCollector. 
 ```
 1) Login to the container
 2) Open /opt/app/VESCollector/etc/collector.properties and edit below properties
                 a) Comment below property (with authentication enabled, standard http should be disabled)
 	                collector.service.port=8080
-                b) Enable basic-authentication 
-	                header.authflag=1
+                b) Enable basic-authentication
+                  auth.method=basicAuth	                
      Note: The actual credentials is stored part of header.authlist parameter. This is list of userid,password values. Default configuration has below set
                 sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|vdnsagg,$2a$10$C45JhiRSY.qXTBfzWST3Q.AmwKlPRMc67c33O0U9hOH8KSGaweN4m
                 where password maps to same value as username.
@@ -137,10 +137,10 @@ Authentication is disabled on the container by default; below are the steps for 
 3) Restart the collector
                 cd /opt/app/VESCollector
                 ./bin/appController.sh stop
-                ./bin/appController.sh start                               
+                ./bin/appController.sh start                              
 4) Exit from container and ensure tcp port on VM is not hanging on finwait – you can execute “netstat -an | grep 8443” . If under FIN_WAIT2, wait for server to release.
-5) Simulate via curl (Note - username/pwd will be required)      
-	Example of successfull POST:
+5) Simulate via curl (Note - username/pwd will be required)
+    Example of successfull POST:
 		vv770d@osdcae-dev-16:~$ curl -i  -u 'sample1:sample1' -X POST -d @volte.txt --header "Content-Type: application/json" https://localhost:8443/eventListener/v5 -k
 		HTTP/1.1 200 OK
 		Server: Apache-Coyote/1.1
@@ -170,8 +170,10 @@ A client's certificate verification is disabled on the container by default; bel
 2) Open /opt/app/VESCollector/etc/collector.properties and edit below properties
                 a) Comment below property (with authentication enabled, standard http should be disabled)
 	                collector.service.port=8080
-                b) Enable a client's certificate verification  
-	                collector.service.secure.clientauth=1
+                b) Enable a client's certificate verification
+                  auth.method=certOnly (only certificate verification)  
+	                or
+	                auth.method=certBasicAuth ( certificate verification with basic auth verification )
 3) Restart the collector
                 cd /opt/app/VESCollector
                 ./bin/appController.sh stop
