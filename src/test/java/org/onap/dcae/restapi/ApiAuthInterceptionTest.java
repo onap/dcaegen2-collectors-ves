@@ -28,6 +28,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -49,9 +50,6 @@ public class ApiAuthInterceptionTest {
     private static final String USERNAME = "Foo";
     private static final String PASSWORD = "Bar";
     private static final Map<String, String> CREDENTIALS = HashMap.of(USERNAME, PASSWORD);
-
-    @Mock
-    private Logger log;
 
     @Mock
     private ApplicationSettings settings;
@@ -89,7 +87,7 @@ public class ApiAuthInterceptionTest {
         // given
         final HttpServletRequest request = createEmptyRequest();
 
-        when(settings.authorizationEnabled()).thenReturn(false);
+        when(settings.authMethod()).thenReturn(AuthMethodType.NO_AUTH);
 
         // when
         final boolean isAuthorized = sut.preHandle(request, response, obj);
@@ -103,7 +101,7 @@ public class ApiAuthInterceptionTest {
         // given
         final HttpServletRequest request = createEmptyRequest();
 
-        when(settings.authorizationEnabled()).thenReturn(true);
+        when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH);
         when(response.getWriter()).thenReturn(writer);
 
         // when
@@ -122,7 +120,7 @@ public class ApiAuthInterceptionTest {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
 
-        when(settings.authorizationEnabled()).thenReturn(true);
+        when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH);
         when(response.getWriter()).thenReturn(writer);
 
         // when
@@ -139,7 +137,7 @@ public class ApiAuthInterceptionTest {
     public void shouldSucceed() throws IOException {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
-        when(settings.authorizationEnabled()).thenReturn(true);
+        when(settings.authMethod()).thenReturn(AuthMethodType.CERT_ONLY);
         when(settings.validAuthorizationCredentials()).thenReturn(
             HashMap.of(USERNAME, "$2a$10$BsZkEynNm/93wbAeeZuxJeu6IHRyQl4XReqDg2BtYOFDhUsz20.3G"));
         when(response.getWriter()).thenReturn(writer);
@@ -160,7 +158,7 @@ public class ApiAuthInterceptionTest {
                         .header(HttpHeaders.AUTHORIZATION, "FooBar")
                         .buildRequest(null);
 
-        when(settings.authorizationEnabled()).thenReturn(true);
+        when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH);
         when(settings.validAuthorizationCredentials()).thenReturn(CREDENTIALS);
         when(response.getWriter()).thenReturn(writer);
 
