@@ -24,6 +24,7 @@ package org.onap.dcae;
 import io.vavr.collection.HashMap;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.onap.dcae.common.configuration.AuthMethodType;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
@@ -100,6 +101,7 @@ public class TLSTest extends TLSTestBase {
     static class HttpConfiguration extends TLSTestBase.ConfigurationBase {
         @Override
         protected void configureSettings(ApplicationSettings settings) {
+            when(settings.authMethod()).thenReturn(AuthMethodType.NO_AUTH);
         }
     }
 
@@ -111,7 +113,7 @@ public class TLSTest extends TLSTestBase {
         protected void configureSettings(ApplicationSettings settings) {
             when(settings.keystoreFileLocation()).thenReturn(KEYSTORE.toString());
             when(settings.keystorePasswordFileLocation()).thenReturn(KEYSTORE_PASSWORD_FILE.toString());
-            when(settings.authorizationEnabled()).thenReturn(true);
+            when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH);
             when(settings.validAuthorizationCredentials()).thenReturn(HashMap.of(USERNAME, "$2a$10$51tDgG2VNLde5E173Ay/YO.Fq.aD.LR2Rp8pY3QAKriOSPswvGviy"));
         }
     }
@@ -120,8 +122,7 @@ public class TLSTest extends TLSTestBase {
         @Override
         protected void configureSettings(ApplicationSettings settings) {
             super.configureSettings(settings);
-            when(settings.authorizationEnabled()).thenReturn(false);
-            when(settings.clientTlsAuthenticationEnabled()).thenReturn(true);
+            when(settings.authMethod()).thenReturn(AuthMethodType.CERT_ONLY);
             when(settings.truststoreFileLocation()).thenReturn(TRUSTSTORE.toString());
             when(settings.truststorePasswordFileLocation()).thenReturn(TRUSTSTORE_PASSWORD_FILE.toString());
         }
@@ -131,7 +132,7 @@ public class TLSTest extends TLSTestBase {
         @Override
         protected void configureSettings(ApplicationSettings settings) {
             super.configureSettings(settings);
-            when(settings.authorizationEnabled()).thenReturn(true);
+            when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH);
         }
     }
 }

@@ -235,7 +235,7 @@
     {
       "name": "collector.service.port",
       "value": -1,
-      "description": "standard http port collector will open for listening; this will be disabled when header.authflag is set to 1",
+      "description": "standard http port collector will open for listening;",
       "sourced_at_deployment": false,
       "policy_editable": false,
       "designer_editable": false
@@ -305,8 +305,8 @@
       "designer_editable": false
     },
     {
-      "name": "header.authflag",
-      "value": 1,
+      "name": "auth.method",
+      "value": "noAuth",
       "description": "Basic Authentication flag; when enabled only secure port will be supported.",
       "sourced_at_deployment": false,
       "policy_editable": false,
