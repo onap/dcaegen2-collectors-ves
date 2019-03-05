@@ -38,7 +38,7 @@ topology_template:
       type: string
     docker_collector.service.secure.port:
       type: string
-    docker_header.authflag:
+    docker_auth.method:
       type: string
     docker_header.authlist:
       type: string
@@ -119,8 +119,8 @@ topology_template:
             get_input: docker_collector.service.port
           collector.service.secure.port:
             get_input: docker_collector.service.secure.port
-          header.authflag:
-            get_input: docker_header.authflag
+          auth.method:
+            get_input: docker_auth.method
           header.authlist:
             get_input: docker_header.authlist
           tomcat.maxthreads:
