@@ -47,6 +47,10 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws IOException {
         if (applicationSettings.authorizationEnabled()) {
+            System.out.println("ASSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDdXXXXXXXXXXXX");
+            System.out.println("ASSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDdXXXXXXXXXXXX");
+            System.out.println("ASSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDdXXXXXXXXXXXX");
+            System.out.println("ASSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDdXXXXXXXXXXXX");
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
                 response.setStatus(400);

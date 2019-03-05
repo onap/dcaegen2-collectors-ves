@@ -175,10 +175,6 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(properties.getString("collector.keystore.file.location", "etc/keystore"));
     }
 
-    public boolean clientTlsAuthenticationEnabled() {
-        return httpsEnabled() && properties.getInt("collector.service.secure.clientauth", 0) > 0;
-    }
-
     public String truststorePasswordFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.truststore.passwordfile", "etc/trustpasswordfile"));
     }
@@ -193,6 +189,10 @@ public class ApplicationSettings {
 
     public String dMaaPConfigurationFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
+    }
+
+    public String authMethod(){
+        return properties.getString("auth.method", "noAuth");
     }
 
     public Map<String, String[]> dMaaPStreamsMapping() {
