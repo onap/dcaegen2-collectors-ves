@@ -343,24 +343,24 @@ public class ApplicationSettingsTest {
         assertEquals(dmaapStreamID, HashMap.empty());
     }
 
-    @Test
-    public void shouldReturnIfAuthorizationIsEnabled() throws IOException {
-        // when
-        boolean authorizationEnabled = fromTemporaryConfiguration("header.authflag=1")
-            .authorizationEnabled();
+//    @Test
+//    public void shouldReturnIfAuthorizationIsEnabled() throws IOException {
+//        // when
+//        boolean authorizationEnabled = fromTemporaryConfiguration("header.authflag=1")
+//            .authorizationEnabled();
+//
+//        // then
+//        assertTrue(authorizationEnabled);
+//    }
 
-        // then
-        assertTrue(authorizationEnabled);
-    }
-
-    @Test
-    public void shouldAuthorizationBeDisabledByDefault() throws IOException {
-        // when
-        boolean authorizationEnabled = fromTemporaryConfiguration().authorizationEnabled();
-
-        // then
-        assertFalse(authorizationEnabled);
-    }
+//    @Test
+//    public void shouldAuthorizationBeDisabledByDefault() throws IOException {
+//        // when
+//        boolean authorizationEnabled = fromTemporaryConfiguration().authorizationEnabled();
+//
+//        // then
+//        assertFalse(authorizationEnabled);
+//    }
 
     @Test
     public void shouldReturnValidCredentials() throws IOException {

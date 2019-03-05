@@ -33,7 +33,7 @@ topology_template:
         docker_collector.schema.file: ./etc/CommonEventFormat_27.2.json
         docker_collector.service.port: '8080'
         docker_collector.service.secure.port: '-1'
-        docker_header.authflag: '0'
+        docker_auth.method: noAuth
         docker_header.authlist: userid1,base64encodepwd1|userid2,base64encodepwd2
         docker_tomcat.maxthreads: '200'
         location_id:

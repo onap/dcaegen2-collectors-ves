@@ -1,5 +1,5 @@
 {
-	"header.authflag": 1,
+	"auth.method": "noAuth",
 	"collector.inputQueue.maxPending": 8096,
 	"collector.schema.checkflag": 1,
 	"collector.keystore.file.location": "/opt/app/dcae-certificate/keystore.jks",
