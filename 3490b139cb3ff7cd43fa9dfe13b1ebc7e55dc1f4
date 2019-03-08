@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3253bd29_aea842ff",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "The below steps are good for standalone docker deployment; would be good to include steps on how these configuration shld be modified on k8s cluster deployed VES instance. In k8s cluster since cbs fetch will always overwrite local config, steps should be provided for changing the consul kv configuration",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 20
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55786c6b_14d5d603",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "is set by default to \"noauth\" (via auth.method property) on the container.",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ae3a750_b381ac30",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "remove additional spaces",
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8a7e9ef_601469e4",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "remove spaces",
+      "range": {
+        "startLine": 140,
+        "startChar": 44,
+        "endLine": 140,
+        "endChar": 75
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17605f56_3480afe6",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "remove spaces",
+      "range": {
+        "startLine": 142,
+        "startChar": 59,
+        "endLine": 142,
+        "endChar": 65
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "109d1672_a49b10e8",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "remove spaces",
+      "range": {
+        "startLine": 173,
+        "startChar": 61,
+        "endLine": 173,
+        "endChar": 63
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d0c58ab_f6e04225",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 22
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "default 8080",
+      "range": {
+        "startLine": 237,
+        "startChar": 15,
+        "endLine": 237,
+        "endChar": 17
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "925f858c_8eb4407e",
+        "filename": "etc/collector.properties",
+        "patchSetId": 22
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "pls also include instructions or pointers of instruction on how new password should be added. This will be useful from operation standpoint.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 70
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0578c78_bd938335",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/CertBasicAuth.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "look to be same as CertOnly; can be made as common class",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4eb0671d_e94535bc",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/CertOnly.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "same as other certBasicAuth",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdd5f252_e67daa31",
+        "filename": "src/test/java/org/onap/dcae/TLSTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-08T23:40:36Z",
+      "side": 1,
+      "message": "should be CERT_BASIC_AUTH",
+      "range": {
+        "startLine": 135,
+        "startChar": 66,
+        "endLine": 135,
+        "endChar": 76
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
