@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd60e6cc_69093825",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/AuthMethodType.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-03-08T08:35:08Z",
+      "side": 1,
+      "message": "You could use enum as a Type class.\nOtherwise class should be marked as final and has private constructor",
+      "revId": "beffbad674aa46461fc3fa55ebd9b98d78b26d3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1114020_0e9c0765",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/BasicAuth.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-03-08T08:35:08Z",
+      "side": 1,
+      "message": "you can mark all fields set in constructor as final.\nThe same comment to all other classes",
+      "revId": "beffbad674aa46461fc3fa55ebd9b98d78b26d3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "366b3e6f_22dbad97",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/CertOnly.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-03-08T08:35:08Z",
+      "side": 1,
+      "message": "This class is the same as CertBasicAuth. Why?",
+      "revId": "beffbad674aa46461fc3fa55ebd9b98d78b26d3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75719a7f_66c9f352",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/SslContextCreator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-03-08T08:35:08Z",
+      "side": 1,
+      "message": "final",
+      "revId": "beffbad674aa46461fc3fa55ebd9b98d78b26d3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78367b50_7b7211df",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiAuthInterceptor.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-03-08T08:35:08Z",
+      "side": 1,
+      "message": "Code formatting: break lines.",
+      "revId": "beffbad674aa46461fc3fa55ebd9b98d78b26d3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
