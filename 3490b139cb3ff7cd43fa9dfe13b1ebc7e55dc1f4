@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "70d4b98d_63f77327",
+        "filename": "README.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-15T02:53:49Z",
+      "side": 1,
+      "message": "I was suggesting to capture general steps for config update for VESCollector through consul - not specific to authentication change. As most user have ONAP setup and if they try to follow below steps to make in-docker change, then it will get overridden. More comprehensive steps can be added later with examples under VES RTD (https://git.onap.org/dcaegen2/tree/docs/sections/services/ves-http)",
+      "parentUuid": "0edb3fd1_b2e7c47d",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 20
+      },
+      "revId": "3490b139cb3ff7cd43fa9dfe13b1ebc7e55dc1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55786c6b_14d5d603",
         "filename": "README.md",
         "patchSetId": 22
