@@ -95,6 +95,17 @@ VESCollector in DCAE will be deployed as mS via DCAEGEN2 controller. A blueprint
 For testing purpose, the docker image includes preset configuration which can be ran without DCAEGEN2 platform.
 
 
+
+### Consul - Dynamic configuration 
+
+
+Application properties like /etc/collector.properties and Dmaap configuration /etc/DmaapConfig.json are change frequently by configuration stored in Consul(CBS) (TO DO add url) 
+Configuration stored in Consul have bigger priority and always will override local configuration so all configuration modification should be done using Consul section dmap / ves-collector ( To CHECK). 
+Frequently how often configuration will be fetch from Consul server is manageable in /etc/collector.properties property "collector.dynamic.config.update.frequency={time in minutes}".
+
+Actual configuraion /dpo/data-formats/ConsulConfig.json
+
+
 ### Testing
 
 For R1 as only measurement and faults are expected in ONAP, configuration are preset currently sto support these two topics only.
