@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3037e25d_1798623d",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-18T22:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6f4dd8c_bdaaf7d9",
+      "range": {
+        "startLine": 102,
+        "startChar": 104,
+        "endLine": 102,
+        "endChar": 110
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50154b0a_ad628cf1",
         "filename": "README.md",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "dddc8a38_6e2c0bbf",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-18T22:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50154b0a_ad628cf1",
+      "range": {
+        "startLine": 103,
+        "startChar": 159,
+        "endLine": 103,
+        "endChar": 200
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f0553d_1973b857",
         "filename": "README.md",
         "patchSetId": 2
@@ -82,6 +130,30 @@
       "writtenOn": "2019-03-18T02:37:26Z",
       "side": 1,
       "message": "Sample configuration of VESCollector K-V store can be found under",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b744370_56f4d346",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-18T22:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f0553d_1973b857",
       "range": {
         "startLine": 106,
         "startChar": 0,
