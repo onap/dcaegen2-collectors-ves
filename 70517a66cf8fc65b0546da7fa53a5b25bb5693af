@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6f4dd8c_bdaaf7d9",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-18T02:37:26Z",
+      "side": 1,
+      "message": "updated",
+      "range": {
+        "startLine": 102,
+        "startChar": 104,
+        "endLine": 102,
+        "endChar": 110
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cebc0b5_72409e0d",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-18T02:37:26Z",
+      "side": 1,
+      "message": "http://\u003ckubernetes_host_ip\u003e:30270/ui/#/dc1/kv/\u003cvescollector_SCN\u003e",
+      "range": {
+        "startLine": 102,
+        "startChar": 162,
+        "endLine": 102,
+        "endChar": 175
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50154b0a_ad628cf1",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-18T02:37:26Z",
+      "side": 1,
+      "message": "update on corresponding kv store.",
+      "range": {
+        "startLine": 103,
+        "startChar": 159,
+        "endLine": 103,
+        "endChar": 200
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35f0553d_1973b857",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-18T02:37:26Z",
+      "side": 1,
+      "message": "Sample configuration of VESCollector K-V store can be found under",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "70517a66cf8fc65b0546da7fa53a5b25bb5693af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
