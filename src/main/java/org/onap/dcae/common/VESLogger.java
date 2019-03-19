@@ -35,21 +35,13 @@ import java.util.UUID;
 
 public class VESLogger {
 
-    public static final String VES_AGENT = "VES_AGENT";
-    public static final String REQUEST_ID = "requestId";
-    private static final String IP_ADDRESS = "127.0.0.1";
-    private static final String HOST_NAME = "localhost";
 
-    public static Logger auditLog;
-    public static Logger metricsLog;
-    public static Logger errorLog;
-    public static Logger debugLog;
+    public static final String REQUEST_ID = "requestId";
 
     // Common LoggingContext
     private static LoggingContext commonLC;
     // Thread-specific LoggingContext
     private static LoggingContext threadLC;
-    public LoggingContext lc;
 
     /**
      * Returns the common LoggingContext instance that is the base context for
@@ -115,46 +107,6 @@ public class VESLogger {
         threadLC.put("statusCode", "COMPLETE");
         threadLC.put(EcompFields.kEndTimestamp, SaClock.now());
         return threadLC;
-    }
-
-    public static void setUpEcompLogging() {
-
-        // Create ECOMP Logger instances
-        auditLog = LoggerFactory.getLogger("com.att.ecomp.audit");
-        metricsLog = LoggerFactory.getLogger("com.att.ecomp.metrics");
-        debugLog = LoggerFactory.getLogger("com.att.ecomp.debug");
-        errorLog = LoggerFactory.getLogger("com.att.ecomp.error");
-
-        final LoggingContext lc = getCommonLoggingContext();
-
-        String ipAddr = IP_ADDRESS;
-        String hostname = HOST_NAME;
-        try {
-            final InetAddress ip = InetAddress.getLocalHost();
-            hostname = ip.getCanonicalHostName();
-            ipAddr = ip.getHostAddress();
-        } catch (UnknownHostException x) {
-            Log.debug(x.getMessage());
-        }
-
-        lc.put("serverName", hostname);
-        lc.put("serviceName", "VESCollecor");
-        lc.put("statusCode", "RUNNING");
-        lc.put("targetEntity", "NULL");
-        lc.put("targetServiceName", "NULL");
-        lc.put("server", hostname);
-        lc.put("serverIpAddress", ipAddr);
-
-        // instance UUID is meaningless here, so we just create a new one each
-        // time the
-        // server starts. One could argue each new instantiation of the service
-        // should
-        // have a new instance ID.
-        lc.put("instanceUuid", "");
-        lc.put("severity", "");
-        lc.put(EcompFields.kEndTimestamp, SaClock.now());
-        lc.put("EndTimestamp", SaClock.now());
-        lc.put("partnerName", "NA");
     }
 
 }
