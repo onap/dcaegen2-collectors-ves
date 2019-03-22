@@ -112,10 +112,6 @@ public class ApplicationSettings {
         return Paths.get(configurationFileLocation);
     }
 
-    public int maximumAllowedQueuedEvents() {
-        return properties.getInt("collector.inputQueue.maxPending", 1024 * 4);
-    }
-
     public boolean jsonSchemaValidationEnabled() {
         return properties.getInt("collector.schema.checkflag", -1) > 0;
     }

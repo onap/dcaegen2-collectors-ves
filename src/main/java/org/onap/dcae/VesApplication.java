@@ -29,7 +29,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
-import org.onap.dcae.common.EventProcessor;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.EventPublisher;
@@ -54,11 +53,11 @@ public class VesApplication {
     private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.common.output");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
     private static final int MAX_THREADS = 20;
-    public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
+   // public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
     private static ConfigurableApplicationContext context;
     private static ConfigLoader configLoader;
-    private static EventProcessor eventProcessor;
+  //  private static EventProcessor eventProcessor;
     private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
     private static SpringApplication app;
     private static EventPublisher eventPublisher;
@@ -89,7 +88,7 @@ public class VesApplication {
     }
 
     private static void init() {
-      fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
+     // fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
       createConfigLoader();
       createSchedulePoolExecutor();
       createExecutors();
@@ -97,12 +96,12 @@ public class VesApplication {
 
     private static void createExecutors() {
       eventPublisher = EventPublisher.createPublisher(oplog, getDmapConfig());
-      eventProcessor = new EventProcessor(new EventSender(eventPublisher, properties));
+  //    eventProcessor = new EventProcessor(new EventSender(eventPublisher, properties));
 
-      executor = Executors.newFixedThreadPool(MAX_THREADS);
-      for (int i = 0; i < MAX_THREADS; ++i) {
-        executor.execute(eventProcessor);
-      }
+//      executor = Executors.newFixedThreadPool(MAX_THREADS);
+//      for (int i = 0; i < MAX_THREADS; ++i) {
+//        executor.execute(eventProcessor);
+//      }
     }
 
     private static void createSchedulePoolExecutor() {
@@ -154,8 +153,9 @@ public class VesApplication {
     }
 
     @Bean
-    public LinkedBlockingQueue<JSONObject> inputQueue() {
-        return fProcessingInputQueue;
+    @Qualifier("eventSender")
+    public EventSender eventSender() {
+      return new EventSender(eventPublisher,properties);
     }
 
 }
