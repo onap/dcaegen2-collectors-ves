@@ -24,6 +24,7 @@ package org.onap.dcae;
 import org.json.JSONObject;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.onap.dcae.common.EventSender;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -70,6 +71,10 @@ public class TLSTestBase {
         @MockBean
         @Qualifier("inputQueue")
         protected LinkedBlockingQueue<JSONObject> queue;
+
+        @MockBean
+        @Qualifier("eventSender")
+        protected EventSender eventSender;
 
         @LocalServerPort
         private int port;

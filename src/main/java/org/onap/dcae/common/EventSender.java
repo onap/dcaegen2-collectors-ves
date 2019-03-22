@@ -79,7 +79,7 @@ public class EventSender {
         List<Event> events = new Gson().fromJson(fr, EVENT_LIST_TYPE);
         parseEventsJson(events, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
       } catch (IOException e) {
-        log.error("Couldn't find file ./etc/eventTransform.json" + e.toString());
+        log.error("Couldn't find file ./etc/eventTransform.json ", e);
       }
     }
     if (jsonObject.has("VESversion"))
