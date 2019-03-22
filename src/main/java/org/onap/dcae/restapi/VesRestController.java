@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,23 +57,22 @@ public class VesRestController {
     private static final Logger log = LoggerFactory.getLogger(VesRestController.class);
 
     private final ApplicationSettings applicationSettings;
-    private final LinkedBlockingQueue<JSONObject> inputQueue;
-
     private final Logger metricsLog;
     private final Logger errorLog;
     private final Logger incomingRequestsLogger;
+    private EventSender eventSender;
 
     @Autowired
     VesRestController(ApplicationSettings applicationSettings,
                       @Qualifier("metricsLog") Logger metricsLog,
                       @Qualifier("errorLog") Logger errorLog,
                       @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-                      @Qualifier("inputQueue") LinkedBlockingQueue<JSONObject> inputQueue) {
+                      @Qualifier("eventSender") EventSender eventSender) {
         this.applicationSettings = applicationSettings;
         this.metricsLog = metricsLog;
         this.errorLog = errorLog;
         this.incomingRequestsLogger = incomingRequestsLogger;
-        this.inputQueue = inputQueue;
+        this.eventSender = eventSender;
     }
 
     @GetMapping("/")
@@ -80,7 +80,6 @@ public class VesRestController {
         return "Welcome to VESCollector";
     }
 
-    //refactor in next iteration
     @PostMapping(value = {"/eventListener/v1",
             "/eventListener/v1/eventBatch",
             "/eventListener/v2",
@@ -101,6 +100,7 @@ public class VesRestController {
         try {
             jsonObject = new JSONObject(jsonPayload);
         } catch (Exception e) {
+            log.error("Invalid request cause: ", e);
             return ResponseEntity.badRequest().body(ApiException.INVALID_JSON_INPUT.toJSON().toString());
         }
 
@@ -146,9 +146,10 @@ public class VesRestController {
     private boolean putEventsOnProcessingQueue(JSONArray arrayOfEvents) {
         for (int i = 0; i < arrayOfEvents.length(); i++) {
             metricsLog.info("EVENT_PUBLISH_START");
-            if (!inputQueue.offer((JSONObject) arrayOfEvents.get(i))) {
-                return false;
-            }
+            JSONObject event = (JSONObject) arrayOfEvents.get(i);
+            setLoggingContext(event);
+            log.debug("event.VESuniqueId" + event.get("VESuniqueId") + "event.commonEventHeader.domain:" + eventSender.getDomain(event));
+            eventSender.send(event);
         }
         log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
         metricsLog.info("EVENT_PUBLISH_END");
@@ -200,5 +201,10 @@ public class VesRestController {
 
     private static boolean isBatchRequest(String request) {
         return request.contains("eventBatch");
+    }
+
+      private void setLoggingContext(JSONObject event) {
+        LoggingContext localLC = VESLogger.getLoggingContextForThread(event.get("VESuniqueId").toString());
+        localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
     }
 }
