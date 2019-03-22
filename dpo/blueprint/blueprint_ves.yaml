@@ -128,7 +128,6 @@ node_templates:
         collector.dmaap.streamid: fault=sec_fault,roadm-sec-to-hp|syslog=sec_syslog|heartbeat=sec_heartbeat|measurementsForVfScaling=sec_measurement|mobileFlow=sec_mobileflow|other=sec_other|stateChange=sec_statechange|thresholdCrossingAlert=sec_thresholdCrossingAlert
         header.authlist: userid1,base64encodepwd1|userid2,base64encodepwd2
         streams_subscribes: {}
-        collector.inputQueue.maxPending: 8096
         collector.schema.file: "./etc/CommonEventFormat_27.2.json"
       image:
         NEXUS_REPO_HOST:18443/dcae-dev-raw/dcae-controller-ves-collector:1.1.3
