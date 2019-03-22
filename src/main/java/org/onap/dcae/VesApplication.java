@@ -3,6 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +23,9 @@ package org.onap.dcae;
 
 import io.vavr.collection.Map;
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONObject;
-import org.onap.dcae.common.EventProcessor;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.EventPublisher;
@@ -53,19 +49,16 @@ public class VesApplication {
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
     private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.common.output");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
-    private static final int MAX_THREADS = 20;
-    public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
     private static ConfigurableApplicationContext context;
     private static ConfigLoader configLoader;
-    private static EventProcessor eventProcessor;
     private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
     private static SpringApplication app;
     private static EventPublisher eventPublisher;
     private static ScheduledFuture<?> scheduleFeatures;
-    private static ExecutorService executor;
+    private static EventSender eventSender;
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
       app = new SpringApplication(VesApplication.class);
       properties = new ApplicationSettings(args, CLIUtils::processCmdLine);
       scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
@@ -89,7 +82,6 @@ public class VesApplication {
     }
 
     private static void init() {
-      fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
       createConfigLoader();
       createSchedulePoolExecutor();
       createExecutors();
@@ -97,12 +89,7 @@ public class VesApplication {
 
     private static void createExecutors() {
       eventPublisher = EventPublisher.createPublisher(oplog, getDmapConfig());
-      eventProcessor = new EventProcessor(new EventSender(eventPublisher, properties));
-
-      executor = Executors.newFixedThreadPool(MAX_THREADS);
-      for (int i = 0; i < MAX_THREADS; ++i) {
-        executor.execute(eventProcessor);
-      }
+      eventSender = new EventSender(eventPublisher,properties);
     }
 
     private static void createSchedulePoolExecutor() {
@@ -154,8 +141,9 @@ public class VesApplication {
     }
 
     @Bean
-    public LinkedBlockingQueue<JSONObject> inputQueue() {
-        return fProcessingInputQueue;
+    @Qualifier("eventSender")
+    public EventSender eventSender() {
+      return eventSender;
     }
 
 }

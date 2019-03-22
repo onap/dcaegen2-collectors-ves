@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ public class EventSender {
         List<Event> events = new Gson().fromJson(fr, EVENT_LIST_TYPE);
         parseEventsJson(events, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
       } catch (IOException e) {
-        log.error("Couldn't find file ./etc/eventTransform.json" + e.toString());
+        log.error("Couldn't find file ./etc/eventTransform.json ", e);
       }
     }
     if (jsonObject.has("VESversion"))
