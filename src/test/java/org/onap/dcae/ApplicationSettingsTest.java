@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2019 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -232,25 +232,6 @@ public class ApplicationSettingsTest {
 
         // then
         assertEquals(sanitizePath("etc/DmaapConfig.json"), dmaapConfigFileLocation);
-    }
-
-    @Test
-    public void shouldReturnMaximumAllowedQueuedEvents() throws IOException {
-        // when
-        int maximumAllowedQueuedEvents = fromTemporaryConfiguration("collector.inputQueue.maxPending=10000")
-            .maximumAllowedQueuedEvents();
-
-        // then
-        assertEquals(10000, maximumAllowedQueuedEvents);
-    }
-
-    @Test
-    public void shouldReturnDefaultMaximumAllowedQueuedEvents() throws IOException {
-        // when
-        int maximumAllowedQueuedEvents = fromTemporaryConfiguration().maximumAllowedQueuedEvents();
-
-        // then
-        assertEquals(1024 * 4, maximumAllowedQueuedEvents);
     }
 
     @Test

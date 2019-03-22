@@ -2,8 +2,8 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights
- * 						reserved.
+ * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,9 @@ import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.LoggingContextFactory;
 import com.att.nsa.logging.log4j.EcompFields;
-import jline.internal.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.UUID;
 
 public class VESLogger {
-
 
     public static final String REQUEST_ID = "requestId";
 
