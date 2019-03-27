@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03ae54d9_327db9f7",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee864964_dbb6886f",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f8c97cb_6f938b63",
         "filename": "src/main/java/org/onap/dcae/VesApplication.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-26T23:54:41Z",
       "side": 1,
       "message": "needs updated copyright covering 2019",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0085cc4_d33afe65",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f8c97cb_6f938b63",
       "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "cb921587_893f10a5",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eadb9563_b7c0d127",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e2ce0b9_b0bfb8fe",
         "filename": "src/main/java/org/onap/dcae/common/VESLogger.java",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2019-03-26T23:54:41Z",
       "side": 1,
       "message": "needs updated copyright covering 2019",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a821ace6_83a933c6",
+        "filename": "src/main/java/org/onap/dcae/common/VESLogger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e2ce0b9_b0bfb8fe",
       "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "b0c2e02c_52b0f241",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5da8dfc3_f7b34c05",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e0bbb47_81a9e73f",
         "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
         "patchSetId": 6
@@ -98,6 +188,24 @@
       "writtenOn": "2019-03-26T23:54:41Z",
       "side": 1,
       "message": "needs updated copyright covering 2019",
+      "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a05c48e8_06575e5b",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-03-27T07:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e0bbb47_81a9e73f",
       "revId": "9727bd8810126c0da3fe791d43ba85c30bf310d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
