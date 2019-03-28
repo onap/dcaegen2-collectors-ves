@@ -101,6 +101,7 @@ public class VesRestController {
         try {
             jsonObject = new JSONObject(jsonPayload);
         } catch (Exception e) {
+            log.error(ApiException.INVALID_JSON_INPUT.toJSON().toString());
             return ResponseEntity.badRequest().body(ApiException.INVALID_JSON_INPUT.toJSON().toString());
         }
 

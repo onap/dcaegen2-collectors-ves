@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.json.JSONObject;
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
@@ -80,6 +81,7 @@ public class EventSender {
         parseEventsJson(events, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
       } catch (IOException e) {
         log.error("Couldn't find file ./etc/eventTransform.json" + e.toString());
+        throw new ApplicationException("Couldn't find file ./etc/eventTransform.json" + e.toString());
       }
     }
     if (jsonObject.has("VESversion"))
