@@ -101,7 +101,9 @@ public class VesRestController {
         try {
             jsonObject = new JSONObject(jsonPayload);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(ApiException.INVALID_JSON_INPUT.toJSON().toString());
+            String errorMessage = ApiException.INVALID_JSON_INPUT.toJSON().toString();
+            log.error(errorMessage);
+            return ResponseEntity.badRequest().body(errorMessage);
         }
 
         String uuid = setUpECOMPLoggingForRequest();
