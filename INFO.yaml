@@ -63,7 +63,7 @@ committers:
       timezone: 'America/New_York'
     - name: 'Zlatko Murgoski'
       email: 'zlatko.murgoski@nokia.com'
-      company: 'EST'
+      company: 'Nokia'
       id: 'ZlatkoMurgoski'
       timezone: 'Europe/Warsaw'
 tsc:
