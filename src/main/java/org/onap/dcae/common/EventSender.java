@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.json.JSONObject;
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
@@ -37,11 +38,12 @@ import org.slf4j.LoggerFactory;
 
 public class EventSender {
 
+  private static final String COULD_NOT_FIND_FILE = "Couldn't find file ./etc/eventTransform.json";
   private Map<String, String[]> streamidHash;
   private ApplicationSettings properties;
   private EventPublisher eventPublisher;
 
-  static final Type EVENT_LIST_TYPE = new TypeToken<List<Event>>() {}.getType();
+  private static final Type EVENT_LIST_TYPE = new TypeToken<List<Event>>() {}.getType();
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
   private static final String EVENT_LITERAL = "event";
   private static final String COMMON_EVENT_HEADER = "commonEventHeader";
@@ -79,7 +81,8 @@ public class EventSender {
         List<Event> events = new Gson().fromJson(fr, EVENT_LIST_TYPE);
         parseEventsJson(events, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
       } catch (IOException e) {
-        log.error("Couldn't find file ./etc/eventTransform.json" + e.toString());
+        log.error(COULD_NOT_FIND_FILE, e);
+        throw new ApplicationException(COULD_NOT_FIND_FILE, e);
       }
     }
     if (jsonObject.has("VESversion"))

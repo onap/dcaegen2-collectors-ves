@@ -53,11 +53,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VesRestController {
-    private static final Logger log = LoggerFactory.getLogger(VesRestController.class);
 
+    private static final Logger log = LoggerFactory.getLogger(VesRestController.class);
+    private static final String INVALID_JSON = ApiException.INVALID_JSON_INPUT.toJSON().toString();
     private final ApplicationSettings applicationSettings;
     private final LinkedBlockingQueue<JSONObject> inputQueue;
-
     private final Logger metricsLog;
     private final Logger errorLog;
     private final Logger incomingRequestsLogger;
@@ -101,7 +101,8 @@ public class VesRestController {
         try {
             jsonObject = new JSONObject(jsonPayload);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(ApiException.INVALID_JSON_INPUT.toJSON().toString());
+            log.error(INVALID_JSON);
+            return ResponseEntity.badRequest().body(INVALID_JSON);
         }
 
         String uuid = setUpECOMPLoggingForRequest();
