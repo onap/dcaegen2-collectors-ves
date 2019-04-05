@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8de40bbe_dd98aa1a",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-04-05T05:56:33Z",
+      "side": 1,
+      "message": "(\"Couldn\u0027t find file ./etc/eventTransform.json\", e)",
+      "revId": "7f22aaddea0aa684ebf28c4d888853f927d39df7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
