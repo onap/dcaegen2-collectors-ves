@@ -183,9 +183,12 @@ public class ApplicationSettings {
     public String exceptionConfigFileLocation() {
         return properties.getString("exceptionConfig", null);
     }
-
     public String dMaaPConfigurationFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
+    }
+
+    public String certSubjectMatcher(){
+        return prependWithUserDirOnRelative(properties.getString("collector.cert.subject.matcher", "etc/certSubjectMatcher.properties"));
     }
 
     public String authMethod(){
