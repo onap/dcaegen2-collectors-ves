@@ -45,12 +45,12 @@ import static org.onap.dcae.TestingUtilities.*;
 @Configuration
 @ExtendWith(SpringExtension.class)
 public class TLSTestBase {
-    protected static final String KEYSTORE_ALIAS = "localhost";
     protected static final Path RESOURCES = Paths.get("src", "test", "resources");
     protected static final Path KEYSTORE = Paths.get(RESOURCES.toString(), "keystore");
     protected static final Path KEYSTORE_PASSWORD_FILE = Paths.get(RESOURCES.toString(), "passwordfile");
     protected static final Path TRUSTSTORE = Paths.get(RESOURCES.toString(), "truststore");
     protected static final Path TRUSTSTORE_PASSWORD_FILE = Paths.get(RESOURCES.toString(), "trustpasswordfile");
+    protected static final Path CERT_SUBJECT_MATCHER = Paths.get(RESOURCES.toString(), "certSubjectMatcher");
 
     protected static abstract class ConfigurationBase {
         protected final ApplicationSettings settings = Mockito.mock(ApplicationSettings.class);
@@ -67,6 +67,7 @@ public class TLSTestBase {
 
     @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
     protected abstract class TestClassBase {
+
         @MockBean
         @Qualifier("inputQueue")
         protected LinkedBlockingQueue<JSONObject> queue;
