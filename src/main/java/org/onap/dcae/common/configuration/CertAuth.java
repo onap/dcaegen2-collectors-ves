@@ -21,13 +21,24 @@
 
 package org.onap.dcae.common.configuration;
 
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.server.Ssl.ClientAuth;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-public class CertAuth implements AuthMethod {
+@Configuration
+@Order(0)
+@EnableWebSecurity
+public class CertAuth extends WebSecurityConfigurerAdapter implements AuthMethod {
 
   private static final Logger log = LoggerFactory.getLogger(CertAuth.class);
   private final ConfigurableServletWebServerFactory container;
@@ -36,6 +47,23 @@ public class CertAuth implements AuthMethod {
   public CertAuth(ConfigurableServletWebServerFactory container, ApplicationSettings properties) {
     this.container = container;
     this.properties = properties;
+  }
+
+  @Override
+  public void configure(WebSecurity web) {
+    web.ignoring().anyRequest();
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) {
+    try {
+      http.authorizeRequests()
+          .anyRequest().authenticated().and()
+          .addFilterBefore(new CustomFilter(), FilterSecurityInterceptor.class);
+
+    } catch (Exception ex) {
+      throw new ApplicationException(ex);
+    }
   }
 
   @Override
