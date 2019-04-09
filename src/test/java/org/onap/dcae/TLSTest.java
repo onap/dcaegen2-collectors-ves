@@ -125,6 +125,7 @@ public class TLSTest extends TLSTestBase {
             when(settings.authMethod()).thenReturn(AuthMethodType.CERT_ONLY.value());
             when(settings.truststoreFileLocation()).thenReturn(TRUSTSTORE.toString());
             when(settings.truststorePasswordFileLocation()).thenReturn(TRUSTSTORE_PASSWORD_FILE.toString());
+            when(settings.certSubjectMatcher()).thenReturn(CERT_SUBJECT_MATCHER.toString());
         }
     }
 
