@@ -39,7 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.VesHeaderUtils;
 import org.onap.dcae.common.VESLogger;
+import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,17 +107,28 @@ public class VesRestController {
             return ResponseEntity.badRequest().body(INVALID_JSON);
         }
 
+        // deal api version
+        CustomHeaderUtils headerUtils = new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
+            VesHeaderUtils.getReqHeaderMap(httpServletRequest), VesHeaderUtils.getApiVerFilePath(), VesHeaderUtils.getRestApiIdentify(request));
+        boolean isOkCustomHeaders = headerUtils.isOkCustomHeaders();
+        if (!isOkCustomHeaders) {
+          log.error("There is something wrong with custom header, return");
+          return ResponseEntity.status(ApiException.INVALID_CUSTOM_HEADER.httpStatusCode)
+              .headers(VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()))
+              .body(ApiException.INVALID_CUSTOM_HEADER.toJSON().toString());
+        }
+
         String uuid = setUpECOMPLoggingForRequest();
         incomingRequestsLogger.info(String.format(
                 "Received a VESEvent '%s', marked with unique identifier '%s', on api version '%s', from host: '%s'",
                 jsonObject, uuid, version, httpServletRequest.getRemoteHost()));
 
         if (applicationSettings.jsonSchemaValidationEnabled()) {
-            if (isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
+            if (VesHeaderUtils.isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
                 if (!conformsToSchema(jsonObject, version)) {
                     return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
                 }
-            } else if (!isBatchRequest(request) && (!jsonObject.has("eventList") && (jsonObject.has("event")))) {
+            } else if (!VesHeaderUtils.isBatchRequest(request) && (!jsonObject.has("eventList") && (jsonObject.has("event")))) {
                 if (!conformsToSchema(jsonObject, version)) {
                     return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
                 }
@@ -176,7 +189,7 @@ public class VesRestController {
         JSONArray asArrayEvents = new JSONArray();
         String vesUniqueIdKey = "VESuniqueId";
         String vesVersionKey = "VESversion";
-        if (isBatchRequest(request)) {
+        if (VesHeaderUtils.isBatchRequest(request)) {
             JSONArray events = jsonObject.getJSONArray("eventList");
             for (int i = 0; i < events.length(); i++) {
                 JSONObject event = new JSONObject().put("event", events.getJSONObject(i));
