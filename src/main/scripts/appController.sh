@@ -35,7 +35,7 @@ start() {
       -XX:ErrorFile=logs/java_error%p.log \
       -XX:+HeapDumpOnOutOfMemoryError \
       -Dhttps.protocols=TLSv1.1,TLSv1.2 \
-      org.onap.dcae.VesApplication $* & &>> logs/collector.log
+      org.onap.dcae.VesApplication $* &>> logs/collector.log &
 }
 
 stop() {
