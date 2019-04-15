@@ -54,7 +54,6 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
         }
-
         if (isBasicAuth()) {
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
