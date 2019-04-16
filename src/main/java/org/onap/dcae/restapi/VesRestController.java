@@ -30,12 +30,15 @@ import com.att.nsa.logging.log4j.EcompFields;
 import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.EventUpdater;
+import org.onap.dcae.common.VesHeaderUtils;
+import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,8 +61,8 @@ public class VesRestController {
 
     @Autowired
     VesRestController(ApplicationSettings settings,
-                      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-                      @Qualifier("eventSender") EventSender eventSender) {
+        @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+        @Qualifier("eventSender") EventSender eventSender) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
         this.eventSender = eventSender;
@@ -83,19 +86,31 @@ public class VesRestController {
     }
 
     private ResponseEntity<String> process(String events, String version, HttpServletRequest request, String type) {
+        CustomHeaderUtils headerUtils = createHeaderUtils(version, request);
+        if(headerUtils.isOkCustomHeaders()){
+            JSONObject jsonObject = new JSONObject(events);
 
-        JSONObject jsonObject = new JSONObject(events);
+            EventValidator eventValidator = new EventValidator(settings);
+            Optional<ResponseEntity<String>> validationResult = eventValidator.validate(jsonObject, type, version);
 
-        EventValidator eventValidator = new EventValidator(settings);
-        Optional<ResponseEntity<String>> validationResult = eventValidator.validate(jsonObject, type, version);
-
-        if (validationResult.isPresent()){
-            return validationResult.get();
+            if (validationResult.isPresent()){
+                return validationResult.get();
+            }
+            JSONArray arrayOfEvents = new EventUpdater(settings).convert(jsonObject,version, generateUUID(version, request.getRequestURI(), jsonObject), type);
+            eventSender.send(arrayOfEvents);
+            // TODO call service and return status, replace CambriaClient, split event to single object and list of them
+            return accepted().headers(VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()))
+                .contentType(MediaType.APPLICATION_JSON).body("Accepted");
         }
-        JSONArray arrayOfEvents = new EventUpdater(settings).convert(jsonObject,version, generateUUID(version, request.getRequestURI(), jsonObject), type);
-        eventSender.send(arrayOfEvents);
-        // TODO call service and return status, replace CambriaClient, split event to single object and list of them
-        return accepted().contentType(MediaType.APPLICATION_JSON).body("Accepted");
+        return badRequest().body(String.format(ApiException.INVALID_CUSTOM_HEADER.toString()));
+    }
+
+    private CustomHeaderUtils createHeaderUtils(String version, HttpServletRequest request){
+        return  new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
+            VesHeaderUtils.getReqHeaderMap(request),
+            VesHeaderUtils.getApiVerFilePath("api_version_config.json"),
+            VesHeaderUtils.getRestApiIdentify(request.getRequestURI()));
+
     }
 
     private UUID generateUUID(String version, String uri, JSONObject jsonObject) {
