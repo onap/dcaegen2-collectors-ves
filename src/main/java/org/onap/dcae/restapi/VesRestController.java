@@ -30,7 +30,6 @@ import com.att.nsa.logging.log4j.EcompFields;
 import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
-
 import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +39,13 @@ import org.json.JSONObject;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.VESLogger;
+import org.onap.dcae.common.VesHeaderUtils;
+import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,22 +107,31 @@ public class VesRestController {
             return ResponseEntity.badRequest().body(INVALID_JSON);
         }
 
+        // deal api version
+        CustomHeaderUtils headerUtils = new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
+            VesHeaderUtils.getReqHeaderMap(httpServletRequest), VesHeaderUtils.getApiVerFilePath("api_version_config.json"), VesHeaderUtils.getRestApiIdentify(request));
+        final boolean isOkCustomHeaders = headerUtils.isOkCustomHeaders();
+        if (!isOkCustomHeaders) {
+          log.error("There is something wrong with custom header, return");
+          return errorResponse(ApiException.INVALID_CUSTOM_HEADER, VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()));
+        }
+
         String uuid = setUpECOMPLoggingForRequest();
         incomingRequestsLogger.info(String.format(
                 "Received a VESEvent '%s', marked with unique identifier '%s', on api version '%s', from host: '%s'",
                 jsonObject, uuid, version, httpServletRequest.getRemoteHost()));
 
         if (applicationSettings.jsonSchemaValidationEnabled()) {
-            if (isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
+            if (VesHeaderUtils.isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
                 if (!conformsToSchema(jsonObject, version)) {
-                    return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
+                    return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED, VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()));
                 }
-            } else if (!isBatchRequest(request) && (!jsonObject.has("eventList") && (jsonObject.has("event")))) {
+            } else if (!VesHeaderUtils.isBatchRequest(request) && (!jsonObject.has("eventList") && (jsonObject.has("event")))) {
                 if (!conformsToSchema(jsonObject, version)) {
-                    return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
+                    return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED, VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()));
                 }
             } else {
-                return errorResponse(ApiException.INVALID_JSON_INPUT);
+                return errorResponse(ApiException.INVALID_JSON_INPUT, VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()));
             }
         }
 
@@ -128,9 +139,9 @@ public class VesRestController {
 
         if (!putEventsOnProcessingQueue(commonlyFormatted)) {
             errorLog.error("EVENT_RECEIPT_FAILURE: QueueFull " + ApiException.NO_SERVER_RESOURCES);
-            return errorResponse(ApiException.NO_SERVER_RESOURCES);
+            return errorResponse(ApiException.NO_SERVER_RESOURCES, VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()));
         }
-        return accepted()
+        return accepted().headers(VesHeaderUtils.fillRspHttpHeaders(headerUtils.getRspCustomHeader()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("Accepted");
     }
@@ -139,8 +150,8 @@ public class VesRestController {
         return httpServletRequest.split("/")[2];
     }
 
-    private ResponseEntity<String> errorResponse(ApiException noServerResources) {
-        return ResponseEntity.status(noServerResources.httpStatusCode)
+    private ResponseEntity<String> errorResponse(ApiException noServerResources, HttpHeaders headers) {
+        return ResponseEntity.status(noServerResources.httpStatusCode).headers(headers)
                 .body(noServerResources.toJSON().toString());
     }
 
@@ -176,7 +187,7 @@ public class VesRestController {
         JSONArray asArrayEvents = new JSONArray();
         String vesUniqueIdKey = "VESuniqueId";
         String vesVersionKey = "VESversion";
-        if (isBatchRequest(request)) {
+        if (VesHeaderUtils.isBatchRequest(request)) {
             JSONArray events = jsonObject.getJSONArray("eventList");
             for (int i = 0; i < events.length(); i++) {
                 JSONObject event = new JSONObject().put("event", events.getJSONObject(i));
@@ -197,9 +208,5 @@ public class VesRestController {
         LoggingContext localLC = VESLogger.getLoggingContextForThread(uuid);
         localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
         return uuid.toString();
-    }
-
-    private static boolean isBatchRequest(String request) {
-        return request.contains("eventBatch");
     }
 }
