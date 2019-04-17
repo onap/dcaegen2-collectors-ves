@@ -21,11 +21,14 @@ package org.onap.dcae.restapi;
 
 import io.vavr.control.Option;
 import java.io.IOException;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethodType;
+import org.onap.dcae.common.configuration.SubjectMatcher;
 import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +37,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
+    private static final String CERTIFICATE_X_509 = "javax.servlet.request.X509Certificate";
+    private static final String MESSAGE = "SubjectDN didn't match with any regexp from %s file like %s";
     private final CryptPassword cryptPassword = new CryptPassword();
     private final ApplicationSettings settings;
     private Logger errorLogger;
-
 
     public ApiAuthInterceptor(ApplicationSettings applicationSettings, Logger errorLogger) {
         this.settings = applicationSettings;
@@ -48,23 +52,59 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws IOException {
 
-        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value())){
-            if (request.getAttribute("javax.servlet.request.X509Certificate") != null){
-                LOG.info("Request is authorized by certificate ");
-                return true;
-            }
+        SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
+
+        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
+            return validateCertRequest(response, subjectMatcher);
         }
-        if (isBasicAuth()) {
-            String authorizationHeader = request.getHeader("Authorization");
-            if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
-                response.setStatus(401);
-                errorLogger.error("EVENT_RECEIPT_FAILURE: Unauthorized user");
-                response.getWriter().write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
-                return false;
-            }
-            LOG.info("Request is authorized by basic auth");
+
+        if(isCertSubject(subjectMatcher)){
+            return true;
+        }
+
+        if (isBasicAuth() ) {
+            return validateBasicHeader(request, response);
         }
         return true;
+    }
+
+    private boolean validateBasicHeader(HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null || !isAuthorized(authorizationHeader)) {
+            response.setStatus(401);
+            errorLogger.error("EVENT_RECEIPT_FAILURE: Unauthorized user");
+            response.getWriter().write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
+            LOG.info(ApiException.UNAUTHORIZED_USER.toJSON().toString());
+            return false;
+        }
+        LOG.info("Request is authorized by basic auth");
+        return true;
+    }
+
+    private boolean validateCertRequest(HttpServletResponse response, SubjectMatcher subjectMatcher)
+        throws IOException {
+        if (!isCertSubject(subjectMatcher)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write(getMessage(subjectMatcher));
+            return false;
+        }
+        LOG.info("Cert and subjectDN is valid");
+        return true;
+    }
+
+    private String getMessage(SubjectMatcher subjectMatcher) throws IOException {
+        return String.format(MESSAGE, settings.certSubjectMatcher(),
+            subjectMatcher.getLines().collect(Collectors.joining(" ")));
+    }
+
+    private boolean isCertSubject(SubjectMatcher subjectMatcher) throws IOException {
+        if(subjectMatcher.isCert() && subjectMatcher.match()){
+            LOG.info("Cert and subjectDN is valid");
+            return true;
+        }
+        LOG.info(getMessage(subjectMatcher));
+        return false;
     }
 
     private boolean isBasicAuth() {
