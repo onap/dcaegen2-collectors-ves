@@ -28,47 +28,29 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
+import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.GenericFilterBean;
 
-@Configuration
-public class CustomFilter extends GenericFilterBean {
+public class SubjectMatcher {
 
-  private static final String CERTIFICATE_X_509 = "javax.servlet.request.X509Certificate";
-  private static final String MESSAGE = "SubjectDN didn't match with any regexp from %s file like %s";
-  private ApplicationSettings properties;
+  private final ApplicationSettings properties;
+  private final X509Certificate[] cert;
 
-  public CustomFilter(ApplicationSettings properties) {
+  public SubjectMatcher(ApplicationSettings properties, X509Certificate[] cert) {
     this.properties = properties;
+    this.cert = cert;
   }
 
-  @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-      FilterChain filterChain) throws IOException, ServletException {
-
-    X509Certificate[] cert = (X509Certificate[]) servletRequest.getAttribute(CERTIFICATE_X_509);
-
-    if (cert != null) {
-      if (getLines().anyMatch(element -> Pattern.compile(element).matcher(getSubjectDN(cert)).find())) {
-        filterChain.doFilter(servletRequest, servletResponse);
-      } else {
-        setResponse((HttpServletResponse) servletResponse);
-      }
-    } else {
-      filterChain.doFilter(servletRequest, servletResponse);
+  public boolean match(){
+    try {
+      return getLines().anyMatch(element -> Pattern.compile(element).matcher(getSubjectDN(cert)).find());
+    } catch (IOException ex) {
+      throw new ApplicationException("Cannot read file cause: ", ex);
     }
   }
 
-  private void setResponse(HttpServletResponse servletResponse) throws IOException {
-    HttpServletResponse response = servletResponse;
-    response.sendError(HttpServletResponse.SC_FORBIDDEN,
-        String.format(MESSAGE, properties.certSubjectMatcher(), getLines().collect(Collectors.joining(" "))));
+  public boolean isCert() {
+    return cert !=null;
   }
 
   private Stream<String> getLines() throws IOException {
