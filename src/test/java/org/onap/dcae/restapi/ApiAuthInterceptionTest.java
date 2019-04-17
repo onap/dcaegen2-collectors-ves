@@ -140,7 +140,7 @@ public class ApiAuthInterceptionTest {
     public void shouldSucceed() throws IOException {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
-        when(settings.authMethod()).thenReturn(AuthMethodType.CERT_ONLY.value());
+        when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
         when(settings.validAuthorizationCredentials()).thenReturn(
             HashMap.of(USERNAME, "$2a$10$BsZkEynNm/93wbAeeZuxJeu6IHRyQl4XReqDg2BtYOFDhUsz20.3G"));
         when(response.getWriter()).thenReturn(writer);
