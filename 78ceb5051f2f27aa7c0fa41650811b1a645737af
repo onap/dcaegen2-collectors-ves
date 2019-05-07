@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c362424_8cc8fc2e",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-05-07T10:18:41Z",
+      "side": 1,
+      "message": "inline",
+      "revId": "78ceb5051f2f27aa7c0fa41650811b1a645737af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2ee0e3f_8cf41c9e",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-05-07T10:18:41Z",
+      "side": 1,
+      "message": "methods candidate",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "78ceb5051f2f27aa7c0fa41650811b1a645737af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
