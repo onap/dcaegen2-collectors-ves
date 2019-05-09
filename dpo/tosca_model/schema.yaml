@@ -195,8 +195,6 @@ node_types:
     properties:
       docker_collector.dmaap.streamid:
         type: string
-      docker_collector.inputQueue.maxPending:
-        type: string
       docker_collector.keystore.file.location:
         type: string
       docker_collector.keystore.passwordfile:
