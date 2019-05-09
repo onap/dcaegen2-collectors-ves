@@ -22,14 +22,9 @@ package org.onap.dcae;
 
 import io.vavr.collection.Map;
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONObject;
-import org.onap.dcae.common.EventProcessor;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.EventPublisher;
@@ -49,21 +44,16 @@ import org.springframework.context.annotation.Lazy;
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
 
-    private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
     private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.common.output");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
-    private static final int MAX_THREADS = 20;
-    public static LinkedBlockingQueue<JSONObject> fProcessingInputQueue;
     private static ApplicationSettings properties;
     private static ConfigurableApplicationContext context;
     private static ConfigLoader configLoader;
-    private static EventProcessor eventProcessor;
     private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
     private static SpringApplication app;
     private static EventPublisher eventPublisher;
     private static ScheduledFuture<?> scheduleFeatures;
-    private static ExecutorService executor;
 
     public static void main(String[] args) {
       app = new SpringApplication(VesApplication.class);
@@ -73,7 +63,6 @@ public class VesApplication {
       app.setAddCommandLineProperties(true);
       context = app.run();
       configLoader.updateConfig();
-
     }
 
     public static void restartApplication() {
@@ -89,7 +78,6 @@ public class VesApplication {
     }
 
     private static void init() {
-      fProcessingInputQueue = new LinkedBlockingQueue<>(properties.maximumAllowedQueuedEvents());
       createConfigLoader();
       createSchedulePoolExecutor();
       createExecutors();
@@ -97,12 +85,6 @@ public class VesApplication {
 
     private static void createExecutors() {
       eventPublisher = EventPublisher.createPublisher(oplog, getDmapConfig());
-      eventProcessor = new EventProcessor(new EventSender(eventPublisher, properties));
-
-      executor = Executors.newFixedThreadPool(MAX_THREADS);
-      for (int i = 0; i < MAX_THREADS; ++i) {
-        executor.execute(eventProcessor);
-      }
     }
 
     private static void createSchedulePoolExecutor() {
@@ -142,20 +124,15 @@ public class VesApplication {
     }
 
     @Bean
-    @Qualifier("metricsLog")
-    public Logger incomingRequestsMetricsLogger() {
-        return metriclog;
-    }
-
-    @Bean
     @Qualifier("errorLog")
     public Logger errorLogger() {
         return errorLog;
     }
 
     @Bean
-    public LinkedBlockingQueue<JSONObject> inputQueue() {
-        return fProcessingInputQueue;
+    @Qualifier("eventSender")
+    public EventSender eventSender() {
+        return new EventSender(eventPublisher,properties);
     }
 
 }
