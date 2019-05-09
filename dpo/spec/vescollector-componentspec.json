@@ -281,14 +281,6 @@
       "designer_editable": false
     },
     {
-      "name": "collector.inputQueue.maxPending",
-      "value": 8096,
-      "description": "Maximum queue limit across domains collector will queue before event is published",
-      "sourced_at_deployment": false,
-      "policy_editable": false,
-      "designer_editable": false
-    },
-    {
       "name": "collector.dmaap.streamid",
       "value": "fault=ves-fault,ves-fault-secondary|syslog=ves-syslog,ves-syslog-secondary|heartbeat=ves-heartbeat,ves-heartbeat-secondary|measurementsForVfScaling=ves-measurement,ves-measurement-secondary|mobileFlow=ves-mobileflow,ves-mobileflow-secondary|other=ves-other,ves-other-secondary|stateChange=ves-statechange,ves-statechange-secondary|thresholdCrossingAlert=ves-thresholdCrossingAlert,ves-thresholdCrossingAlert-secondary|voiceQuality=ves-voicequality,ves-voicequality-secondary|sipSignaling=ves-sipsignaling,ves-sipsignaling-secondary|notification=ves-notification,ves-notification-secondary|pnfRegistration=ves-pnfRegistration,ves-pnfRegistration-secondary",
       "description": "domain-to-streamid mapping used by VESCollector to distributes events based on domain. Both primary and secondary config_key are included for resilency (multiple streamid can be included commma separated). The streamids MUST match to topic config_keys. For single site without resiliency deployment - configkeys with -secondary suffix can be removed",
