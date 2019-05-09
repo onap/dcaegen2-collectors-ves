@@ -24,8 +24,6 @@ topology_template:
   inputs:
     docker_collector.dmaap.streamid:
       type: string
-    docker_collector.inputQueue.maxPending:
-      type: string
     docker_collector.keystore.file.location:
       type: string
     docker_collector.keystore.passwordfile:
@@ -105,8 +103,6 @@ topology_template:
         application_config:
           collector.dmaap.streamid:
             get_input: docker_collector.dmaap.streamid
-          collector.inputQueue.maxPending:
-            get_input: docker_collector.inputQueue.maxPending
           collector.keystore.file.location:
             get_input: docker_collector.keystore.file.location
           collector.keystore.passwordfile:
