@@ -126,6 +126,10 @@ public class ApplicationSettings {
                 .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
     }
 
+    public boolean isSupported(String version){
+       return loadedJsonSchemas.containsKey(version);
+    }
+
     private Map<String, JsonSchema> loadJsonSchemas() {
         return jsonSchema().toMap().entrySet().stream()
                 .map(this::readSchemaForVersion)

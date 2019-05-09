@@ -23,6 +23,7 @@ package org.onap.dcae.restapi;
 
 import static java.util.stream.StreamSupport.stream;
 import static org.springframework.http.ResponseEntity.accepted;
+import static org.springframework.http.ResponseEntity.badRequest;
 
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
@@ -30,15 +31,13 @@ import com.att.nsa.logging.log4j.EcompFields;
 import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
-
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingQueue;
 import javax.servlet.http.HttpServletRequest;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.VESLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +46,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,24 +55,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class VesRestController {
 
     private static final Logger log = LoggerFactory.getLogger(VesRestController.class);
-    private static final String INVALID_JSON = ApiException.INVALID_JSON_INPUT.toJSON().toString();
+    private static final String VES_EVENT_MESSAGE = "Received a VESEvent '%s', marked with unique identifier '%s', on api version '%s', from host: '%s'";
+    private static final String EVENT_LIST = "eventList";
+    private static final String EVENT = "event";
+    private static final String VES_UNIQUE_ID = "VESuniqueId";
+    private static final String VES_VERSION = "VESversion";
     private final ApplicationSettings applicationSettings;
-    private final LinkedBlockingQueue<JSONObject> inputQueue;
     private final Logger metricsLog;
-    private final Logger errorLog;
-    private final Logger incomingRequestsLogger;
+    private final Logger requestLogger;
+    private EventSender eventSender;
 
     @Autowired
     VesRestController(ApplicationSettings applicationSettings,
                       @Qualifier("metricsLog") Logger metricsLog,
-                      @Qualifier("errorLog") Logger errorLog,
                       @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-                      @Qualifier("inputQueue") LinkedBlockingQueue<JSONObject> inputQueue) {
+                      @Qualifier("eventSender") EventSender eventSender) {
         this.applicationSettings = applicationSettings;
         this.metricsLog = metricsLog;
-        this.errorLog = errorLog;
-        this.incomingRequestsLogger = incomingRequestsLogger;
-        this.inputQueue = inputQueue;
+        this.requestLogger = incomingRequestsLogger;
+        this.eventSender = eventSender;
     }
 
     @GetMapping("/")
@@ -80,42 +81,34 @@ public class VesRestController {
         return "Welcome to VESCollector";
     }
 
-    //refactor in next iteration
-    @PostMapping(value = {"/eventListener/v1",
-            "/eventListener/v1/eventBatch",
-            "/eventListener/v2",
-            "/eventListener/v2/eventBatch",
-            "/eventListener/v3",
-            "/eventListener/v3/eventBatch",
-            "/eventListener/v4",
-            "/eventListener/v4/eventBatch",
-            "/eventListener/v5",
-            "/eventListener/v5/eventBatch",
-            "/eventListener/v7",
-            "/eventListener/v7/eventBatch"}, consumes = "application/json")
-    ResponseEntity<String> receiveEvent(@RequestBody String jsonPayload, HttpServletRequest httpServletRequest) {
-        String request = httpServletRequest.getRequestURI();
-        String version = extractVersion(request);
-
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject(jsonPayload);
-        } catch (Exception e) {
-            log.error(INVALID_JSON);
-            return ResponseEntity.badRequest().body(INVALID_JSON);
+    @PostMapping(value = {"/eventListener/{version}"}, consumes = "application/json")
+    ResponseEntity<String> event(@RequestBody String event, @PathVariable String version, HttpServletRequest request) {
+        if (applicationSettings.isSupported(version)) {
+            return process(event, version, request, EVENT);
         }
+        return badRequest().contentType(MediaType.APPLICATION_JSON)
+            .body(String.format("API version %s is not supported", version));
+    }
 
-        String uuid = setUpECOMPLoggingForRequest();
-        incomingRequestsLogger.info(String.format(
-                "Received a VESEvent '%s', marked with unique identifier '%s', on api version '%s', from host: '%s'",
-                jsonObject, uuid, version, httpServletRequest.getRemoteHost()));
+
+    @PostMapping(value = {"/eventListener/{version}/eventBatch"}, consumes = "application/json")
+    ResponseEntity<String> eventList(@RequestBody String events, @PathVariable String version, HttpServletRequest request) {
+        if (applicationSettings.isSupported(version)) {
+            return process(events, version, request, EVENT_LIST);
+        }
+        return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
+    }
+
+    private ResponseEntity<String> process(String events, String version, HttpServletRequest request, String type) {
+
+        UUID uuid = UUID.randomUUID();
+        JSONObject jsonObject = new JSONObject(events);
+        setUpECOMPLoggingForRequest(uuid);
+
+        requestLogger.info(String.format(VES_EVENT_MESSAGE, jsonObject, uuid, version, request.getRequestURI()));
 
         if (applicationSettings.jsonSchemaValidationEnabled()) {
-            if (isBatchRequest(request) && (jsonObject.has("eventList") && (!jsonObject.has("event")))) {
-                if (!conformsToSchema(jsonObject, version)) {
-                    return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
-                }
-            } else if (!isBatchRequest(request) && (!jsonObject.has("eventList") && (jsonObject.has("event")))) {
+            if (jsonObject.has(type)) {
                 if (!conformsToSchema(jsonObject, version)) {
                     return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
                 }
@@ -123,20 +116,9 @@ public class VesRestController {
                 return errorResponse(ApiException.INVALID_JSON_INPUT);
             }
         }
-
-        JSONArray commonlyFormatted = convertToJSONArrayCommonFormat(jsonObject, request, uuid, version);
-
-        if (!putEventsOnProcessingQueue(commonlyFormatted)) {
-            errorLog.error("EVENT_RECEIPT_FAILURE: QueueFull " + ApiException.NO_SERVER_RESOURCES);
-            return errorResponse(ApiException.NO_SERVER_RESOURCES);
-        }
-        return accepted()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("Accepted");
-    }
-
-    private String extractVersion(String httpServletRequest) {
-        return httpServletRequest.split("/")[2];
+        send(convertToJSONArrayCommonFormat(jsonObject, request.getRequestURI(), uuid.toString(), version));
+        // call service and return status
+        return accepted().contentType(MediaType.APPLICATION_JSON).body("Accepted");
     }
 
     private ResponseEntity<String> errorResponse(ApiException noServerResources) {
@@ -144,28 +126,28 @@ public class VesRestController {
                 .body(noServerResources.toJSON().toString());
     }
 
-    private boolean putEventsOnProcessingQueue(JSONArray arrayOfEvents) {
+    private void send(JSONArray arrayOfEvents) {
         for (int i = 0; i < arrayOfEvents.length(); i++) {
             metricsLog.info("EVENT_PUBLISH_START");
-            if (!inputQueue.offer((JSONObject) arrayOfEvents.get(i))) {
-                return false;
-            }
+            JSONObject object = (JSONObject) arrayOfEvents.get(i);
+            setLoggingContext(object);
+            eventSender.send(object);
+            log.debug("Message published" + object);
         }
         log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
         metricsLog.info("EVENT_PUBLISH_END");
-        return true;
     }
 
     private boolean conformsToSchema(JSONObject payload, String version) {
         try {
             JsonSchema schema = applicationSettings.jsonSchema(version);
             ProcessingReport report = schema.validate(JsonLoader.fromString(payload.toString()));
-            if (!report.isSuccess()) {
-                log.warn("Schema validation failed for event: " + payload);
-                stream(report.spliterator(), false).forEach(e -> log.warn(e.getMessage()));
-                return false;
+            if (report.isSuccess()) {
+                return true;
             }
-            return report.isSuccess();
+            log.warn("Schema validation failed for event: " + payload);
+            stream(report.spliterator(), false).forEach(e -> log.warn(e.getMessage()));
+            return false;
         } catch (Exception e) {
             throw new ApplicationException("Unable to validate against schema", e);
         }
@@ -174,12 +156,12 @@ public class VesRestController {
     private static JSONArray convertToJSONArrayCommonFormat(JSONObject jsonObject, String request,
                                                             String uuid, String version) {
         JSONArray asArrayEvents = new JSONArray();
-        String vesUniqueIdKey = "VESuniqueId";
-        String vesVersionKey = "VESversion";
+        String vesUniqueIdKey = VES_UNIQUE_ID;
+        String vesVersionKey = VES_VERSION;
         if (isBatchRequest(request)) {
-            JSONArray events = jsonObject.getJSONArray("eventList");
+            JSONArray events = jsonObject.getJSONArray(EVENT_LIST);
             for (int i = 0; i < events.length(); i++) {
-                JSONObject event = new JSONObject().put("event", events.getJSONObject(i));
+                JSONObject event = new JSONObject().put(EVENT, events.getJSONObject(i));
                 event.put(vesUniqueIdKey, uuid + "-" + i);
                 event.put(vesVersionKey, version);
                 asArrayEvents.put(event);
@@ -192,11 +174,15 @@ public class VesRestController {
         return asArrayEvents;
     }
 
-    private static String setUpECOMPLoggingForRequest() {
-        final UUID uuid = UUID.randomUUID();
+    private static void setUpECOMPLoggingForRequest(UUID uuid) {
         LoggingContext localLC = VESLogger.getLoggingContextForThread(uuid);
         localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
-        return uuid.toString();
+    }
+
+      private void setLoggingContext(JSONObject event) {
+        LoggingContext localLC = VESLogger.getLoggingContextForThread(event.get(VES_UNIQUE_ID).toString());
+        localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
+        log.debug("event.VESuniqueId" + event.get(VES_UNIQUE_ID) + "event.commonEventHeader.domain:" + eventSender.getDomain(event));
     }
 
     private static boolean isBatchRequest(String request) {
