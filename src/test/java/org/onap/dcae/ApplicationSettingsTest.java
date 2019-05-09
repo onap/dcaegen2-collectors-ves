@@ -235,25 +235,6 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnMaximumAllowedQueuedEvents() throws IOException {
-        // when
-        int maximumAllowedQueuedEvents = fromTemporaryConfiguration("collector.inputQueue.maxPending=10000")
-            .maximumAllowedQueuedEvents();
-
-        // then
-        assertEquals(10000, maximumAllowedQueuedEvents);
-    }
-
-    @Test
-    public void shouldReturnDefaultMaximumAllowedQueuedEvents() throws IOException {
-        // when
-        int maximumAllowedQueuedEvents = fromTemporaryConfiguration().maximumAllowedQueuedEvents();
-
-        // then
-        assertEquals(1024 * 4, maximumAllowedQueuedEvents);
-    }
-
-    @Test
     public void shouldTellIfSchemaValidationIsEnabled() throws IOException {
         // when
         boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration("collector.schema.checkflag=1")
