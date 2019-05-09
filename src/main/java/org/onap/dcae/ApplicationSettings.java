@@ -84,36 +84,12 @@ public class ApplicationSettings {
             throw new ApplicationException(ex);
         }
     }
-    public void loadPropertiesFromFile() {
-        try {
-            properties.load(configurationFileLocation);
-        } catch (ConfigurationException ex) {
-            log.error("Cannot load properties cause:", ex);
-            throw new ApplicationException(ex);
-        }
-    }
-
     public Map<String, String> validAuthorizationCredentials() {
         return prepareUsersMap(properties.getString("header.authlist", null));
     }
 
-    private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
-        return allowedUsers == null ? HashMap.empty()
-                : List.of(allowedUsers.split("\\|"))
-                .map(t->t.split(","))
-                .toMap(t-> t[0].trim(), t -> t[1].trim());
-    }
-
-    private String findOutConfigurationFileLocation(Map<String, String> parsedArgs) {
-        return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/collector.properties"));
-    }
-
     public Path configurationFileLocation() {
         return Paths.get(configurationFileLocation);
-    }
-
-    public int maximumAllowedQueuedEvents() {
-        return properties.getInt("collector.inputQueue.maxPending", 1024 * 4);
     }
 
     public boolean jsonSchemaValidationEnabled() {
@@ -126,22 +102,8 @@ public class ApplicationSettings {
                 .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
     }
 
-    private Map<String, JsonSchema> loadJsonSchemas() {
-        return jsonSchema().toMap().entrySet().stream()
-                .map(this::readSchemaForVersion)
-                .collect(HashMap.collector());
-    }
-
-    private Tuple2<String, JsonSchema> readSchemaForVersion(java.util.Map.Entry<String, Object> versionToFilePath) {
-        try {
-            String schemaContent = new String(
-                    readAllBytes(Paths.get(versionToFilePath.getValue().toString())));
-            JsonNode schemaNode = JsonLoader.fromString(schemaContent);
-            JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
-            return Tuple(versionToFilePath.getKey(), schema);
-        } catch (IOException | ProcessingException e) {
-            throw new ApplicationException("Could not read schema from path: " + versionToFilePath.getValue(), e);
-        }
+    public boolean isVersionSupported(String version){
+       return loadedJsonSchemas.containsKey(version);
     }
 
     public int httpPort() {
@@ -183,6 +145,7 @@ public class ApplicationSettings {
     public String exceptionConfigFileLocation() {
         return properties.getString("exceptionConfig", null);
     }
+
     public String dMaaPConfigurationFileLocation() {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
     }
@@ -204,12 +167,50 @@ public class ApplicationSettings {
         }
     }
 
-    public void addOrUpdate(String key, String value) {
+    private void loadPropertiesFromFile() {
+        try {
+            properties.load(configurationFileLocation);
+        } catch (ConfigurationException ex) {
+            log.error("Cannot load properties cause:", ex);
+            throw new ApplicationException(ex);
+        }
+    }
+
+    private void addOrUpdate(String key, String value) {
         if (properties.containsKey(key)) {
             properties.setProperty(key, value);
         } else {
             properties.addProperty(key, value);
         }
+    }
+
+    private String findOutConfigurationFileLocation(Map<String, String> parsedArgs) {
+        return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/collector.properties"));
+    }
+
+    private Map<String, JsonSchema> loadJsonSchemas() {
+        return jsonSchema().toMap().entrySet().stream()
+            .map(this::readSchemaForVersion)
+            .collect(HashMap.collector());
+    }
+
+    private Tuple2<String, JsonSchema> readSchemaForVersion(java.util.Map.Entry<String, Object> versionToFilePath) {
+        try {
+            String schemaContent = new String(
+                readAllBytes(Paths.get(versionToFilePath.getValue().toString())));
+            JsonNode schemaNode = JsonLoader.fromString(schemaContent);
+            JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
+            return Tuple(versionToFilePath.getKey(), schema);
+        } catch (IOException | ProcessingException e) {
+            throw new ApplicationException("Could not read schema from path: " + versionToFilePath.getValue(), e);
+        }
+    }
+
+    private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
+        return allowedUsers == null ? HashMap.empty()
+            : List.of(allowedUsers.split("\\|"))
+                .map(t->t.split(","))
+                .toMap(t-> t[0].trim(), t -> t[1].trim());
     }
 
     private JSONObject jsonSchema() {
