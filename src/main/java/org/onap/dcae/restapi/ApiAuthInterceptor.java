@@ -23,7 +23,6 @@ import io.vavr.control.Option;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
