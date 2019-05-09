@@ -164,6 +164,7 @@ public class VesRestController {
                 log.warn("Schema validation failed for event: " + payload);
                 stream(report.spliterator(), false).forEach(e -> log.warn(e.getMessage()));
                 return false;
+
             }
             return report.isSuccess();
         } catch (Exception e) {
