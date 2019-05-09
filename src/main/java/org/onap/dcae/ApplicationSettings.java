@@ -112,10 +112,6 @@ public class ApplicationSettings {
         return Paths.get(configurationFileLocation);
     }
 
-    public int maximumAllowedQueuedEvents() {
-        return properties.getInt("collector.inputQueue.maxPending", 1024 * 4);
-    }
-
     public boolean jsonSchemaValidationEnabled() {
         return properties.getInt("collector.schema.checkflag", -1) > 0;
     }
@@ -124,6 +120,10 @@ public class ApplicationSettings {
         return loadedJsonSchemas.get(version)
                 .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
                 .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
+    }
+
+    public boolean isVersionSupported(String version){
+       return loadedJsonSchemas.containsKey(version);
     }
 
     private Map<String, JsonSchema> loadJsonSchemas() {
