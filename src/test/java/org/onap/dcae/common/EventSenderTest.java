@@ -28,6 +28,7 @@ import static org.mockito.Mockito.when;
 
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.publishing.EventPublisher;
+import org.slf4j.Logger;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class EventSenderTest {
@@ -46,6 +48,8 @@ public class EventSenderTest {
   private EventPublisher eventPublisher;
   @Mock
   private ApplicationSettings settings;
+  @Mock
+  private Logger logger;
 
   private EventSender eventSender;
 
@@ -54,7 +58,10 @@ public class EventSenderTest {
   public void shouldntSendEventWhenStreamIdsIsEmpty() {
     when(settings.dMaaPStreamsMapping()).thenReturn(HashMap.empty());
     eventSender = new EventSender(eventPublisher, settings );
-    eventSender.send(new JSONObject(event));
+    JSONObject jsonObject = new JSONObject(event);
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put(jsonObject);
+    eventSender.send(jsonArray,  logger);
     verify(eventPublisher,never()).sendEvent(any(),any());
   }
 
@@ -63,7 +70,10 @@ public class EventSenderTest {
     Map<String, String[]> streams = HashMap.of("fault", new String[]{"ves-fault", "fault-ves"});
     when(settings.dMaaPStreamsMapping()).thenReturn(streams);
     eventSender = new EventSender(eventPublisher, settings );
-    eventSender.send(new JSONObject(event));
+    JSONObject jsonObject = new JSONObject(event);
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put(jsonObject);
+    eventSender.send(jsonArray,  logger);
     verify(eventPublisher, times(2)).sendEvent(any(),any());
   }
 }
