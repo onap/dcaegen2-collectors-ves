@@ -211,6 +211,7 @@
 						<run>chmod 0644 etc/logrotate.conf</run>
 					</runs>
 					<exposes>
+						<expose>6060</expose>
 						<expose>8080</expose>
 						<expose>8443</expose>
 					</exposes>
@@ -379,21 +380,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>2.1.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
