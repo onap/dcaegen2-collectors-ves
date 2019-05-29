@@ -4,5 +4,6 @@ services:
     container_name: ves
     image: onap/org.onap.dcaegen2.collectors.ves.vescollector:latest
     ports:
+      - "6060:6060"
       - "8080:8080"
       - "8443:8443"
