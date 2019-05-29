@@ -20,12 +20,6 @@
 package org.onap.dcae.restapi;
 
 import io.vavr.control.Option;
-import java.io.IOException;
-import java.security.cert.X509Certificate;
-import java.util.Base64;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.onap.dcae.common.configuration.SubjectMatcher;
@@ -33,6 +27,12 @@ import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.cert.X509Certificate;
+import java.util.Base64;
 
 final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
@@ -52,7 +52,15 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws IOException {
 
+
         SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
+
+        if(!settings.authMethod().equalsIgnoreCase(AuthMethodType.NO_AUTH.value()) && request.getServerPort() == settings.httpPort() ){
+            if(request.getRequestURI().replaceAll("^/|/$", "").equalsIgnoreCase("healthcheck")){
+               return true;
+            }
+            return false;
+        }
 
         if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
             return validateCertRequest(response, subjectMatcher);
@@ -97,7 +105,6 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             LOG.info("Cert and subjectDN is valid");
             return true;
         }
-        LOG.info(String.format(MESSAGE, settings.certSubjectMatcher()));
         return false;
     }
 
