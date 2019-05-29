@@ -23,14 +23,16 @@ package org.onap.dcae.restapi;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
 public class HealthCheckController {
 
-    @GetMapping("/healthcheck")
+    @GetMapping(value = "/healthcheck")
+    @ResponseBody
     public String healthCheck() {
-        return "hello";
+        return "I'm good";
     }
 
 }
