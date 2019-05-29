@@ -21,13 +21,6 @@
 package org.onap.dcae;
 
 import io.vavr.collection.Map;
-import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
 import org.onap.dcae.common.EventProcessor;
 import org.onap.dcae.common.EventSender;
@@ -45,6 +38,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+
+import java.nio.file.Paths;
+import java.util.concurrent.*;
 
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {

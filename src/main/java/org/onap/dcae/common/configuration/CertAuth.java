@@ -47,5 +47,7 @@ public class CertAuth implements AuthMethod {
     container.setPort(properties.httpsPort());
     log.info(String.format("Application work in %s mode on %s port.",
         properties.authMethod(), properties.httpsPort()));
+
+
   }
 }
