@@ -97,7 +97,6 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             LOG.info("Cert and subjectDN is valid");
             return true;
         }
-        LOG.info(String.format(MESSAGE, settings.certSubjectMatcher()));
         return false;
     }
 
