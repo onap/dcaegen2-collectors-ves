@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f542c8c7_cf3a8fa0",
+        "filename": "dpo/blueprint/blueprint_ves.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-30T03:35:34Z",
+      "side": 1,
+      "message": "This blueprint should be re-generated using dcae blueprint generator tool using the latest spec. See readme here - https://git.onap.org/dcaegen2/platform/cli/tree/blueprint-generator/README.md",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 43
+      },
+      "revId": "8460820e32d763dba9baf6dc8cb0dad6d1beccd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bb9219a_8276dec0",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-30T03:35:34Z",
+      "side": 1,
+      "message": "should be updated to reflect new auth.method options available",
+      "range": {
+        "startLine": 294,
+        "startChar": 23,
+        "endLine": 294,
+        "endChar": 95
+      },
+      "revId": "8460820e32d763dba9baf6dc8cb0dad6d1beccd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50754d87_9bbb5e89",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-30T03:35:34Z",
+      "side": 1,
+      "message": "to be updated to latest tag",
+      "range": {
+        "startLine": 380,
+        "startChar": 14,
+        "endLine": 380,
+        "endChar": 89
+      },
+      "revId": "8460820e32d763dba9baf6dc8cb0dad6d1beccd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3d6ca2b_2a11aeda",
+        "filename": "dpo/tosca_model/schema.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-30T03:35:34Z",
+      "side": 1,
+      "message": "This file also should be re-generated using toscalab tool",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 60
+      },
+      "revId": "8460820e32d763dba9baf6dc8cb0dad6d1beccd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "512f7c2b_3be3bef2",
+        "filename": "dpo/tosca_model/template.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-30T03:35:34Z",
+      "side": 1,
+      "message": "Need to be regenerated part of updated spec file",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 33
+      },
+      "revId": "8460820e32d763dba9baf6dc8cb0dad6d1beccd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
