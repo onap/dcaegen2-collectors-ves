@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Zlatko Murgoski <zlatko.murgoski@nokia.com>
+Submitted-by: Zlatko Murgoski <zlatko.murgoski@nokia.com>
+Submitted-at: Thu, 30 May 2019 10:32:41 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/88861
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
