@@ -24,7 +24,7 @@
 	</parent>
 	<groupId>org.onap.dcaegen2.collectors.ves</groupId>
 	<artifactId>VESCollector</artifactId>
-	<version>1.4.4-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<name>dcaegen2-collectors-ves</name>
 	<description>VESCollector</description>
 	<properties>
