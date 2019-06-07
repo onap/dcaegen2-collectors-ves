@@ -20,8 +20,18 @@
 
 package org.onap.dcae.restapi;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -34,16 +44,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ApiAuthInterceptionTest {
@@ -61,7 +61,7 @@ public class ApiAuthInterceptionTest {
     private HttpServletResponse response;
 
     @Mock
-    private Object obj;
+    private FilterChain obj;
 
     @Mock
     private PrintWriter writer;
@@ -86,21 +86,21 @@ public class ApiAuthInterceptionTest {
     }
 
     @Test
-    public void shouldSucceedWhenAuthorizationIsDisabled() throws IOException {
+    public void shouldSucceedWhenAuthorizationIsDisabled() throws IOException, ServletException {
         // given
         final HttpServletRequest request = createEmptyRequest();
 
         when(settings.authMethod()).thenReturn(AuthMethodType.NO_AUTH.value());
 
         // when
-        final boolean isAuthorized = sut.preHandle(request, response, obj);
+        sut.doFilter(request, response, obj);
 
         // then
-        assertTrue(isAuthorized);
+        verify(obj, atLeastOnce()).doFilter(request, response);
     }
 
     @Test
-    public void shouldFailDueToEmptyBasicAuthorizationHeader() throws IOException {
+    public void shouldFailDueToEmptyBasicAuthorizationHeader() throws IOException, ServletException {
         // given
         final HttpServletRequest request = createEmptyRequest();
 
@@ -108,18 +108,16 @@ public class ApiAuthInterceptionTest {
         when(response.getWriter()).thenReturn(writer);
 
         // when
-        final boolean isAuthorized = sut.preHandle(request, response, obj);
-
+        sut.doFilter(request, response, obj);
 
         // then
-        assertFalse(isAuthorized);
-
         verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
         verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
     }
 
     @Test
-    public void shouldFailDueToBasicAuthenticationUserMissingFromSettings() throws IOException {
+    public void shouldFailDueToBasicAuthenticationUserMissingFromSettings()
+        throws IOException, ServletException {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
 
@@ -127,17 +125,15 @@ public class ApiAuthInterceptionTest {
         when(response.getWriter()).thenReturn(writer);
 
         // when
-        final boolean isAuthorized = sut.preHandle(request, response, obj);
+        sut.doFilter(request, response, obj);
 
         // then
-        assertFalse(isAuthorized);
-
         verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
         verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
     }
 
     @Test
-    public void shouldSucceed() throws IOException {
+    public void shouldSucceed() throws IOException, ServletException {
         // given
         final HttpServletRequest request = createRequestWithAuthorizationHeader();
         when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
@@ -146,14 +142,15 @@ public class ApiAuthInterceptionTest {
         when(response.getWriter()).thenReturn(writer);
 
         // when
-        final boolean isAuthorized = sut.preHandle(request, response, obj);
+        sut.doFilter(request, response, obj);
 
         // then
-        assertTrue(isAuthorized);
+        verify(obj, atLeastOnce()).doFilter(request, response);
     }
 
     @Test
-    public void shouldFailDueToInvalidBasicAuthorizationHeaderValue() throws IOException {
+    public void shouldFailDueToInvalidBasicAuthorizationHeaderValue()
+        throws IOException, ServletException {
         // given
         final HttpServletRequest request =
                 MockMvcRequestBuilders
@@ -166,11 +163,9 @@ public class ApiAuthInterceptionTest {
         when(response.getWriter()).thenReturn(writer);
 
         // when
-        final boolean isAuthorized = sut.preHandle(request, response, obj);
+        sut.doFilter(request, response, obj);
 
-        // then
-        assertFalse(isAuthorized);
-
+        //then
         verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
         verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
     }
