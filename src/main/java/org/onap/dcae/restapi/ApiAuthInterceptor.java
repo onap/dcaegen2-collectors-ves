@@ -23,7 +23,11 @@ import io.vavr.control.Option;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
-import java.util.stream.Collectors;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
@@ -32,9 +36,10 @@ import org.onap.dcae.common.configuration.SubjectMatcher;
 import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.stereotype.Component;
 
-final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
+@Component
+public class ApiAuthInterceptor implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
     private static final String CERTIFICATE_X_509 = "javax.servlet.request.X509Certificate";
@@ -48,24 +53,33 @@ final class ApiAuthInterceptor extends HandlerInterceptorAdapter {
         this.errorLogger = errorLogger;
     }
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-        throws IOException {
 
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+        FilterChain chain) throws IOException, ServletException {
         SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
 
         if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
-            return validateCertRequest(response, subjectMatcher);
+            if( validateCertRequest((HttpServletResponse )response, subjectMatcher)){
+                chain.doFilter(request, response);
+                return;
+            }
+            return;
         }
 
         if(isCertSubject(subjectMatcher)){
-            return true;
+            chain.doFilter(request, response);
+            return;
         }
 
         if (isBasicAuth() ) {
-            return validateBasicHeader(request, response);
+            if(validateBasicHeader((HttpServletRequest)request, (HttpServletResponse)response)){
+                chain.doFilter(request, response);
+                return;
+            }
+            return;
         }
-        return true;
+        chain.doFilter(request, response);
     }
 
     private boolean validateBasicHeader(HttpServletRequest request, HttpServletResponse response)
