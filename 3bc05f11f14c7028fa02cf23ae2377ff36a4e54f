@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad0782f_df950875",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-13T03:59:01Z",
+      "side": 1,
+      "message": "set this same as version in pom.",
+      "range": {
+        "startLine": 3,
+        "startChar": 16,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "3bc05f11f14c7028fa02cf23ae2377ff36a4e54f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c362535_3aa4fae5",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-13T03:59:01Z",
+      "side": 1,
+      "message": "we should also add 8080:8080 mapping",
+      "range": {
+        "startLine": 374,
+        "startChar": 6,
+        "endLine": 374,
+        "endChar": 17
+      },
+      "revId": "3bc05f11f14c7028fa02cf23ae2377ff36a4e54f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "071541f1_4cf41f17",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-13T03:59:01Z",
+      "side": 1,
+      "message": "match latest in master",
+      "range": {
+        "startLine": 380,
+        "startChar": 86,
+        "endLine": 380,
+        "endChar": 89
+      },
+      "revId": "3bc05f11f14c7028fa02cf23ae2377ff36a4e54f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
