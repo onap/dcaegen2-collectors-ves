@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+
+  <Appenders>
+
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <PatternLayout
+        pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    </Console>
+
+    <RollingFile fileName="logs/collector.log" name="ROL_CONSOLE" filePattern="logs/collector-%d{yyyy-MM-dd}-%i.log" append="true">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        <SizeBasedTriggeringPolicy size="100 KB" />
+      </Policies>
+    </RollingFile>
+
+    <RollingFile fileName="logs/input.log" name="IFILE" filePattern="logs/input-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="32MB"/>
+      </Policies>
+    </RollingFile>
+
+    <RollingFile fileName="logs/output.log" name="OFILE" filePattern="logs/output-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="32MB"/>
+      </Policies>
+    </RollingFile>
+
+    <RollingFile fileName="logs/error.log" name="EFILE" filePattern="logs/error-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="32MB"/>
+      </Policies>
+    </RollingFile>
+
+    <RollingFile fileName="logs/ecomp/audit.log" name="ECOMP_AUDIT" filePattern="logs/ecomp/audit-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="20"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="128MB"/>
+      </Policies>
+    </RollingFile>
+
+    <RollingFile fileName="logs/ecomp/metric.log" name="ECOMP_METRIC" filePattern="logs/ecomp/metric-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="128MB"/>
+      </Policies>
+    </RollingFile>
+
+
+    <RollingFile fileName="logs/ecomp/error.log" name="ECOMP_ERROR" filePattern="logs/ecomp/error-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="WARN" minLevel="WARN"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="128MB"/>
+      </Policies>
+    </RollingFile>
+
+
+    <RollingFile fileName="logs/ecomp/debug.log" name="ECOMP_DEBUG" filePattern="logs/ecomp/debug-%d{yyyy-MM-dd}-%i.log">
+      <DefaultRolloverStrategy max="10"/>
+      <LevelRangeFilter maxLevel="INFO" minLevel="WARN"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="128MB"/>
+      </Policies>
+    </RollingFile>
+
+  </Appenders>
+
+  <Loggers>
+
+    <Logger additivity="false" level="info" name="org.onap.dcae.common.input">
+      <AppenderRef ref="IFILE"/>
+    </Logger>
+
+    <Logger additivity="false" level="info" name="org.onap.dcae.common.output">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="OFILE"/>
+    </Logger>
+
+    <Logger additivity="false" level="info" name="org.onap.dcae.common.error">
+      <AppenderRef ref="EFILE"/>
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ECOMP_ERROR"/>
+    </Logger>
+
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.audit">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ECOMP_AUDIT"/>
+    </Logger>
+
+    <Logger additivity="false" level="info" name="com.att.ecomp.metrics">
+      <AppenderRef ref="ECOMP_METRIC"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.error">
+      <AppenderRef ref="ECOMP_ERROR"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.debug">
+      <AppenderRef ref="ECOMP_DEBUG"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="debug" name="org.onap.dcae.common.EventPublisher">
+      <AppenderRef ref="CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.nsa.apiClient.http.HttpClient">
+      <AppenderRef ref="CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.nsa.cambria.client.impl.CambriaSimplerBatchPublisher">
+      <AppenderRef ref="CONSOLE"/>
+    </Logger>
+
+    <Root additivity="false" level="info">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ECOMP_AUDIT"/>
+      <AppenderRef ref="ECOMP_DEBUG"/>
+      <AppenderRef ref="ECOMP_ERROR"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Root>
+
+  </Loggers>
+
+</Configuration>
