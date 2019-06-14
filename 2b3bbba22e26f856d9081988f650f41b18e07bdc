@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72e852a6_0a444013",
+        "filename": "src/main/java/org/onap/dcae/common/VesHeaderUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-06-14T11:57:49Z",
+      "side": 1,
+      "message": "if is not needed \n\nwhen empty map no iteration in forEach\n\nrspHeaderMap.forEach(rspHeaders::add);",
+      "revId": "2b3bbba22e26f856d9081988f650f41b18e07bdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77ee2f11_943613f8",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-06-14T11:57:49Z",
+      "side": 1,
+      "message": "method candidate or class or part of VESHeaderUtils",
+      "range": {
+        "startLine": 111,
+        "startChar": 9,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "2b3bbba22e26f856d9081988f650f41b18e07bdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5b2843d_ed382db8",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-06-14T11:57:49Z",
+      "side": 1,
+      "message": "error without details says nothing",
+      "revId": "2b3bbba22e26f856d9081988f650f41b18e07bdc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
