@@ -52,5 +52,4 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         resolver.setSuffix(".html");
         return resolver;
     }
-
 }

@@ -5,7 +5,6 @@
   "tomcat.maxthreads": "200",
   "collector.dmaap.streamid": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling",
   "streams_subscribes": {},
-  "collector.inputQueue.maxPending": "8096",
   "streams_publishes": {
     "ves-mobileflow": {
       "type": "message_router",
