@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b69fe2f_46a11688",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "better to keep curl, vim procps for troubleshooting within container.",
+      "range": {
+        "startLine": 160,
+        "startChar": 5,
+        "endLine": 163,
+        "endChar": 12
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07256d5d_f4778de4",
+        "filename": "src/main/resources/log4j2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "we can change ecomp to eelf",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "400f907e_d9eb54d8",
+        "filename": "src/main/resources/log4j2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "eelf",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e6e2d73_b5917a30",
+        "filename": "src/main/resources/log4j2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "eelf",
+      "range": {
+        "startLine": 68,
+        "startChar": 32,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba6e981e_5cc8b767",
+        "filename": "src/main/resources/log4j2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "eelf",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfd850bf_c8f4ee15",
+        "filename": "src/main/scripts/docker-entry.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-14T22:27:56Z",
+      "side": 1,
+      "message": "remove these",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 109
+      },
+      "revId": "c5addeeb2214e81f97121532bc0b94b276f39a07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
