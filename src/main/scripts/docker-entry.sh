@@ -21,19 +21,6 @@
 ###
 source bin/logger.sh
 
-# Redirect all stdout & stderr to a main log file, but also let it print into the console
-# At the time this script is invoked, these directories and files do not exist yet, so we need to create them
-mkdir -p logs
-touch logs/collector.log
-exec &> >(tee -a logs/collector.log)
-
-log "Enabling log rotation for collector.log"
-loggedCommand "cp etc/logrotate.conf /etc/logrotate.d"
-echo "* *	* * *	root    logrotate /etc/logrotate.conf" >> /etc/crontab
-log "Restarting cron"
-loggedCommand "service cron reload"
-loggedCommand "service cron start"
-
 log "Main application entry-point invoked"
 
 if [ ! -z ${COLLECTOR_IP} ]; then
