@@ -18,10 +18,20 @@ mvn clean install
 ```
 
 ### Running Locally
+VES Collector is a Spring Boot application 
+```
+mvn spring-boot:run
+
+```
 
 Build the image (it will go into your local docker repository)
 ```
 mvn clean package
+
+```
+Run the image using docker
+```
+docker run -p 8080:8080 -p 8443:8443 <container_id>
 ```
 
 Run the image using docker-compose.yml
@@ -41,6 +51,8 @@ How to use:
 ```
 java -jar crypt-password-<version>.jar password_to_crypt
 ```
+
+### Mechanism to validate Certificate Subject DN value
 
 ### Environment variables in Docker Container
 Most of the configuration of how VESCollector should be started and managed is done through environment variables.
@@ -62,7 +74,7 @@ The main directory where all code resides in docker container
 looks like this and is located in /opt/app/VESCollector
 ```
 <host>:/opt/app/VESCollector# ls
-Dockerfile  bin  etc  lib  logs  specs	tomcat.8080
+Dockerfile  bin  etc  lib  logs  specs
 ```
 - bin contains sh scripts (path here is denoted by env var $SCRIPTS_PATH)
 - etc contains various application configuration, most notably it reflects 'etc' directory from repository
@@ -85,7 +97,7 @@ and loops indefinitely to hold the docker container process.
 ### Release images
 For R1 - image/version  pushed to nexus3 
 ```
-nexus3.onap.org:10003/snapshots/onap/org.onap.dcaegen2.collectors.ves.vescollector   1.1 
+nexus3.onap.org:10003/snapshots/onap/org.onap.dcaegen2.collectors.ves.vescollector:<version>
 ```
 
 ### Deployment
