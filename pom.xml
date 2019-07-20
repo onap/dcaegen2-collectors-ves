@@ -149,6 +149,11 @@
                                                 <imageTag>latest</imageTag>
 					</imageTags>
 					<baseImage>openjdk:8-jre-slim</baseImage>
+                                        <user>vescollector</user>
+                                        <runs>
+                                                <run>addgroup -S vescollector</run>
+                                                <run>adduser -S -G vescollector vescollector</run>
+                                        </runs>
 					<env>
 						<HOSTALIASES>/etc/host.aliases</HOSTALIASES>
 					</env>
@@ -415,7 +420,7 @@
 		<dependency>
 			<groupId>org.onap.dcaegen2.services.sdk.security.crypt</groupId>
 			<artifactId>crypt-password</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.1.6</version>
 		</dependency>
         <dependency>
             <groupId>org.onap.dcaegen2.services.sdk.standardization</groupId>
