@@ -142,9 +142,11 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
 					<serverId>${onap.nexus.dockerregistry.daily}</serverId>
-					<imageName>${docker.image.name}</imageName>
+					<imageName>${onap.nexus.dockerregistry.daily}/${docker.image.name}</imageName>
 					<imageTags>
-						<tag>latest</tag>
+                        			<imageTag>${project.version}-${maven.build.timestamp}Z</imageTag>
+                                                <imageTag>${project.version}</imageTag>
+                                                <imageTag>latest</imageTag>
 					</imageTags>
 					<baseImage>openjdk:8-jre-slim</baseImage>
 					<env>
@@ -168,12 +170,12 @@
 					</exposes>
 					<cmd>bin/docker-entry.sh</cmd>
 				</configuration>
-				<executions>
+				<!--<executions>
 					<execution>
 						<id>build-image</id>
 						<phase>package</phase>
 						<goals>
-							<goal>build</goal>
+							<goal>deploy</goal>
 						</goals>
 					</execution>
 					<execution>
@@ -212,7 +214,7 @@
 							<pushImage>true</pushImage>
 						</configuration>
 					</execution>
-				</executions>
+				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
