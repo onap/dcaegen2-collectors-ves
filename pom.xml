@@ -43,6 +43,7 @@
 		<releases.path>content/repositories/releases/</releases.path>
 		<site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}</site.path>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
+		<onap.nexus.dockerregistry.daily>nexus3.onap.org:10003</onap.nexus.dockerregistry.daily>
 	</properties>
 	<build>
 		<pluginManagement>
@@ -150,10 +151,6 @@
 					</imageTags>
 					<baseImage>openjdk:8-jre-slim</baseImage>
                                         <user>vescollector</user>
-                                        <runs>
-                                                <run>addgroup -S vescollector</run>
-                                                <run>adduser -S -G vescollector vescollector</run>
-                                        </runs>
 					<env>
 						<HOSTALIASES>/etc/host.aliases</HOSTALIASES>
 					</env>
@@ -165,6 +162,8 @@
 						</resource>
 					</resources>
 					<runs>
+                                                <run>useradd -r -U vescollector</run>
+                                                <run>chown -R vescollector:vescollector /opt/app</run>
 						<!-- Maven is loosing file permissions during artifacts copy -->
 						<run>chmod +x bin/*.sh</run>
 						<run><![CDATA[apt-get update && apt-get install -y --no-install-recommends procps && apt-get install -y vim && apt-get install -y curl && apt-get clean all]]></run>
