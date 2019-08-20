@@ -53,10 +53,18 @@ public class ApiAuthInterceptor implements Filter {
         this.errorLogger = errorLogger;
     }
 
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
+
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+
+        if(!settings.authMethod().equalsIgnoreCase(AuthMethodType.NO_AUTH.value()) && request.getServerPort() == settings.httpPort() ){
+            if(httpServletRequest.getRemoteAddr().replaceAll("^/|/$", "").equalsIgnoreCase("healthcheck")){
+                return;
+            }
+            return;
+        }
 
         if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
             if( validateCertRequest((HttpServletResponse )response, subjectMatcher)){
