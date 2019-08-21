@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2018 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,6 +103,7 @@ public class TLSTest extends TLSTestBase {
         @Override
         protected void configureSettings(ApplicationSettings settings) {
             when(settings.authMethod()).thenReturn(AuthMethodType.NO_AUTH.value());
+            when(settings.httpPort()).thenReturn(1111);
         }
     }
 
@@ -115,6 +117,7 @@ public class TLSTest extends TLSTestBase {
             when(settings.keystorePasswordFileLocation()).thenReturn(KEYSTORE_PASSWORD_FILE.toString());
             when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
             when(settings.validAuthorizationCredentials()).thenReturn(HashMap.of(USERNAME, "$2a$10$51tDgG2VNLde5E173Ay/YO.Fq.aD.LR2Rp8pY3QAKriOSPswvGviy"));
+            when(settings.httpPort()).thenReturn(1111);
         }
     }
 
@@ -126,6 +129,7 @@ public class TLSTest extends TLSTestBase {
             when(settings.truststoreFileLocation()).thenReturn(TRUSTSTORE.toString());
             when(settings.truststorePasswordFileLocation()).thenReturn(TRUSTSTORE_PASSWORD_FILE.toString());
             when(settings.certSubjectMatcher()).thenReturn(CERT_SUBJECT_MATCHER.toString());
+            when(settings.httpPort()).thenReturn(1111);
         }
     }
 
@@ -134,6 +138,7 @@ public class TLSTest extends TLSTestBase {
         protected void configureSettings(ApplicationSettings settings) {
             super.configureSettings(settings);
             when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+            when(settings.httpPort()).thenReturn(1111);
         }
     }
 }

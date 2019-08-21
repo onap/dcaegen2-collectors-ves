@@ -1,8 +1,7 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
- * PROJECT
+ * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,28 +21,29 @@
 package org.onap.dcae.common.configuration;
 
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.restapi.ApiAuthInterceptor;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.server.Ssl.ClientAuth;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class CertAuth implements AuthMethod {
+@Configuration
+@EnableWebMvc
+public class ApiConfiguration implements WebMvcConfigurer {
 
-  private static final Logger log = LoggerFactory.getLogger(CertAuth.class);
-  private final ConfigurableServletWebServerFactory container;
-  private final ApplicationSettings properties;
+  private final ApplicationSettings applicationSettings;
+  private Logger errorLogger;
 
-  public CertAuth(ConfigurableServletWebServerFactory container, ApplicationSettings properties) {
-    this.container = container;
-    this.properties = properties;
+  @Autowired
+  ApiConfiguration(ApplicationSettings applicationSettings, Logger errorLogger) {
+    this.applicationSettings = applicationSettings;
+    this.errorLogger = errorLogger;
   }
 
   @Override
-  public void configure() {
-    SslContextCreator sslContextCreator = new SslContextCreator(properties);
-    container.setSsl(sslContextCreator.httpsContextWithTlsAuthentication(ClientAuth.NEED));
-    container.setPort(properties.httpsPort());
-    log.info(String.format("Application work in %s mode on %s port.",
-        properties.authMethod(), properties.httpsPort()));
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new ApiAuthInterceptor(applicationSettings, errorLogger));
   }
 }
