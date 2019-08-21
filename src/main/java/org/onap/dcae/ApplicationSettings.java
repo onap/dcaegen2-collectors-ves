@@ -74,7 +74,6 @@ public class ApplicationSettings {
         loadedJsonSchemas = loadJsonSchemas();
     }
 
-
     public void reloadProperties() {
         try {
             properties.load(configurationFileLocation);

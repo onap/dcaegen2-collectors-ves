@@ -242,7 +242,7 @@ node_templates:
       docker_config:
         interval: 15s
         timeout: 1s
-        type: https
+        type: http
         endpoint: /healthcheck
       image:
         get_input: tag_version
