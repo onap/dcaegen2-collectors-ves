@@ -23,11 +23,6 @@ import io.vavr.control.Option;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
@@ -37,9 +32,10 @@ import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
-public class ApiAuthInterceptor implements Filter {
+public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
     private static final String CERTIFICATE_X_509 = "javax.servlet.request.X509Certificate";
@@ -53,32 +49,33 @@ public class ApiAuthInterceptor implements Filter {
         this.errorLogger = errorLogger;
     }
 
-
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws IOException {
+
         SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
 
-        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
-            if( validateCertRequest((HttpServletResponse )response, subjectMatcher)){
-                chain.doFilter(request, response);
-                return;
+        if(!settings.authMethod().equalsIgnoreCase(AuthMethodType.NO_AUTH.value()) && request.getServerPort() == settings.httpPort() ){
+            if(request.getRequestURI().replaceAll("^/|/$", "").equalsIgnoreCase("healthcheck")){
+                return true;
             }
-            return;
+            response.getWriter().write("Operation not permitted");
+            response.setStatus(400);
+            return false;
+        }
+
+        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
+            return validateCertRequest(response, subjectMatcher);
         }
 
         if(isCertSubject(subjectMatcher)){
-            chain.doFilter(request, response);
-            return;
+            return true;
         }
 
         if (isBasicAuth() ) {
-            if(validateBasicHeader((HttpServletRequest)request, (HttpServletResponse)response)){
-                chain.doFilter(request, response);
-                return;
-            }
-            return;
+            return validateBasicHeader(request, response);
         }
-        chain.doFilter(request, response);
+        return true;
     }
 
     private boolean validateBasicHeader(HttpServletRequest request, HttpServletResponse response)
@@ -110,6 +107,7 @@ public class ApiAuthInterceptor implements Filter {
             LOG.info("Cert and subjectDN is valid");
             return true;
         }
+        LOG.info(String.format(MESSAGE, settings.certSubjectMatcher()));
         return false;
     }
 
@@ -129,7 +127,7 @@ public class ApiAuthInterceptor implements Filter {
             return userRegistered && cryptPassword.matches(providedPassword,maybeSavedPassword.get());
         } catch (Exception e) {
             LOG.warn(String.format("Could not check if user is authorized (header: '%s')), probably malformed header.",
-                    authorizationHeader), e);
+                authorizationHeader), e);
             return false;
         }
     }

@@ -21,12 +21,20 @@
 
 package org.onap.dcae;
 
-import org.json.JSONObject;
+import static org.onap.dcae.TestingUtilities.configureKeyStore;
+import static org.onap.dcae.TestingUtilities.createRestTemplateWithSsl;
+import static org.onap.dcae.TestingUtilities.readFile;
+import static org.onap.dcae.TestingUtilities.rethrow;
+import static org.onap.dcae.TestingUtilities.sslBuilderWithTrustStore;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.onap.dcae.common.EventSender;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
@@ -36,12 +44,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.concurrent.LinkedBlockingQueue;
-
-import static org.onap.dcae.TestingUtilities.*;
 
 @Configuration
 @ExtendWith(SpringExtension.class)
@@ -66,7 +68,7 @@ public class TLSTestBase {
         protected abstract void configureSettings(final ApplicationSettings settings);
     }
 
-    @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+    @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
     protected abstract class TestClassBase {
 
         @MockBean
