@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd25b52b_180266fa",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/ApiConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "this should be 2019\n\nunless this file was copied from another, in which case it needs to say 2018-2019",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40c77d55_dd5d5f88",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/CertAuth.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02092041_d32fc17e",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/CertBasicAuth.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae9cd2c7_fdeb5142",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiAuthInterceptor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d2f6922_47259886",
+        "filename": "src/main/java/org/onap/dcae/restapi/SwaggerConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb8451c7_928bae2d",
+        "filename": "src/main/java/org/onap/dcae/restapi/WebMvcConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c3a1175_95eef9cf",
+        "filename": "src/test/java/org/onap/dcae/TLSTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5be2211_6c7e6939",
+        "filename": "src/test/java/org/onap/dcae/TLSTestBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "758d5a2a_c4894084",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-08-27T15:43:19Z",
+      "side": 1,
+      "message": "need to add an appropriate copyright 2019 line",
+      "revId": "5820fa84b83b8389cb2ffabb4c814b64012ea6b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
