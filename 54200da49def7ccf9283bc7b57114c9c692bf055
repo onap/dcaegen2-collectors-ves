@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d154d8_4cd763e7",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/TomcatHttpConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2019-09-05T11:14:12Z",
+      "side": 1,
+      "message": "Hardcoded port, not taken from settings.httpPort()",
+      "revId": "54200da49def7ccf9283bc7b57114c9c692bf055",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
