@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7dbe09d_b1fbe81a",
+        "filename": "dpo/blueprint/blueprint_ves.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-09-11T22:20:50Z",
+      "side": 1,
+      "message": "For testing this in k8s, 8080 should also be exposed as first port; following should be added prior to 8443 mapping\n\n- concat: [\"8080:\", \"0\"]",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 62
+      },
+      "revId": "124e11e9e7ea4652f8a538093ab48df9f575ce2a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
