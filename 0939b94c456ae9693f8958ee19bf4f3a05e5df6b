@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2176cd40_699a1530",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-11T13:17:42Z",
+      "side": 1,
+      "message": "Please consider using Mockito from existing library.",
+      "range": {
+        "startLine": 393,
+        "startChar": 3,
+        "endLine": 399,
+        "endChar": 16
+      },
+      "revId": "0939b94c456ae9693f8958ee19bf4f3a05e5df6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
