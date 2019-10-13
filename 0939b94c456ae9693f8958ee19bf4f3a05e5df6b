@@ -22,6 +22,23 @@
       "revId": "0939b94c456ae9693f8958ee19bf4f3a05e5df6b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c50716_9a9531ea",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-10-13T00:48:41Z",
+      "side": 1,
+      "message": "a new file should only list 2019 in the copyright notice",
+      "revId": "0939b94c456ae9693f8958ee19bf4f3a05e5df6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
