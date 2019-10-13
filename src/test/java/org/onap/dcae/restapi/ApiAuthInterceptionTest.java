@@ -174,4 +174,40 @@ public class ApiAuthInterceptionTest {
     verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
     verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
   }
+
+  @Test
+  public void shouldSucceedForHealthcheckOnHealthcheckPort() throws IOException {
+    // given
+    final HttpServletRequest request =
+            MockMvcRequestBuilders
+                    .get("/healthcheck")
+                    .buildRequest(null);
+
+    when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+    when(settings.httpPort()).thenReturn(request.getServerPort());
+
+    // when
+    final boolean isAuthorized = sut.preHandle(request, response, obj);
+
+    // then
+    assertTrue(isAuthorized);
+  }
+
+  @Test
+  public void shouldFailDueToNotPermittedOperationOnHealthcheckPort() throws IOException {
+    // given
+    final HttpServletRequest request = createEmptyRequest();
+
+    when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+    when(settings.httpPort()).thenReturn(request.getServerPort());
+    when(response.getWriter()).thenReturn(writer);
+
+    // when
+    final boolean isAuthorized = sut.preHandle(request, response, obj);
+
+    // then
+    assertFalse(isAuthorized);
+    verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
+  }
+
 }
