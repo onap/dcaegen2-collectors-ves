@@ -39,6 +39,29 @@
       "revId": "0939b94c456ae9693f8958ee19bf4f3a05e5df6b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd1b1316_38123909",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2019-10-14T08:11:34Z",
+      "side": 1,
+      "message": "Create a constant for strings that are used many times",
+      "range": {
+        "startLine": 64,
+        "startChar": 88,
+        "endLine": 64,
+        "endChar": 100
+      },
+      "revId": "0939b94c456ae9693f8958ee19bf4f3a05e5df6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
