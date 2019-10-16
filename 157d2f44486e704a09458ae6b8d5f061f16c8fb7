@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96c5adb0_34399924",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "This constants should be private",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e93154e_0a84d8cf",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "Move it before mocked objects declaration.\nConstants should be private.",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dc4a77b_1830ac4e",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "Rename it to more explicit name.\ne.g. result\nsame for other valid",
+      "range": {
+        "startLine": 69,
+        "startChar": 41,
+        "endLine": 69,
+        "endChar": 46
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91f1d4e4_7176fa49",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "Fot this test and rest, create variable with String and give it such name that thic comment is not needed.",
+      "range": {
+        "startLine": 88,
+        "startChar": 57,
+        "endLine": 88,
+        "endChar": 81
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2b68a63_06fc34a5",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "I would rename it to SAMPLE_TYPE or something explicitly describing that this data has no link with VES itself.\nOther example could by DUMMY_TYPE.\nYou could propose something different.",
+      "range": {
+        "startLine": 91,
+        "startChar": 74,
+        "endLine": 91,
+        "endChar": 78
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4210993e_7a97ff7f",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-16T07:34:22Z",
+      "side": 1,
+      "message": "I would rename it to mockJsonSchema",
+      "range": {
+        "startLine": 109,
+        "startChar": 17,
+        "endLine": 109,
+        "endChar": 48
+      },
+      "revId": "157d2f44486e704a09458ae6b8d5f061f16c8fb7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
