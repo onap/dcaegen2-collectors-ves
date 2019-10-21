@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cadaa71_02170f3d",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-21T07:29:22Z",
+      "side": 1,
+      "message": "Consider to replace it by @BeforeAll annotation.",
+      "range": {
+        "startLine": 57,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 11
+      },
+      "revId": "deadf8454475672e406cb2d4da4698bd67321700",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
