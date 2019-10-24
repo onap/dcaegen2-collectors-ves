@@ -184,7 +184,9 @@ public class ApiAuthInterceptionTest {
                     .buildRequest(null);
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
+    when(settings.httpPort())
+            .thenReturn(request.getLocalPort())
+            .thenReturn(request.getServerPort());
 
     // when
     final boolean isAuthorized = sut.preHandle(request, response, obj);
@@ -194,12 +196,36 @@ public class ApiAuthInterceptionTest {
   }
 
   @Test
+  public void shouldFailForHealthcheckOnHealthcheckPortFromOutsideCluster() throws IOException {
+    // given
+    final HttpServletRequest request =
+            MockMvcRequestBuilders
+                    .get("/healthcheck")
+                    .buildRequest(null);
+
+    when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+    when(settings.httpPort())
+            .thenReturn(request.getLocalPort())
+            .thenReturn(-1);
+    when(response.getWriter()).thenReturn(writer);
+
+    // when
+    final boolean isAuthorized = sut.preHandle(request, response, obj);
+
+    // then
+    assertFalse(isAuthorized);
+    verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
+  }
+
+  @Test
   public void shouldFailDueToNotPermittedOperationOnHealthcheckPort() throws IOException {
     // given
     final HttpServletRequest request = createEmptyRequest();
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
+    when(settings.httpPort())
+            .thenReturn(request.getLocalPort())
+            .thenReturn(request.getServerPort());
     when(response.getWriter()).thenReturn(writer);
 
     // when
