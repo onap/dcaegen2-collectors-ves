@@ -32,6 +32,7 @@ import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -50,6 +51,9 @@ public class ApiAuthInterceptionTest {
   private static final String USERNAME = "Foo";
   private static final String PASSWORD = "Bar";
   private static final Map<String, String> CREDENTIALS = HashMap.of(USERNAME, PASSWORD);
+  private static final int HTTP_PORT = 8080;
+  private static final int OUTSIDE_PORT = 30235;
+  public static final String HEALTHCHECK_URL = "/healthcheck";
 
   @Mock
   private Logger log;
@@ -69,21 +73,6 @@ public class ApiAuthInterceptionTest {
   @InjectMocks
   private ApiAuthInterceptor sut;
 
-
-  private HttpServletRequest createEmptyRequest() {
-    return MockMvcRequestBuilders
-        .post("")
-        .buildRequest(null);
-  }
-
-  private HttpServletRequest createRequestWithAuthorizationHeader() {
-    return SecurityMockMvcRequestPostProcessors
-        .httpBasic(USERNAME, PASSWORD)
-        .postProcessRequest(
-            MockMvcRequestBuilders
-                .post("")
-                .buildRequest(null));
-  }
 
   @Test
   public void shouldSucceedWhenAuthorizationIsDisabled() throws IOException {
@@ -176,16 +165,12 @@ public class ApiAuthInterceptionTest {
   }
 
   @Test
-  public void shouldSucceedForHealthcheckOnHealthcheckPort() throws IOException {
+  public void shouldSucceedForHealthcheckOnHealthcheckPortWhenRequestFromInsideCluster() throws IOException {
     // given
-    final HttpServletRequest request =
-            MockMvcRequestBuilders
-                    .get("/healthcheck")
-                    .buildRequest(null);
+    final HttpServletRequest request = createRequestWithPorts(HTTP_PORT, HTTP_PORT, HEALTHCHECK_URL);
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
-
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
     // when
     final boolean isAuthorized = sut.preHandle(request, response, obj);
 
@@ -194,12 +179,12 @@ public class ApiAuthInterceptionTest {
   }
 
   @Test
-  public void shouldFailDueToNotPermittedOperationOnHealthcheckPort() throws IOException {
+  public void shouldFailForHealthcheckOnHealthcheckPortWhenRequestFromOutsideCluster() throws IOException {
     // given
-    final HttpServletRequest request = createEmptyRequest();
+    final HttpServletRequest request = createRequestWithPorts(HTTP_PORT, OUTSIDE_PORT, HEALTHCHECK_URL);
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
     when(response.getWriter()).thenReturn(writer);
 
     // when
@@ -210,4 +195,44 @@ public class ApiAuthInterceptionTest {
     verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
   }
 
+  @Test
+  public void shouldFailDueToNotPermittedOperationOnHealthcheckPort() throws IOException {
+    // given
+    final HttpServletRequest request = createRequestWithPorts(HTTP_PORT, HTTP_PORT, "/");
+
+    when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
+    when(response.getWriter()).thenReturn(writer);
+
+    // when
+    final boolean isAuthorized = sut.preHandle(request, response, obj);
+
+    // then
+    assertFalse(isAuthorized);
+    verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
+  }
+
+  private HttpServletRequest createEmptyRequest() {
+    return MockMvcRequestBuilders
+            .post("")
+            .buildRequest(null);
+  }
+
+  private HttpServletRequest createRequestWithAuthorizationHeader() {
+    return SecurityMockMvcRequestPostProcessors
+            .httpBasic(USERNAME, PASSWORD)
+            .postProcessRequest(
+                    MockMvcRequestBuilders
+                            .post("")
+                            .buildRequest(null));
+  }
+
+  private HttpServletRequest createRequestWithPorts(int localPort, int serverPort, String urlTemplate) {
+    MockHttpServletRequest healthcheckRequest = MockMvcRequestBuilders
+            .get(urlTemplate)
+            .buildRequest(null);
+    healthcheckRequest.setLocalPort(localPort);
+    healthcheckRequest.setServerPort(serverPort);
+    return healthcheckRequest;
+  }
 }
