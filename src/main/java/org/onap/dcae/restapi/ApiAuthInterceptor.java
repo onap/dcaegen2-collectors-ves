@@ -55,8 +55,8 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
         SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
 
-        if(!settings.authMethod().equalsIgnoreCase(AuthMethodType.NO_AUTH.value()) && request.getServerPort() == settings.httpPort() ){
-            if(request.getRequestURI().replaceAll("^/|/$", "").equalsIgnoreCase("healthcheck")){
+        if(isHttpPortCalledWithAuthTurnedOn(request)){
+            if(isHealthcheckCalledFromInsideCluster(request)){
                 return true;
             }
             response.getWriter().write("Operation not permitted");
@@ -76,6 +76,16 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             return validateBasicHeader(request, response);
         }
         return true;
+    }
+
+    private boolean isHttpPortCalledWithAuthTurnedOn(HttpServletRequest request) {
+        return !settings.authMethod().equalsIgnoreCase(AuthMethodType.NO_AUTH.value())
+                && request.getLocalPort() == settings.httpPort();
+    }
+
+    private boolean isHealthcheckCalledFromInsideCluster(HttpServletRequest request) {
+        return request.getRequestURI().replaceAll("^/|/$", "").equalsIgnoreCase("healthcheck")
+                && request.getServerPort() == settings.httpPort();
     }
 
     private boolean validateBasicHeader(HttpServletRequest request, HttpServletResponse response)

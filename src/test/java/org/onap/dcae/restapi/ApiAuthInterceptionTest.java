@@ -32,6 +32,7 @@ import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -50,6 +51,8 @@ public class ApiAuthInterceptionTest {
   private static final String USERNAME = "Foo";
   private static final String PASSWORD = "Bar";
   private static final Map<String, String> CREDENTIALS = HashMap.of(USERNAME, PASSWORD);
+  private static final int HTTP_PORT = 8080;
+  private static final int OUTSIDE_PORT = 30235;
 
   @Mock
   private Logger log;
@@ -83,6 +86,15 @@ public class ApiAuthInterceptionTest {
             MockMvcRequestBuilders
                 .post("")
                 .buildRequest(null));
+  }
+
+  private MockHttpServletRequest createHealthcheckRequestWithPorts(int localPort, int serverPort) {
+    MockHttpServletRequest healthcheckRequest = MockMvcRequestBuilders
+            .get("/healthcheck")
+            .buildRequest(null);
+    healthcheckRequest.setLocalPort(localPort);
+    healthcheckRequest.setServerPort(serverPort);
+    return healthcheckRequest;
   }
 
   @Test
@@ -178,14 +190,10 @@ public class ApiAuthInterceptionTest {
   @Test
   public void shouldSucceedForHealthcheckOnHealthcheckPort() throws IOException {
     // given
-    final HttpServletRequest request =
-            MockMvcRequestBuilders
-                    .get("/healthcheck")
-                    .buildRequest(null);
+    final HttpServletRequest request = createHealthcheckRequestWithPorts(HTTP_PORT, HTTP_PORT);
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
-
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
     // when
     final boolean isAuthorized = sut.preHandle(request, response, obj);
 
@@ -194,12 +202,29 @@ public class ApiAuthInterceptionTest {
   }
 
   @Test
+  public void shouldFailForHealthcheckOnHealthcheckPortFromOutsideCluster() throws IOException {
+    // given
+    final HttpServletRequest request = createHealthcheckRequestWithPorts(HTTP_PORT, OUTSIDE_PORT);
+
+    when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
+    when(response.getWriter()).thenReturn(writer);
+
+    // when
+    final boolean isAuthorized = sut.preHandle(request, response, obj);
+
+    // then
+    assertFalse(isAuthorized);
+    verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
+  }
+
+  @Test
   public void shouldFailDueToNotPermittedOperationOnHealthcheckPort() throws IOException {
     // given
     final HttpServletRequest request = createEmptyRequest();
 
     when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
-    when(settings.httpPort()).thenReturn(request.getServerPort());
+    when(settings.httpPort()).thenReturn(HTTP_PORT);
     when(response.getWriter()).thenReturn(writer);
 
     // when
