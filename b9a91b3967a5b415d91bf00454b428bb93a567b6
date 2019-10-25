@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daa459d9_f0bcbdc4",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiAuthInterceptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-25T10:20:20Z",
+      "side": 0,
+      "message": "Please refactor this statement. Consider introducing some method that shows the intention.",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 133
+      },
+      "revId": "b9a91b3967a5b415d91bf00454b428bb93a567b6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
