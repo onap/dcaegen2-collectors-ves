@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f07c905_5b5a4358",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-25T10:24:57Z",
+      "side": 1,
+      "message": "Return here constant",
+      "range": {
+        "startLine": 188,
+        "startChar": 25,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "b9da8b7b6db899f59afae2c818c205e7061446ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1170c877_49af794f",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-25T10:24:57Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 189,
+        "startChar": 24,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "b9da8b7b6db899f59afae2c818c205e7061446ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dedfe158_2333d7a4",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-25T10:24:57Z",
+      "side": 1,
+      "message": "same like above",
+      "range": {
+        "startLine": 208,
+        "startChar": 24,
+        "endLine": 208,
+        "endChar": 46
+      },
+      "revId": "b9da8b7b6db899f59afae2c818c205e7061446ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93b1092d_6130fb7b",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-25T10:24:57Z",
+      "side": 1,
+      "message": "Name it SERVER_PORT_OUTSIDE_CLUSTER and add it to constants",
+      "range": {
+        "startLine": 209,
+        "startChar": 24,
+        "endLine": 209,
+        "endChar": 27
+      },
+      "revId": "b9da8b7b6db899f59afae2c818c205e7061446ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "222e21bc_1c5359f2",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-25T10:24:57Z",
+      "side": 1,
+      "message": "same here and elsewhere",
+      "range": {
+        "startLine": 227,
+        "startChar": 24,
+        "endLine": 227,
+        "endChar": 46
+      },
+      "revId": "b9da8b7b6db899f59afae2c818c205e7061446ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
