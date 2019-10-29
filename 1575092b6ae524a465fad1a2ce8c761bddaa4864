@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4639ee6_a08be9b8",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-29T08:02:04Z",
+      "side": 1,
+      "message": "Move all private methods to the bottom of the class.\nIts convention to keep them there.",
+      "range": {
+        "startLine": 83,
+        "startChar": 1,
+        "endLine": 83,
+        "endChar": 69
+      },
+      "revId": "1575092b6ae524a465fad1a2ce8c761bddaa4864",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cafcf45d_0d3fe275",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-29T08:02:04Z",
+      "side": 1,
+      "message": "I would add when ..WhenRequestFromInsideCluster",
+      "range": {
+        "startLine": 192,
+        "startChar": 44,
+        "endLine": 192,
+        "endChar": 58
+      },
+      "revId": "1575092b6ae524a465fad1a2ce8c761bddaa4864",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85b2b318_2bc8ac22",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-29T08:02:04Z",
+      "side": 1,
+      "message": "Add here ..WhenRequestFrom..",
+      "range": {
+        "startLine": 206,
+        "startChar": 55,
+        "endLine": 206,
+        "endChar": 75
+      },
+      "revId": "1575092b6ae524a465fad1a2ce8c761bddaa4864",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
