@@ -41,7 +41,7 @@ import org.springframework.boot.web.server.Ssl.ClientAuth;
 
 public class SslContextCreator {
 
-  private static final Logger log = LoggerFactory.getLogger(CertAuth.class);
+  private static final Logger log = LoggerFactory.getLogger(SslContextCreator.class);
   private final ApplicationSettings properties;
 
   public SslContextCreator(ApplicationSettings properties) {

@@ -29,7 +29,7 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 
 public class CertBasicAuth  implements AuthMethod{
 
-  private static final Logger log = LoggerFactory.getLogger(CertAuth.class);
+  private static final Logger log = LoggerFactory.getLogger(CertBasicAuth.class);
   private final ConfigurableServletWebServerFactory container;
   private final ApplicationSettings properties;
 

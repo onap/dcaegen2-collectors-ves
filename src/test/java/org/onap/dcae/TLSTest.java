@@ -32,8 +32,8 @@ import org.springframework.http.HttpStatus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-import static org.onap.dcae.TLSTest.HttpsConfiguration.USERNAME;
-import static org.onap.dcae.TLSTest.HttpsConfiguration.PASSWORD;
+import static org.onap.dcae.TLSTest.HttpsConfigurationWithTLSAuthenticationAndBasicAuth.USERNAME;
+import static org.onap.dcae.TLSTest.HttpsConfigurationWithTLSAuthenticationAndBasicAuth.PASSWORD;
 
 public class TLSTest extends TLSTestBase {
 
@@ -49,37 +49,6 @@ public class TLSTest extends TLSTestBase {
         @Test
         public void shouldHttpsRequestFail() {
             assertThrows(Exception.class, this::makeHttpsRequest);
-        }
-    }
-
-    @Nested
-    @Import(HttpsConfiguration.class)
-    class HttpsTest extends TestClassBase {
-
-
-        @Test
-        public void shouldHttpsRequestWithoutBasicAuthFail() {
-            assertThrows(Exception.class, this::makeHttpsRequest);
-        }
-
-        @Test
-        public void shouldHttpsRequestWithBasicAuthSucceed() {
-            assertEquals(HttpStatus.OK, makeHttpsRequestWithBasicAuth(USERNAME, PASSWORD).getStatusCode());
-        }
-    }
-
-    @Nested
-    @Import(HttpsConfigurationWithTLSAuthentication.class)
-    class HttpsWithTLSAuthenticationTest extends TestClassBase {
-
-        @Test
-        public void shouldHttpsRequestWithoutCertificateFail() {
-            assertThrows(Exception.class, this::makeHttpsRequest);
-        }
-
-        @Test
-        public void shouldHttpsRequestWithCertificateSucceed() {
-            assertEquals(HttpStatus.OK, makeHttpsRequestWithClientCert().getStatusCode());
         }
     }
 
@@ -107,37 +76,18 @@ public class TLSTest extends TLSTestBase {
         }
     }
 
-    static class HttpsConfiguration extends TLSTestBase.ConfigurationBase {
+    static class HttpsConfigurationWithTLSAuthenticationAndBasicAuth extends TLSTestBase.ConfigurationBase {
         public static final String USERNAME = "TestUser";
         public static final String PASSWORD = "TestPassword";
-
         @Override
         protected void configureSettings(ApplicationSettings settings) {
             when(settings.keystoreFileLocation()).thenReturn(KEYSTORE.toString());
             when(settings.keystorePasswordFileLocation()).thenReturn(KEYSTORE_PASSWORD_FILE.toString());
-            when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
             when(settings.validAuthorizationCredentials()).thenReturn(HashMap.of(USERNAME, "$2a$10$51tDgG2VNLde5E173Ay/YO.Fq.aD.LR2Rp8pY3QAKriOSPswvGviy"));
-            when(settings.httpPort()).thenReturn(1111);
-        }
-    }
-
-    static class HttpsConfigurationWithTLSAuthentication extends HttpsConfiguration {
-        @Override
-        protected void configureSettings(ApplicationSettings settings) {
-            super.configureSettings(settings);
-            when(settings.authMethod()).thenReturn(AuthMethodType.CERT_ONLY.value());
+            when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
             when(settings.truststoreFileLocation()).thenReturn(TRUSTSTORE.toString());
             when(settings.truststorePasswordFileLocation()).thenReturn(TRUSTSTORE_PASSWORD_FILE.toString());
             when(settings.certSubjectMatcher()).thenReturn(CERT_SUBJECT_MATCHER.toString());
-            when(settings.httpPort()).thenReturn(1111);
-        }
-    }
-
-    static class HttpsConfigurationWithTLSAuthenticationAndBasicAuth extends HttpsConfigurationWithTLSAuthentication {
-        @Override
-        protected void configureSettings(ApplicationSettings settings) {
-            super.configureSettings(settings);
-            when(settings.authMethod()).thenReturn(AuthMethodType.CERT_BASIC_AUTH.value());
             when(settings.httpPort()).thenReturn(1111);
         }
     }

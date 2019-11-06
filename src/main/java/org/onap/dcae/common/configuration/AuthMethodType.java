@@ -23,7 +23,7 @@ package org.onap.dcae.common.configuration;
 
 public enum AuthMethodType {
 
-  NO_AUTH("noAuth"),CERT_ONLY("certOnly"),CERT_BASIC_AUTH("certBasicAuth"),BASIC_AUTH("basicAuth");
+  NO_AUTH("noAuth"),CERT_BASIC_AUTH("certBasicAuth");
 
   private final String value;
 
