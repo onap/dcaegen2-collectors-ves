@@ -27,8 +27,6 @@ import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethod;
 import org.onap.dcae.common.configuration.AuthMethodType;
-import org.onap.dcae.common.configuration.BasicAuth;
-import org.onap.dcae.common.configuration.CertAuth;
 import org.onap.dcae.common.configuration.CertBasicAuth;
 import org.onap.dcae.common.configuration.NoAuth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +48,6 @@ public class ServletConfig implements WebServerFactoryCustomizer<ConfigurableSer
 
     private Map<String, AuthMethod> provideAuthConfigurations(ConfigurableServletWebServerFactory container) {
         Map<String, AuthMethod> authMethods = new HashMap<>();
-        authMethods.put(AuthMethodType.CERT_ONLY.value(), new CertAuth(container, properties));
-        authMethods.put(AuthMethodType.BASIC_AUTH.value(), new BasicAuth(container, properties));
         authMethods.put(AuthMethodType.CERT_BASIC_AUTH.value(), new CertBasicAuth(container, properties));
         authMethods.put(AuthMethodType.NO_AUTH.value(), new NoAuth(container, properties));
         return authMethods;
