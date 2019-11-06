@@ -20,8 +20,6 @@
 
 package org.onap.dcae.restapi;
 
-import io.vavr.collection.HashMap;
-import io.vavr.collection.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,10 +28,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,12 +44,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ApiAuthInterceptionTest {
-  private static final String USERNAME = "Foo";
-  private static final String PASSWORD = "Bar";
-  private static final Map<String, String> CREDENTIALS = HashMap.of(USERNAME, PASSWORD);
   private static final int HTTP_PORT = 8080;
   private static final int OUTSIDE_PORT = 30235;
-  public static final String HEALTHCHECK_URL = "/healthcheck";
+  private static final String HEALTHCHECK_URL = "/healthcheck";
 
   @Mock
   private Logger log;
@@ -86,82 +79,6 @@ public class ApiAuthInterceptionTest {
 
     // then
     assertTrue(isAuthorized);
-  }
-
-  @Test
-  public void shouldFailDueToEmptyBasicAuthorizationHeader() throws IOException {
-    // given
-    final HttpServletRequest request = createEmptyRequest();
-
-    when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
-    when(response.getWriter()).thenReturn(writer);
-
-    // when
-    final boolean isAuthorized = sut.preHandle(request, response, obj);
-
-
-    // then
-    assertFalse(isAuthorized);
-
-    verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
-    verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
-  }
-
-  @Test
-  public void shouldFailDueToBasicAuthenticationUserMissingFromSettings() throws IOException {
-    // given
-    final HttpServletRequest request = createRequestWithAuthorizationHeader();
-
-    when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
-    when(response.getWriter()).thenReturn(writer);
-
-    // when
-    final boolean isAuthorized = sut.preHandle(request, response, obj);
-
-    // then
-    assertFalse(isAuthorized);
-
-    verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
-    verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
-  }
-
-  @Test
-  public void shouldSucceed() throws IOException {
-    // given
-    final HttpServletRequest request = createRequestWithAuthorizationHeader();
-    when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
-    when(settings.validAuthorizationCredentials()).thenReturn(
-        HashMap.of(USERNAME, "$2a$10$BsZkEynNm/93wbAeeZuxJeu6IHRyQl4XReqDg2BtYOFDhUsz20.3G"));
-    when(response.getWriter()).thenReturn(writer);
-
-    // when
-    final boolean isAuthorized = sut.preHandle(request, response, obj);
-
-    // then
-    assertTrue(isAuthorized);
-  }
-
-  @Test
-  public void shouldFailDueToInvalidBasicAuthorizationHeaderValue() throws IOException {
-    // given
-    final HttpServletRequest request =
-        MockMvcRequestBuilders
-            .post("")
-            .header(HttpHeaders.AUTHORIZATION, "FooBar")
-            .buildRequest(null);
-
-    when(settings.authMethod()).thenReturn(AuthMethodType.BASIC_AUTH.value());
-    when(settings.validAuthorizationCredentials()).thenReturn(CREDENTIALS);
-    when(response.getWriter()).thenReturn(writer);
-
-    // when
-    final boolean isAuthorized = sut.preHandle(request, response, obj);
-
-    // then
-    assertFalse(isAuthorized);
-
-    verify(response).setStatus(HttpStatus.UNAUTHORIZED.value());
-    verify(writer).write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
   }
 
   @Test
@@ -216,15 +133,6 @@ public class ApiAuthInterceptionTest {
     return MockMvcRequestBuilders
             .post("")
             .buildRequest(null);
-  }
-
-  private HttpServletRequest createRequestWithAuthorizationHeader() {
-    return SecurityMockMvcRequestPostProcessors
-            .httpBasic(USERNAME, PASSWORD)
-            .postProcessRequest(
-                    MockMvcRequestBuilders
-                            .post("")
-                            .buildRequest(null));
   }
 
   private HttpServletRequest createRequestWithPorts(int localPort, int serverPort, String urlTemplate) {

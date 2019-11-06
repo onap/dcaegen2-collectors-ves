@@ -22,7 +22,9 @@ package org.onap.dcae.restapi;
 import io.vavr.control.Option;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
@@ -53,7 +55,8 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws IOException {
 
-        SubjectMatcher subjectMatcher = new SubjectMatcher(settings,(X509Certificate[]) request.getAttribute(CERTIFICATE_X_509));
+        X509Certificate[] certificates = (X509Certificate[]) request.getAttribute(CERTIFICATE_X_509);
+        SubjectMatcher subjectMatcher = new SubjectMatcher(settings, certificates);
 
         if(isHttpPortCalledWithAuthTurnedOn(request)){
             if(isHealthcheckCalledFromInsideCluster(request)){
@@ -64,18 +67,21 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
-            return validateCertRequest(response, subjectMatcher);
-        }
-
         if(isCertSubject(subjectMatcher)){
+            LOG.debug("Cert and subjectDN is valid. Subject: " + extractSubject(certificates));
             return true;
         }
 
-        if (isBasicAuth() ) {
+        if (isBasicAuth()) {
             return validateBasicHeader(request, response);
         }
         return true;
+    }
+
+    private String extractSubject(X509Certificate[] certs) {
+        return Arrays.stream(certs)
+            .map(e -> e.getSubjectDN().getName())
+            .collect(Collectors.joining(","));
     }
 
     private boolean isHttpPortCalledWithAuthTurnedOn(HttpServletRequest request) {
@@ -97,24 +103,12 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             response.getWriter().write(ApiException.UNAUTHORIZED_USER.toJSON().toString());
             return false;
         }
-        LOG.info("Request is authorized by basic auth");
-        return true;
-    }
-
-    private boolean validateCertRequest(HttpServletResponse response, SubjectMatcher subjectMatcher)
-        throws IOException {
-        if (!isCertSubject(subjectMatcher)) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write(String.format(MESSAGE, settings.certSubjectMatcher()));
-            return false;
-        }
-        LOG.info("Cert and subjectDN is valid");
+        LOG.debug("Request is authorized by basic auth. User: " + extractUser(decodeCredentials(authorizationHeader)));
         return true;
     }
 
     private boolean isCertSubject(SubjectMatcher subjectMatcher) {
         if(subjectMatcher.isCert() && subjectMatcher.match()){
-            LOG.info("Cert and subjectDN is valid");
             return true;
         }
         LOG.info(String.format(MESSAGE, settings.certSubjectMatcher()));
@@ -122,16 +116,14 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     private boolean isBasicAuth() {
-        return settings.authMethod().equalsIgnoreCase(AuthMethodType.BASIC_AUTH.value())
-            || settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
+        return settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
     }
 
     private boolean isAuthorized(String authorizationHeader) {
         try  {
-            String encodedData = authorizationHeader.split(" ")[1];
-            String decodedData = new String(Base64.getDecoder().decode(encodedData));
-            String providedUser = decodedData.split(":")[0].trim();
-            String providedPassword = decodedData.split(":")[1].trim();
+            String decodeCredentials = decodeCredentials(authorizationHeader);
+            String providedUser = extractUser(decodeCredentials);
+            String providedPassword = extractPassword(decodeCredentials);
             Option<String> maybeSavedPassword = settings.validAuthorizationCredentials().get(providedUser);
             boolean userRegistered = maybeSavedPassword.isDefined();
             return userRegistered && cryptPassword.matches(providedPassword,maybeSavedPassword.get());
@@ -140,5 +132,18 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
                 authorizationHeader), e);
             return false;
         }
+    }
+
+    private String extractPassword(String decodeCredentials) {
+        return decodeCredentials.split(":")[1].trim();
+    }
+
+    private String extractUser(String decodeCredentials) {
+        return decodeCredentials.split(":")[0].trim();
+    }
+
+    private String decodeCredentials(String authorizationHeader) {
+        String encodedData = authorizationHeader.split(" ")[1];
+        return new String(Base64.getDecoder().decode(encodedData));
     }
 }
