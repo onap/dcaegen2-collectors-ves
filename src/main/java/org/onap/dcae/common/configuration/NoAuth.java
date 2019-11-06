@@ -51,9 +51,7 @@ public class NoAuth implements AuthMethod {
   }
 
   private boolean validateAuthMethod() {
-    return properties.authMethod().equalsIgnoreCase(AuthMethodType.BASIC_AUTH.value())
-        || properties.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())
-        || properties.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
+    return properties.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
   }
 
   private void logContainerConfiguration(int port) {

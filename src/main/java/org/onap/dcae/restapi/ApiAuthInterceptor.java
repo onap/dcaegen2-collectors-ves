@@ -64,10 +64,6 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        if(settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_ONLY.value())){
-            return validateCertRequest(response, subjectMatcher);
-        }
-
         if(isCertSubject(subjectMatcher)){
             return true;
         }
@@ -101,17 +97,6 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
-    private boolean validateCertRequest(HttpServletResponse response, SubjectMatcher subjectMatcher)
-        throws IOException {
-        if (!isCertSubject(subjectMatcher)) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write(String.format(MESSAGE, settings.certSubjectMatcher()));
-            return false;
-        }
-        LOG.info("Cert and subjectDN is valid");
-        return true;
-    }
-
     private boolean isCertSubject(SubjectMatcher subjectMatcher) {
         if(subjectMatcher.isCert() && subjectMatcher.match()){
             LOG.info("Cert and subjectDN is valid");
@@ -122,8 +107,7 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     private boolean isBasicAuth() {
-        return settings.authMethod().equalsIgnoreCase(AuthMethodType.BASIC_AUTH.value())
-            || settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
+        return settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
     }
 
     private boolean isAuthorized(String authorizationHeader) {
