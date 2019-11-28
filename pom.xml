@@ -31,7 +31,7 @@
     <!-- PROJECT SETTINGS -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>8</java.version>
+    <java.version>11</java.version>
     <docker.image.name>onap/org.onap.dcaegen2.collectors.ves.vescollector</docker.image.name>
     <!-- TEST SETTINGS -->
     <surefire.redirectTestOutputToFile>true</surefire.redirectTestOutputToFile>
@@ -44,6 +44,8 @@
     <site.path>content/sites/site/org/onap/dcaegen2/collectors/ves/${project.artifactId}/${project.version}</site.path>
     <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
     <onap.nexus.dockerregistry.daily>nexus3.onap.org:10003</onap.nexus.dockerregistry.daily>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
   </properties>
   <build>
     <pluginManagement>
@@ -149,7 +151,7 @@
             <imageTag>${project.version}</imageTag>
             <imageTag>latest</imageTag>
           </imageTags>
-          <baseImage>openjdk:8-jre-slim</baseImage>
+          <baseImage>openjdk:11-jre-slim</baseImage>
           <user>vescollector</user>
           <env>
             <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
