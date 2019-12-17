@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.5.2'
+project: 'dcaegen2-collectors-ves'
+log_dir: 'dcaegen2-collectors-ves-maven-docker-stage-master/145/'
+ref: I1586f04ab58448cde013137f514bb2bb96b3520c
+containers:
+  - name: 'org.onap.dcaegen2.collectors.ves.collector'
+    version: '1.5.2-20191217T084038Z'
