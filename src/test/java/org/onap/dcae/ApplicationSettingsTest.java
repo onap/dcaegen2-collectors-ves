@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,8 +32,7 @@ import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import com.github.fge.jsonschema.main.JsonSchema;
+import com.networknt.schema.JsonSchema;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import java.io.File;
@@ -46,6 +45,13 @@ import java.util.Objects;
 import org.junit.Test;
 
 public class ApplicationSettingsTest {
+
+    private static final String SAMPLE_JSON_SCHEMA = "{"
+            + "  \"type\": \"object\","
+            + "  \"properties\": {"
+            + "     \"state\": { \"type\": \"string\" }"
+            + "  }"
+            + "}";
 
     @Test
     public void shouldMakeApplicationSettingsOutOfCLIArguments() {
@@ -254,15 +260,9 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnJSONSchema() throws IOException, ProcessingException {
+    public void shouldReportValidateJSONSchemaErrorWhenJsonContainsIntegerValueNotString() throws IOException {
         // when
-        String sampleJsonSchema = "{"
-            + "  \"type\": \"object\","
-            + "  \"properties\": {"
-            + "     \"state\": { \"type\": \"string\" }" 
-            + "  }" 
-            + "}";
-        Path temporarySchemaFile = createTemporaryFile(sampleJsonSchema);
+        Path temporarySchemaFile = createTemporaryFile(SAMPLE_JSON_SCHEMA);
 
         // when
         JsonSchema schema = fromTemporaryConfiguration(
@@ -271,9 +271,25 @@ public class ApplicationSettingsTest {
 
         // then
         JsonNode incorrectTestObject = new ObjectMapper().readTree("{ \"state\": 1 }");
+
+        assertFalse(schema.validate(incorrectTestObject).isEmpty());
+
+    }
+
+    @Test
+    public void shouldDoNotReportAnyValidateJSONSchemaError() throws IOException {
+        // when
+        Path temporarySchemaFile = createTemporaryFile(SAMPLE_JSON_SCHEMA);
+
+        // when
+        JsonSchema schema = fromTemporaryConfiguration(
+                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                .jsonSchema("v1");
+
+        // then
         JsonNode correctTestObject = new ObjectMapper().readTree("{ \"state\": \"hi\" }");
-        assertFalse(schema.validate(incorrectTestObject).isSuccess());
-        assertTrue(schema.validate(correctTestObject).isSuccess());
+     ;
+        assertTrue(schema.validate(correctTestObject).isEmpty());
     }
 
     @Test
