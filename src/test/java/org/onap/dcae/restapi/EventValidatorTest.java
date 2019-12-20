@@ -20,9 +20,8 @@
 
 package org.onap.dcae.restapi;
 
-import com.github.fge.jackson.JsonLoader;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -84,7 +83,7 @@ public class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() throws ProcessingException, IOException {
+    public void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() throws IOException {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
@@ -98,7 +97,7 @@ public class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnEmptyOptionalOnValidJsonObjectSchema() throws ProcessingException, IOException {
+    public void shouldReturnEmptyOptionalOnValidJsonObjectSchema() throws IOException {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
@@ -111,10 +110,11 @@ public class EventValidatorTest {
         assertEquals(Optional.empty(), result);
     }
 
-    private void mockJsonSchema(String jsonSchema) throws IOException, ProcessingException {
-        when(settings.jsonSchema(any())).thenReturn(
-                JsonSchemaFactory.byDefault()
-                        .getJsonSchema(JsonLoader.fromString(jsonSchema)));
+    private void mockJsonSchema(String jsonSchemaContent) {
+        JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
+
+        JsonSchema schema = factory.getSchema(jsonSchemaContent);
+        when(settings.jsonSchema(any())).thenReturn(schema);
     }
 
     private Optional<ResponseEntity<String>> generateResponseOptional(ApiException schemaValidationFailed) {

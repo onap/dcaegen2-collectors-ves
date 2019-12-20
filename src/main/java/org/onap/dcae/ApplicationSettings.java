@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2018 - 2019 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,31 +21,21 @@
 
 package org.onap.dcae;
 
-import static io.vavr.API.Tuple;
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.fge.jackson.JsonLoader;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import com.github.fge.jsonschema.main.JsonSchema;
-import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.google.common.annotations.VisibleForTesting;
+import com.networknt.schema.JsonSchema;
 import io.vavr.Function1;
-import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.annotation.Nullable;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.json.JSONObject;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import javax.annotation.Nullable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import static java.lang.String.format;
 
 /**
  * Abstraction over application configuration.
@@ -58,6 +48,7 @@ public class ApplicationSettings {
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
+    private final JSonSchemasSupplier jSonSchemasSupplier = new JSonSchemasSupplier();
     private final Map<String, JsonSchema> loadedJsonSchemas;
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
@@ -71,7 +62,9 @@ public class ApplicationSettings {
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
-        loadedJsonSchemas = loadJsonSchemas();
+        String collectorSchemaFile = properties.getString("collector.schema.file",
+                format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
+        loadedJsonSchemas = jSonSchemasSupplier.loadJsonSchemas(collectorSchemaFile);
     }
 
     public void reloadProperties() {
@@ -187,34 +180,11 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/collector.properties"));
     }
 
-    private Map<String, JsonSchema> loadJsonSchemas() {
-        return jsonSchema().toMap().entrySet().stream()
-            .map(this::readSchemaForVersion)
-            .collect(HashMap.collector());
-    }
-
-    private Tuple2<String, JsonSchema> readSchemaForVersion(java.util.Map.Entry<String, Object> versionToFilePath) {
-        try {
-            String schemaContent = new String(
-                readAllBytes(Paths.get(versionToFilePath.getValue().toString())));
-            JsonNode schemaNode = JsonLoader.fromString(schemaContent);
-            JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(schemaNode);
-            return Tuple(versionToFilePath.getKey(), schema);
-        } catch (IOException | ProcessingException e) {
-            throw new ApplicationException("Could not read schema from path: " + versionToFilePath.getValue(), e);
-        }
-    }
-
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty()
             : List.of(allowedUsers.split("\\|"))
                 .map(t->t.split(","))
                 .toMap(t-> t[0].trim(), t -> t[1].trim());
-    }
-
-    private JSONObject jsonSchema() {
-        return new JSONObject(properties.getString("collector.schema.file",
-                format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION)));
     }
 
     private Map<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
