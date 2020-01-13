@@ -86,6 +86,24 @@
       "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "530aba74_a2c0f989",
+        "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-01-13T12:36:30Z",
+      "side": 1,
+      "message": "I agree that assertion section can be extracted to separate methods",
+      "parentUuid": "d9cab6a7_142b45b0",
+      "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
