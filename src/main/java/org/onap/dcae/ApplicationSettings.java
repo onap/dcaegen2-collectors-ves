@@ -31,18 +31,23 @@ import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import io.vavr.Function1;
 import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import javax.annotation.Nullable;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
+import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +58,17 @@ import org.slf4j.LoggerFactory;
  */
 public class ApplicationSettings {
 
+    private static final String EVENT_TRANSFORM_FILE_PATH = "./etc/eventTransform.json";
+    private static final String COULD_NOT_FIND_FILE = "Couldn't find file " + EVENT_TRANSFORM_FILE_PATH;
+
     private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);
     private static final String FALLBACK_VES_VERSION = "v5";
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
-    private final Map<String, JsonSchema> loadedJsonSchemas;
+    private final Map<String, JsonSchema> eventSchemas;
+    private final List<EventTransformation> eventTransformations;
+
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
         this(args, argsParser, System.getProperty("user.dir"));
@@ -71,7 +81,20 @@ public class ApplicationSettings {
         configurationFileLocation = findOutConfigurationFileLocation(parsedArgs);
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
-        loadedJsonSchemas = loadJsonSchemas();
+        eventSchemas = loadEventSchemas();
+        eventTransformations = loadEventTransformations();
+    }
+
+    private List<EventTransformation> loadEventTransformations() {
+        Type EVENT_TRANSFORM_LIST_TYPE = new TypeToken<java.util.List<EventTransformation>>() {}.getType();
+
+        try (FileReader fr = new FileReader(EVENT_TRANSFORM_FILE_PATH)) {
+            log.info("parse " + EVENT_TRANSFORM_FILE_PATH + " file");
+            return new Gson().fromJson(fr, EVENT_TRANSFORM_LIST_TYPE);
+        } catch (IOException e) {
+            log.error(COULD_NOT_FIND_FILE, e);
+            throw new ApplicationException(COULD_NOT_FIND_FILE, e);
+        }
     }
 
     public void reloadProperties() {
@@ -91,18 +114,18 @@ public class ApplicationSettings {
         return Paths.get(configurationFileLocation);
     }
 
-    public boolean jsonSchemaValidationEnabled() {
+    public boolean eventSchemaValidationEnabled() {
         return properties.getInt("collector.schema.checkflag", -1) > 0;
     }
 
-    public JsonSchema jsonSchema(String version) {
-        return loadedJsonSchemas.get(version)
-                .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
+    public JsonSchema eventSchemas(String version) {
+        return eventSchemas.get(version)
+                .orElse(eventSchemas.get(FALLBACK_VES_VERSION))
                 .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
     }
 
     public boolean isVersionSupported(String version){
-       return loadedJsonSchemas.containsKey(version);
+       return eventSchemas.containsKey(version);
     }
 
     public int httpPort() {
@@ -187,8 +210,8 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(parsedArgs.get("c").getOrElse("etc/collector.properties"));
     }
 
-    private Map<String, JsonSchema> loadJsonSchemas() {
-        return jsonSchema().toMap().entrySet().stream()
+    private Map<String, JsonSchema> loadEventSchemas() {
+        return eventSchemas().toMap().entrySet().stream()
             .map(this::readSchemaForVersion)
             .collect(HashMap.collector());
     }
@@ -207,12 +230,12 @@ public class ApplicationSettings {
 
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty()
-            : List.of(allowedUsers.split("\\|"))
+            : io.vavr.collection.List.of(allowedUsers.split("\\|"))
                 .map(t->t.split(","))
                 .toMap(t-> t[0].trim(), t -> t[1].trim());
     }
 
-    private JSONObject jsonSchema() {
+    private JSONObject eventSchemas() {
         return new JSONObject(properties.getString("collector.schema.file",
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION)));
     }
@@ -238,6 +261,10 @@ public class ApplicationSettings {
     @VisibleForTesting
     String getStringDirectly(String key) {
         return properties.getString(key);
+    }
+
+    public List<EventTransformation> getEventTransformations() {
+        return eventTransformations;
     }
 }
 
