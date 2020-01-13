@@ -44,7 +44,7 @@ public class EventValidator {
   }
 
   public Optional<ResponseEntity<String>> validate(JSONObject jsonObject, String type, String version){
-    if (applicationSettings.jsonSchemaValidationEnabled()) {
+    if (applicationSettings.eventSchemaValidationEnabled()) {
       if (jsonObject.has(type)) {
         if (!conformsToSchema(jsonObject, version)) {
           return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
@@ -58,7 +58,7 @@ public class EventValidator {
 
   private boolean conformsToSchema(JSONObject payload, String version) {
     try {
-      JsonSchema schema = applicationSettings.jsonSchema(version);
+      JsonSchema schema = applicationSettings.eventSchemas(version);
       ProcessingReport report = schema.validate(JsonLoader.fromString(payload.toString()));
       if (report.isSuccess()) {
         return true;

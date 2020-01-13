@@ -61,7 +61,7 @@ public class EventValidatorTest {
     @Test
     public void shouldReturnEmptyOptionalOnJsonSchemaValidationDisabled() {
         //given
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(false);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(false);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -74,7 +74,7 @@ public class EventValidatorTest {
     @Test
     public void shouldReturnInvalidJsonErrorOnWrongType() {
         //given
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, "wrongType", DUMMY_SCHEMA_VERSION);
@@ -88,7 +88,7 @@ public class EventValidatorTest {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -102,7 +102,7 @@ public class EventValidatorTest {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -112,7 +112,7 @@ public class EventValidatorTest {
     }
 
     private void mockJsonSchema(String jsonSchema) throws IOException, ProcessingException {
-        when(settings.jsonSchema(any())).thenReturn(
+        when(settings.eventSchemas(any())).thenReturn(
                 JsonSchemaFactory.byDefault()
                         .getJsonSchema(JsonLoader.fromString(jsonSchema)));
     }

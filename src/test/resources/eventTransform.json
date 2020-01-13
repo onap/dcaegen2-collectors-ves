@@ -1,0 +1,396 @@
+[
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "heartbeat",
+      "VESversion": "v7"
+    },
+    "processors": [
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.version",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.heartbeatFields.heartbeatFieldsVersion",
+          "value": "2.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.heartbeatFields.additionalFields",
+          "mapType": "HashmapToNameValueArray"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "fault",
+      "VESversion": "v7"
+    },
+    "processors": [
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.version",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.faultFields.faultFieldsVersion",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.faultFields.alarmAdditionalInformation",
+          "mapType": "HashmapToNameValueArray"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "thresholdCrossingAlert",
+      "VESversion": "v7"
+    },
+    "processors": [
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.version",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.thresholdCrossingFields.thresholdCrossingFieldsVersion",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.thresholdCrossingFields.additionalFields",
+          "mapType": "HashmapToNameValueArray"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "measurement",
+      "VESversion": "v7"
+    },
+    "processors": [
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.version",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "removeAttribute",
+        "args": {
+          "field": "event.measurementFields.measurementFieldsVersion"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.measurementFields.measurementsForVfScalingVersion",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementFields.vNicPerformanceArray[]",
+          "oldField": "event.measurementFields.nicPerformanceArray[]",
+          "attrMap": {
+            "nicIdentifier": "vNicIdentifier"
+          }
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementFields.additionalFields",
+          "oldField": "event.measurementFields.additionalFields",
+          "mapType": "hashmapToNameValueArray"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields",
+          "oldField": "event.measurementFields",
+          "mapType": "renameObject"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.domain",
+          "value": "measurementsForVfScaling"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "heartbeat",
+      "VESversion": "v4"
+    },
+    "processors": [
+      {
+        "functionName": "concatenateValue",
+        "args": {
+          "field": "event.commonEventHeader.eventName",
+          "concatenate": [
+            "$event.commonEventHeader.domain",
+            "$event.commonEventHeader.eventType",
+            "$event.faultFields.alarmCondition"
+          ],
+          "delimiter": "_"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.heartbeatFields.heartbeatFieldsVersion",
+          "value": "1.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.heartbeatFields.heartbeatInterval",
+          "value": "0",
+          "fieldType": "integer"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.commonEventHeader.nfNamingCode",
+          "oldField": "event.commonEventHeader.functionalRole"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "fault",
+      "VESversion": "v4"
+    },
+    "processors": [
+      {
+        "functionName": "concatenateValue",
+        "args": {
+          "field": "event.commonEventHeader.eventName",
+          "concatenate": [
+            "$event.commonEventHeader.domain",
+            "$event.commonEventHeader.eventType",
+            "$event.faultFields.alarmCondition"
+          ],
+          "delimiter": "_"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.faultFields.faultFieldsVersion",
+          "value": "2.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.commonEventHeader.version",
+          "value": "3.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.commonEventHeader.nfNamingCode",
+          "oldField": "event.commonEventHeader.functionalRole"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "thresholdCrossingAlert",
+      "VESversion": "v4"
+    },
+    "processors": [
+      {
+        "functionName": "concatenateValue",
+        "args": {
+          "field": "event.commonEventHeader.eventName",
+          "concatenate": [
+            "$event.commonEventHeader.domain",
+            "$event.commonEventHeader.elementType",
+            "$event.faultFields.alertDescription"
+          ],
+          "delimiter": "_"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.commonEventHeader.nfNamingCode",
+          "oldField": "event.commonEventHeader.functionalRole"
+        }
+      }
+    ]
+  },
+  {
+    "filter": {
+      "event.commonEventHeader.domain": "measurementsForVfScaling",
+      "VESversion": "v4",
+      "not": {
+        "event.commonEventHeader.reportingEntityName": "matches:.*ircc|irpr.*"
+      }
+    },
+    "processors": [
+      {
+        "functionName": "concatenateValue",
+        "args": {
+          "field": "event.commonEventHeader.eventName",
+          "concatenate": [
+            "$event.commonEventHeader.domain",
+            "$event.commonEventHeader.eventType",
+            "$event.faultFields.alarmCondition"
+          ],
+          "delimiter": "_"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.measurementsForVfScalingVersion",
+          "value": "2.0",
+          "fieldType": "number"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.additionalMeasurements[].arrayOfFields[]",
+          "oldField": "event.measurementsForVfScalingFields.additionalMeasurements[].measurements[]"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "oldField": "event.measurementsForVfScalingFields.aggregateCpuUsage",
+          "field": "event.measurementsForVfScalingFields.cpuUsageArray[0].percentUsage"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.cpuUsageArray[0].cpuIdentifier",
+          "value": "$event.commonEventHeader.sourceName"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.memoryUsageArray[0].memoryConfigured",
+          "oldField": "event.measurementsForVfScalingFields.memoryConfigured",
+          "operation": "convertMBtoKB"
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.memoryUsageArray[0].memoryUsed",
+          "oldField": "event.measurementsForVfScalingFields.memoryUsed",
+          "operation": "convertMBtoKB"
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.memoryUsageArray[0].vmIdentifier",
+          "value": "$event.commonEventHeader.sourceName"
+        }
+      },
+      {
+        "functionName": "subtractValue",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.memoryUsageArray[0].memoryFree",
+          "subtract": [
+            "$event.measurementsForVfScalingFields.memoryUsageArray[0].memoryConfigured",
+            "$event.measurementsForVfScalingFields.memoryUsageArray[0].memoryUsed"
+          ]
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.vNicPerformanceArray[]",
+          "oldField": "event.measurementsForVfScalingFields.vNicUsageArray[]",
+          "attrMap": {
+            "broadcastPacketsIn": "receivedBroadcastPacketsAccumulated",
+            "multicastPacketsIn": "receivedMulticastPacketsAccumulated",
+            "bytesIn": "receivedOctetsAccumulated",
+            "packetsIn": "receivedTotalPacketsAccumulated",
+            "unicastPacketsIn": "receivedUnicastPacketsAccumulated",
+            "broadcastPacketsOut": "transmittedBroadcastPacketsAccumulated",
+            "multicastPacketsOut": "transmittedMulticastPacketsAccumulated",
+            "bytesOut": "transmittedOctetsAccumulated",
+            "packetsOut": "transmittedTotalPacketsAccumulated",
+            "unicastPacketsOut": "transmittedUnicastPacketsAccumulated"
+          }
+        }
+      },
+      {
+        "functionName": "map",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.vNicPerformanceArray[]",
+          "oldField": "event.measurementsForVfScalingFields.errors",
+          "attrMap": {
+            "receiveDiscards": "receivedDiscardedPacketsAccumulated",
+            "receiveErrors": "receivedErrorPacketsAccumulated",
+            "transmitDiscards": "transmittedDiscardedPacketsAccumulated",
+            "transmitErrors": "transmittedErrorPacketsAccumulated"
+          }
+        }
+      },
+      {
+        "functionName": "addAttribute",
+        "args": {
+          "field": "event.measurementsForVfScalingFields.vNicPerformanceArray[0].valuesAreSuspect",
+          "value": "false"
+        }
+      }
+    ]
+  }
+]
+
