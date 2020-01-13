@@ -21,18 +21,12 @@
 
 package org.onap.dcae.common;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.onap.dcae.ApplicationException;
 import org.onap.dcae.ApplicationSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +37,9 @@ public class EventUpdater {
   private static final String EVENT = "event";
   private static final String VES_UNIQUE_ID = "VESuniqueId";
   private static final String VES_VERSION = "VESversion";
-  private static final String COULD_NOT_FIND_FILE = "Couldn't find file ./etc/eventTransform.json";
-  private static final Type EVENT_LIST_TYPE = new TypeToken<List<Event>>() {}.getType();
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
   private static final String EVENT_LITERAL = "event";
   private static final String COMMON_EVENT_HEADER = "commonEventHeader";
-  private static final String EVENT_TRANSFORM = "./etc/eventTransform.json";
   private ApplicationSettings settings;
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
 
@@ -87,18 +78,15 @@ public class EventUpdater {
 
   private JSONObject overrideEvent(JSONObject event) {
     JSONObject jsonObject = addCurrentTimeToEvent(event);
+
     if (settings.eventTransformingEnabled()) {
-      try (FileReader fr = new FileReader(EVENT_TRANSFORM)) {
-        log.info("parse " + EVENT_TRANSFORM + " file");
-        List<Event> events = new Gson().fromJson(fr, EVENT_LIST_TYPE);
-        parseEventsJson(events, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
-      } catch (IOException e) {
-        log.error(COULD_NOT_FIND_FILE, e);
-        throw new ApplicationException(COULD_NOT_FIND_FILE, e);
-      }
+      List<EventTransformation> eventTransformations = settings.getEventTransformations();
+      applyMatchingTransformations(eventTransformations, new ConfigProcessorAdapter(new ConfigProcessors(jsonObject)));
     }
+
     if (jsonObject.has(VES_VERSION))
        jsonObject.remove(VES_VERSION);
+
     log.debug("Modified event:" + jsonObject);
     return jsonObject;
   }
@@ -112,8 +100,8 @@ public class EventUpdater {
     return event;
   }
 
-  private void parseEventsJson(List<Event> eventsTransform, ConfigProcessorAdapter configProcessorAdapter) {
-    for (Event eventTransform : eventsTransform) {
+  private void applyMatchingTransformations(List<EventTransformation> eventsTransforms, ConfigProcessorAdapter configProcessorAdapter) {
+    for (EventTransformation eventTransform : eventsTransforms) {
       JSONObject filterObj = new JSONObject(eventTransform.filter.toString());
       if (configProcessorAdapter.isFilterMet(filterObj)) {
         callProcessorsMethod(configProcessorAdapter, eventTransform.processors);
