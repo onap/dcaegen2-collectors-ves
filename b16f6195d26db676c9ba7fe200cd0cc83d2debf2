@@ -69,6 +69,23 @@
       "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9cab6a7_142b45b0",
+        "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2020-01-13T12:18:00Z",
+      "side": 1,
+      "message": "consider extracting Given and Then steps to methods",
+      "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
