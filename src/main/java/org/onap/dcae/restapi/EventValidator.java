@@ -20,12 +20,10 @@
  */
 package org.onap.dcae.restapi;
 
+import java.util.Optional;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import java.util.Optional;
 public class EventValidator {
 
   private final SchemaValidator schemaValidator = new SchemaValidator();
@@ -36,7 +34,7 @@ public class EventValidator {
   }
 
   public Optional<ResponseEntity<String>> validate(JSONObject jsonObject, String type, String version){
-    if (applicationSettings.jsonSchemaValidationEnabled()) {
+    if (applicationSettings.eventSchemaValidationEnabled()) {
       if (jsonObject.has(type)) {
         if (!schemaValidator.conformsToSchema(jsonObject, applicationSettings.jsonSchema(version))) {
           return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);

@@ -244,7 +244,7 @@ public class ApplicationSettingsTest {
     public void shouldTellIfSchemaValidationIsEnabled() throws IOException {
         // when
         boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration("collector.schema.checkflag=1")
-            .jsonSchemaValidationEnabled();
+            .eventSchemaValidationEnabled();
 
         // then
         assertTrue(jsonSchemaValidationEnabled);
@@ -253,7 +253,7 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldByDefaultSchemaValidationBeDisabled() throws IOException {
         // when
-        boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration().jsonSchemaValidationEnabled();
+        boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration().eventSchemaValidationEnabled();
 
         // then
         assertFalse(jsonSchemaValidationEnabled);

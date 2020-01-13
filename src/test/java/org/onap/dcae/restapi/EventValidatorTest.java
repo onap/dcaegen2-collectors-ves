@@ -20,8 +20,13 @@
 
 package org.onap.dcae.restapi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
+import java.util.Optional;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,13 +36,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
 import org.springframework.http.ResponseEntity;
-
-import java.io.IOException;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class EventValidatorTest {
@@ -60,7 +58,7 @@ public class EventValidatorTest {
     @Test
     public void shouldReturnEmptyOptionalOnJsonSchemaValidationDisabled() {
         //given
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(false);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(false);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -73,7 +71,7 @@ public class EventValidatorTest {
     @Test
     public void shouldReturnInvalidJsonErrorOnWrongType() {
         //given
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, "wrongType", DUMMY_SCHEMA_VERSION);
@@ -83,11 +81,11 @@ public class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() throws IOException {
+    public void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -97,11 +95,11 @@ public class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnEmptyOptionalOnValidJsonObjectSchema() throws IOException {
+    public void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
-        when(settings.jsonSchemaValidationEnabled()).thenReturn(true);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
         Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -109,6 +107,7 @@ public class EventValidatorTest {
         //then
         assertEquals(Optional.empty(), result);
     }
+
 
     private void mockJsonSchema(String jsonSchemaContent) {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
