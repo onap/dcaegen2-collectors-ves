@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2019 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,10 @@
  */
 package org.onap.dcae.restapi;
 
+import java.util.Optional;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import java.util.Optional;
 public class EventValidator {
 
   private final SchemaValidator schemaValidator = new SchemaValidator();
@@ -36,7 +34,7 @@ public class EventValidator {
   }
 
   public Optional<ResponseEntity<String>> validate(JSONObject jsonObject, String type, String version){
-    if (applicationSettings.jsonSchemaValidationEnabled()) {
+    if (applicationSettings.eventSchemaValidationEnabled()) {
       if (jsonObject.has(type)) {
         if (!schemaValidator.conformsToSchema(jsonObject, applicationSettings.jsonSchema(version))) {
           return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);

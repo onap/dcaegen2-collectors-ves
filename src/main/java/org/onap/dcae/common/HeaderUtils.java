@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  * @author nil
  */
 @Component
-public final class HeaderUtils {
+public class HeaderUtils {
 
   public String getApiVerFilePath(String fileName) {
     return Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(fileName))
