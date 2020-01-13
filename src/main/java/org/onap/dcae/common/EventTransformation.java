@@ -3,6 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2020 Nokia Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +24,11 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
-class Event {
+public class EventTransformation {
     final JsonObject filter;
     final List<Processor> processors;
 
-    Event(JsonObject filter, List<Processor> processors) {
+    EventTransformation(JsonObject filter, List<Processor> processors) {
         this.filter = filter;
         this.processors = processors;
     }

@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 - 2019 Nokia. All rights reserved.s
+ * Copyright (C) 2018 - 2020 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,28 @@
 
 package org.onap.dcae;
 
+import static java.lang.String.format;
+
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.networknt.schema.JsonSchema;
 import io.vavr.Function1;
 import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.annotation.Nullable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.lang.String.format;
 
 /**
  * Abstraction over application configuration.
@@ -43,13 +50,16 @@ import static java.lang.String.format;
  */
 public class ApplicationSettings {
 
+    private static final String EVENT_TRANSFORM_FILE_PATH = "./etc/eventTransform.json";
+    private static final String COULD_NOT_FIND_FILE = "Couldn't find file " + EVENT_TRANSFORM_FILE_PATH;
+
     private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);
     private static final String FALLBACK_VES_VERSION = "v5";
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
-    private final JSonSchemasSupplier jSonSchemasSupplier = new JSonSchemasSupplier();
     private final Map<String, JsonSchema> loadedJsonSchemas;
+    private final List<EventTransformation> eventTransformations;
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
         this(args, argsParser, System.getProperty("user.dir"));
@@ -64,7 +74,8 @@ public class ApplicationSettings {
         parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
         String collectorSchemaFile = properties.getString("collector.schema.file",
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
-        loadedJsonSchemas = jSonSchemasSupplier.loadJsonSchemas(collectorSchemaFile);
+        loadedJsonSchemas = new JSonSchemasSupplier().loadJsonSchemas(collectorSchemaFile);
+        eventTransformations = loadEventTransformations();
     }
 
     public void reloadProperties() {
@@ -76,22 +87,22 @@ public class ApplicationSettings {
             throw new ApplicationException(ex);
         }
     }
+
     public Map<String, String> validAuthorizationCredentials() {
         return prepareUsersMap(properties.getString("header.authlist", null));
     }
-
     public Path configurationFileLocation() {
         return Paths.get(configurationFileLocation);
     }
 
-    public boolean jsonSchemaValidationEnabled() {
+    public boolean eventSchemaValidationEnabled() {
         return properties.getInt("collector.schema.checkflag", -1) > 0;
     }
 
     public JsonSchema jsonSchema(String version) {
         return loadedJsonSchemas.get(version)
-                .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
-                .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
+            .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
+            .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
     }
 
     public boolean isVersionSupported(String version){
@@ -159,6 +170,10 @@ public class ApplicationSettings {
         }
     }
 
+    public List<EventTransformation> getEventTransformations() {
+        return eventTransformations;
+    }
+
     private void loadPropertiesFromFile() {
         try {
             properties.load(configurationFileLocation);
@@ -182,7 +197,7 @@ public class ApplicationSettings {
 
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty()
-            : List.of(allowedUsers.split("\\|"))
+            : io.vavr.collection.List.of(allowedUsers.split("\\|"))
                 .map(t->t.split(","))
                 .toMap(t-> t[0].trim(), t -> t[1].trim());
     }
@@ -203,6 +218,18 @@ public class ApplicationSettings {
             filePath = Paths.get(appInvocationDir, filePath).toString();
         }
         return filePath;
+    }
+
+    private List<EventTransformation> loadEventTransformations() {
+        Type EVENT_TRANSFORM_LIST_TYPE = new TypeToken<List<EventTransformation>>() {}.getType();
+
+        try (FileReader fr = new FileReader(EVENT_TRANSFORM_FILE_PATH)) {
+            log.info("parse " + EVENT_TRANSFORM_FILE_PATH + " file");
+            return new Gson().fromJson(fr, EVENT_TRANSFORM_LIST_TYPE);
+        } catch (IOException e) {
+            log.error(COULD_NOT_FIND_FILE, e);
+            throw new ApplicationException(COULD_NOT_FIND_FILE, e);
+        }
     }
 
     @VisibleForTesting
