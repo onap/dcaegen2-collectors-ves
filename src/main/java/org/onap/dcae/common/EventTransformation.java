@@ -23,11 +23,11 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
-class Event {
+public class EventTransformation {
     final JsonObject filter;
     final List<Processor> processors;
 
-    Event(JsonObject filter, List<Processor> processors) {
+    EventTransformation(JsonObject filter, List<Processor> processors) {
         this.filter = filter;
         this.processors = processors;
     }
