@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "118b8bcf_a130c235",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2020-01-13T12:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf0c6dda_a6120bbe",
+      "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8b8de2c_558ea3af",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f2be3fa_441f6c52",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2020-01-13T12:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8b8de2c_558ea3af",
+      "revId": "b16f6195d26db676c9ba7fe200cd0cc83d2debf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
