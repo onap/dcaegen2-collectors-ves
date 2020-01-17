@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73188d45_e81ca735",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2020-01-17T13:41:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e4f195_77526d08",
+      "range": {
+        "startLine": 6,
+        "startChar": 22,
+        "endLine": 6,
+        "endChar": 49
+      },
+      "revId": "042c3640ca83e4e7fd6a452f6c4104e1f92ca274",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb1a38d3_c304d38a",
         "filename": "src/main/java/org/onap/dcae/common/EventTransformation.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "042c3640ca83e4e7fd6a452f6c4104e1f92ca274",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a885614b_70fcfc85",
+        "filename": "src/main/java/org/onap/dcae/common/EventTransformation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2020-01-17T13:41:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb1a38d3_c304d38a",
+      "range": {
+        "startLine": 6,
+        "startChar": 22,
+        "endLine": 6,
+        "endChar": 49
+      },
+      "revId": "042c3640ca83e4e7fd6a452f6c4104e1f92ca274",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
