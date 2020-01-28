@@ -41,7 +41,7 @@ inputs:
     default: 1
   tag_version:
     type: string
-    default: "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.3"
+    default: "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.5.2"
   ves_fault_publish_url:
     type: string
   ves_fault_secondary_publish_url:
