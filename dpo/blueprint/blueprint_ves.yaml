@@ -1,5 +1,6 @@
 # ================================================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (C) 2020 Nokia. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,237 +19,109 @@
 
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/k8splugin/1.4.5/k8splugin_types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/dcaepolicyplugin/2.3.0/dcaepolicyplugin_types.yaml
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
 inputs:
-  collector.dmaap.streamid:
+  ves_other_publish_url:
     type: string
-    default: "fault=ves-fault,ves-fault-secondary|syslog=ves-syslog,ves-syslog-secondary|heartbeat=ves-heartbeat,ves-heartbeat-secondary|measurementsForVfScaling=ves-measurement,ves-measurement-secondary|mobileFlow=ves-mobileflow,ves-mobileflow-secondary|other=ves-other,ves-other-secondary|stateChange=ves-statechange,ves-statechange-secondary|thresholdCrossingAlert=ves-thresholdCrossingAlert,ves-thresholdCrossingAlert-secondary|voiceQuality=ves-voicequality,ves-voicequality-secondary|sipSignaling=ves-sipsignaling,ves-sipsignaling-secondary|notification=ves-notification,ves-notification-secondary|pnfRegistration=ves-pnfRegistration,ves-pnfRegistration-secondary"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
+  ves_heartbeat_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
+  ves_fault_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+  ves_measurement_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
+  ves_notification_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_NOTIFICATION_OUTPUT"
+  ves_pnfRegistration_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
+  tag_version:
+    type: string
+    default: "https://nexus3.onap.org:10003/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.5.2"
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
     default: "30235"
-  header.authlist:
+  external_tls_port:
     type: string
-    default: "sample1,$2a$10$pgjaxDzSuc6XVFEeqvxQ5u90DKJnM/u7TJTcinAlFJVaavXMWf/Zi|userid1,$2a$10$61gNubgJJl9lh3nvQvY9X.x4e5ETWJJ7ao7ZhJEvmfJigov26Z6uq|userid2,$2a$10$G52y/3uhuhWAMy.bx9Se8uzWinmbJa.dlm1LW6bYPdPkkywLDPLiy"
-  log_directory:
-    type: string
-    default: "/opt/app/VESCollector/logs"
+    description: Kubernetes node port on which collector is exposed for https
+    default: "30417"
   replicas:
     type: integer
     description: number of instances
     default: 1
-  tag_version:
-    type: string
-    default: "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.3"
-  ves_fault_publish_url:
-    type: string
-  ves_fault_secondary_publish_url:
-    type: string
-  ves_heartbeat_publish_url:
-    type: string
-  ves_heartbeat_secondary_publish_url:
-    type: string
-  ves_measurement_publish_url:
-    type: string
-  ves_measurement_secondary_publish_url:
-    type: string
-  ves_mobileflow_publish_url:
-    type: string
-  ves_mobileflow_secondary_publish_url:
-    type: string
-  ves_notification_publish_url:
-    type: string
-  ves_notification_secondary_publish_url:
-    type: string
-  ves_other_publish_url:
-    type: string
-  ves_other_secondary_publish_url:
-    type: string
-  ves_pnfRegistration_publish_url:
-    type: string
-  ves_pnfRegistration_secondary_publish_url:
-    type: string
-  ves_sipsignaling_publish_url:
-    type: string
-  ves_sipsignaling_secondary_publish_url:
-    type: string
-  ves_statechange_publish_url:
-    type: string
-  ves_statechange_secondary_publish_url:
-    type: string
-  ves_syslog_publish_url:
-    type: string
-  ves_syslog_secondary_publish_url:
-    type: string
-  ves_thresholdCrossingAlert_publish_url:
-    type: string
-  ves_thresholdCrossingAlert_secondary_publish_url:
-    type: string
-  ves_voicequality_publish_url:
-    type: string
-  ves_voicequality_secondary_publish_url:
-    type: string
 node_templates:
-  dcae-ves-collector:
-    type: dcae.nodes.ContainerizedPlatformComponent
+  ves:
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
           inputs:
             ports:
-              - concat: ["8443:", {get_input: external_port }]
+              - concat: ["8080:", { get_input: external_port }]
+              - concat: ["8443:", { get_input: external_tls_port }]
     properties:
       application_config:
-        service_calls: []
-        stream_publishes:
+        collector.dmaap.streamid: fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration
+        collector.inputQueue.maxPending: "8096"
+        collector.keystore.file.location: /opt/app/VESCollector/etc/keystore
+        collector.keystore.passwordfile: /opt/app/VESCollector/etc/passwordfile
+        collector.schema.checkflag: "1"
+        collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.0.1.json\"}"
+        collector.service.port: "8080"
+        collector.service.secure.port: "8443"
+        event.transform.flag: "0"
+        auth.method: "noAuth"
+        header.authlist: "sample1,$2a$10$0buh.2WeYwN868YMwnNNEuNEAMNYVU9.FSMJGyIKV3dGET/7oGOi6"
+        services_calls: []
+        streams_publishes:
           ves-fault:
             dmaap_info:
               topic_url:
                 get_input: ves_fault_publish_url
-            type: message router
-          ves-fault-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_fault_secondary_publish_url
-            type: message router
-          ves-heartbeat:
-            dmaap_info:
-              topic_url:
-                get_input: ves_heartbeat_publish_url
-            type: message router
-          ves-heartbeat-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_heartbeat_secondary_publish_url
-            type: message router
+            type: message_router
           ves-measurement:
             dmaap_info:
               topic_url:
                 get_input: ves_measurement_publish_url
-            type: message router
-          ves-measurement-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_measurement_secondary_publish_url
-            type: message router
-          ves-mobileflow:
-            dmaap_info:
-              topic_url:
-                get_input: ves_mobileflow_publish_url
-            type: message router
-          ves-mobileflow-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_mobileflow_secondary_publish_url
-            type: message router
+            type: message_router
           ves-notification:
             dmaap_info:
               topic_url:
                 get_input: ves_notification_publish_url
-            type: message router
-          ves-notification-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_notification_secondary_publish_url
-            type: message router
-          ves-other:
-            dmaap_info:
-              topic_url:
-                get_input: ves_other_publish_url
-            type: message router
-          ves-other-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_other_secondary_publish_url
-            type: message router
+            type: message_router
           ves-pnfRegistration:
             dmaap_info:
               topic_url:
                 get_input: ves_pnfRegistration_publish_url
-            type: message router
-          ves-pnfRegistration-secondary:
+            type: message_router
+          ves-heartbeat:
             dmaap_info:
               topic_url:
-                get_input: ves_pnfRegistration_secondary_publish_url
-            type: message router
-          ves-sipsignaling:
+                get_input: ves_heartbeat_publish_url
+            type: message_router
+          ves-other:
             dmaap_info:
               topic_url:
-                get_input: ves_sipsignaling_publish_url
-            type: message router
-          ves-sipsignaling-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_sipsignaling_secondary_publish_url
-            type: message router
-          ves-statechange:
-            dmaap_info:
-              topic_url:
-                get_input: ves_statechange_publish_url
-            type: message router
-          ves-statechange-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_statechange_secondary_publish_url
-            type: message router
-          ves-syslog:
-            dmaap_info:
-              topic_url:
-                get_input: ves_syslog_publish_url
-            type: message router
-          ves-syslog-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_syslog_secondary_publish_url
-            type: message router
-          ves-thresholdCrossingAlert:
-            dmaap_info:
-              topic_url:
-                get_input: ves_thresholdCrossingAlert_publish_url
-            type: message router
-          ves-thresholdCrossingAlert-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_thresholdCrossingAlert_secondary_publish_url
-            type: message router
-          ves-voicequality:
-            dmaap_info:
-              topic_url:
-                get_input: ves_voicequality_publish_url
-            type: message router
-          ves-voicequality-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_voicequality_secondary_publish_url
-            type: message router
-        stream_subcribes: {}
-        auth.method: noAuth
-        collector.dmaap.streamid:
-          get_input: collector.dmaap.streamid
-        collector.keystore.file.location: /opt/app/dcae-certificate/keystore.jks
-        collector.keystore.passwordfile: /opt/app/dcae-certificate/.password
-        collector.schema.checkflag: 1
-        collector.schema.file: {"v1":"./etc/CommonEventFormat_27.2.json","v2":"./etc/CommonEventFormat_27.2.json","v3":"./etc/CommonEventFormat_27.2.json","v4":"./etc/CommonEventFormat_27.2.json","v5":"./etc/CommonEventFormat_28.4.1.json","v7":"./etc/CommonEventFormat_30.json"}
-        collector.service.port: 8080
-        collector.service.secure.port: 8443
-        collector.truststore.file.location: /opt/app/dcae-certificate/truststore.jks
-        collector.truststore.passwordfile: /opt/app/dcae-certificate/.trustpassword
-        event.transform.flag: 1
-        header.authlist:
-          get_input: header.authlist
-        tomcat.maxthreads: 200
+                get_input: ves_other_publish_url
+            type: message_router
+        collector.dynamic.config.update.frequency: "5"
       docker_config:
-        interval: 15s
-        timeout: 1s
-        type: http
-        endpoint: /healthcheck
+        healthcheck:
+          endpoint: /healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
       image:
         get_input: tag_version
+      replicas: {get_input: replicas}
+      name: 'dcae-ves-collector'
+      dns_name: 'dcae-ves-collector'
       log_info:
-        get_input: log_directory
-      dns_name: dcae-ves-collector
-      replicas:
-        get_input: replicas
-      name: dcae-ves-collector
+        log_directory: "/opt/app/VESCollector/logs/ecomp"
+    type: dcae.nodes.ContainerizedPlatformComponent
