@@ -18,9 +18,9 @@
 
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/k8splugin/1.4.5/k8splugin_types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/dcaepolicyplugin/2.3.0/dcaepolicyplugin_types.yaml
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
 inputs:
   collector.dmaap.streamid:
     type: string
@@ -41,54 +41,36 @@ inputs:
     default: 1
   tag_version:
     type: string
-    default: "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.3"
+    default: "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.5.2"
   ves_fault_publish_url:
     type: string
-  ves_fault_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
   ves_heartbeat_publish_url:
     type: string
-  ves_heartbeat_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
   ves_measurement_publish_url:
     type: string
-  ves_measurement_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
   ves_mobileflow_publish_url:
-    type: string
-  ves_mobileflow_secondary_publish_url:
     type: string
   ves_notification_publish_url:
     type: string
-  ves_notification_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_NOTIFICATION_OUTPUT"
   ves_other_publish_url:
     type: string
-  ves_other_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
   ves_pnfRegistration_publish_url:
     type: string
-  ves_pnfRegistration_secondary_publish_url:
-    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
   ves_sipsignaling_publish_url:
-    type: string
-  ves_sipsignaling_secondary_publish_url:
     type: string
   ves_statechange_publish_url:
     type: string
-  ves_statechange_secondary_publish_url:
-    type: string
   ves_syslog_publish_url:
-    type: string
-  ves_syslog_secondary_publish_url:
     type: string
   ves_thresholdCrossingAlert_publish_url:
     type: string
-  ves_thresholdCrossingAlert_secondary_publish_url:
-    type: string
   ves_voicequality_publish_url:
-    type: string
-  ves_voicequality_secondary_publish_url:
     type: string
 node_templates:
   dcae-ves-collector:
@@ -108,120 +90,60 @@ node_templates:
               topic_url:
                 get_input: ves_fault_publish_url
             type: message router
-          ves-fault-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_fault_secondary_publish_url
-            type: message router
           ves-heartbeat:
             dmaap_info:
               topic_url:
                 get_input: ves_heartbeat_publish_url
-            type: message router
-          ves-heartbeat-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_heartbeat_secondary_publish_url
             type: message router
           ves-measurement:
             dmaap_info:
               topic_url:
                 get_input: ves_measurement_publish_url
             type: message router
-          ves-measurement-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_measurement_secondary_publish_url
-            type: message router
           ves-mobileflow:
             dmaap_info:
               topic_url:
                 get_input: ves_mobileflow_publish_url
-            type: message router
-          ves-mobileflow-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_mobileflow_secondary_publish_url
             type: message router
           ves-notification:
             dmaap_info:
               topic_url:
                 get_input: ves_notification_publish_url
             type: message router
-          ves-notification-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_notification_secondary_publish_url
-            type: message router
           ves-other:
             dmaap_info:
               topic_url:
                 get_input: ves_other_publish_url
-            type: message router
-          ves-other-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_other_secondary_publish_url
             type: message router
           ves-pnfRegistration:
             dmaap_info:
               topic_url:
                 get_input: ves_pnfRegistration_publish_url
             type: message router
-          ves-pnfRegistration-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_pnfRegistration_secondary_publish_url
-            type: message router
           ves-sipsignaling:
             dmaap_info:
               topic_url:
                 get_input: ves_sipsignaling_publish_url
-            type: message router
-          ves-sipsignaling-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_sipsignaling_secondary_publish_url
             type: message router
           ves-statechange:
             dmaap_info:
               topic_url:
                 get_input: ves_statechange_publish_url
             type: message router
-          ves-statechange-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_statechange_secondary_publish_url
-            type: message router
           ves-syslog:
             dmaap_info:
               topic_url:
                 get_input: ves_syslog_publish_url
-            type: message router
-          ves-syslog-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_syslog_secondary_publish_url
             type: message router
           ves-thresholdCrossingAlert:
             dmaap_info:
               topic_url:
                 get_input: ves_thresholdCrossingAlert_publish_url
             type: message router
-          ves-thresholdCrossingAlert-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_thresholdCrossingAlert_secondary_publish_url
-            type: message router
           ves-voicequality:
             dmaap_info:
               topic_url:
                 get_input: ves_voicequality_publish_url
-            type: message router
-          ves-voicequality-secondary:
-            dmaap_info:
-              topic_url:
-                get_input: ves_voicequality_secondary_publish_url
             type: message router
         stream_subcribes: {}
         auth.method: noAuth
