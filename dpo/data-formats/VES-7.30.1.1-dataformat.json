@@ -1,0 +1,15 @@
+{
+  "self": {
+    "name": "VES_specification",
+    "version": "7.30.1",
+    "description": "VES spec for v7.1.1"
+  },
+  "dataformatversion": "1.0.0",
+
+    "reference": {
+        "name": "Common Event Format",
+        "format": "JSON",
+        "version": "30.1.1",
+        "url" : "https://git.onap.org/dcaegen2/collectors/ves/tree/etc/CommonEventFormat_30.1.1.json"
+   }
+}

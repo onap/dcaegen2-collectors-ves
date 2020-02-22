@@ -1,6 +1,6 @@
 {
   "self": {
-    "version": "1.5.0",
+    "version": "1.5.3",
     "name": "dcae-ves-collector",
     "description": "Collector for receiving VES events through restful interface",
     "component_type": "docker"
@@ -70,87 +70,21 @@
       },
       {
         "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-fault-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-measurement-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-syslog-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-heartbeat-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-other-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-mobileflow-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-statechange-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-thresholdCrossingAlert-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-voicequality-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "5.28.4",
-        "type": "message router",
-        "config_key": "ves-sipsignaling-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "7.30.0",
+        "version": "7.30.1",
         "type": "message router",
         "config_key": "ves-pnfRegistration"
       },
       {
         "format": "VES_specification",
-        "version": "7.30.0",
-        "type": "message router",
-        "config_key": "ves-pnfRegistration-secondary"
-      },
-      {
-        "format": "VES_specification",
-        "version": "7.30.0",
+        "version": "7.30.1",
         "type": "message router",
         "config_key": "ves-notification"
       },
       {
         "format": "VES_specification",
-        "version": "7.30.0",
+        "version": "7.30.1",
         "type": "message router",
-        "config_key": "ves-notification-secondary"
+        "config_key": "ves-perf3gpp"
       }
     ]
   },
@@ -222,7 +156,7 @@
         "verb": "POST",
         "request": {
           "format": "VES_specification",
-          "version": "7.30.0"
+          "version": "7.30.1"
         },
         "response": {
           "format": "ves.coll.response",
@@ -250,7 +184,7 @@
     },
     {
       "name": "collector.keystore.file.location",
-      "value": "/opt/app/dcae-certificate/keystore.jks",
+      "value": "/opt/app/dcae-certificate/cert.jks",
       "description": "fs location of keystore file in vm",
       "sourced_at_deployment": false,
       "policy_editable": false,
@@ -258,7 +192,7 @@
     },
     {
       "name": "collector.keystore.passwordfile",
-      "value": "/opt/app/dcae-certificate/.password",
+      "value": "/opt/app/dcae-certificate/jks.pass",
       "description": "location of keystore password file in vm",
       "sourced_at_deployment": false,
       "policy_editable": false,
@@ -266,7 +200,7 @@
     },
     {
       "name": "collector.truststore.file.location",
-      "value": "/opt/app/dcae-certificate/truststore.jks",
+      "value": "/opt/app/dcae-certificate/trust.jks",
       "description": "fs location of truststore file in vm",
       "sourced_at_deployment": false,
       "policy_editable": false,
@@ -274,7 +208,7 @@
     },
     {
       "name": "collector.truststore.passwordfile",
-      "value": "/opt/app/dcae-certificate/.trustpassword",
+      "value": "/opt/app/dcae-certificate/trust.pass",
       "description": "location of truststore password file in vm",
       "sourced_at_deployment": false,
       "policy_editable": false,
@@ -282,7 +216,7 @@
     },
     {
       "name": "collector.dmaap.streamid",
-      "value": "fault=ves-fault,ves-fault-secondary|syslog=ves-syslog,ves-syslog-secondary|heartbeat=ves-heartbeat,ves-heartbeat-secondary|measurementsForVfScaling=ves-measurement,ves-measurement-secondary|mobileFlow=ves-mobileflow,ves-mobileflow-secondary|other=ves-other,ves-other-secondary|stateChange=ves-statechange,ves-statechange-secondary|thresholdCrossingAlert=ves-thresholdCrossingAlert,ves-thresholdCrossingAlert-secondary|voiceQuality=ves-voicequality,ves-voicequality-secondary|sipSignaling=ves-sipsignaling,ves-sipsignaling-secondary|notification=ves-notification,ves-notification-secondary|pnfRegistration=ves-pnfRegistration,ves-pnfRegistration-secondary",
+      "value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration|perf3gpp=ves-perf3gpp",
       "description": "domain-to-streamid mapping used by VESCollector to distributes events based on domain. Both primary and secondary config_key are included for resilency (multiple streamid can be included commma separated). The streamids MUST match to topic config_keys. For single site without resiliency deployment - configkeys with -secondary suffix can be removed",
       "sourced_at_deployment": true,
       "policy_editable": false,
@@ -314,7 +248,7 @@
     },
     {
       "name": "collector.schema.file",
-      "value": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.json\"}",
+      "value": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.1.1.json\"}",
       "description": "VES schema file name per version used for validation",
       "designer_editable": true,
       "sourced_at_deployment": false,
@@ -339,7 +273,7 @@
   ],
   "auxilary": {
     "healthcheck": {
-      "type": "https",
+      "type": "http",
       "interval": "15s",
       "timeout": "1s",
       "endpoint": "/healthcheck"
@@ -373,12 +307,20 @@
     "ports": [
       "8080:8080",
       "8443:8443"
-    ]
+    ],
+    "log_info": {
+	"log_directory": "/opt/app/VESCollector/logs/"
+     },
+    "tls_info":{
+	"cert_directory":"/opt/app/dcae-certificate/",
+	"use_tls":true
+     }
   },
   "artifacts": [
     {
       "type": "docker image",
-      "uri": "nexus.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:latest"
+      "uri": "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:latest"
     }
   ]
 }
+

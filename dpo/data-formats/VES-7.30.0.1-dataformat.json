@@ -1,7 +1,7 @@
 {
   "self": {
     "name": "VES_specification",
-    "version": "7.30.1",
+    "version": "7.30.0",
     "description": "VES spec for v7.0.1"
   },
   "dataformatversion": "1.0.0",
