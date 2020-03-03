@@ -38,7 +38,7 @@
     </RollingFile>
 
     <RollingFile fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}-%i.log" name="EFILE">
-      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
       <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="64 MB"/>
@@ -66,7 +66,7 @@
 
 
     <RollingFile fileName="logs/eelf/error.log" filePattern="logs/eelf/error-%d{yyyy-MM-dd}-%i.log" name="EELF_ERROR">
-      <LevelRangeFilter maxLevel="WARN" minLevel="WARN"/>
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="64 MB"/>
@@ -90,53 +90,63 @@
 
     <Logger additivity="false" level="info" name="org.onap.dcae.common.input">
       <AppenderRef ref="IFILE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <Logger additivity="false" level="info" name="org.onap.dcae.common.output">
       <AppenderRef ref="CONSOLE"/>
       <AppenderRef ref="OFILE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <Logger additivity="false" level="debug" name="org.onap.dcae.common.error">
       <AppenderRef ref="EFILE"/>
       <AppenderRef ref="CONSOLE"/>
       <AppenderRef ref="EELF_ERROR"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="info" name="com.att.ecomp.audit">
       <AppenderRef ref="CONSOLE"/>
       <AppenderRef ref="EELF_AUDIT"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <Logger additivity="false" level="info" name="com.att.ecomp.metrics">
       <AppenderRef ref="EELF_METRIC"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="info" name="com.att.ecomp.error">
       <AppenderRef ref="EELF_ERROR"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="info" name="com.att.ecomp.debug">
       <AppenderRef ref="EELF_DEBUG"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="debug" name="org.onap.dcae.common.EventPublisher">
       <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="info" name="com.att.nsa.apiClient.http.HttpClient">
       <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <!--NOT USED-->
     <Logger additivity="false" level="info"
       name="com.att.nsa.cambria.client.impl.CambriaSimplerBatchPublisher">
       <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
     </Logger>
 
     <Root additivity="false" level="debug">
