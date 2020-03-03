@@ -38,7 +38,7 @@
     </RollingFile>
 
     <RollingFile fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}-%i.log" name="EFILE">
-      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
       <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="64 MB"/>
@@ -66,7 +66,7 @@
 
 
     <RollingFile fileName="logs/eelf/error.log" filePattern="logs/eelf/error-%d{yyyy-MM-dd}-%i.log" name="EELF_ERROR">
-      <LevelRangeFilter maxLevel="WARN" minLevel="WARN"/>
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="64 MB"/>
