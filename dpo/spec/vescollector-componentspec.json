@@ -1,6 +1,6 @@
 {
   "self": {
-    "version": "1.5.3",
+    "version": "1.5.4",
     "name": "dcae-ves-collector",
     "description": "Collector for receiving VES events through restful interface",
     "component_type": "docker"
@@ -305,8 +305,8 @@
       }
     ],
     "ports": [
-      "8080:8080",
-      "8443:8443"
+      "8080:0",
+      "8443:0"
     ],
     "log_info": {
 	"log_directory": "/opt/app/VESCollector/logs/"
