@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffb03ae1_36fd0393",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-20T16:01:25Z",
+      "side": 1,
+      "message": "Should be consistend with release version. \nversion 1.5.4 is not release yet. Either we switch this to 1.5.3 or release 1.5.4 which has log fix",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 18
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc96459_253a3757",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-20T16:01:25Z",
+      "side": 1,
+      "message": "201 is not supported by vescollector. Can be switched to 202 for all /eventListener/ apis\n\n\u0027202\u0027:\n          description: Accepted",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 14
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f050325_5a6ba971",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-20T16:01:25Z",
+      "side": 1,
+      "message": "same for batch api; replace with 202 for all v1-v5 api listener\n        \u0027202\u0027:\n          description: Accepted",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 30
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
