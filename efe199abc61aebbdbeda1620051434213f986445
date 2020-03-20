@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86613148_a4c54d0c",
+        "filename": "swagger_vescollector_1.5.4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-03-20T12:33:22Z",
+      "side": 1,
+      "message": "We`re missing 202 Accepted.\nAre we really sending back 201 Created? As far as I recall, 202 Accepted.",
+      "range": {
+        "startLine": 647,
+        "startChar": 5,
+        "endLine": 647,
+        "endChar": 9
+      },
+      "revId": "efe199abc61aebbdbeda1620051434213f986445",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a53d77a_c88e65d8",
+        "filename": "swagger_vescollector_1.5.4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-03-20T12:33:22Z",
+      "side": 1,
+      "message": "We are missing 400 Bad Request",
+      "range": {
+        "startLine": 650,
+        "startChar": 5,
+        "endLine": 650,
+        "endChar": 10
+      },
+      "revId": "efe199abc61aebbdbeda1620051434213f986445",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dbe6b7d_dd7bec5b",
+        "filename": "swagger_vescollector_1.5.4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-03-20T12:33:22Z",
+      "side": 1,
+      "message": "What about adding 500 - Internal Server error?\n(Which we happen to send in some cases)",
+      "range": {
+        "startLine": 658,
+        "startChar": 5,
+        "endLine": 658,
+        "endChar": 6
+      },
+      "revId": "efe199abc61aebbdbeda1620051434213f986445",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d1121f9_6c6affcd",
+        "filename": "swagger_vescollector_1.5.4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-03-20T12:33:22Z",
+      "side": 1,
+      "message": "We are missing 202 Accepted here.\nNot sure, if we`re really sending 201 Created...",
+      "range": {
+        "startLine": 685,
+        "startChar": 5,
+        "endLine": 685,
+        "endChar": 10
+      },
+      "revId": "efe199abc61aebbdbeda1620051434213f986445",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcc51ded_4bc56423",
+        "filename": "swagger_vescollector_1.5.4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-03-20T12:33:22Z",
+      "side": 1,
+      "message": "We are missing 400 Bad Request.",
+      "range": {
+        "startLine": 688,
+        "startChar": 5,
+        "endLine": 688,
+        "endChar": 10
+      },
+      "revId": "efe199abc61aebbdbeda1620051434213f986445",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
