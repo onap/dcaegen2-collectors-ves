@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a92c019_64b7f682",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-03-23T09:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffb03ae1_36fd0393",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 18
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bc96459_253a3757",
         "filename": "swagger_vescollector_1.5.4.yaml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7c54c492_3aea627f",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-03-23T09:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc96459_253a3757",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 14
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f050325_5a6ba971",
         "filename": "swagger_vescollector_1.5.4.yaml",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31ca0d99_70529a2d",
+        "filename": "swagger_vescollector_1.5.4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-03-23T09:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f050325_5a6ba971",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 30
+      },
+      "revId": "5ea6f42680a1672dbb02cea29d3516995a98beb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
