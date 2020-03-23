@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"description": "Api Documentation",
-		"version": "1.5.3",
+		"version": "1.5.4",
 		"title": "Api Documentation",
 		"termsOfService": "urn:tos",
 		"contact": {},
