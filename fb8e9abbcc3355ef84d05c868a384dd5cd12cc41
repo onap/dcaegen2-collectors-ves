@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f65ca128_1014eb75",
+        "filename": "releases/1.5.4-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-03-24T11:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61861365_f66008e3",
+      "range": {
+        "startLine": 4,
+        "startChar": 60,
+        "endLine": 4,
+        "endChar": 63
+      },
+      "revId": "fb8e9abbcc3355ef84d05c868a384dd5cd12cc41",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2893f29_6c356e08",
         "filename": "releases/1.5.4-container.yaml",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "writtenOn": "2020-03-24T11:00:58Z",
       "side": 1,
       "message": "Check this tag",
+      "range": {
+        "startLine": 8,
+        "startChar": 14,
+        "endLine": 8,
+        "endChar": 36
+      },
+      "revId": "fb8e9abbcc3355ef84d05c868a384dd5cd12cc41",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7db34f3_16fdd3d1",
+        "filename": "releases/1.5.4-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-03-24T11:24:06Z",
+      "side": 1,
+      "message": "Check: \nhttps://jenkins.onap.org/job/dcaegen2-collectors-ves-maven-docker-stage-master/242/console\nand here:\nhttps://nexus3.onap.org/#browse/search\u003dkeyword%3Dorg.onap.dcaegen2.collectors.ves.vescollector%20AND%20version%3D1.5.4*",
+      "parentUuid": "01dbaaeb_67039b3b",
       "range": {
         "startLine": 8,
         "startChar": 14,
