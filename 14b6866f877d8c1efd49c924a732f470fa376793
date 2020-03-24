@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Kornel Janiak <kornel.janiak@nokia.com>
+Code-Review+1: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Code-Review+1: Piotr Wielebski <piotr.wielebski@nokia.com>
+Code-Review+1: Damian Nowak <damian.nowak@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 24 Mar 2020 15:08:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/104224
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
