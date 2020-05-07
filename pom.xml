@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.5.4-SNAPSHOT</version>
+  <version>1.6.0-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -50,6 +50,8 @@
 	${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
     <crypt-password.version>1.3.5</crypt-password.version>
+    <micrometer.version>1.4.2</micrometer.version>
+    <spring.version>2.2.2.RELEASE</spring.version>
   </properties>
   <build>
     <pluginManagement>
@@ -234,6 +236,30 @@
   </build>
   <profiles>
     <profile>
+      <id>buildForPerfTests</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <!-- Libraries related with performance tests-->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+          <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.micrometer</groupId>
+          <artifactId>micrometer-registry-prometheus</artifactId>
+          <version>${micrometer.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.micrometer</groupId>
+          <artifactId>micrometer-core</artifactId>
+          <version>${micrometer.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>with-system-proxy</id>
       <build>
         <plugins>
@@ -285,7 +311,7 @@
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>${spring.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
