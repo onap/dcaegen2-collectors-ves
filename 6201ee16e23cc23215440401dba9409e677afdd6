@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "960bc6d4_c69611b4",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-05-07T05:17:11Z",
+      "side": 1,
+      "message": "version should be extracted to properties",
+      "range": {
+        "startLine": 465,
+        "startChar": 15,
+        "endLine": 465,
+        "endChar": 20
+      },
+      "revId": "6201ee16e23cc23215440401dba9409e677afdd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
