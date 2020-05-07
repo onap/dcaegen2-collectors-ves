@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b9689c8_a8edf87e",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-07T18:09:06Z",
+      "side": 1,
+      "message": "1.5.4 already released; version to be bumped up to 1.6.0 for Guilin updates",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "f07c52f874d10f1949a0bc77e8a370ee7b3f7198",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ecff02_dee2f59f",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-07T18:09:06Z",
+      "side": 1,
+      "message": "could be activated based on test profile?",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 17
+      },
+      "revId": "f07c52f874d10f1949a0bc77e8a370ee7b3f7198",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
