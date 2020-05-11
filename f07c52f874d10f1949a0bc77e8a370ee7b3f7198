@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8162801c_2f5931a5",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-11T15:26:20Z",
+      "side": 1,
+      "message": "yes, sound good. Need to ensure though along with other files impacted for version change, release files update are done",
+      "parentUuid": "a456a808_650e44ef",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "f07c52f874d10f1949a0bc77e8a370ee7b3f7198",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01ecff02_dee2f59f",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "But if we create a test profile, then we will need to rebuild a ves image with a test profile and redeploy ves at lab before we start perf tests. If it is acceptable, then sure. We can do that.",
       "parentUuid": "01ecff02_dee2f59f",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 17
+      },
+      "revId": "f07c52f874d10f1949a0bc77e8a370ee7b3f7198",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c977f40b_b347aae6",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-11T15:26:20Z",
+      "side": 1,
+      "message": "Yes, was suggesting the same. However if you were planning to use onap/nexus containers directly in your lab for perf test, then we add these as default now and switch them later to profile driven (which will be disabled in ONAP/ci by default) once tests are completed. \n\nWas concerned with overhead involved and did not want them enabled by default for production container/version before releases are done.",
+      "parentUuid": "81e8a179_83eff0cb",
       "range": {
         "startLine": 453,
         "startChar": 0,
