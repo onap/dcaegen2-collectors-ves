@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f20ff39_e05a1d6a",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-12T22:42:22Z",
+      "side": 1,
+      "message": "version.properties must be updated also to be in sync",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "20e34e4bb94aeb12cfdac2e15bf71608b31d256a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1354f02_462a81ec",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-12T22:42:22Z",
+      "side": 1,
+      "message": "false",
+      "range": {
+        "startLine": 241,
+        "startChar": 25,
+        "endLine": 241,
+        "endChar": 29
+      },
+      "revId": "20e34e4bb94aeb12cfdac2e15bf71608b31d256a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa38b4a_eda0c2e3",
+        "filename": "release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-12T22:42:22Z",
+      "side": 1,
+      "message": "This is more detailed than what I was expecting - this will be better suited under VEScollector RTD doc folder (https://git.onap.org/dcaegen2/tree/docs/sections/services/ves-http) to track released container. I would also remove ONAP release details as they will be maintained globally (like rls date/name). The release date instead can reference the date when VES container was released (or self-release).\n\nOn this repo, we could have more simpler version changelog to identify the jira/issues fixed with specific version update (similar to \nhttps://git.onap.org/dcaegen2/platform/configbinding/tree/Changelog.md)",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 13
+      },
+      "revId": "20e34e4bb94aeb12cfdac2e15bf71608b31d256a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
