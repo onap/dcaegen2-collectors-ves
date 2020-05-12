@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b76803aa_a3da6d61",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-05-12T10:04:15Z",
+      "side": 1,
+      "message": "I suggest specifying version for this dependency, I think we should make sure this dependency is same version as micrometer-core",
+      "range": {
+        "startLine": 250,
+        "startChar": 1,
+        "endLine": 253,
+        "endChar": 21
+      },
+      "revId": "a24c48dbb58c557b48fd95d925d4156793c3461b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
