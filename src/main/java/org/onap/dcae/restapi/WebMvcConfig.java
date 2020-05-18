@@ -1,9 +1,9 @@
 /*
  * ============LICENSE_START=======================================================
- * PROJECT
+ * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,26 +28,35 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
+    public static final String SWAGGER_PATH_PATTERN = "swagger-ui.html";
+    public static final String SWAGGER_CLASSPATH_RESOURCES = "classpath:/META-INF/resources/";
+    public static final String WEBJARS_PATH_PATTERN = "/webjars/**";
+    public static final String WEBJARS_CLASSPATH_RESOURCES = "classpath:/META-INF/resources/webjars/";
+    public static final String TEMPLATES_PATTERN = "**";
+    public static final String TEMPLATES_CLASSPATH_RESOURCES = "classpath:/templates/";
+    public static final String PREFIX = "/";
+    public static final String SUFFIX = ".html";
+
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-            .addResourceHandler("swagger-ui.html")
-            .addResourceLocations("classpath:/META-INF/resources/");
+            .addResourceHandler(SWAGGER_PATH_PATTERN)
+            .addResourceLocations(SWAGGER_CLASSPATH_RESOURCES);
 
         registry
-            .addResourceHandler("/webjars/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            .addResourceHandler(WEBJARS_PATH_PATTERN)
+            .addResourceLocations(WEBJARS_CLASSPATH_RESOURCES);
 
         registry
-            .addResourceHandler("**")
-            .addResourceLocations("classpath:/templates/");
+            .addResourceHandler(TEMPLATES_PATTERN)
+            .addResourceLocations(TEMPLATES_CLASSPATH_RESOURCES);
     }
 
     @Bean
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/");
-        resolver.setSuffix(".html");
+        resolver.setPrefix(PREFIX);
+        resolver.setSuffix(SUFFIX);
         return resolver;
     }
 }
