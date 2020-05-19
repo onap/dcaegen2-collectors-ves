@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3ba1b50_a98ae997",
+        "filename": "src/test/java/org/onap/dcae/restapi/WebMvcConfigTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-05-19T05:36:41Z",
+      "side": 1,
+      "message": "shouldn\u0027t webMvcConfig be initialize before every test, to assure that changes made by one test does not affect other tests ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "ae7efd331d8a7ca217605543ef10af579de4225c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
