@@ -1,0 +1,85 @@
+# ============LICENSE_START=======================================================
+# dcaegen2-collectors-ves
+# ================================================================================
+# Copyright (C) 2020 NOKIA
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: grafana-ves-deployment
+  namespace: onap
+  labels:
+    app: collector-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector-grafana
+  template:
+    metadata:
+      labels:
+        app: collector-grafana
+    spec:
+      containers:
+        - name: collector-grafana
+          image: grafana/grafana
+          env:
+            - name: GF_AUTH_DISABLE_LOGIN_FORM
+              value: "true"
+            - name: GF_AUTH_DISABLE_SIGNOUT_MENU
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ENABLED
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+              value: "Admin"
+            - name: FOLDER
+              value: "/tmp/dashboards"
+          volumeMounts:
+            - name: ves-grafana-datasources
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: ves-grafana-dashboards-provider
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: ves-grafana-dashboards
+              mountPath: /etc/grafana/dashboards/ves
+      volumes:
+        - name: ves-grafana-datasources
+          configMap:
+            name: ves-grafana-datasources
+        - name: ves-grafana-dashboards-provider
+          configMap:
+            name: ves-grafana-dashboards-provider
+        - name: ves-grafana-dashboards
+          configMap:
+            name: ves-grafana-dashboards
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+  namespace: onap
+  labels:
+    app: collector-grafana
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
+spec:
+  selector:
+    app: collector-grafana
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30001
