@@ -46,6 +46,30 @@
       "revId": "ae7efd331d8a7ca217605543ef10af579de4225c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c5176f_d75d4ece",
+        "filename": "src/test/java/org/onap/dcae/restapi/WebMvcConfigTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T05:41:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "72a5753e_4465756f",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "ae7efd331d8a7ca217605543ef10af579de4225c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
