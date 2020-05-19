@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67dedc61_6c072ffd",
+        "filename": "performanceTests/Makefile",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "replace by\nRKE_NODE_USER_AND_HOSTNAME \u003d ubuntu@\u003cPLS_SET_IP_OF_RKE_NODE\u003e",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47d64ac_9872eb46",
+        "filename": "performanceTests/Makefile",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "replace by RKE_PRIVATE_KEY \u003d ~/.ssh/\u003cPLS_SET_PEM_PRIVATE_KEY_FILE\u003e",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a93456_fa0089f7",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": ".... Environment",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c6b719_f0b655c1",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "... configure VES Performance Tests environment on the RKE node",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ae6572_169a1b47",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "Pls add information how to build an image.\nThen how to use/replace this image in the lab.\nHow to configure VES to work in basicAuth.",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4427a6_eb8f32c5",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "remove 5\n\nOR\n\nAutomatic configuration",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0c181e_afacb3b5",
+        "filename": "performanceTests/k8s/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "This section describes how to prepare VES Performance Test environment at the RKE",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ef56a5_6d333232",
+        "filename": "performanceTests/k8s/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "to RKE node",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b68b8e87_8b3e4bc9",
+        "filename": "performanceTests/k8s/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-19T08:46:13Z",
+      "side": 1,
+      "message": "remove 6.\n\nOR\n\nAutomatic configuration",
+      "revId": "83cb37d89e457919b385004f4307e0f47ea60799",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
