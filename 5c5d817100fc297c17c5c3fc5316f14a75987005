@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7bf6315_46834f72",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-20T10:37:13Z",
+      "side": 1,
+      "message": "remove this section about profile",
+      "revId": "5c5d817100fc297c17c5c3fc5316f14a75987005",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297a2939_dbd99311",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-20T10:37:13Z",
+      "side": 1,
+      "message": "add mvn clean package -PbuildForPerfTests docker:build\n\nbut first check that works. It should.",
+      "revId": "5c5d817100fc297c17c5c3fc5316f14a75987005",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
