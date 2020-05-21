@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1c91c18_35b7daf1",
+        "filename": "performanceTests/k8s/Makefile",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-05-21T12:47:41Z",
+      "side": 1,
+      "message": "consider name create-configmaps",
+      "revId": "866595fb3267693c280c4597319895a32e2ea66e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
