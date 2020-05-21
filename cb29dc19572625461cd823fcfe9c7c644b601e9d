@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e02da391_7cd53ed3",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-21T22:14:30Z",
+      "side": 1,
+      "message": "include step to clone for completeness",
+      "revId": "cb29dc19572625461cd823fcfe9c7c644b601e9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc281f40_f62bfb05",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-21T22:14:30Z",
+      "side": 1,
+      "message": "This reference is confusing.. Isn\u0027t this invoked from  \"make run-performanceTests\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "cb29dc19572625461cd823fcfe9c7c644b601e9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b58fa4_69ca9baa",
+        "filename": "performanceTests/k8s/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-21T22:14:30Z",
+      "side": 1,
+      "message": "seems redundant to note under performanceTests/README.md, consider elaborating or changing to capture the specific scope here.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 81
+      },
+      "revId": "cb29dc19572625461cd823fcfe9c7c644b601e9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d42b4f_2816d0e8",
+        "filename": "performanceTests/k8s/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-21T22:14:30Z",
+      "side": 1,
+      "message": "reference specific step here which is make copy-performanceTests",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "cb29dc19572625461cd823fcfe9c7c644b601e9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
