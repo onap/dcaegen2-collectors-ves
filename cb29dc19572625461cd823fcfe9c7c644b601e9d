@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9e2a8470_26e5c53e",
+        "filename": "performanceTests/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-22T19:57:12Z",
+      "side": 1,
+      "message": "Meant to include - git clone \"https://gerrit.onap.org/r/dcaegen2/collectors/ves\" before doing mvn clean/package is done",
+      "parentUuid": "2ef28e27_9a9b3d3e",
+      "revId": "cb29dc19572625461cd823fcfe9c7c644b601e9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc281f40_f62bfb05",
         "filename": "performanceTests/README.md",
         "patchSetId": 6
