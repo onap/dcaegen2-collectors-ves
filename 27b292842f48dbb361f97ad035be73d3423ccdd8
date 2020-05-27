@@ -70,6 +70,30 @@
       "revId": "27b292842f48dbb361f97ad035be73d3423ccdd8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f6d07b0_5bf6ba12",
+        "filename": "src/test/java/org/onap/dcae/common/HeaderUtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-05-27T05:49:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc2031d_75db3109",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 56
+      },
+      "revId": "27b292842f48dbb361f97ad035be73d3423ccdd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
