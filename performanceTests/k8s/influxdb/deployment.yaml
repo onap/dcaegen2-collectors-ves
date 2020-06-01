@@ -16,30 +16,42 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-apiVersion: v1
-kind: ConfigMap
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
-  name: ves-grafana-datasources
+  name: influxdb-ves-deployment
   namespace: onap
   labels:
-    name: ves-grafana-datasources
-data:
-  datasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-service:8080
-      access: proxy
-      isDefault: true
-  influxdbDatasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: jmeter
-      type: influxdb
-      database: jmeter
-      url: http://influxdb-service:8086
-      access: proxy
-      editable: true
-      jsonData:
-        timeInterval: '5s'
+    app: collector-influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector-influxdb
+  template:
+    metadata:
+      labels:
+        app: collector-influxdb
+    spec:
+      containers:
+        - name: collector-influxdb
+          image: influxdb
+          env:
+            - name: INFLUXDB_DB
+              value: "jmeter"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb-service
+  namespace: onap
+  labels:
+    app: collector-influxdb
+spec:
+  selector:
+    app: collector-influxdb
+  type: NodePort
+  ports:
+    - port: 8086
+      targetPort: 8086
+      nodePort: 30002
