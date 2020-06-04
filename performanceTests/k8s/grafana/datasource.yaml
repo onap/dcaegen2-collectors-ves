@@ -32,12 +32,23 @@ data:
       url: http://prometheus-service:8080
       access: proxy
       isDefault: true
-  influxdbDatasource.yaml: |-
+  jmeterDatasource.yaml: |-
     apiVersion: 1
     datasources:
     - name: jmeter
       type: influxdb
       database: jmeter
+      url: http://influxdb-service:8086
+      access: proxy
+      editable: true
+      jsonData:
+        timeInterval: '5s'
+  jmeterVMDatasource.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: jmeterVM
+      type: influxdb
+      database: collectd
       url: http://influxdb-service:8086
       access: proxy
       editable: true
