@@ -18,8 +18,8 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+        <stringProp name="ThreadGroup.num_threads">1000</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">60</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -44,7 +44,7 @@
             &quot;priority&quot;: &quot;High&quot;,&#xd;
             &quot;reportingEntityId&quot;: &quot;cc305d54-75b4-431b-adb2-eb6b9e541234&quot;,&#xd;
             &quot;reportingEntityName&quot;: &quot;ibcx0001vm002oam001&quot;,&#xd;
-            &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014&quot;,&#xd;
+            &quot;sourceId&quot;: &quot;de305d54-75b4-431b-dupa-eb6b9e546014&quot;,&#xd;
             &quot;sourceName&quot;: &quot;scfx0001vm002cap001&quot;,&#xd;
             &quot;nfVendorName&quot;: &quot;SomeNamee&quot;,&#xd;
             &quot;nfNamingCode&quot;: &quot;scfx&quot;,&#xd;

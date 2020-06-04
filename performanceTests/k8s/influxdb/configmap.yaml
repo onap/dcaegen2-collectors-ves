@@ -19,38 +19,40 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ves-grafana-datasources
-  namespace: onap
+  name: ves-influxdb-conf
   labels:
-    name: ves-grafana-datasources
+    name: ves-influxdb-conf
+  namespace: onap
 data:
-  datasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-service:8080
-      access: proxy
-      isDefault: true
-  jmeterDatasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: jmeter
-      type: influxdb
-      database: jmeter
-      url: http://influxdb-service:8086
-      access: proxy
-      editable: true
-      jsonData:
-        timeInterval: '5s'
-  jmeterVMDatasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: jmeterVM
-      type: influxdb
-      database: collectd
-      url: http://influxdb-service:8086
-      access: proxy
-      editable: true
-      jsonData:
-        timeInterval: '5s'
+  influxdb.conf: |-
+    [meta]
+      dir = "/var/lib/influxdb/meta"
+
+    [data]
+      dir = "/var/lib/influxdb/data"
+      engine = "tsm1"
+      wal-dir = "/var/lib/influxdb/wal"
+
+    [[collectd]]
+      enabled = true
+      bind-address = ":25826"
+      database = "collectd"
+      retention-policy = ""
+      batch-size = 5000
+      batch-pending = 10
+      batch-timeout = "10s"
+      read-buffer = 0
+      typesdb = "/usr/share/collectd/types.db"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ves-influxdb-types
+  labels:
+    name: ves-influxdb-types
+  namespace: onap
+data:
+  types.db: |-
+    cpu                     value:DERIVE:0:U
+    memory                  value:GAUGE:0:281474976710656
+    percent                 value:GAUGE:0:100.1
