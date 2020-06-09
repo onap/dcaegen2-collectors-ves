@@ -7,10 +7,32 @@ This section describes how to configure VES Performance Tests environment on the
 
 First of all you have to change variable in file **ves/performanceTests/Makefile:**    
 ```
+#Configuration for RKE
 RKE_NODE_USER_AND_HOSTNAME = <RKE_USER>@<RKE_IP>
 RKE_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH>
 RKE_KUBECONFIG_FILE_PATH = <KUBECONFIG_FILE_PATH_ON_RKE>
+
+#Configuration for JMeter
+JMETER_VM_USER_AND_HOSTNAME = <RKE_USER>@<VM_IP>
+JMETER_VM_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH>
 ```
+Secondly change ip (**<WORKER_IP>**) in file **ves/performanceTests/testScenario/test_scenario.jmx:**
+```
+###Ves collector address
+<stringProp name="HTTPSampler.domain"><WORKER_IP></stringProp>
+<stringProp name="HTTPSampler.port">30417</stringProp>
+<stringProp name="HTTPSampler.protocol">https</stringProp>
+
+###Ves collector address
+<elementProp name="" elementType="Authorization">
+    <stringProp name="Authorization.url">https://<WORKER_IP>:30417/eventListener/v7</stringProp>
+
+### Influxdb address
+<elementProp name="influxdbUrl" elementType="Argument">
+    <stringProp name="Argument.name">influxdbUrl</stringProp>
+    <stringProp name="Argument.value">http://<WORKER_IP>:30002/write?db=jmeter</stringProp>
+```
+
 Important:
 Make sure you have entered the correct configuration path(**RKE_KUBECONFIG_FILE_PATH**),
 because it is necessary for kubectl to work properly on RKE over ssh.
@@ -45,9 +67,13 @@ after saving changes VES Collector pod should restarted automatically
 
 ###Automatic configuration and run performance tests on RKE
 
-In this step, the performance tests environment will be copied to your RKE node and Prometheus and Grafana will be deployed
+In this step, the performance tests environment will be copied to your RKE node and Prometheus, Grafana and Influxdb will be deployed
 ```
 make all
+```
+###Run test scenario
+```
+make run-jmeter
 ```
 ### Step by step configuration performance tests on RKE
 
@@ -66,4 +92,16 @@ make clear-performanceTests
 ###4. Remove performance tests environment from RKE
 ```
 make remove-performanceTests
+```
+###5. Copy JMeter to VM
+```
+make copy-jmeter
+```
+###6. Run JMeter test scenario on VM
+```
+make run-jmeter
+```
+###7. Remove JMeter from VM
+```
+make remove-jmeter
 ```

@@ -28,7 +28,11 @@ make deploy-grafana
 ```
 make deploy-prometheus
 ```
-###5. Display URL of the graphical user interface Prometheus and Grafana
+###5. Deploy influxdb
+```
+make deploy-influxdb
+```
+###6. Display URL of the graphical user interface Prometheus and Grafana
 ```
 make display-urls
 ```
