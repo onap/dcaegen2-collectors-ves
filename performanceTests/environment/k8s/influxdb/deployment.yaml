@@ -16,62 +16,61 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ves-influxdb
+  namespace: onap
+  labels:
+    app: ves-influxdb
+spec:
+  selector:
+    app: ves-influxdb
+  type: NodePort
+  ports:
+    - port: 8086
+      name: influx-db
+      targetPort: 8086
+      nodePort: 30002
+    - port: 25826
+      protocol: UDP
+      name: collectd-port
+      targetPort: 25826
+      nodePort: 30003
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: prometheus-ves-deployment
+  name: ves-influxdb
   namespace: onap
   labels:
-    app: collector-prometheus
+    app: ves-influxdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: collector-prometheus
+      app: ves-influxdb
   template:
     metadata:
       labels:
-        app: collector-prometheus
+        app: ves-influxdb
     spec:
       containers:
-        - name: collector-prometheus
-          image: prom/prometheus
-          args:
-            - "--config.file=/etc/prometheus/prometheus.yml"
-            - "--storage.tsdb.path=/prometheus/"
-            - "--web.enable-admin-api"
-          ports:
-            - containerPort: 9090
+        - name: ves-influxdb
+          image: influxdb
+          env:
+            - name: INFLUXDB_DB
+              value: "jmeter"
           volumeMounts:
-            - name: prometheus-config-volume
-              mountPath: /etc/prometheus/
-            - name: prometheus-storage-volume
-              mountPath: /prometheus/
+            - name: ves-influxdb-conf
+              mountPath: /etc/influxdb
+            - name: ves-influxdb-types
+              mountPath: /usr/share/collectd
       volumes:
-        - name: prometheus-config-volume
+        - name: ves-influxdb-conf
           configMap:
-            defaultMode: 420
-            name: ves-prometheus-configuration
-
-        - name: prometheus-storage-volume
-          emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: prometheus-service
-  namespace: onap
-  labels:
-    app: collector-prometheus
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/port:   '9090'
-
-spec:
-  selector:
-    app: collector-prometheus
-  type: NodePort
-  ports:
-    - port: 8080
-      targetPort: 9090
-      nodePort: 30069
+            name: ves-influxdb-conf
+        - name: ves-influxdb-types
+          configMap:
+            name: ves-influxdb-types

@@ -25,7 +25,7 @@ metadata:
   namespace: onap
 data:
   dashboards.yaml: |-
-    - name: 'ves-dashboards'
+    - name: 'ves-performance-tests-dashboards'
       folder: ''
       type: file
       disableDeletion: false

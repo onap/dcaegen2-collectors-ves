@@ -1,107 +1,82 @@
-DCAE VESCollector PerformanceTests Environment
-==============================================
+DCAE VESCollector PerformanceTests
+==================================
 
-This section describes how to configure VES Performance Tests environment on the RKE node
+This directory contains all files needed for setting up VES Collector performance tests environment and performance tests execution.
+JMeter was selected as load testing tool.
 
-### Prerequisites
+Following sections contain:
+* brief architecture description
+* performance tests environment setup procedure
+* performance tests execution procedure
 
-First of all you have to change variable in file **ves/performanceTests/Makefile:**    
-```
-#Configuration for RKE
-RKE_NODE_USER_AND_HOSTNAME = <RKE_USER>@<RKE_IP>
-RKE_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH>
-RKE_KUBECONFIG_FILE_PATH = <KUBECONFIG_FILE_PATH_ON_RKE>
+# Architecture
+Architecture diagram:
+https://wiki.onap.org/display/DW/VES+Collector+Performance+Test#VESCollectorPerformanceTest-Architecture
 
-#Configuration for JMeter
-JMETER_VM_USER_AND_HOSTNAME = <RKE_USER>@<VM_IP>
-JMETER_VM_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH>
-```
-Secondly change ip (**<WORKER_IP>**) in file **ves/performanceTests/testScenario/test_scenario.jmx:**
-```
-###Ves collector address
-<stringProp name="HTTPSampler.domain"><WORKER_IP></stringProp>
-<stringProp name="HTTPSampler.port">30417</stringProp>
-<stringProp name="HTTPSampler.protocol">https</stringProp>
+The architecture consists of three parts:  
+* VM - which contains: 
+    * JMeter - executes performance test scenarios
+    * Collectd - collects CPU and RAM metrics from the VM
+* K8s with ONAP installed -  which contains:
+    * NodeExporter - collects metrics from K8s cluster worker nodes
+    * Prometheus - collects metrics from VES Collector and NodeExporter
+    * InfluxDB - collects metrics from Collectd and tests results from JMeter  
+    * Grafana - displays all metrics collected from Prometheus and Influxdb
+* User environment - local environment with VES repository downloaded, from which:
+    * test environment can be set up
+    * test can be executed
 
-###Ves collector address
-<elementProp name="" elementType="Authorization">
-    <stringProp name="Authorization.url">https://<WORKER_IP>:30417/eventListener/v7</stringProp>
+# Usage
+1. Prerequisites
+- K8s environment with:
+    - ONAP installed 
+    - VES Collector with Maven profile `buildForPerfTests` enabled (See `How to setup VES for performance tests` section)
+- VM with minimum 16GB RAM and 4 cores
 
-### Influxdb address
-<elementProp name="influxdbUrl" elementType="Argument">
-    <stringProp name="Argument.name">influxdbUrl</stringProp>
-    <stringProp name="Argument.value">http://<WORKER_IP>:30002/write?db=jmeter</stringProp>
-```
+2. Setup
+- Edit `enrivonment.config` file to match your environment:
+    - RKE_NODE_USER_AND_HOSTNAME - user and hostname for ssh connection to RKE node
+    - RKE_PRIVATE_KEY - private key for ssh connection to RKE node
+    - WORKER_IP - IP address to any of K8s worker nodes
+    - JMETER_VM_USER_AND_HOSTNAME - user and hostname for ssh connection to VM
+    - JMETER_VM_PRIVATE_KEY - private key for ssh connection to VM
+    - TEST_SCENARIO_FILE - name of test scenario file to be executed. Available test scenarios are located in `performanceTests/environment/jmeterVM/jmeter`
+- Install performance tests environment:
+    - `make all` - copies all files to K8s and VM, installs all components and prints links to Grafana and Prometheus GUI
 
-Important:
-Make sure you have entered the correct configuration path(**RKE_KUBECONFIG_FILE_PATH**),
-because it is necessary for kubectl to work properly on RKE over ssh.
-
-The VES image being tested must have the buildForPerfTests profile enabled
-(how to do this is described below).
-
-### Build VES Collector with buildForPerfTests profile enabled:
-Download project VES collector (**If you didn't do it before**)
-```
-git clone "https://gerrit.onap.org/r/dcaegen2/collectors/ves" 
-```
-and build project with buildForPerfTests profile
-```
-mvn clean package -PbuildForPerfTests docker:build
-```
-Push docker image to docker repository for example JFrog Artifactory.
-
-### Change VES Collector image on k8s
-
-Go to RKE node and edit deployment:
-```
-kubectl edit deployment dep-dcae-ves-collector
-```
-change image :
-```
-image: <IMAGE_NAME_FROM_REPOSITORY>
-imagePullPolicy: IfNotPresent
-```
-after saving changes VES Collector pod should restarted automatically
+3. Performance test execution
+    - `make execute-test` - triggers JMeter on VM to execute performance test scenario defined in `enrivonment.config`
+    
+4. Performance test results and metrics
+    Open up Grafana in browser - link to Grafana is printed at the end of `make all` command output
+    
+5. Other useful commands:
+    - `make clear` - uninstalls and removes everything related to performance tests from K8s and VM
+    - `make restart` - recreates performance tests environment from scratch by invoking `make clear` and `make all`
 
 
-###Automatic configuration and run performance tests on RKE
+# How to setup VES for performance tests 
+The VES image being tested must have the buildForPerfTests profile enabled.
 
-In this step, the performance tests environment will be copied to your RKE node and Prometheus, Grafana and Influxdb will be deployed
-```
-make all
-```
-###Run test scenario
-```
-make run-jmeter
-```
-### Step by step configuration performance tests on RKE
+1. Build VES Collector with buildForPerfTests profile enabled:
+    - download project VES collector (**If you didn't do it before**)
+    ```
+    git clone "https://gerrit.onap.org/r/dcaegen2/collectors/ves" 
+    ```
+    - build project with buildForPerfTests profile
+    ```
+    mvn clean package -PbuildForPerfTests docker:build
+    ```
+    - push docker image to docker repository for example JFrog Artifactory.
 
-###1. Copy performance tests environment to RKE
-```
-make copy-performanceTests
-```
-###2. Run performance tests environment on RKE
-```
-make run-performanceTests
-```
-###3. Clear performance tests environment on RKE
-```
-make clear-performanceTests
-```
-###4. Remove performance tests environment from RKE
-```
-make remove-performanceTests
-```
-###5. Copy JMeter to VM
-```
-make copy-jmeter
-```
-###6. Run JMeter test scenario on VM
-```
-make run-jmeter
-```
-###7. Remove JMeter from VM
-```
-make remove-jmeter
-```
+2. Change VES Collector image on k8s
+    - go to RKE node and edit deployment:
+    ```
+    kubectl edit deployment dep-dcae-ves-collector
+    ```
+    - change image :
+    ```
+    image: <IMAGE_NAME_FROM_REPOSITORY>
+    imagePullPolicy: IfNotPresent
+    ```
+    - after saving changes VES Collector pod should restarted automatically

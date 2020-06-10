@@ -1,64 +1,55 @@
-all: copy-performanceTests run-performanceTests copy-jmeter copy-collectd install-collectd
+include environment.config
 
+# Additional configuration
+PERFORMANCE_TESTS_ENV_DIRECTORY = vesPerformanceTestsEnv
+RKE_KUBECONFIG_FILE_PATH = ~/.kube/config.onap
 
-RKE_NODE_USER_AND_HOSTNAME = <RKE_USER>@<RKE_IP> # for example ubuntu@10.183.36.205
-RKE_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH> # for example ~/.ssh/onap-5802.pem
-PERFORMANCE_TESTS_DIRECTORY = vesPerformanceTestsEnv
-RKE_KUBECONFIG_FILE_PATH = /home/ubuntu/.kube/config.onap
+# Targets
+all: --copy-k8s-performance-tests-env --copy-jmeter-vm-env --install-k8s-performance-tests-env --install-jmeter-vm-env
+clear: --uninstall-k8s-performance-tests-env --remove-k8s-performance-tests-env --remove-jmeter-vm-env
+restart: clear all
 
-#Configuration for jMeter
-JMETER_VM_USER_AND_HOSTNAME = <RKE_USER>@<VM_IP> # for example root@10.183.36.50
-JMETER_VM_PRIVATE_KEY = <PEM_PRIVATE_KEY_FILE_PATH> # for example ~/.ssh/onap-5802.pem
-
-
-restart: clear-performanceTests remove-performanceTests remove-jmeter remove-collectd all
-
-copy-performanceTests:
-	@echo "\n##### Copy performance tests directory to lab environment #####"
-	scp -r -i $(RKE_PRIVATE_KEY) ./k8s $(RKE_NODE_USER_AND_HOSTNAME):$(PERFORMANCE_TESTS_DIRECTORY)
+# K8s environment
+--copy-k8s-performance-tests-env:
+	@echo "\n##### Copy performance tests environment directory to k8s environment #####"
+	scp -r -i $(RKE_PRIVATE_KEY) ./environment/k8s $(RKE_NODE_USER_AND_HOSTNAME):$(PERFORMANCE_TESTS_ENV_DIRECTORY)
 	@echo "##### DONE #####"
 
-run-performanceTests:
-	@echo "\n##### Run prometheus and grafana in lab environment #####"
-	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_DIRECTORY) && make all"'
+--install-k8s-performance-tests-env:
+	@echo "\n##### Deploy components(grafana, influxdb, prometheus, node exporter) on k8s #####"
+	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_ENV_DIRECTORY) && make all WORKER_IP=$(WORKER_IP)"'
 	@echo "##### DONE #####"
 
-clear-performanceTests:
-	@echo "\n##### Stop and clear prometheus and grafana in lab environment #####"
-	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_DIRECTORY) && make clear"'
+--uninstall-k8s-performance-tests-env:
+	@echo "\n##### Undeploy components(grafana, influxdb, prometheus, node exporter) from k8s #####"
+	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_ENV_DIRECTORY) && make clear"'
 	@echo "##### DONE #####"
 
-remove-performanceTests:
-	@echo "\n##### Remove performance tests  #####"
-	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && rm -rf $(PERFORMANCE_TESTS_DIRECTORY)"'
+--remove-k8s-performance-tests-env:
+	@echo "\n##### Remove performance tests environment directory from k8s environment  #####"
+	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && rm -rf $(PERFORMANCE_TESTS_ENV_DIRECTORY)"'
 	@echo "##### DONE #####"
 
-copy-collectd:
-	@echo "\n##### Copy collectd to JMeter VM #####"
-	scp -r -i $(JMETER_VM_PRIVATE_KEY) ./k8s/collectd $(JMETER_VM_USER_AND_HOSTNAME):collectd
+# JMeter VM environment
+--copy-jmeter-vm-env:
+	@echo "\n##### Copy JMeter environment directory to VM #####"
+	scp -r -i $(JMETER_VM_PRIVATE_KEY) ./environment/jmeterVM $(JMETER_VM_USER_AND_HOSTNAME):$(PERFORMANCE_TESTS_ENV_DIRECTORY)
 	@echo "##### DONE #####"
 
-install-collectd:
-	@echo "\n##### Install collectd on JMeter VM #####"
-	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'cd collectd && make'
+--install-jmeter-vm-env:
+	@echo "\n##### Install collectd on VM #####"
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'sed -i 's/WORKER_IP/$(WORKER_IP)/g' $(PERFORMANCE_TESTS_ENV_DIRECTORY)/jmeter/test_scenario.jmx'
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'sed -i 's/WORKER_IP/$(WORKER_IP)/g' $(PERFORMANCE_TESTS_ENV_DIRECTORY)/collectd/collectd.conf'
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'bash -c $(PERFORMANCE_TESTS_ENV_DIRECTORY)/collectd/install_collectd.sh'
 	@echo "##### DONE #####"
 
-remove-collectd:
-	@echo "\n##### Remove collectd  #####"
-	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'rm -rf collectd'
+--remove-jmeter-vm-env:
+	@echo "\n##### Remove JMeter environment directory from VM #####"
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'rm -rf $(PERFORMANCE_TESTS_ENV_DIRECTORY)'
 	@echo "##### DONE #####"
 
-copy-jmeter:
-	@echo "\n##### Copy JMeter #####"
-	scp -r -i $(JMETER_VM_PRIVATE_KEY) ./k8s/testScenario $(JMETER_VM_USER_AND_HOSTNAME):$(PERFORMANCE_TESTS_DIRECTORY)
-	@echo "##### DONE #####"
-
-run-jmeter:
-	@echo "\n##### Run test scenario  #####"
-	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) '/bin/bash ./$(PERFORMANCE_TESTS_DIRECTORY)/run_jmeter.sh'
-	@echo "##### DONE #####"
-
-remove-jmeter:
-	@echo "\n##### Remove JMeter  #####"
-	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'rm -rf $(PERFORMANCE_TESTS_DIRECTORY)'
+# Execute test scenario
+execute-test:
+	@echo "\n##### Run test scenario #####"
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) '/bin/bash $(PERFORMANCE_TESTS_ENV_DIRECTORY)/jmeter/run_jmeter.sh $(PERFORMANCE_TESTS_ENV_DIRECTORY) $(TEST_SCENARIO_FILE)'
 	@echo "##### DONE #####"

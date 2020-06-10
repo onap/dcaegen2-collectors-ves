@@ -16,25 +16,44 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: ves-grafana
+  namespace: onap
+  labels:
+    app: ves-grafana
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
+spec:
+  selector:
+    app: ves-grafana
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30001
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: grafana-ves-deployment
+  name: ves-grafana
   namespace: onap
   labels:
-    app: collector-grafana
+    app: ves-grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: collector-grafana
+      app: ves-grafana
   template:
     metadata:
       labels:
-        app: collector-grafana
+        app: ves-grafana
     spec:
       containers:
-        - name: collector-grafana
+        - name: ves-grafana
           image: grafana/grafana
           env:
             - name: GF_AUTH_DISABLE_LOGIN_FORM
@@ -64,22 +83,3 @@ spec:
         - name: ves-grafana-dashboards
           configMap:
             name: ves-grafana-dashboards
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: grafana-service
-  namespace: onap
-  labels:
-    app: collector-grafana
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/port:   '3000'
-spec:
-  selector:
-    app: collector-grafana
-  type: NodePort
-  ports:
-    - port: 3000
-      targetPort: 3000
-      nodePort: 30001
