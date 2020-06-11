@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c70a0e86_1aaa6067",
+        "filename": "performanceTests/k8s/collectd/config/collectd.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-06-11T20:31:47Z",
+      "side": 1,
+      "message": "remove hardcoded ip",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "3b6ba181623e844d5012362209d2f29616315395",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
