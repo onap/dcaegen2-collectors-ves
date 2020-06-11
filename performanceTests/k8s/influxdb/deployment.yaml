@@ -39,6 +39,18 @@ spec:
           env:
             - name: INFLUXDB_DB
               value: "jmeter"
+          volumeMounts:
+            - name: ves-influxdb-conf
+              mountPath: /etc/influxdb
+            - name: ves-influxdb-types
+              mountPath: /usr/share/collectd
+      volumes:
+        - name: ves-influxdb-conf
+          configMap:
+            name: ves-influxdb-conf
+        - name: ves-influxdb-types
+          configMap:
+            name: ves-influxdb-types
 ---
 apiVersion: v1
 kind: Service
@@ -53,5 +65,11 @@ spec:
   type: NodePort
   ports:
     - port: 8086
+      name: influx-db
       targetPort: 8086
       nodePort: 30002
+    - port: 25826
+      protocol: UDP
+      name: collectd-port
+      targetPort: 25826
+      nodePort: 30003
