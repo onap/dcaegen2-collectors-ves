@@ -1,4 +1,4 @@
-all: --deploy-influxdb --deploy-prometheus --deploy-node-exporter --deploy-grafana --display-urls
+all: --deploy-influxdb --deploy-prometheus --deploy-node-exporter --deploy-grafana --deploy-dmaap-simulator --display-urls
 
 # Prometheus configuration
 PROMETHEUS_DIRECTORY = ./prometheus
@@ -21,6 +21,11 @@ INFLUXDB_CONFIGMAP = configmap.yaml
 NODE_EXPORTER_DIRECTORY = ./nodeExporter
 NODE_EXPORTER_DEPLOYMENT = deployment.yaml
 
+# DMaaaP Simulator configuration
+DMAAP_SIMULATOR_DIRECTORY = ./dmaapSimulator
+DMAAP_SIMULATOR_DEPLOYMENT = deployment.yaml
+DMAAP_SIMULATOR_IMAGE_ESCAPED := $(shell echo $(DMAAP_SIMULATOR_IMAGE) | sed 's/\//\\\//g')
+
 clear:
 	@echo "\n##### Delete configmaps and deployments (prometheus, grafana, influxdb, node exporter) #####"
 	kubectl delete -f $(GRAFANA_DIRECTORY)/$(GRAFANA_DEPLOYMENT) || true
@@ -32,6 +37,7 @@ clear:
 	kubectl delete -f $(INFLUXDB_DIRECTORY)/$(INFLUXDB_DEPLOYMENT) || true
 	kubectl delete -f $(INFLUXDB_DIRECTORY)/$(INFLUXDB_CONFIGMAP) || true
 	kubectl delete -f $(NODE_EXPORTER_DIRECTORY)/$(NODE_EXPORTER_DEPLOYMENT) || true
+	kubectl delete -f $(DMAAP_SIMULATOR_DIRECTORY)/$(DMAAP_SIMULATOR_DEPLOYMENT) || true
 	@echo "##### DONE #####"
 
 --deploy-node-exporter:
@@ -58,6 +64,13 @@ clear:
 	kubectl apply -f $(INFLUXDB_DIRECTORY)/$(INFLUXDB_CONFIGMAP)
 	kubectl apply -f $(INFLUXDB_DIRECTORY)/$(INFLUXDB_DEPLOYMENT)
 	@echo "##### DONE #####"
+
+--deploy-dmaap-simulator:
+	@echo "\n##### Deploy dmaap simulator #####"
+	sed -i "s/DMAAP_SIMULATOR_IMAGE/$(DMAAP_SIMULATOR_IMAGE_ESCAPED)/g" $(DMAAP_SIMULATOR_DIRECTORY)/$(DMAAP_SIMULATOR_DEPLOYMENT)
+	kubectl apply -f $(DMAAP_SIMULATOR_DIRECTORY)/$(DMAAP_SIMULATOR_DEPLOYMENT)
+	@echo "##### DONE #####"
+
 
 --display-urls:
 	@echo "Waiting for Grafana to start up..."

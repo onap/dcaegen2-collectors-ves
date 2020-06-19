@@ -5,7 +5,7 @@ PERFORMANCE_TESTS_ENV_DIRECTORY = vesPerformanceTestsEnv
 RKE_KUBECONFIG_FILE_PATH = ~/.kube/config.onap
 
 # Targets
-all: --copy-k8s-performance-tests-env --copy-jmeter-vm-env --install-k8s-performance-tests-env --install-jmeter-vm-env
+all: --copy-k8s-performance-tests-env --copy-jmeter-vm-env --install-jmeter-vm-env --install-k8s-performance-tests-env
 clear: --uninstall-k8s-performance-tests-env --remove-k8s-performance-tests-env --remove-jmeter-vm-env
 restart: clear all
 
@@ -17,7 +17,7 @@ restart: clear all
 
 --install-k8s-performance-tests-env:
 	@echo "\n##### Deploy components(grafana, influxdb, prometheus, node exporter) on k8s #####"
-	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_ENV_DIRECTORY) && make all WORKER_IP=$(WORKER_IP)"'
+	ssh -i $(RKE_PRIVATE_KEY) $(RKE_NODE_USER_AND_HOSTNAME) 'bash -c "export KUBECONFIG=$(RKE_KUBECONFIG_FILE_PATH) && cd $(PERFORMANCE_TESTS_ENV_DIRECTORY) && make all WORKER_IP=$(WORKER_IP) DMAAP_SIMULATOR_IMAGE=$(DMAAP_SIMULATOR_IMAGE)"'
 	@echo "##### DONE #####"
 
 --uninstall-k8s-performance-tests-env:
@@ -38,7 +38,7 @@ restart: clear all
 
 --install-jmeter-vm-env:
 	@echo "\n##### Install collectd on VM #####"
-	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'sed -i 's/WORKER_IP/$(WORKER_IP)/g' $(PERFORMANCE_TESTS_ENV_DIRECTORY)/jmeter/test_scenario.jmx'
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'sed -i 's/WORKER_IP/$(WORKER_IP)/g' $(PERFORMANCE_TESTS_ENV_DIRECTORY)/jmeter/testScenarios/*.jmx'
 	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'sed -i 's/WORKER_IP/$(WORKER_IP)/g' $(PERFORMANCE_TESTS_ENV_DIRECTORY)/collectd/collectd.conf'
 	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'bash -c $(PERFORMANCE_TESTS_ENV_DIRECTORY)/collectd/install_collectd.sh'
 	@echo "##### DONE #####"
@@ -46,6 +46,7 @@ restart: clear all
 --remove-jmeter-vm-env:
 	@echo "\n##### Remove JMeter environment directory from VM #####"
 	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'rm -rf $(PERFORMANCE_TESTS_ENV_DIRECTORY)'
+	ssh -i $(JMETER_VM_PRIVATE_KEY) $(JMETER_VM_USER_AND_HOSTNAME) 'docker rm -f jmeter || true'
 	@echo "##### DONE #####"
 
 # Execute test scenario

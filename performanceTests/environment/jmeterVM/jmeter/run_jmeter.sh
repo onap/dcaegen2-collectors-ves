@@ -9,9 +9,11 @@ performance_tests_env_directory=$1
 test_scenario_file=$2
 
 docker pull justb4/jmeter
-export volume_path=~/${performance_tests_env_directory}/jmeter && \
+export volume_path=~/${performance_tests_env_directory}/jmeter/testScenarios && \
   export jmeter_path=/mnt/jmeter && \
   docker run \
+    --name jmeter \
+    --rm \
     --volume "${volume_path}":${jmeter_path} \
     justb4/jmeter \
     -n -X \

@@ -39,6 +39,12 @@ data:
         static_configs:
           - targets: ['dcae-ves-collector.onap:8443']
 
+      - job_name: 'ves-dmaap-simulator'
+        metrics_path: '/actuator/prometheus'
+        scheme: http
+        static_configs:
+          - targets: ['ves-dmaap-simulator.onap:3904']
+
       - job_name: 'kubernetes-cadvisor'
 
         scheme: https
