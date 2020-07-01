@@ -1,0 +1,49 @@
+{
+  "event": {
+    "commonEventHeader": {
+      "domain": "stndDefined",
+      "eventId": "stndDefined-gNB_Nokia000001",
+      "eventName": "stndDefined-gNB-Nokia-PowerLost",
+      "stndDefinedNamespace": "3GPP-FaultSupervision",
+      "lastEpochMicrosec": 1234567890,
+      "priority": "Normal",
+      "reportingEntityName": "Nokia123456",
+      "sequence": 0,
+      "sourceName": "Nokia123456",
+      "startEpochMicrosec": 1234567890,
+      "version": "4.1",
+      "vesEventListenerVersion": "7.2"
+    },
+    "stndDefinedFields": {
+      "schemaReference": "https://www.3gpp.org/Rel-16/TS28532_generic_fault_supervision.json#definitions/schemas/notifyNewAlarm-NotifType",
+      "data": {
+        "header": {
+          "uri": "xyz",
+          "notificationId": "xyz",
+          "notificationType": "notifyNewAlarm",
+          "eventTime": "xyz",
+          "systemDN": "xyz"
+        },
+        "body": {
+          "probableCause": "xyz",
+          "perceivedSeverity": "Major",
+          "rootCauseIndicator": false,
+          "specificProblem": "xyz",
+          "correlatedNotifications": [],
+          "backedUpStatus": true,
+          "backUpObject": "xyz",
+          "trendIndication": "No change",
+          "thresholdInfo": {},
+          "stateChangeDefinition": [],
+          "monitoredAttributes": [],
+          "proposedRepairActions": "xyz",
+          "additionalText": "xyz",
+          "additionalInformation": [],
+          "alarmId": "xyz",
+          "alarmType": "Environmental Alarm"
+        }
+      },
+      "stndDefinedFieldsVersion": "1.0"
+    }
+  }
+}
