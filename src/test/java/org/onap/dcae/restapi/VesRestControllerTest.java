@@ -98,7 +98,7 @@ public class VesRestControllerTest {
         MockHttpServletRequest request = givenMockHttpServletRequest();
 
         String validEvent = new String(
-                Files.readAllBytes(Paths.get(this.getClass().getResource("/ves7_valid.json").getPath()))
+                Files.readAllBytes(Paths.get(this.getClass().getResource("/ves7_validOldEvent.json").getPath()))
         );
 
         //when
