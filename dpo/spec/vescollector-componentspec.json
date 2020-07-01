@@ -216,7 +216,7 @@
     },
     {
       "name": "collector.dmaap.streamid",
-      "value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration|perf3gpp=ves-perf3gpp",
+      "value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration|perf3gpp=ves-perf3gpp|stndDefined=ves-other",
       "description": "domain-to-streamid mapping used by VESCollector to distributes events based on domain. Both primary and secondary config_key are included for resilency (multiple streamid can be included commma separated). The streamids MUST match to topic config_keys. For single site without resiliency deployment - configkeys with -secondary suffix can be removed",
       "sourced_at_deployment": true,
       "policy_editable": false,
@@ -248,7 +248,7 @@
     },
     {
       "name": "collector.schema.file",
-      "value": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.1.1.json\"}",
+      "value": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.2_ONAP.json\"}",
       "description": "VES schema file name per version used for validation",
       "designer_editable": true,
       "sourced_at_deployment": false,

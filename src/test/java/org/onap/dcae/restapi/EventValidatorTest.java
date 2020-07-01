@@ -26,7 +26,9 @@ import static org.mockito.Mockito.when;
 
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
+
 import java.util.Optional;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,14 +37,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.FileReader;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 public class EventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
-
+    private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
+    private JSONObject sentEvent;
+    private static final String V7_VERSION = "v7";
     private static JSONObject jsonObject;
+    private static final String EVENT_TYPE = "event";
 
     @Mock
     private static ApplicationSettings settings;
@@ -50,8 +56,9 @@ public class EventValidatorTest {
     @InjectMocks
     private static EventValidator sut;
 
+
     @BeforeAll
-    static void setupTests(){
+    static void setupTests() {
         jsonObject = new JSONObject("{" + DUMMY_TYPE + ":dummy}");
     }
 
@@ -106,6 +113,51 @@ public class EventValidatorTest {
 
         //then
         assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() {
+        //given
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_30_1_1_event.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
+
+        //then
+        assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
+        //given
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
+
+        //then
+        assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
+        //given
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_invalid_30_1_1_event.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(this.sentEvent, EVENT_TYPE, V7_VERSION);
+
+        //then
+        assertEquals(generateResponseOptional(ApiException.SCHEMA_VALIDATION_FAILED), result);
     }
 
 
