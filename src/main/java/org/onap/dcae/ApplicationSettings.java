@@ -73,7 +73,7 @@ public class ApplicationSettings {
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
         String collectorSchemaFile = properties.getString("collector.schema.file",
-                format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
+                format("{\"%s\":\"etc/CommonEventFormat_30.2_ONAP.json\"}", FALLBACK_VES_VERSION));
         loadedJsonSchemas = new JSonSchemasSupplier().loadJsonSchemas(collectorSchemaFile);
         eventTransformations = loadEventTransformations();
     }

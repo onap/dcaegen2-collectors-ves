@@ -35,12 +35,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.FileReader;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 public class EventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
+    private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
+    private JSONObject event;
 
     private static JSONObject jsonObject;
 
@@ -106,6 +109,51 @@ public class EventValidatorTest {
 
         //then
         assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() {
+        //given
+        event = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_30_1_1_event.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(event, "event", "v7");
+
+        //then
+        assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
+        //given
+        event = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(event, "event", "v7");
+
+        //then
+        assertEquals(Optional.empty(), result);
+    }
+
+    @Test
+    public void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
+        //given
+        event = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_invalid_30_1_1_event.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+
+        //when
+        Optional<ResponseEntity<String>> result = sut.validate(event, "event", "v7");
+
+        //then
+        assertEquals(generateResponseOptional(ApiException.SCHEMA_VALIDATION_FAILED), result);
     }
 
 
