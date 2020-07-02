@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19a5faa9_78c414b7",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-02T06:11:08Z",
+      "side": 1,
+      "message": "I would recommend naming it \"...WhenValidatingOldEvent\" or \"..WhenUsingOldValidEvent\"",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "e55ce83157b16f3efe578f75c4e6292d1c3681c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0194d79_53c499e6",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-02T06:11:08Z",
+      "side": 1,
+      "message": "Similar as above",
+      "range": {
+        "startLine": 130,
+        "startChar": 36,
+        "endLine": 130,
+        "endChar": 71
+      },
+      "revId": "e55ce83157b16f3efe578f75c4e6292d1c3681c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3885b515_ab154799",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-02T06:11:08Z",
+      "side": 1,
+      "message": "Similar as above",
+      "range": {
+        "startLine": 145,
+        "startChar": 53,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "e55ce83157b16f3efe578f75c4e6292d1c3681c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
