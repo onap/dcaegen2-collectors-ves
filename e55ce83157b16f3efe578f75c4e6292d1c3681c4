@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b5787e3d_f6ba6466",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-02T07:30:48Z",
+      "side": 1,
+      "message": "I would also consider change of every single Old to v30.1.1, so it\u0027s will be more clear in future versions.",
+      "parentUuid": "19a5faa9_78c414b7",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "e55ce83157b16f3efe578f75c4e6292d1c3681c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0194d79_53c499e6",
         "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
         "patchSetId": 6
