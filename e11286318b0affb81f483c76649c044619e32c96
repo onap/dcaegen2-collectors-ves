@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ebc4247_f27e5cd4",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-07T22:35:07Z",
+      "side": 1,
+      "message": "Would suggest keeping original default as majority of vnf\u0027s are on this version (including test/simulators used in onap)",
+      "range": {
+        "startLine": 76,
+        "startChar": 34,
+        "endLine": 76,
+        "endChar": 70
+      },
+      "revId": "e11286318b0affb81f483c76649c044619e32c96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
