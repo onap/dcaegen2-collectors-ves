@@ -1,0 +1,12 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Bartosz Gardziejewski <bartosz.gardziejewski@nokia.com>
+Code-Review+1: Aleksandra Maciaga <aleksandra.maciaga@nokia.com>
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+1: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Code-Review+1: Michał Bańka <michal.banka@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Thu, 09 Jul 2020 12:47:48 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/109880
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
