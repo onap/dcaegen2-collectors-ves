@@ -14,3 +14,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
            - HeaderUtil
            - EnvProps
            - WebMvcConfig 
+## [1.6.3] - 09/07/2020
+        - [DCAEGEN2-2254](https://jira.onap.org/browse/DCAEGEN2-2254) - Update schema to CommonEventFormat_30.2_ONAP in the eventListerner/v7 interface
