@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a21296cf_50bc815f",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-07-13T09:36:10Z",
+      "side": 1,
+      "message": "Shouldn`t we include ves-other here?",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 5
+      },
+      "revId": "91441b6ac8736ab31f8589db03558709900e2b8a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
