@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2535eaf2_17af51f9",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-14T09:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da7c4882_a0f5ed4e",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "91441b6ac8736ab31f8589db03558709900e2b8a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21296cf_50bc815f",
         "filename": "dpo/spec/vescollector-componentspec.json",
         "patchSetId": 1
