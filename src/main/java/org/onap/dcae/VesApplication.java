@@ -133,7 +133,7 @@ public class VesApplication {
     @Bean
     @Qualifier("eventSender")
     public EventSender eventSender() {
-        return new EventSender(eventPublisher, applicationSettings);
+        return new EventSender(eventPublisher, applicationSettings.getDmaapStreamIds());
     }
 
 }

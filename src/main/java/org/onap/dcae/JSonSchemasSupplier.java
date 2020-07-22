@@ -33,7 +33,7 @@ import java.nio.file.Paths;
 import static io.vavr.API.Tuple;
 import static java.nio.file.Files.readAllBytes;
 
-class JSonSchemasSupplier {
+public class JSonSchemasSupplier {
 
     public Map<String, JsonSchema> loadJsonSchemas(String collectorSchemaFile) {
         JSONObject jsonObject = new JSONObject(collectorSchemaFile);
