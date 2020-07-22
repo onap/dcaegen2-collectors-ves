@@ -288,7 +288,6 @@ public class ApplicationSettingsTest {
 
         // then
         JsonNode correctTestObject = new ObjectMapper().readTree("{ \"state\": \"hi\" }");
-     ;
         assertTrue(schema.validate(correctTestObject).isEmpty());
     }
 
@@ -316,25 +315,25 @@ public class ApplicationSettingsTest {
     public void shouldReturnDMAAPStreamId() throws IOException {
         // given
         Map<String, String[]> expected = HashMap.of(
-            "s", new String[]{"something", "something2"},
-            "s2", new String[]{"something3"}
+            "log", new String[]{"ves-syslog", "ves-auditlog"},
+            "fault", new String[]{"ves-fault"}
         );
 
         // when
         Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration(
-            "collector.dmaap.streamid=s=something,something2|s2=something3")
-            .dMaaPStreamsMapping();
+            "collector.dmaap.streamid=fault=ves-fault|log=ves-syslog,ves-auditlog")
+            .getDmaapStreamIds();
 
         // then
-        assertArrayEquals(expected.get("s").get(), Objects.requireNonNull(dmaapStreamID).get("s").get());
-        assertArrayEquals(expected.get("s2").get(), Objects.requireNonNull(dmaapStreamID).get("s2").get());
+        assertArrayEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
+        assertArrayEquals(expected.get("fault").get(), Objects.requireNonNull(dmaapStreamID).get("fault").get());
         assertEquals(expected.keySet(), dmaapStreamID.keySet());
     }
 
     @Test
     public void shouldReturnDefaultDMAAPStreamId() throws IOException {
         // when
-        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration().dMaaPStreamsMapping();
+        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration().getDmaapStreamIds();
 
         // then
         assertEquals(dmaapStreamID, HashMap.empty());
@@ -357,8 +356,8 @@ public class ApplicationSettingsTest {
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals(allowedUsers.get("pasza").get(), "c2ltcGxlcGFzc3dvcmQNCg==");
-        assertEquals(allowedUsers.get("someoneelse").get(), "c2ltcGxlcGFzc3dvcmQNCg==");
+        assertEquals( "c2ltcGxlcGFzc3dvcmQNCg==", allowedUsers.get("pasza").get());
+        assertEquals("c2ltcGxlcGFzc3dvcmQNCg==", allowedUsers.get("someoneelse").get());
     }
 
     @Test

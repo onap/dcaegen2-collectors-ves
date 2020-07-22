@@ -20,28 +20,28 @@
 
 package org.onap.dcae.restapi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
-
-import java.util.Optional;
-
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.FileReader;
-import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class EventValidatorTest {
+class EventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
     private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
@@ -51,10 +51,11 @@ public class EventValidatorTest {
     private static final String EVENT_TYPE = "event";
 
     @Mock
-    private static ApplicationSettings settings;
+    private ApplicationSettings settings;
 
-    @InjectMocks
-    private static EventValidator sut;
+    private SchemaValidator schemaValidator = spy( new SchemaValidator());
+
+    private EventValidator sut;
 
 
     @BeforeAll
@@ -62,57 +63,70 @@ public class EventValidatorTest {
         jsonObject = new JSONObject("{" + DUMMY_TYPE + ":dummy}");
     }
 
+    @BeforeEach
+    public void setUp(){
+        this.sut = new EventValidator(settings, schemaValidator);
+    }
+
     @Test
-    public void shouldReturnEmptyOptionalOnJsonSchemaValidationDisabled() {
+    void shouldNotValidateEventWhenJsonSchemaValidationDisabled() throws EventValidatorException {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(false);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
+        this.sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
 
         //then
-        assertEquals(Optional.empty(), result);
+        verify(schemaValidator, never()).conformsToSchema(any(), any());
 
     }
 
     @Test
-    public void shouldReturnInvalidJsonErrorOnWrongType() {
+    void shouldReturnInvalidJsonErrorOnWrongType() {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(jsonObject, "wrongType", DUMMY_SCHEMA_VERSION);
+        try {
+            sut.validate(jsonObject, "wrongType", DUMMY_SCHEMA_VERSION);
+        } catch (EventValidatorException e) {
+            //then
+            assertEquals(ApiException.INVALID_JSON_INPUT, e.getApiException());
+        }
 
-        //then
-        assertEquals(generateResponseOptional(ApiException.INVALID_JSON_INPUT), result);
+
     }
 
     @Test
-    public void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() {
+    void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
+        try {
+            sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
+        } catch (EventValidatorException e) {
+            //then
+            assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
+        }
 
-        //then
-        assertEquals(generateResponseOptional(ApiException.SCHEMA_VALIDATION_FAILED), result);
     }
 
     @Test
-    public void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
+    void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
-
-        //then
-        assertEquals(Optional.empty(), result);
+        try {
+            sut.validate(jsonObject, DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
+        } catch (EventValidatorException e) {
+            fail("Validation should not report any error!");
+        }
     }
 
     @Test
@@ -124,14 +138,15 @@ public class EventValidatorTest {
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
-
-        //then
-        assertEquals(Optional.empty(), result);
+        try {
+            sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            fail("Validation should not report any error!");
+        }
     }
 
     @Test
-    public void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
+    void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
 
@@ -139,14 +154,15 @@ public class EventValidatorTest {
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
-
-        //then
-        assertEquals(Optional.empty(), result);
+        try {
+            sut.validate(sentEvent, EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            fail("Validation should not report any error!");
+        }
     }
 
     @Test
-    public void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
+    void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_invalid_30_1_1_event.json"));
 
@@ -154,22 +170,20 @@ public class EventValidatorTest {
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
         //when
-        Optional<ResponseEntity<String>> result = sut.validate(this.sentEvent, EVENT_TYPE, V7_VERSION);
+        try {
+            sut.validate(this.sentEvent, EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            //then
+            assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
+        }
 
-        //then
-        assertEquals(generateResponseOptional(ApiException.SCHEMA_VALIDATION_FAILED), result);
+
     }
-
 
     private void mockJsonSchema(String jsonSchemaContent) {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
 
         JsonSchema schema = factory.getSchema(jsonSchemaContent);
         when(settings.jsonSchema(any())).thenReturn(schema);
-    }
-
-    private Optional<ResponseEntity<String>> generateResponseOptional(ApiException schemaValidationFailed) {
-        return Optional.of(ResponseEntity.status(schemaValidationFailed.httpStatusCode)
-                .body(schemaValidationFailed.toJSON().toString()));
     }
 }
