@@ -1,9 +1,9 @@
 /*
  * ============LICENSE_START=======================================================
- * PROJECT
+ * VES Collector
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,56 +24,48 @@ import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import io.vavr.collection.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class EventSender {
 
   private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
-  private Map<String, String[]> streamidHash;
+  private Map<String, String[]> dmaapStreamIds;
   private EventPublisher eventPublisher;
-  private static final String VES_UNIQUE_ID = "VESuniqueId";
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
-  private static final String EVENT_LITERAL = "event";
-  private static final String COMMON_EVENT_HEADER = "commonEventHeader";
 
-  public EventSender( EventPublisher eventPublisher, ApplicationSettings properties) {
+  public EventSender(EventPublisher eventPublisher, Map<String, String[]> dmaapStreamIds) {
     this.eventPublisher = eventPublisher;
-    this.streamidHash = properties.dMaaPStreamsMapping();
+    this.dmaapStreamIds = dmaapStreamIds;
   }
 
-  public void send(JSONArray arrayOfEvents) {
-    for (int i = 0; i < arrayOfEvents.length(); i++) {
+  public void send(List<VesEvent> vesEvents) {
+    for (VesEvent vesEvent : vesEvents) {
       metriclog.info("EVENT_PUBLISH_START");
-      JSONObject object = (JSONObject) arrayOfEvents.get(i);
-      setLoggingContext(object);
-      streamidHash.get(getDomain(object))
-          .onEmpty(() -> log.error("No StreamID defined for publish - Message dropped" + object))
-          .forEach(streamIds -> sendEventsToStreams(object, streamIds));
-      log.debug("Message published" + object);
+      setLoggingContext(vesEvent);
+      dmaapStreamIds.get(vesEvent.getDomain())
+          .onEmpty(() -> log.error("No StreamID defined for publish - Message dropped" + vesEvent.asJsonObject()))
+          .forEach(streamIds -> sendEventsToStreams(vesEvent, streamIds));
+      log.debug("Message published" + vesEvent.asJsonObject());
     }
     log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
     metriclog.info("EVENT_PUBLISH_END");
   }
 
-  private static String getDomain(JSONObject event) {
-    return event.getJSONObject(EVENT_LITERAL).getJSONObject(COMMON_EVENT_HEADER).getString("domain");
-  }
-
-  private void sendEventsToStreams(JSONObject event, String[] streamIdList) {
-    for (String aStreamIdList : streamIdList) {
-      log.info("Invoking publisher for streamId:" + aStreamIdList);
-      eventPublisher.sendEvent(event, aStreamIdList);
+  private void sendEventsToStreams(VesEvent vesEvent, String[] streamIdList) {
+    for (String streamId : streamIdList) {
+      log.info("Invoking publisher for streamId/domain:" + streamId);
+      eventPublisher.sendEvent(vesEvent.asJsonObject(), streamId);
     }
   }
 
-  private void setLoggingContext(JSONObject event) {
-    LoggingContext localLC = VESLogger.getLoggingContextForThread(event.get(VES_UNIQUE_ID).toString());
+  private void setLoggingContext(VesEvent vesEvent) {
+    LoggingContext localLC = VESLogger.getLoggingContextForThread(vesEvent.getUniqueId().toString());
     localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
-    log.debug("event.VESuniqueId" + event.get(VES_UNIQUE_ID) + "event.commonEventHeader.domain:" + getDomain(event));
+    log.debug("event.VESuniqueId" + vesEvent.getUniqueId() + "event.commonEventHeader.domain:" + vesEvent.getDomain());
   }
 }
