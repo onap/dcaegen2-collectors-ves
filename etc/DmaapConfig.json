@@ -47,6 +47,38 @@
       "stripHpId": "true",
       "type": "out",
       "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-3gpp-fault-supervision",
+      "cambria.topic": "unauthenticated.SEC_3GPP_FAULTSUPERVISION_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-3gpp-provisioning",
+      "cambria.topic": "unauthenticated.SEC_3GPP_PROVISIONING_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-3gpp-heartbeat",
+      "cambria.topic": "unauthenticated.SEC_3GPP_HEARTBEAT_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
+    },
+    {
+      "name": "ves-3gpp-performance-assurance",
+      "cambria.topic": "unauthenticated.unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT",
+      "class": "HpCambriaOutputStream",
+      "stripHpId": "true",
+      "type": "out",
+      "cambria.hosts": "onap-dmaap"
     }
   ]
 }
