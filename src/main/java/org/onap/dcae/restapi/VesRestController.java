@@ -1,9 +1,9 @@
 /*
  * ============LICENSE_START=======================================================
- * PROJECT
+ * VES Collector
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,22 +21,18 @@
 
 package org.onap.dcae.restapi;
 
-import static org.springframework.http.ResponseEntity.accepted;
-import static org.springframework.http.ResponseEntity.badRequest;
-
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
-import java.util.Optional;
-import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
-import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.VESLogger;
+import org.onap.dcae.common.model.StndDefinedNamespaceParameterHasEmptyValueException;
+import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
+import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +44,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.UUID;
+
+import static org.springframework.http.ResponseEntity.accepted;
+import static org.springframework.http.ResponseEntity.badRequest;
+
 @RestController
 public class VesRestController {
 
@@ -58,15 +61,19 @@ public class VesRestController {
     private final Logger requestLogger;
     private EventSender eventSender;
     private final HeaderUtils headerUtils;
+    private final EventValidator eventValidator;
+    private final EventUpdater eventUpdater;
 
-    @Autowired
-    VesRestController(ApplicationSettings settings,
-        @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-        @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils) {
+  @Autowired
+  VesRestController(ApplicationSettings settings,
+      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
         this.eventSender = eventSender;
         this.headerUtils = headerUtils;
+        this.eventValidator = new EventValidator(settings);
+        this.eventUpdater = new EventUpdater(settings);
     }
 
     @PostMapping(value = {"/eventListener/{version}"}, consumes = "application/json")
@@ -86,38 +93,54 @@ public class VesRestController {
         return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
     }
 
-    private ResponseEntity<String> process(String events, String version, HttpServletRequest request, String type) {
+    private ResponseEntity<String> process(String payload, String version, HttpServletRequest request, String type) {
         CustomHeaderUtils headerUtils = createHeaderUtils(version, request);
-        if(headerUtils.isOkCustomHeaders()){
-            JSONObject jsonObject = new JSONObject(events);
-
-            EventValidator eventValidator = new EventValidator(settings);
-            Optional<ResponseEntity<String>> validationResult = eventValidator.validate(jsonObject, type, version);
-
-            if (validationResult.isPresent()){
-                return validationResult.get();
-            }
-            JSONArray arrayOfEvents = new EventUpdater(settings).convert(jsonObject,version, generateUUID(version, request.getRequestURI(), jsonObject), type);
-            eventSender.send(arrayOfEvents);
-            // TODO call service and return status, replace CambriaClient, split event to single object and list of them
-            return accepted().headers(this.headerUtils.fillHeaders(headerUtils.getRspCustomHeader()))
-                .contentType(MediaType.APPLICATION_JSON).body("Accepted");
+        if (headerUtils.isOkCustomHeaders()) {
+            final VesEvent vesEvent = new VesEvent(new JSONObject(payload));
+            final String requestURI = request.getRequestURI();
+            return handleEvent(vesEvent, version, type, headerUtils, requestURI);
         }
         return badRequest().body(String.format(ApiException.INVALID_CUSTOM_HEADER.toString()));
     }
 
-    private CustomHeaderUtils createHeaderUtils(String version, HttpServletRequest request){
-        return  new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
-            headerUtils.extractHeaders(request),
-            headerUtils.getApiVerFilePath("api_version_config.json"),
-            headerUtils.getRestApiIdentify(request.getRequestURI()));
+    private ResponseEntity<String> handleEvent(VesEvent vesEvent, String version, String type, CustomHeaderUtils headerUtils, String requestURI) {
+        try {
+            eventValidator.validate(vesEvent, type, version);
+            List<VesEvent> vesEvents = transformEvent(vesEvent, type, version, requestURI);
+            eventSender.send(vesEvents);
+        } catch (EventValidatorException e) {
+            return ResponseEntity.status(e.getApiException().httpStatusCode)
+                    .body(e.getApiException().toJSON().toString());
+        } catch (StndDefinedNamespaceParameterNotDefinedException e) {
+            return ResponseEntity.status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
+                    .body(ApiException.MISSING_NAMESPACE_PARAMETER.toJSON().toString());
+        } catch (StndDefinedNamespaceParameterHasEmptyValueException e) {
+            return ResponseEntity.status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
+                    .body(ApiException.EMPTY_NAMESPACE_PARAMETER.toJSON().toString());
+        }
+
+        // TODO call service and return status, replace CambriaClient, split event to single object and list of them
+        return accepted().headers(this.headerUtils.fillHeaders(headerUtils.getRspCustomHeader()))
+                .contentType(MediaType.APPLICATION_JSON).body("Accepted");
+    }
+
+    private CustomHeaderUtils createHeaderUtils(String version, HttpServletRequest request) {
+        return new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
+                headerUtils.extractHeaders(request),
+                headerUtils.getApiVerFilePath("api_version_config.json"),
+                headerUtils.getRestApiIdentify(request.getRequestURI()));
 
     }
 
-    private UUID generateUUID(String version, String uri, JSONObject jsonObject) {
+    private List<VesEvent> transformEvent(VesEvent vesEvent, String type, String version, String requestURI) {
+        return this.eventUpdater.convert(
+                vesEvent, version, generateUUID(vesEvent, version, requestURI), type);
+    }
+
+    private UUID generateUUID(VesEvent vesEvent, String version, String uri) {
         UUID uuid = UUID.randomUUID();
         setUpECOMPLoggingForRequest(uuid);
-        requestLogger.info(String.format(VES_EVENT_MESSAGE, jsonObject, uuid, version, uri));
+        requestLogger.info(String.format(VES_EVENT_MESSAGE, vesEvent.asJsonObject(), uuid, version, uri));
         return uuid;
     }
 
