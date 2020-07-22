@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31a1685f_8ae5cd55",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-22T08:26:47Z",
+      "side": 1,
+      "message": "If we want to refactor names of methods in this class, shouldn\u0027t we do it respectively with every method? \n\nI see that most/all of them don\u0027t match Java coding rules.",
+      "revId": "314e22ce61075a8bd16474ae97b3179bb9b3bf63",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
