@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,56 +20,122 @@
  */
 package org.onap.dcae.common;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import io.vavr.collection.HashMap;
-import io.vavr.collection.Map;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
+import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcae.common.publishing.EventPublisher;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class EventSenderTest {
 
-  private String event = "{\"VESversion\":\"v7\",\"VESuniqueId\":\"fd69d432-5cd5-4c15-9d34-407c81c61c6a-0\",\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1544016106000000,\"eventId\":\"fault33\",\"timeZoneOffset\":\"UTC+00.00\",\"priority\":\"Normal\",\"version\":\"4.0.1\",\"nfVendorName\":\"Ericsson\",\"reportingEntityName\":\"1\",\"sequence\":1,\"domain\":\"fault\",\"lastEpochMicrosec\":1544016106000000,\"eventName\":\"Fault_KeyFileFault\",\"vesEventListenerVersion\":\"7.0.1\",\"sourceName\":\"1\"},\"faultFields\":{\"eventSeverity\":\"CRITICAL\",\"alarmCondition\":\"KeyFileFault\",\"faultFieldsVersion\":\"4.0\",\"eventCategory\":\"PROCESSINGERRORALARM\",\"specificProblem\":\"License Key File Fault_1\",\"alarmAdditionalInformation\":{\"probableCause\":\"ConfigurationOrCustomizationError\",\"additionalText\":\"test_1\",\"source\":\"ManagedElement=1,SystemFunctions=1,Lm=1\"},\"eventSourceType\":\"Lm\",\"vfStatus\":\"Active\"}}}\n";
-
   @Mock
   private EventPublisher eventPublisher;
-  @Mock
-  private ApplicationSettings settings;
-
-  private EventSender eventSender;
 
 
   @Test
-  public void shouldntSendEventWhenStreamIdsIsEmpty() {
-    when(settings.dMaaPStreamsMapping()).thenReturn(HashMap.empty());
-    eventSender = new EventSender(eventPublisher, settings );
-    JSONObject jsonObject = new JSONObject(event);
-    JSONArray jsonArray = new JSONArray();
-    jsonArray.put(jsonObject);
-    eventSender.send(jsonArray);
-    verify(eventPublisher,never()).sendEvent(any(),any());
+  public void shouldNotSendEventWhenStreamIdIsNotDefined() throws IOException {
+    // given
+    EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
+    List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves7_valid_event.json");
+
+    // when
+    eventSender.send(eventToSend);
+
+    // then
+    verifyThatEventWasNotSendAtStream();
   }
 
   @Test
-  public void shouldSendEvent() {
-    Map<String, String[]> streams = HashMap.of("fault", new String[]{"ves-fault", "fault-ves"});
-    when(settings.dMaaPStreamsMapping()).thenReturn(streams);
-    eventSender = new EventSender(eventPublisher, settings );
+  public void shouldSendEventAtStreamsAssignedToEventDomain() throws IOException {
+    // given
+    EventSender eventSender = givenConfiguredEventSender(HashMap.of("fault", new String[]{"ves-fault", "fault-ves"}));
+    List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves7_valid_event.json");
+
+    // when
+    eventSender.send(eventToSend);
+
+    //then
+    verifyThatEventWasSendAtStream("ves-fault");
+    verifyThatEventWasSendAtStream("fault-ves");
+  }
+
+  @Test
+  public void shouldSendStdDefinedEventAtStreamAssignedToEventDomain() throws IOException {
+    // given
+    EventSender eventSender = givenConfiguredEventSender(
+            HashMap.of("3GPP-FaultSupervision", new String[]{"ves-3gpp-fault-supervision"})
+    );
+    List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves_stdnDefined_valid.json");
+
+    // when
+    eventSender.send(eventToSend);
+
+    // then
+    verifyThatEventWasSendAtStream("ves-3gpp-fault-supervision");
+  }
+
+  @Test
+  public void shouldNotSendStndEventWhenStreamIsNotDefined() throws IOException {
+    // given
+    EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
+    List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves_stdnDefined_valid.json");
+
+    // when
+    eventSender.send(eventToSend);
+
+    // then
+    verifyThatEventWasNotSendAtStream();
+  }
+
+  @Test
+  public void shouldReportThatNoStndDefinedNamespaceParameterIsDefinedInEvent() throws IOException {
+    // given
+    EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
+    List<VesEvent> eventToSend = createEventToSend(
+            "/eventsAfterTransformation/ves_stdnDefined_missing_namespace_invalid.json"
+    );
+
+    // when
+    assertThatExceptionOfType(StndDefinedNamespaceParameterNotDefinedException.class)
+            .isThrownBy(() -> eventSender.send(eventToSend));
+
+    // then
+    verifyThatEventWasNotSendAtStream();
+  }
+
+  private List<VesEvent> createEventToSend(String path) throws IOException {
+    String event = JsonDataLoader.loadContent(path);
+    return givenEventToSend(event);
+  }
+
+  private EventSender givenConfiguredEventSender(io.vavr.collection.Map<String, String[]> streamIds) {
+    return new EventSender(eventPublisher, streamIds);
+  }
+
+  private List<VesEvent> givenEventToSend(String event) {
     JSONObject jsonObject = new JSONObject(event);
-    JSONArray jsonArray = new JSONArray();
-    jsonArray.put(jsonObject);
-    eventSender.send(jsonArray);
-    verify(eventPublisher, times(2)).sendEvent(any(),any());
+    return List.of(new VesEvent(jsonObject));
+  }
+
+  private void verifyThatEventWasNotSendAtStream() {
+    verify(eventPublisher,never()).sendEvent(any(),any());
+  }
+
+  private void verifyThatEventWasSendAtStream(String s) {
+    verify(eventPublisher).sendEvent(any(), eq(s));
   }
 }
