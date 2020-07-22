@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2019 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import java.nio.file.Paths;
 import static io.vavr.API.Tuple;
 import static java.nio.file.Files.readAllBytes;
 
-class JSonSchemasSupplier {
+public class JSonSchemasSupplier {
 
     public Map<String, JsonSchema> loadJsonSchemas(String collectorSchemaFile) {
         JSONObject jsonObject = new JSONObject(collectorSchemaFile);

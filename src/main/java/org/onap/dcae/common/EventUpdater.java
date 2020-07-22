@@ -22,12 +22,14 @@
 package org.onap.dcae.common;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.model.VesEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,33 +49,33 @@ public class EventUpdater {
     this.settings = settings;
   }
 
-  public JSONArray convert(JSONObject jsonObject, String version, UUID uuid, String type){
+  public List<VesEvent> convert(VesEvent vesEvent, String version, UUID uuid, String type){
     if(type.equalsIgnoreCase(EVENT_LIST)){
-      return convertEvents(jsonObject, uuid.toString(), version);
+      return convertEvents(vesEvent, uuid.toString(), version);
     }
     else {
-      return convertEvent(jsonObject, uuid.toString(), version);
+      return convertEvent(vesEvent, uuid.toString(), version);
     }
   }
 
-  private JSONArray convertEvents(JSONObject jsonObject,
-      String uuid, String version) {
-    JSONArray asArrayEvents = new JSONArray();
+  private List<VesEvent> convertEvents(VesEvent vesEvent, String uuid, String version) {
+    List<VesEvent> asArrayEvents = new ArrayList<>();
 
-    JSONArray events = jsonObject.getJSONArray(EVENT_LIST);
+    JSONArray events = vesEvent.asJsonObject().getJSONArray(EVENT_LIST);
     for (int i = 0; i < events.length(); i++) {
       JSONObject event = new JSONObject().put(EVENT, events.getJSONObject(i));
       event.put(VES_UNIQUE_ID, uuid + "-" + i);
       event.put(VES_VERSION, version);
-      asArrayEvents.put(overrideEvent(event));
+      asArrayEvents.add(new VesEvent(overrideEvent(event)));
     }
     return asArrayEvents;
   }
 
-  private JSONArray convertEvent(JSONObject jsonObject, String uuid, String version) {
+  private List<VesEvent> convertEvent(VesEvent vesEvent, String uuid, String version) {
+    JSONObject jsonObject = vesEvent.asJsonObject();
     jsonObject.put(VES_UNIQUE_ID, uuid);
     jsonObject.put(VES_VERSION, version);
-    return new JSONArray().put(overrideEvent(jsonObject));
+    return List.of(new VesEvent(overrideEvent(jsonObject)));
   }
 
   private JSONObject overrideEvent(JSONObject event) {

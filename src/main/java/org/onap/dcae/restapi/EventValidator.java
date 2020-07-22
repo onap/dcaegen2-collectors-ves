@@ -20,34 +20,54 @@
  */
 package org.onap.dcae.restapi;
 
-import java.util.Optional;
-import org.json.JSONObject;
+import com.networknt.schema.JsonSchema;
 import org.onap.dcae.ApplicationSettings;
-import org.springframework.http.ResponseEntity;
+import org.onap.dcae.common.model.VesEvent;
+
+/**
+ * This class is using ApplicationSetting and SchemaValidator to validate VES event.
+ *
+ * @author Zebek
+ */
 public class EventValidator {
 
-  private final SchemaValidator schemaValidator = new SchemaValidator();
-  private ApplicationSettings applicationSettings;
+  private final SchemaValidator schemaValidator;
+  private final ApplicationSettings applicationSettings;
 
   public EventValidator(ApplicationSettings applicationSettings) {
+    this(applicationSettings, new SchemaValidator());
+  }
+
+  EventValidator(ApplicationSettings applicationSettings,  SchemaValidator schemaValidator) {
     this.applicationSettings = applicationSettings;
+    this.schemaValidator = schemaValidator;
   }
 
-  public Optional<ResponseEntity<String>> validate(JSONObject jsonObject, String type, String version){
+  /**
+   * This method is validating given event using schema adn throws exception if event is not valid
+   *
+   * @param vesEvent event that will be validate
+   * @param type expected type of event
+   * @param version json schema version that will be used
+   * @throws EventValidatorException when event is not valid or have wrong type
+   */
+  public void validate(VesEvent vesEvent, String type, String version) throws EventValidatorException {
     if (applicationSettings.eventSchemaValidationEnabled()) {
-      if (jsonObject.has(type)) {
-        if (!schemaValidator.conformsToSchema(jsonObject, applicationSettings.jsonSchema(version))) {
-          return errorResponse(ApiException.SCHEMA_VALIDATION_FAILED);
-        }
-      } else {
-        return errorResponse(ApiException.INVALID_JSON_INPUT);
-      }
+      doValidation(vesEvent, type, version);
     }
-    return Optional.empty();
   }
 
-  private Optional<ResponseEntity<String>> errorResponse(ApiException noServerResources) {
-    return Optional.of(ResponseEntity.status(noServerResources.httpStatusCode)
-        .body(noServerResources.toJSON().toString()));
+  private void doValidation(VesEvent vesEvent, String type, String version) throws EventValidatorException {
+    if (vesEvent.hasType(type)) {
+      if (!isEventMatchToSchema(vesEvent, applicationSettings.jsonSchema(version))) {
+        throw new EventValidatorException(ApiException.SCHEMA_VALIDATION_FAILED);
+      }
+    } else {
+      throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
+    }
+  }
+
+  private boolean isEventMatchToSchema(VesEvent vesEvent, JsonSchema schema) {
+    return schemaValidator.conformsToSchema(vesEvent.asJsonObject(), schema);
   }
 }
