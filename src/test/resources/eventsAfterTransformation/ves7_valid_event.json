@@ -1,0 +1,36 @@
+{
+    "VESversion":"v7",
+    "VESuniqueId":"fd69d432-5cd5-4c15-9d34-407c81c61c6a-0",
+    "event": {
+        "commonEventHeader": {
+            "version": "4.0.1",
+            "vesEventListenerVersion": "7.0.1",
+            "domain": "fault",
+            "eventName": "Fault_Vscf:Acs-Ericcson_PilotNumberPoolExhaustion",
+            "eventId": "fault0000245",
+            "sequence": 1,
+            "priority": "High",
+            "reportingEntityId": "cc305d54-75b4-431b-adb2-eb6b9e541234",
+            "reportingEntityName": "ibcx0001vm002oam001",
+            "sourceId": "de305d54-75b4-431b-adb2-eb6b9e546014",
+            "sourceName": "scfx0001vm002cap001",
+            "nfVendorName": "Ericsson",
+            "nfNamingCode": "scfx",
+            "nfcNamingCode": "ssc",
+            "startEpochMicrosec": 1413378172000000,
+            "lastEpochMicrosec": 1413378172000000,
+            "timeZoneOffset": "UTC-05:30"
+        },
+        "faultFields": {
+            "faultFieldsVersion": "4.0",
+            "alarmCondition": "PilotNumberPoolExhaustion",
+            "eventSourceType": "other",
+            "specificProblem": "Calls cannot complete - pilot numbers are unavailable",
+            "eventSeverity": "CRITICAL",
+            "vfStatus": "Active",
+            "alarmAdditionalInformation": {
+                "PilotNumberPoolSize": "1000"
+            }
+        }
+    }
+}

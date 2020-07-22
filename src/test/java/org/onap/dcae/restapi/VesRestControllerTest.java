@@ -20,20 +20,27 @@
 
 package org.onap.dcae.restapi;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.networknt.schema.JsonSchema;
+import io.vavr.collection.HashMap;
+import org.apache.http.HttpStatus;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.JSonSchemasSupplier;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.JsonDataLoader;
+import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -43,14 +50,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,21 +66,36 @@ import static org.mockito.Mockito.when;
 public class VesRestControllerTest {
 
     private static final String EVENT_TRANSFORM_FILE_PATH = "/eventTransform.json";
+    private static final String ACCEPTED = "Accepted";
+    private static final String VERSION_V7 = "v7";
+    public static final String VES_FAULT_TOPIC = "ves-fault";
+    public static final String VES_3_GPP_FAULT_SUPERVISION_TOPIC = "ves-3gpp-fault-supervision";
 
-    @InjectMocks
-    VesRestController vesRestController;
-
-    @Mock
-    ApplicationSettings applicationSettings;
-
-    @Mock
-    Logger logger;
+    private VesRestController vesRestController;
 
     @Mock
-    EventSender eventSender;
+    private ApplicationSettings applicationSettings;
 
     @Mock
-    HeaderUtils headerUtils;
+    private Logger logger;
+
+    @Mock
+    private HeaderUtils headerUtils;
+
+    @Mock
+    private EventPublisher eventPublisher;
+
+    @Before
+    public void setUp(){
+
+        final HashMap<String, String[]> streamIds = HashMap.of(
+                "fault", new String[]{VES_FAULT_TOPIC},
+                "3GPP-FaultSupervision", new String[]{VES_3_GPP_FAULT_SUPERVISION_TOPIC}
+        );
+        this.vesRestController = new VesRestController(
+                applicationSettings, logger, new EventSender(eventPublisher, streamIds),headerUtils
+        );
+    }
 
     @Test
     public void shouldReportThatApiVersionIsNotSupported() {
@@ -84,9 +107,9 @@ public class VesRestControllerTest {
         final ResponseEntity<String> event = vesRestController.event("", "v20", request);
 
         // then
-        assertThat(event.getStatusCodeValue()).isEqualTo(400);
+        assertThat(event.getStatusCodeValue()).isEqualTo(HttpStatus.SC_BAD_REQUEST);
         assertThat(event.getBody()).isEqualTo("API version v20 is not supported");
-        verify(eventSender, never()).send(any(JSONArray.class));
+        verifyThatEventWasNotSend();
     }
 
     @Test
@@ -97,22 +120,153 @@ public class VesRestControllerTest {
 
         MockHttpServletRequest request = givenMockHttpServletRequest();
 
-        String validEvent = new String(
-                Files.readAllBytes(Paths.get(this.getClass().getResource("/ves7_valid_30_1_1_event.json").getPath()))
-        );
+        String validEvent = JsonDataLoader.loadContent("/ves7_valid_30_1_1_event.json");
 
         //when
-        final ResponseEntity<String> response = vesRestController.event(validEvent, "v7", request);
+        final ResponseEntity<String> response = vesRestController.event(validEvent, VERSION_V7, request);
 
         //then
-        assertThat(response.getStatusCodeValue()).isEqualTo(202);
-        assertThat(response.getBody()).isEqualTo("Accepted");
-        verifyThatTransformedEventWasSend(eventSender, validEvent);
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verifyThatTransformedEventWasSend(eventPublisher, validEvent);
+    }
+
+
+    @Test
+    public void shouldSendBatchOfEvents() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+
+        String validEvent = JsonDataLoader.loadContent("/ves7_batch_valid.json");
+
+        //when
+        final ResponseEntity<String> response = vesRestController.events(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verify(eventPublisher, times(2)).sendEvent(any(),any());
+    }
+
+    @Test
+    public void shouldSendStndDomainEventIntoDomainStream() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+        configureSchemasSupplierForStndDefineEvent();
+
+        String validEvent = JsonDataLoader.loadContent("/ves_stdnDefined_valid.json");
+
+        //when
+        final ResponseEntity<String> response = vesRestController.event(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verify(eventPublisher).sendEvent(any(),eq(VES_3_GPP_FAULT_SUPERVISION_TOPIC));
+    }
+
+
+    @Test
+    public void shouldReportThatStndDomainEventHasntGotNamespaceParameter() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+        configureSchemasSupplierForStndDefineEvent();
+
+        String validEvent = JsonDataLoader.loadContent("/ves_stdnDefined_missing_namespace_invalid.json");
+
+        //when
+        final ResponseEntity<String> response = vesRestController.event(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_BAD_REQUEST);
+        verifyErrorResponse(
+                response,
+                "SVC2006",
+                "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is missing from request"
+        );
+        verifyThatEventWasNotSend();
+    }
+
+    @Test
+    public void shouldReportThatStndDomainEventNamespaceParameterIsEmpty() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+        configureSchemasSupplierForStndDefineEvent();
+
+        String validEvent = JsonDataLoader.loadContent("/ves_stdnDefined_empty_namespace_invalid.json");
+
+        //when
+        final ResponseEntity<String> response = vesRestController.event(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_BAD_REQUEST);
+        verifyErrorResponse(
+                response,
+                "SVC2006",
+                "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is empty in request"
+        );
+        verifyThatEventWasNotSend();
+    }
+
+    @Test
+    public void shouldNotSendStndDomainEventWhenTopicCannotBeFoundInConfiguration() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+
+        String validEvent = JsonDataLoader.loadContent("/ves_stdnDefined_valid_unknown_topic.json");
+
+        //when
+        final ResponseEntity<String> response = vesRestController.event(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verifyThatEventWasNotSend();
+    }
+
+    private void verifyThatEventWasNotSend() {
+        verify(eventPublisher, never()).sendEvent(any(), any());
+    }
+
+    private void configureSchemasSupplierForStndDefineEvent() {
+        String collectorSchemaFile = "{\"v7\":\"./etc/CommonEventFormat_30.2_ONAP.json\"}";
+        final io.vavr.collection.Map<String, JsonSchema> loadedJsonSchemas = new JSonSchemasSupplier().loadJsonSchemas(collectorSchemaFile);
+
+        when(applicationSettings.eventSchemaValidationEnabled()).thenReturn(true);
+        when(applicationSettings.jsonSchema(eq(VERSION_V7))).thenReturn(loadedJsonSchemas.get(VERSION_V7).get());
+    }
+
+    private void verifyErrorResponse(ResponseEntity<String> response, String messageId, String messageText) throws com.fasterxml.jackson.core.JsonProcessingException {
+        final Map<String, String> errorDetails = fetchErrorDetails(response);
+        assertThat(errorDetails).containsEntry("messageId", messageId);
+        assertThat(errorDetails).containsEntry("text", messageText);
+    }
+
+    private Map<String, String> fetchErrorDetails(ResponseEntity<String> response) throws com.fasterxml.jackson.core.JsonProcessingException {
+        final String body = response.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Map<String, Map<String,String>>> map = mapper.readValue(body, Map.class);
+        return map.get("requestError").get("ServiceException");
     }
 
     private void configureEventTransformations() throws IOException {
         final List<EventTransformation> eventTransformations = loadEventTransformations();
-        when(applicationSettings.isVersionSupported("v7")).thenReturn(true);
+        when(applicationSettings.isVersionSupported(VERSION_V7)).thenReturn(true);
         when(applicationSettings.eventTransformingEnabled()).thenReturn(true);
         when(applicationSettings.getEventTransformations()).thenReturn(eventTransformations);
     }
@@ -124,19 +278,22 @@ public class VesRestControllerTest {
         );
     }
 
-    private void verifyThatTransformedEventWasSend(EventSender eventSender, String eventBeforeTransformation) {
+    private void verifyThatTransformedEventWasSend(EventPublisher eventPublisher, String eventBeforeTransformation) {
         // event before transformation
         assertThat(eventBeforeTransformation).contains("\"version\": \"4.0.1\"");
         assertThat(eventBeforeTransformation).contains("\"faultFieldsVersion\": \"4.0\"");
 
-        ArgumentCaptor<JSONArray> argument = ArgumentCaptor.forClass(JSONArray.class);
-        verify(eventSender).send(argument.capture());
+        ArgumentCaptor<JSONObject> argument = ArgumentCaptor.forClass(JSONObject.class);
+        ArgumentCaptor<String> domain = ArgumentCaptor.forClass(String.class);
+        verify(eventPublisher).sendEvent(argument.capture(), domain.capture());
 
         final String transformedEvent = argument.getValue().toString();
+        final String eventSentAtTopic = domain.getValue();
 
         // event after transformation
         assertThat(transformedEvent).contains("\"priority\":\"High\",\"version\":3,");
         assertThat(transformedEvent).contains(",\"faultFieldsVersion\":3,\"specificProblem");
+        assertThat(eventSentAtTopic).isEqualTo(VES_FAULT_TOPIC);
     }
 
     @NotNull
