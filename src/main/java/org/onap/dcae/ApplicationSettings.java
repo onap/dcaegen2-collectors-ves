@@ -161,7 +161,7 @@ public class ApplicationSettings {
         return properties.getString("auth.method", AuthMethodType.NO_AUTH.value());
     }
 
-    public Map<String, String[]> dMaaPStreamsMapping() {
+    public Map<String, String[]> getDmaapStreamIds() {
         String streamIdsProperty = properties.getString("collector.dmaap.streamid", null);
         if (streamIdsProperty == null) {
             return HashMap.empty();
