@@ -27,16 +27,19 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import org.json.JSONArray;
+
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,8 +100,8 @@ public class VesRestController {
             if (validationResult.isPresent()){
                 return validationResult.get();
             }
-            JSONArray arrayOfEvents = new EventUpdater(settings).convert(jsonObject,version, generateUUID(version, request.getRequestURI(), jsonObject), type);
-            eventSender.send(arrayOfEvents);
+            List<VesEvent> vesEvents = new EventUpdater(settings).convert(jsonObject,version, generateUUID(version, request.getRequestURI(), jsonObject), type);
+            eventSender.send(vesEvents);
             // TODO call service and return status, replace CambriaClient, split event to single object and list of them
             return accepted().headers(this.headerUtils.fillHeaders(headerUtils.getRspCustomHeader()))
                 .contentType(MediaType.APPLICATION_JSON).body("Accepted");
