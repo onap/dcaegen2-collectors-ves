@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1748ea05_ac056e6e",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 50
+      },
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d51a2fd_fced92ec",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "why this is public ?",
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec028248_4c17716f",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 49
+      },
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aae37fa3_89675ee1",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 50
+      },
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4179af7_8c1dc12b",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "Please extract if body to separate method",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 12
+      },
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b6f08fe_49dd47ad",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-23T12:15:44Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 50
+      },
+      "revId": "89d5e0c9e05bc8a4a320c3330465b0b223f80cea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
