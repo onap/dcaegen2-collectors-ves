@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017,2020 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import static org.onap.dcae.common.publishing.VavrUtils.f;
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
-class DMaaPEventPublisher implements EventPublisher {
+public class DMaaPEventPublisher {
     private static final int PENDING_MESSAGE_LOG_THRESHOLD = 100;
     private static final String VES_UNIQUE_ID = "VESuniqueId";
     private static final String EVENT = "event";
@@ -47,26 +47,22 @@ class DMaaPEventPublisher implements EventPublisher {
     private static final String PARTITION_KEY = "sourceName";
     private static final Logger log = LoggerFactory.getLogger(DMaaPEventPublisher.class);
     private final DMaaPPublishersCache publishersCache;
-    private final Logger outputLogger;
+    private final Logger outputLogger = LoggerFactory.getLogger("org.onap.dcae.common.output");
 
-    DMaaPEventPublisher(DMaaPPublishersCache publishersCache,
-                        Logger outputLogger) {
+    DMaaPEventPublisher(DMaaPPublishersCache publishersCache) {
         this.publishersCache = publishersCache;
-        this.outputLogger = outputLogger;
     }
 
-    @Override
+    public DMaaPEventPublisher(Map<String, PublisherConfig> dMaaPConfig) {
+        this(new DMaaPPublishersCache(dMaaPConfig));
+    }
+
     public void sendEvent(JSONObject event, String domain) {
         clearVesUniqueIdFromEvent(event);
         publishersCache.getPublisher(domain)
                 .onEmpty(() ->
                         log.warn(f("Could not find event publisher for domain: '%s', dropping message: '%s'", domain, event)))
                 .forEach(publisher -> sendEvent(event, domain, publisher));
-    }
-
-    @Override
-    public void reconfigure(Map<String, PublisherConfig> dMaaPConfig) {
-        publishersCache.reconfigure(dMaaPConfig);
     }
 
     private void sendEvent(JSONObject event, String domain, CambriaBatchingPublisher publisher) {
