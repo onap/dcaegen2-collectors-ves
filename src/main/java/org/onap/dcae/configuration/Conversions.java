@@ -1,9 +1,8 @@
-package org.onap.dcae.controller;
 /*-
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,22 +17,31 @@ package org.onap.dcae.controller;
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-public class EnvPropsTest {
-    @Test
-    public void shouldBeEquals() {
-        // given
-        EnvProps envPropsOriginal = givenEnvProps();
-        EnvProps envPropsCopy = givenEnvProps();
-        // when/then
-        assertThat(envPropsOriginal).isEqualTo(envPropsCopy);
-        assertThat(envPropsOriginal.hashCode()).isEqualTo(envPropsCopy.hashCode());
+package org.onap.dcae.configuration;
+
+import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
+
+import io.vavr.API;
+import io.vavr.collection.List;
+import io.vavr.control.Try;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.StreamSupport;
+import org.json.JSONObject;
+
+/**
+ * @author Pawel Szalapski (pawel.szalapski@nokia.com)
+ */
+interface Conversions {
+
+    static Try<JSONObject> toJson(String strBody) {
+        return API.Try(() -> new JSONObject(strBody))
+            .mapFailure(enhanceError("Value '%s' is not a valid JSON document", strBody));
     }
-    @NotNull
-    private EnvProps givenEnvProps() {
-        return new EnvProps("https", "localhost", 443,
-                "https", "cbsName", "appName");
+
+    static <T> List<T> toList(Iterator<T> iterator) {
+        return List
+            .ofAll(StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
     }
 }
