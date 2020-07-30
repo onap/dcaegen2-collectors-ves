@@ -25,3 +25,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
           Update DPO model
 ## [1.7.3] - 10/08/2020
         - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Add implementation of stndDefined fields validation
+## [1.7.4] - 04/08/2020
+        - [DCAEGEN2-2212](https://jira.onap.org/browse/DCAEGEN2-2212) - Configfetch for VESCollector through DCAE-SDK (CBS Client)        
