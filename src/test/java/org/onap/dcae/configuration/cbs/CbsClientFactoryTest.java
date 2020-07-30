@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018,2020 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.common.publishing;
+package org.onap.dcae.configuration.cbs;
 
-import io.vavr.collection.Map;
-import org.json.JSONObject;
-import org.slf4j.Logger;
+import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author Pawel Szalapski (pawel.szalapski@nokia.com)
- */
-public interface EventPublisher {
+import org.junit.Test;
 
-    static EventPublisher createPublisher(Map<String, PublisherConfig> dMaaPConfig) {
-        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig));
+public class CbsClientFactoryTest {
+
+    @Test
+    public void createsClientSuccessfully() {
+        // when
+        CbsClient cbsClient = new CbsClientFactory().createCbsClient();
+
+        // then
+        assertThat(cbsClient).isNotNull();
     }
-
-    void sendEvent(JSONObject event, String domain);
-
-    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }

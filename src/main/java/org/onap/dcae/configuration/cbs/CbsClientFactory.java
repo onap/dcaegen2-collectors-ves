@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018,2020 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,21 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.common.publishing;
+package org.onap.dcae.configuration.cbs;
 
-import io.vavr.collection.Map;
-import org.json.JSONObject;
-import org.slf4j.Logger;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 
-/**
- * @author Pawel Szalapski (pawel.szalapski@nokia.com)
- */
-public interface EventPublisher {
+public class CbsClientFactory {
 
-    static EventPublisher createPublisher(Map<String, PublisherConfig> dMaaPConfig) {
-        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig));
+    private static final String DEFAULT_PROTOCOL = "http";
+    private static final String DEFAULT_HOSTNAME = "config-binding-service";
+    private static final int DEFAULT_PORT = 10000;
+    private static final String DEFAULT_APP_NAME = "dcae-ves-collector";
+
+    public CbsClient createCbsClient() {
+        CbsClientConfigurationResolver resolver = new CbsClientConfigurationResolver(DEFAULT_PROTOCOL, DEFAULT_HOSTNAME,
+            DEFAULT_PORT, DEFAULT_APP_NAME);
+        CbsClientConfiguration cbsClientConfiguration = resolver.resolve();
+        return new CbsClient(cbsClientConfiguration);
     }
-
-    void sendEvent(JSONObject event, String domain);
-
-    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }
