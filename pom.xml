@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.7.3-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -78,6 +78,7 @@
     <spring-boot-starter-test.version>2.1.0.RELEASE</spring-boot-starter-test.version>
     <api-custom-header.version>1.1.4</api-custom-header.version>
     <functionaljava.version>4.8.1</functionaljava.version>
+    <sdk.version>1.3.4</sdk.version>
   </properties>
   <build>
     <pluginManagement>
@@ -454,6 +455,11 @@
       <artifactId>functionaljava</artifactId>
       <version>${functionaljava.version}</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
+      <artifactId>cbs-client</artifactId>
+      <version>${sdk.version}</version>
     </dependency>
   </dependencies>
   <repositories>

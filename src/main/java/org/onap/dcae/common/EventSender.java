@@ -27,7 +27,7 @@ import io.vavr.collection.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
-import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,14 +35,14 @@ public class EventSender {
 
   private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
   private Map<String, String[]> streamidHash;
-  private EventPublisher eventPublisher;
+  private DMaaPEventPublisher dMaaPEventPublisher;
   private static final String VES_UNIQUE_ID = "VESuniqueId";
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
   private static final String EVENT_LITERAL = "event";
   private static final String COMMON_EVENT_HEADER = "commonEventHeader";
 
-  public EventSender( EventPublisher eventPublisher, ApplicationSettings properties) {
-    this.eventPublisher = eventPublisher;
+  public EventSender( DMaaPEventPublisher dMaaPEventPublisher, ApplicationSettings properties) {
+    this.dMaaPEventPublisher = dMaaPEventPublisher;
     this.streamidHash = properties.dMaaPStreamsMapping();
   }
 
@@ -67,7 +67,7 @@ public class EventSender {
   private void sendEventsToStreams(JSONObject event, String[] streamIdList) {
     for (String aStreamIdList : streamIdList) {
       log.info("Invoking publisher for streamId:" + aStreamIdList);
-      eventPublisher.sendEvent(event, aStreamIdList);
+      dMaaPEventPublisher.sendEvent(event, aStreamIdList);
     }
   }
 

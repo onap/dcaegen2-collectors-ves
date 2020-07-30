@@ -22,15 +22,12 @@
 package org.onap.dcae;
 
 import io.vavr.collection.Map;
-import java.nio.file.Paths;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
-import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.onap.dcae.common.publishing.PublisherConfig;
-import org.onap.dcae.controller.ConfigLoader;
+import org.onap.dcae.configuration.ConfigLoader;
+import org.onap.dcae.configuration.ConfigLoaderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,74 +39,71 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import java.nio.file.Paths;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
 
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
-    private static final Logger oplog = LoggerFactory.getLogger("org.onap.dcae.common.output");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
     private static ApplicationSettings applicationSettings;
     private static ConfigurableApplicationContext context;
     private static ConfigLoader configLoader;
     private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
-    private static SpringApplication app;
-    private static EventPublisher eventPublisher;
+    private static DMaaPEventPublisher dMaaPEventPublisher;
     private static ScheduledFuture<?> scheduleFeatures;
 
     public static void main(String[] args) {
-      app = new SpringApplication(VesApplication.class);
-      applicationSettings = new ApplicationSettings(args, CLIUtils::processCmdLine);
-      scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
-      init();
-      app.setAddCommandLineProperties(true);
-      context = app.run();
-      configLoader.updateConfig();
+        SpringApplication app = new SpringApplication(VesApplication.class);
+        applicationSettings = new ApplicationSettings(args, CLIUtils::processCmdLine);
+        scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+        init();
+        app.setAddCommandLineProperties(true);
+        context = app.run();
+        configLoader.updateConfig();
     }
 
     public static void restartApplication() {
-      Thread thread = new Thread(() -> {
-        context.close();
-        applicationSettings.reloadProperties();
-        scheduleFeatures.cancel(true);
-        init();
-        context = SpringApplication.run(VesApplication.class);
-      });
-      thread.setDaemon(false);
-      thread.start();
+        Thread thread = new Thread(() -> {
+            context.close();
+            applicationSettings.reloadProperties();
+            scheduleFeatures.cancel(true);
+            init();
+            context = SpringApplication.run(VesApplication.class);
+        });
+        thread.setDaemon(false);
+        thread.start();
     }
 
     private static void init() {
-      createConfigLoader();
-      createSchedulePoolExecutor();
-      createExecutors();
+        createConfigLoader();
+        createSchedulePoolExecutor();
+        createExecutors();
     }
 
     private static void createExecutors() {
-      eventPublisher = EventPublisher.createPublisher(oplog, getDmapConfig());
+        dMaaPEventPublisher = new DMaaPEventPublisher(getDmapConfig());
     }
 
     private static void createSchedulePoolExecutor() {
-      scheduleFeatures = scheduledThreadPoolExecutor.scheduleAtFixedRate(configLoader::updateConfig,
-          applicationSettings.configurationUpdateFrequency(),
-          applicationSettings.configurationUpdateFrequency(),
-          TimeUnit.MINUTES);
+        scheduleFeatures = scheduledThreadPoolExecutor.scheduleAtFixedRate(configLoader::updateConfig,
+                applicationSettings.configurationUpdateFrequency(),
+                applicationSettings.configurationUpdateFrequency(),
+                TimeUnit.MINUTES);
     }
 
     private static void createConfigLoader() {
-      configLoader = ConfigLoader.create(getEventPublisher()::reconfigure,
-          Paths.get(applicationSettings.dMaaPConfigurationFileLocation()),
-          applicationSettings.configurationFileLocation());
-    }
-
-
-    private static EventPublisher getEventPublisher() {
-      return EventPublisher.createPublisher(oplog, DMaaPConfigurationParser
-          .parseToDomainMapping(Paths.get(applicationSettings.dMaaPConfigurationFileLocation())).get());
+        configLoader = new ConfigLoaderFactory().create(
+                applicationSettings.configurationFileLocation(),
+                Paths.get(applicationSettings.dMaaPConfigurationFileLocation()));
     }
 
     private static Map<String, PublisherConfig> getDmapConfig() {
-      return DMaaPConfigurationParser
-          .parseToDomainMapping(Paths.get(applicationSettings.dMaaPConfigurationFileLocation())).get();
+        return DMaaPConfigurationParser
+                .parseToDomainMapping(Paths.get(applicationSettings.dMaaPConfigurationFileLocation())).get();
     }
 
     @Bean
@@ -133,7 +127,7 @@ public class VesApplication {
     @Bean
     @Qualifier("eventSender")
     public EventSender eventSender() {
-        return new EventSender(eventPublisher, applicationSettings);
+        return new EventSender(dMaaPEventPublisher, applicationSettings);
     }
 
 }
