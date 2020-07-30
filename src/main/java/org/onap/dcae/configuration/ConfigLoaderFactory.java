@@ -1,4 +1,3 @@
-package org.onap.dcae.controller;
 /*-
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
@@ -18,22 +17,21 @@ package org.onap.dcae.controller;
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-public class EnvPropsTest {
-    @Test
-    public void shouldBeEquals() {
-        // given
-        EnvProps envPropsOriginal = givenEnvProps();
-        EnvProps envPropsCopy = givenEnvProps();
-        // when/then
-        assertThat(envPropsOriginal).isEqualTo(envPropsCopy);
-        assertThat(envPropsOriginal.hashCode()).isEqualTo(envPropsCopy.hashCode());
-    }
-    @NotNull
-    private EnvProps givenEnvProps() {
-        return new EnvProps("https", "localhost", 443,
-                "https", "cbsName", "appName");
+package org.onap.dcae.configuration;
+
+import java.nio.file.Path;
+import org.onap.dcae.VesApplication;
+import org.onap.dcae.configuration.cbs.CbsClient;
+import org.onap.dcae.configuration.cbs.CbsClientFactory;
+
+public class ConfigLoaderFactory {
+
+    public ConfigLoader create(Path propertiesFile, Path dmaapConfigFile) {
+        ConfigFilesFacade configFilesFacade = new ConfigFilesFacade(propertiesFile, dmaapConfigFile);
+        CbsClient cbsClient = new CbsClientFactory().createCbsClient();
+        return new ConfigLoader(
+            configFilesFacade,
+            cbsClient,
+            VesApplication::restartApplication);
     }
 }

@@ -21,3 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-2254](https://jira.onap.org/browse/DCAEGEN2-2254) - Add new data-format for 30.2_ONAP schema version
 ## [1.7.2] - 04/08/2020
         - [DCAEGEN2-1771](https://jira.onap.org/browse/DCAEGEN2-1771) - Add StndDefined event routing to dmaap streams defined in namespace event field - no second stage event validation.
+
+## [1.7.3] - 04/08/2020
+        - [DCAEGEN2-2212](https://jira.onap.org/browse/DCAEGEN2-2212) - Configfetch for VESCollector through DCAE-SDK (CBS Client)        
