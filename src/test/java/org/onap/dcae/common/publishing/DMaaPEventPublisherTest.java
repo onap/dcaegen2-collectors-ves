@@ -47,7 +47,7 @@ public class DMaaPEventPublisherTest {
         cambriaPublisher = mock(CambriaBatchingPublisher.class);
         DMaaPPublishersCache = mock(DMaaPPublishersCache.class);
         when(DMaaPPublishersCache.getPublisher(anyString())).thenReturn(Option(cambriaPublisher));
-        eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache, mock(Logger.class));
+        eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache);
     }
 
     @Test

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,21 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.common.publishing;
+package org.onap.dcae.configuration;
 
-import io.vavr.collection.Map;
-import org.json.JSONObject;
-import org.slf4j.Logger;
+import java.nio.file.Path;
+import org.onap.dcae.VesApplication;
+import org.onap.dcae.configuration.cbs.CbsClient;
+import org.onap.dcae.configuration.cbs.CbsClientFactory;
 
-/**
- * @author Pawel Szalapski (pawel.szalapski@nokia.com)
- */
-public interface EventPublisher {
+public class ConfigLoaderFactory {
 
-    static EventPublisher createPublisher(Map<String, PublisherConfig> dMaaPConfig) {
-        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig));
+    public ConfigLoader create(Path propertiesFile, Path dmaapConfigFile) {
+        ConfigFilesFacade configFilesFacade = new ConfigFilesFacade(propertiesFile, dmaapConfigFile);
+        CbsClient cbsClient = new CbsClientFactory().createCbsClient();
+        return new ConfigLoader(
+            configFilesFacade,
+            cbsClient,
+            VesApplication::restartApplication);
     }
-
-    void sendEvent(JSONObject event, String domain);
-
-    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }

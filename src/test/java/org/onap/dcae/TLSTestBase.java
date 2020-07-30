@@ -136,13 +136,6 @@ public class TLSTestBase {
             return createHttpsRestTemplate().getForEntity(createHttpsURL("/"), String.class);
         }
 
-
-        public ResponseEntity<String> makeHttpsRequestWithBasicAuth(final String username, final String password) {
-            return addBasicAuth(createHttpsRestTemplate(), username, password)
-                    .getForEntity(createHttpsURL("/"), String.class);
-
-        }
-
         public ResponseEntity<String> makeHttpsRequestWithClientCert() {
             return createHttpsRestTemplateWithKeyStore().getForEntity(createHttpsURL("/"), String.class);
         }

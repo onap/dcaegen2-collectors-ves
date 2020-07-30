@@ -47,12 +47,10 @@ class DMaaPEventPublisher implements EventPublisher {
     private static final String PARTITION_KEY = "sourceName";
     private static final Logger log = LoggerFactory.getLogger(DMaaPEventPublisher.class);
     private final DMaaPPublishersCache publishersCache;
-    private final Logger outputLogger;
+    private final Logger outputLogger = LoggerFactory.getLogger("org.onap.dcae.common.output");
 
-    DMaaPEventPublisher(DMaaPPublishersCache publishersCache,
-                        Logger outputLogger) {
+    DMaaPEventPublisher(DMaaPPublishersCache publishersCache) {
         this.publishersCache = publishersCache;
-        this.outputLogger = outputLogger;
     }
 
     @Override

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.controller;
+package org.onap.dcae.configuration;
 
 import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
 
@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -41,13 +40,8 @@ interface Conversions {
             .mapFailure(enhanceError("Value '%s' is not a valid JSON document", strBody));
     }
 
-    static Try<JSONArray> toJsonArray(String strBody) {
-        return API.Try(() -> new JSONArray(strBody))
-            .mapFailure(enhanceError("Value '%s' is not a valid JSON array", strBody));
-    }
-
     static <T> List<T> toList(Iterator<T> iterator) {
-        return List.ofAll(StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
+        return List
+            .ofAll(StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
     }
-
 }
