@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * Copyright (C) 2020 AT&T. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,7 @@ public class DMaaPEventPublisherTest {
         cambriaPublisher = mock(CambriaBatchingPublisher.class);
         DMaaPPublishersCache = mock(DMaaPPublishersCache.class);
         when(DMaaPPublishersCache.getPublisher(anyString())).thenReturn(Option(cambriaPublisher));
-        eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache, mock(Logger.class));
+        eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache);
     }
 
     @Test
