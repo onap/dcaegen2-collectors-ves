@@ -64,12 +64,9 @@ a particular deployment system.
 Variables set manually / coming from deployment system:
 - COLLECTOR_IP
 - DMAAPHOST - should contain an address to DMaaP, so that event publishing can work
-- CBSPOLLTIMER - it should be put in here if we want to automatically fetch configuration from CBS.
-- CONSUL_PROTOCOL - Consul protocol by default set to **http**, if it is need to change it then that can be set to different value 
-- CONSUL_HOST - used with conjunction with CBSPOLLTIMER, should be a host address (without port! e.g my-ip-or-host) where Consul service lies
-- CBS_PROTOCOL - Config Binding Service protocol by default set to **http**, if it is need to change it then that can be set to different value
-- CONFIG_BINDING_SERVICE - used with conjunction with CBSPOLLTIMER, should be a name of CBS as it is registered in Consul
-- HOSTNAME - used with conjunction with CBSPOLLTIMER, should be a name of VESCollector application as it is registered in CBS catalog
+- CONFIG_BINDING_SERVICE - should be a name of CBS
+- CONFIG_BINDING_SERVICE_SERVICE_PORT - should be a http port of CBS
+- HOSTNAME - should be a name of VESCollector application as it is registered in CBS catalog
 
 ### Docker file system layout
 The main directory where all code resides in docker container
@@ -113,9 +110,11 @@ For testing purpose, the docker image includes preset configuration which can be
 ### Consul - Dynamic configuration 
 
 
-Application properties like /etc/collector.properties and Dmaap configuration /etc/DmaapConfig.json are updated frequently by configuration stored in Consul(CBS) http://<kubernetes_host_ip>:30270/ui/#/dc1/kv/<vescollector_SCN> 
+Application properties like /etc/collector.properties and Dmaap configuration /etc/DmaapConfig.json are updated frequently by configuration stored in Consul(CBS)
+http://<kubernetes_host_ip>:30270/ui/#/dc1/kv/<vescollector_SCN> 
 Configuration stored in Consul have bigger priority and always will override local configuration so all configuration modification should be done using Consul update on corresponding kv store. 
 Frequently how often configuration will be fetch from Consul server is manageable in /etc/collector.properties property "collector.dynamic.config.update.frequency={time in minutes}".
+To fetch configuration from Consul, VES collector uses CBS client from DCAE SDK.
 
 Sample configuration of VESCollector K-V store can be found under /dpo/data-formats/ConsulConfig.json
 

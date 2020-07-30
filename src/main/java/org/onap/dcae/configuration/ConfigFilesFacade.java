@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,37 +18,38 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.controller;
+package org.onap.dcae.configuration;
+
+import static io.vavr.API.Try;
+import static org.onap.dcae.common.publishing.VavrUtils.enhanceError;
+import static org.onap.dcae.common.publishing.VavrUtils.f;
+import static org.onap.dcae.common.publishing.VavrUtils.logError;
+import static org.onap.dcae.configuration.Conversions.toList;
 
 import io.vavr.CheckedRunnable;
 import io.vavr.Tuple2;
 import io.vavr.collection.Map;
 import io.vavr.control.Try;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static io.vavr.API.Try;
-import static org.onap.dcae.common.publishing.VavrUtils.*;
-import static org.onap.dcae.controller.Conversions.toList;
-
 class ConfigFilesFacade {
 
-    private static Logger log = LoggerFactory.getLogger(ConfigFilesFacade.class);
+    private static final Logger log = LoggerFactory.getLogger(ConfigFilesFacade.class);
 
     private final Path dMaaPConfigPath;
     private final Path propertiesPath;
 
-    public ConfigFilesFacade(Path dMaaPConfigPath, Path propertiesPath) {
-        this.dMaaPConfigPath = dMaaPConfigPath;
+    ConfigFilesFacade(Path propertiesPath, Path dMaaPConfigPath) {
         this.propertiesPath = propertiesPath;
+        this.dMaaPConfigPath = dMaaPConfigPath;
     }
 
     Try<Map<String, String>> readCollectorProperties() {
@@ -126,5 +127,4 @@ class ConfigFilesFacade {
     private String indentConfiguration(String configuration) {
         return new JSONObject(configuration).toString(4);
     }
-
 }
