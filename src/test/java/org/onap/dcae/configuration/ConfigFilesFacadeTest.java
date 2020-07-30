@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.controller;
+package org.onap.dcae.configuration;
 
 import static io.vavr.API.Map;
 import static io.vavr.API.Some;
@@ -134,6 +134,4 @@ public class ConfigFilesFacadeTest {
         assertThat(result.isFailure()).isTrue();
         assertFailureHasInfo(result, NON_EXISTENT.toString());
     }
-
 }
-

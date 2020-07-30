@@ -2,9 +2,8 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018-2020 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2019 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,13 +133,6 @@ public class TLSTestBase {
 
         public ResponseEntity<String> makeHttpsRequest() {
             return createHttpsRestTemplate().getForEntity(createHttpsURL("/"), String.class);
-        }
-
-
-        public ResponseEntity<String> makeHttpsRequestWithBasicAuth(final String username, final String password) {
-            return addBasicAuth(createHttpsRestTemplate(), username, password)
-                    .getForEntity(createHttpsURL("/"), String.class);
-
         }
 
         public ResponseEntity<String> makeHttpsRequestWithClientCert() {
