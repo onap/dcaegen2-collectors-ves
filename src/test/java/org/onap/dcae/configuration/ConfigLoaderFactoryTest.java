@@ -1,4 +1,3 @@
-package org.onap.dcae.controller;
 /*-
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
@@ -18,22 +17,27 @@ package org.onap.dcae.controller;
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+package org.onap.dcae.configuration;
+
 import static org.assertj.core.api.Assertions.assertThat;
-public class EnvPropsTest {
+
+import java.nio.file.Path;
+import org.junit.Test;
+
+public class ConfigLoaderFactoryTest {
+
     @Test
-    public void shouldBeEquals() {
+    public void createsCbsConfigLoaderSuccessfully() {
         // given
-        EnvProps envPropsOriginal = givenEnvProps();
-        EnvProps envPropsCopy = givenEnvProps();
-        // when/then
-        assertThat(envPropsOriginal).isEqualTo(envPropsCopy);
-        assertThat(envPropsOriginal.hashCode()).isEqualTo(envPropsCopy.hashCode());
-    }
-    @NotNull
-    private EnvProps givenEnvProps() {
-        return new EnvProps("https", "localhost", 443,
-                "https", "cbsName", "appName");
+        Path testPropertiesPath = Path.of("src/test/resources/testcollector.properties");
+        Path testDmaapConfigPath = Path.of("src/test/resources/testParseDMaaPCredentialsGen2.json");
+
+        // when
+        ConfigLoader configLoader = new ConfigLoaderFactory().create(
+            testPropertiesPath,
+            testDmaapConfigPath);
+
+        // then
+        assertThat(configLoader).isNotNull();
     }
 }
