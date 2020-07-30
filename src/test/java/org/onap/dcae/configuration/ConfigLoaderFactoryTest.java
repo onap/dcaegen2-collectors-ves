@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,27 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.common.publishing;
+package org.onap.dcae.configuration;
 
-import io.vavr.collection.Map;
-import org.json.JSONObject;
-import org.slf4j.Logger;
+import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author Pawel Szalapski (pawel.szalapski@nokia.com)
- */
-public interface EventPublisher {
+import java.nio.file.Path;
+import org.junit.Test;
 
-    static EventPublisher createPublisher(Logger outputLogger, Map<String, PublisherConfig> dMaaPConfig) {
-        return new DMaaPEventPublisher(new DMaaPPublishersCache(dMaaPConfig), outputLogger);
+public class ConfigLoaderFactoryTest {
+
+    @Test
+    public void createsCbsConfigLoaderSuccessfully() {
+        // given
+        Path testPropertiesPath = Path.of("src/test/resources/testcollector.properties");
+        Path testDmaapConfigPath = Path.of("src/test/resources/testParseDMaaPCredentialsGen2.json");
+
+        // when
+        ConfigLoader configLoader = new ConfigLoaderFactory().create(
+            testPropertiesPath,
+            testDmaapConfigPath);
+
+        // then
+        assertThat(configLoader).isNotNull();
     }
-
-    void sendEvent(JSONObject event, String domain);
-
-    void reconfigure(Map<String, PublisherConfig> dMaaPConfig);
 }

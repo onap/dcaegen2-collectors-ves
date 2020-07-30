@@ -40,7 +40,7 @@ import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
 import org.onap.dcae.common.JsonDataLoader;
-import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -83,7 +83,7 @@ public class VesRestControllerTest {
     private HeaderUtils headerUtils;
 
     @Mock
-    private EventPublisher eventPublisher;
+    private DMaaPEventPublisher eventPublisher;
 
     @Before
     public void setUp(){
@@ -281,7 +281,7 @@ public class VesRestControllerTest {
         );
     }
 
-    private void verifyThatTransformedEventWasSend(EventPublisher eventPublisher, String eventBeforeTransformation) {
+    private void verifyThatTransformedEventWasSend(DMaaPEventPublisher eventPublisher, String eventBeforeTransformation) {
         // event before transformation
         assertThat(eventBeforeTransformation).contains("\"version\": \"4.0.1\"");
         assertThat(eventBeforeTransformation).contains("\"faultFieldsVersion\": \"4.0\"");
