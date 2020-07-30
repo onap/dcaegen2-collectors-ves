@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.controller;
+package org.onap.dcae.configuration;
 
 import static io.vavr.API.Try;
 import static io.vavr.API.Tuple;
 import static org.onap.dcae.common.publishing.VavrUtils.f;
-import static org.onap.dcae.controller.Conversions.toList;
+import static org.onap.dcae.configuration.Conversions.toList;
 
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
@@ -54,5 +54,4 @@ interface ConfigParsing {
         log.info(f("Found following app properties: '%s'", confEntries));
         return confEntries;
     }
-
 }

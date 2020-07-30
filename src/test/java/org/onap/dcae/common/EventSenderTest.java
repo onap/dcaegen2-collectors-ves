@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2020 Nokia. All rights reserved.s
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
 import org.onap.dcae.common.model.VesEvent;
-import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,7 +43,7 @@ import static org.mockito.Mockito.verify;
 public class EventSenderTest {
 
   @Mock
-  private EventPublisher eventPublisher;
+  private DMaaPEventPublisher eventPublisher;
 
 
   @Test

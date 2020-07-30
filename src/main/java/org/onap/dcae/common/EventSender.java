@@ -3,7 +3,7 @@
  * VES Collector
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
 import io.vavr.collection.Map;
 import org.onap.dcae.common.model.VesEvent;
-import org.onap.dcae.common.publishing.EventPublisher;
+import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,10 +35,10 @@ public class EventSender {
 
   private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
   private Map<String, String[]> streamIdToDmaapIds;
-  private EventPublisher eventPublisher;
+  private DMaaPEventPublisher eventPublisher;
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
 
-  public EventSender(EventPublisher eventPublisher, Map<String, String[]> streamIdToDmaapIds) {
+  public EventSender(DMaaPEventPublisher eventPublisher, Map<String, String[]> streamIdToDmaapIds) {
     this.eventPublisher = eventPublisher;
     this.streamIdToDmaapIds = streamIdToDmaapIds;
   }
