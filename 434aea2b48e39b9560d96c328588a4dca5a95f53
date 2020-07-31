@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e73576a_da35b153",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "356ae794_1f5c8c62",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/EventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1263cc50_f01ec11b",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigFilesFacade.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "add * Copyright (C) 2017-2018 AT\u0026T Intellectual Property. All rights reserved.",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35cc7b78_36d1eacb",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigParsing.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "add * Copyright (C) 2017-2018 AT\u0026T Intellectual Property. All rights reserved.",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 3
+      },
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada87793_e9ed9bb6",
+        "filename": "src/main/java/org/onap/dcae/configuration/Conversions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2018,2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f5b0a0_9d4e7aa3",
+        "filename": "src/test/java/org/onap/dcae/TLSTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da72135_bdbdaa86",
+        "filename": "src/test/java/org/onap/dcae/TestingUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64071647_e097ce0c",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-31T08:08:24Z",
+      "side": 1,
+      "message": "2020",
+      "revId": "434aea2b48e39b9560d96c328588a4dca5a95f53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
