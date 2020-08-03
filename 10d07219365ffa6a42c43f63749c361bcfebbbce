@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0155089_6b7d9c79",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-03T07:45:18Z",
+      "side": 1,
+      "message": "since this project is using vavr I would recommend using vavr Optional",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f556c2_c7ed7b89",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-03T07:45:18Z",
+      "side": 1,
+      "message": "since this project is using vavr I would recommend using vavr Optional",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de453cc6_6b3b6aa2",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-03T07:45:18Z",
+      "side": 1,
+      "message": "since this project is using vavr I would recommend using vavr Optional",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1adbd3_d2be8616",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-03T07:45:18Z",
+      "side": 1,
+      "message": "i guess, it should be called port, not \"integer\"",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 39
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77dba6b_5c7fa05f",
+        "filename": "src/test/java/org/onap/dcae/configuration/ConfigLoaderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-03T07:45:18Z",
+      "side": 1,
+      "message": "since this project is using vavr I would recommend using vavr Optional",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
