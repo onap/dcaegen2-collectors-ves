@@ -18,31 +18,34 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.restapi;
+package org.onap.dcae.common.validator;
 
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.FileReader;
 import org.onap.dcae.common.model.VesEvent;
+import org.onap.dcae.restapi.ApiException;
+import org.onap.dcae.restapi.EventValidatorException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class EventValidatorTest {
+class GeneralEventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
     private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
@@ -54,9 +57,9 @@ class EventValidatorTest {
     @Mock
     private ApplicationSettings settings;
 
-    private SchemaValidator schemaValidator = spy( new SchemaValidator());
+    private SchemaValidator schemaValidator = Mockito.spy( new SchemaValidator());
 
-    private EventValidator sut;
+    private GeneralEventValidator sut;
 
 
     @BeforeAll
@@ -66,7 +69,7 @@ class EventValidatorTest {
 
     @BeforeEach
     public void setUp(){
-        this.sut = new EventValidator(settings, schemaValidator);
+        this.sut = new GeneralEventValidator(settings, schemaValidator);
     }
 
     @Test
@@ -92,7 +95,7 @@ class EventValidatorTest {
             sut.validate(new VesEvent(jsonObject), "wrongType", DUMMY_SCHEMA_VERSION);
         } catch (EventValidatorException e) {
             //then
-            assertEquals(ApiException.INVALID_JSON_INPUT, e.getApiException());
+            Assertions.assertEquals(ApiException.INVALID_JSON_INPUT, e.getApiException());
         }
 
 
@@ -149,7 +152,7 @@ class EventValidatorTest {
     @Test
     void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
         //given
-        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves_stdnDefined_valid.json"));
 
         mockJsonSchema(newSchemaV7);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);

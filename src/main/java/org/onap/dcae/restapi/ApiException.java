@@ -37,7 +37,11 @@ public enum ApiException {
     INVALID_CUSTOM_HEADER(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (Incorrect request api version)", 400),
     MISSING_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input %1 %2 is missing from request", List.of("attribute", "event.commonEventHeader.stndDefinedNamespace"), 400),
     EMPTY_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input %1 %2 is empty in request", List.of("attribute", "event.commonEventHeader.stndDefinedNamespace"), 400),
-    NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503);
+    NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503),
+    STND_DEFINED_VALIDATION_FAILED(ExceptionType.SERVICE_EXCEPTION, "SVC2000", "The following service error occurred: %1. Error code is %2", List.of("event.stndDefinedFields.data invalid against event.stndDefinedFields.schemaReference", "400"), 400),
+    NO_LOCAL_SCHEMA_REFERENCE(ExceptionType.SERVICE_EXCEPTION, "SVC2004", "Invalid input value for %1 %2: %3", List.of("attribute", "event.stndDefinedFields.schemaReference", "Referred external schema not present in schema repository"), 400),
+    INCORRECT_INTERNAL_FILE_REFERENCE(ExceptionType.SERVICE_EXCEPTION, "SVC2000", "The following service error occurred: %1. Error code is %2", List.of("event.stndDefinedFields.schemaReference value does not correspond to any external event schema file in externalSchema repo", "400"), 400);
+
 
     public final int httpStatusCode;
     private final ExceptionType type;

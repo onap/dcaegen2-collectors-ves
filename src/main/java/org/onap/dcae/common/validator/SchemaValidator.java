@@ -18,7 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.restapi;
+package org.onap.dcae.common.validator;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,8 +47,8 @@ class SchemaValidator {
                 return true;
             }
 
-            log.warn("Schema validation failed for event: " + payload);
-            messageSet.stream().forEach(it->log.warn(it.getMessage()) );
+            log.warn("Schema validation failed for event: {}", payload);
+            messageSet.forEach(it->log.warn(it.getMessage()) );
 
             return false;
         } catch (Exception e) {
