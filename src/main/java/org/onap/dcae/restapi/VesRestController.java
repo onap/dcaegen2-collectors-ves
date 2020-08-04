@@ -24,11 +24,13 @@ package org.onap.dcae.restapi;
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.StndDefinedDataValidator;
 import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterHasEmptyValueException;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
@@ -64,15 +66,15 @@ public class VesRestController {
     private final EventValidator eventValidator;
     private final EventUpdater eventUpdater;
 
-  @Autowired
-  VesRestController(ApplicationSettings settings,
-      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils) {
+    @Autowired
+    VesRestController(ApplicationSettings settings, @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+                      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils,
+                      StndDefinedDataValidator stndDefinedDataValidator) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
         this.eventSender = eventSender;
         this.headerUtils = headerUtils;
-        this.eventValidator = new EventValidator(settings);
+        this.eventValidator = new EventValidator(settings, stndDefinedDataValidator);
         this.eventUpdater = new EventUpdater(settings);
     }
 
@@ -83,7 +85,6 @@ public class VesRestController {
         }
         return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
     }
-
 
     @PostMapping(value = {"/eventListener/{version}/eventBatch"}, consumes = "application/json")
     ResponseEntity<String> events(@RequestBody String events, @PathVariable String version, HttpServletRequest request) {
@@ -100,7 +101,7 @@ public class VesRestController {
             final String requestURI = request.getRequestURI();
             return handleEvent(vesEvent, version, type, headerUtils, requestURI);
         }
-        return badRequest().body(String.format(ApiException.INVALID_CUSTOM_HEADER.toString()));
+        return badRequest().body(ApiException.INVALID_CUSTOM_HEADER.toString());
     }
 
     private ResponseEntity<String> handleEvent(VesEvent vesEvent, String version, String type, CustomHeaderUtils headerUtils, String requestURI) {
