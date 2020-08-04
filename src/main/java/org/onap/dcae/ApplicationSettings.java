@@ -170,6 +170,26 @@ public class ApplicationSettings {
         }
     }
 
+    public boolean getExternalSchema2ndStageValidation() {
+        return properties.getInt("collector.externalSchema.2ndStageValidation", -1) > 0;
+    }
+
+    public String getExternalSchemaSchemasLocation() {
+        return properties.getString("collector.externalSchema.schemasLocation", "./etc/externalRepo");
+    }
+
+    public String getExternalSchemaMappingFileLocation() {
+        return properties.getString("collector.externalSchema.mappingFileLocation", "./etc/externalRepo/schema-map.json");
+    }
+
+    public String getExternalSchemaSchemaRefPath() {
+        return properties.getString("collector.externalSchema.schemaRefPath", "/event/stndDefinedFields/schemaReference");
+    }
+
+    public String getExternalSchemaStndDefinedDataPath() {
+        return properties.getString("collector.externalSchema.stndDefinedDataPath", "/event/stndDefinedFields/data");
+    }
+
     public List<EventTransformation> getEventTransformations() {
         return eventTransformations;
     }
