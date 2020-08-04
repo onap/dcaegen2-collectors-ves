@@ -21,6 +21,21 @@
 
 package org.onap.dcae;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.JsonSchema;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Objects;
+
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -29,20 +44,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.onap.dcae.CLIUtils.processCmdLine;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.schema.JsonSchema;
-import io.vavr.collection.HashMap;
-import io.vavr.collection.Map;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Objects;
-import org.junit.Test;
 
 public class ApplicationSettingsTest {
 
@@ -70,7 +71,7 @@ public class ApplicationSettingsTest {
 
     @Test
     public void shouldMakeApplicationSettingsOutOfCLIArgumentsAndAConfigurationFile()
-        throws IOException {
+            throws IOException {
         // given
         File tempConfFile = File.createTempFile("doesNotMatter", "doesNotMatter");
         Files.write(tempConfFile.toPath(), Arrays.asList("section.subSection1=abc", "section.subSection2=zxc"));
@@ -111,7 +112,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnHTTPPort() throws IOException {
         // when
         int applicationPort = fromTemporaryConfiguration("collector.service.port=8090")
-            .httpPort();
+                .httpPort();
 
         // then
         assertEquals(8090, applicationPort);
@@ -130,7 +131,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnIfHTTPSIsEnabled() throws IOException {
         // when
         boolean httpsEnabled = fromTemporaryConfiguration("collector.service.secure.port=8443")
-            .httpsEnabled();
+                .httpsEnabled();
 
         // then
         assertTrue(httpsEnabled);
@@ -157,7 +158,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnHTTPSPort() throws IOException {
         // when
         int httpsPort = fromTemporaryConfiguration("collector.service.secure.port=8443")
-            .httpsPort();
+                .httpsPort();
 
         // then
         assertEquals(8443, httpsPort);
@@ -167,7 +168,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnConfigurationUpdateInterval() throws IOException {
         // when
         int updateFrequency = fromTemporaryConfiguration("collector.dynamic.config.update.frequency=10")
-            .configurationUpdateFrequency();
+                .configurationUpdateFrequency();
 
         // then
         assertEquals(10, updateFrequency);
@@ -177,7 +178,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnDefaultConfigurationUpdateInterval() throws IOException {
         // when
         int updateFrequency = fromTemporaryConfiguration()
-            .configurationUpdateFrequency();
+                .configurationUpdateFrequency();
 
         // then
         assertEquals(5, updateFrequency);
@@ -187,7 +188,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnLocationOfThePasswordFile() throws IOException {
         // when
         String passwordFileLocation = fromTemporaryConfiguration("collector.keystore.passwordfile=/somewhere/password")
-            .keystorePasswordFileLocation();
+                .keystorePasswordFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/password"), passwordFileLocation);
@@ -206,7 +207,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnLocationOfTheKeystoreFile() throws IOException {
         // when
         String keystoreFileLocation = fromTemporaryConfiguration("collector.keystore.file.location=/somewhere/keystore")
-            .keystoreFileLocation();
+                .keystoreFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/keystore"), keystoreFileLocation);
@@ -225,7 +226,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnDMAAPConfigFileLocation() throws IOException {
         // when
         String dmaapConfigFileLocation = fromTemporaryConfiguration("collector.dmaapfile=/somewhere/dmaapFile")
-            .dMaaPConfigurationFileLocation();
+                .dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/dmaapFile"), dmaapConfigFileLocation);
@@ -244,7 +245,7 @@ public class ApplicationSettingsTest {
     public void shouldTellIfSchemaValidationIsEnabled() throws IOException {
         // when
         boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration("collector.schema.checkflag=1")
-            .eventSchemaValidationEnabled();
+                .eventSchemaValidationEnabled();
 
         // then
         assertTrue(jsonSchemaValidationEnabled);
@@ -266,8 +267,8 @@ public class ApplicationSettingsTest {
 
         // when
         JsonSchema schema = fromTemporaryConfiguration(
-            String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
-            .jsonSchema("v1");
+                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                .jsonSchema("v1");
 
         // then
         JsonNode incorrectTestObject = new ObjectMapper().readTree("{ \"state\": 1 }");
@@ -295,7 +296,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnExceptionConfigFileLocation() throws IOException {
         // when
         String exceptionConfigFileLocation = fromTemporaryConfiguration("exceptionConfig=/somewhere/exceptionFile")
-            .exceptionConfigFileLocation();
+                .exceptionConfigFileLocation();
 
         // then
         assertEquals("/somewhere/exceptionFile", exceptionConfigFileLocation);
@@ -315,14 +316,14 @@ public class ApplicationSettingsTest {
     public void shouldReturnDMAAPStreamId() throws IOException {
         // given
         Map<String, String[]> expected = HashMap.of(
-            "log", new String[]{"ves-syslog", "ves-auditlog"},
-            "fault", new String[]{"ves-fault"}
+                "log", new String[]{"ves-syslog", "ves-auditlog"},
+                "fault", new String[]{"ves-fault"}
         );
 
         // when
         Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration(
-            "collector.dmaap.streamid=fault=ves-fault|log=ves-syslog,ves-auditlog")
-            .getDmaapStreamIds();
+                "collector.dmaap.streamid=fault=ves-fault|log=ves-syslog,ves-auditlog")
+                .getDmaapStreamIds();
 
         // then
         assertArrayEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
@@ -352,11 +353,11 @@ public class ApplicationSettingsTest {
     public void shouldReturnValidCredentials() throws IOException {
         // when
         Map<String, String> allowedUsers = fromTemporaryConfiguration(
-            "header.authlist=pasza,c2ltcGxlcGFzc3dvcmQNCg==|someoneelse,c2ltcGxlcGFzc3dvcmQNCg=="
+                "header.authlist=pasza,c2ltcGxlcGFzc3dvcmQNCg==|someoneelse,c2ltcGxlcGFzc3dvcmQNCg=="
         ).validAuthorizationCredentials();
 
         // then
-        assertEquals( "c2ltcGxlcGFzc3dvcmQNCg==", allowedUsers.get("pasza").get());
+        assertEquals("c2ltcGxlcGFzc3dvcmQNCg==", allowedUsers.get("pasza").get());
         assertEquals("c2ltcGxlcGFzc3dvcmQNCg==", allowedUsers.get("someoneelse").get());
     }
 
@@ -364,7 +365,7 @@ public class ApplicationSettingsTest {
     public void shouldbyDefaultThereShouldBeNoValidCredentials() throws IOException {
         // when
         Map<String, String> userToBase64PasswordDelimitedByCommaSeparatedByPipes = fromTemporaryConfiguration().
-            validAuthorizationCredentials();
+                validAuthorizationCredentials();
 
         // then
         assertTrue(userToBase64PasswordDelimitedByCommaSeparatedByPipes.isEmpty());
@@ -374,7 +375,7 @@ public class ApplicationSettingsTest {
     public void shouldReturnIfEventTransformingIsEnabled() throws IOException {
         // when
         boolean isEventTransformingEnabled = fromTemporaryConfiguration("event.transform.flag=0")
-            .eventTransformingEnabled();
+                .eventTransformingEnabled();
 
         // then
         assertFalse(isEventTransformingEnabled);
@@ -393,8 +394,8 @@ public class ApplicationSettingsTest {
     public void shouldReturnCambriaConfigurationFileLocation() throws IOException {
         // when
         String cambriaConfigurationFileLocation = fromTemporaryConfiguration(
-            "collector.dmaapfile=/somewhere/dmaapConfig")
-            .dMaaPConfigurationFileLocation();
+                "collector.dmaapfile=/somewhere/dmaapConfig")
+                .dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("/somewhere/dmaapConfig"), cambriaConfigurationFileLocation);
@@ -404,14 +405,64 @@ public class ApplicationSettingsTest {
     public void shouldReturnDefaultCambriaConfigurationFileLocation() throws IOException {
         // when
         String cambriaConfigurationFileLocation = fromTemporaryConfiguration()
-            .dMaaPConfigurationFileLocation();
+                .dMaaPConfigurationFileLocation();
 
         // then
         assertEquals(sanitizePath("etc/DmaapConfig.json"), cambriaConfigurationFileLocation);
     }
 
+    @Test
+    public void shouldReturnDefaultExternalSchemaSchemasLocation() throws IOException {
+        //when
+        String externalSchemaSchemasLocation = fromTemporaryConfiguration()
+                .getExternalSchemaSchemasLocation();
+
+        //then
+        assertEquals(sanitizePath("./etc/externalRepo"), externalSchemaSchemasLocation);
+    }
+
+    @Test
+    public void shouldReturnDefaultExternalSchemaMappingFileLocation() throws IOException {
+        //when
+        String externalSchemaMappingFileLocation = fromTemporaryConfiguration()
+                .getExternalSchemaMappingFileLocation();
+
+        //then
+        assertEquals(sanitizePath("./etc/externalRepo/schema-map.json"), externalSchemaMappingFileLocation);
+    }
+
+    @Test
+    public void shouldReturnDefaultExternalSchemaSchemaRefPath() throws IOException {
+        //when
+        String externalSchemaSchemaRefPath = fromTemporaryConfiguration()
+                .getExternalSchemaSchemaRefPath();
+
+        //then
+        assertEquals(sanitizePath("/event/stndDefinedFields/schemaReference"), externalSchemaSchemaRefPath);
+    }
+
+    @Test
+    public void shouldReturnDefaultExternalSchemaStndDefinedDataPath() throws IOException {
+        //when
+        String externalSchemaStndDefinedDataPath = fromTemporaryConfiguration()
+                .getExternalSchemaStndDefinedDataPath();
+
+        //then
+        assertEquals(sanitizePath("/event/stndDefinedFields/data"), externalSchemaStndDefinedDataPath);
+    }
+
+    @Test
+    public void shouldReturnEnabledExternalSchema2ndStageValidation() throws IOException {
+        //when
+        boolean externalSchema2ndStageValidation = fromTemporaryConfiguration("collector.externalSchema.2ndStageValidation=-1")
+                .getExternalSchema2ndStageValidation();
+
+        //then
+        assertFalse(externalSchema2ndStageValidation);
+    }
+
     private static ApplicationSettings fromTemporaryConfiguration(String... fileLines)
-        throws IOException {
+            throws IOException {
         File tempConfFile = File.createTempFile("doesNotMatter", "doesNotMatter");
         Files.write(tempConfFile.toPath(), Arrays.asList(fileLines));
         tempConfFile.deleteOnExit();

@@ -30,13 +30,19 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class VesEventTest {
 
+    private static final String FAULT_DOMAIN = "fault";
+    private static final String FAULT_STREAM_ID = "fault";
+    private static final String STND_DEFINED_DOMAIN = "stndDefined";
+    private static final String STND_DEFINED_STREAM_ID = "3GPP-FaultSupervision";
+
     @Test
     public void shouldReturnsOriginalDomainForNonStdEvent() throws IOException {
         // given
         final VesEvent vesEvent = createVesEvent("/eventsAfterTransformation/ves7_valid_event.json");
 
         // when/then
-        Assertions.assertThat(vesEvent.getDomain()).isEqualTo("fault");
+        Assertions.assertThat(vesEvent.getDomain()).isEqualTo(FAULT_DOMAIN);
+        Assertions.assertThat(vesEvent.getStreamId()).isEqualTo(FAULT_STREAM_ID);
     }
 
     @Test
@@ -45,7 +51,8 @@ public class VesEventTest {
         final VesEvent vesEvent = createVesEvent("/eventsAfterTransformation/ves_stdnDefined_valid.json");
 
         // when/then
-        Assertions.assertThat(vesEvent.getDomain()).isEqualTo("3GPP-FaultSupervision");
+        Assertions.assertThat(vesEvent.getDomain()).isEqualTo(STND_DEFINED_DOMAIN);
+        Assertions.assertThat(vesEvent.getStreamId()).isEqualTo(STND_DEFINED_STREAM_ID);
     }
 
 
@@ -60,7 +67,7 @@ public class VesEventTest {
         // when
         assertThatExceptionOfType(StndDefinedNamespaceParameterNotDefinedException.class)
                 .isThrownBy(() -> {
-                    vesEvent.getDomain();
+                    vesEvent.getStreamId();
                 });
     }
 
@@ -74,7 +81,7 @@ public class VesEventTest {
         // when/then
         assertThatExceptionOfType(StndDefinedNamespaceParameterHasEmptyValueException.class)
                 .isThrownBy(() -> {
-                    vesEvent.getDomain();
+                    vesEvent.getStreamId();
                 });
     }
 
