@@ -20,6 +20,7 @@
 
 package org.onap.dcae.restapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.FileReader;
+import org.onap.dcae.common.StndDefinedDataValidator;
+import org.onap.dcae.common.StndDefinedValidatorResolver;
 import org.onap.dcae.common.model.VesEvent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,6 +48,11 @@ import static org.mockito.Mockito.when;
 class EventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
+    private static final String MAPPING_FILE_LOCATION = "./src/test/resources/stndDefined/schema-map.json";
+    private static final String SCHEMA_FILES_LOCATION = "src/test/resources/stndDefined";
+    private static final String STND_DEFINED_DATA_PATH = "/event/stndDefinedFields/data";
+    private static final String SCHEMA_REF_PATH = "/event/stndDefinedFields/schemaReference";
+
     private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
     private JSONObject sentEvent;
     private static final String V7_VERSION = "v7";
@@ -54,10 +62,9 @@ class EventValidatorTest {
     @Mock
     private ApplicationSettings settings;
 
-    private SchemaValidator schemaValidator = spy( new SchemaValidator());
+    private SchemaValidator schemaValidator = spy(new SchemaValidator());
 
     private EventValidator sut;
-
 
     @BeforeAll
     static void setupTests() {
@@ -66,11 +73,14 @@ class EventValidatorTest {
 
     @BeforeEach
     public void setUp(){
-        this.sut = new EventValidator(settings, schemaValidator);
+        mockStndDefinedValidationProps();
+        StndDefinedValidatorResolver resolver = new StndDefinedValidatorResolver(settings);
+        StndDefinedDataValidator stndDefinedDataValidator = new StndDefinedDataValidator(resolver);
+        this.sut = new EventValidator(settings, schemaValidator, stndDefinedDataValidator);
     }
 
     @Test
-    void shouldNotValidateEventWhenJsonSchemaValidationDisabled() throws EventValidatorException {
+    void shouldNotValidateEventWhenJsonSchemaValidationDisabled() throws EventValidatorException, JsonProcessingException {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(false);
 
@@ -83,7 +93,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnInvalidJsonErrorOnWrongType() {
+    void shouldReturnInvalidJsonErrorOnWrongType() throws JsonProcessingException {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
@@ -99,7 +109,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() {
+    void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() throws JsonProcessingException {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
@@ -116,11 +126,13 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
+    void shouldReturnEmptyOptionalOnValidJsonObjectSchema() throws JsonProcessingException {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        when(settings.getExternalSchema2ndStageValidation()).thenReturn(false);
+
 
         //when
         try {
@@ -131,7 +143,7 @@ class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() {
+    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() throws JsonProcessingException {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_30_1_1_event.json"));
 
@@ -147,12 +159,13 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
+    void shouldReturnNoErrorsWhenValidatingValidEventWithValidStndDefinedFields() throws JsonProcessingException {
         //given
-        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves_stdnDefined_valid.json"));
 
         mockJsonSchema(newSchemaV7);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        when(settings.getExternalSchema2ndStageValidation()).thenReturn(true);
 
         //when
         try {
@@ -163,7 +176,25 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
+    void shouldReturnErrorWhenValidatingValidEventWithInvalidStndDefinedFields() throws JsonProcessingException {
+        //given
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves_stdnDefined_invalid.json"));
+
+        mockJsonSchema(newSchemaV7);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        when(settings.getExternalSchema2ndStageValidation()).thenReturn(true);
+
+        //when
+        try {
+            sut.validate(new VesEvent(sentEvent), EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            //then
+            assertEquals(ApiException.STND_DEFINED_VALIDATION_FAILED, e.getApiException());
+        }
+    }
+
+    @Test
+    void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() throws JsonProcessingException {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_invalid_30_1_1_event.json"));
 
@@ -177,8 +208,13 @@ class EventValidatorTest {
             //then
             assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
         }
+    }
 
-
+    private void mockStndDefinedValidationProps() {
+        when(settings.getExternalSchemaMappingFileLocation()).thenReturn(MAPPING_FILE_LOCATION);
+        when(settings.getExternalSchemaSchemaRefPath()).thenReturn(SCHEMA_REF_PATH);
+        when(settings.getExternalSchemaSchemasLocation()).thenReturn(SCHEMA_FILES_LOCATION);
+        when(settings.getExternalSchemaStndDefinedDataPath()).thenReturn(STND_DEFINED_DATA_PATH);
     }
 
     private void failWithError() {
