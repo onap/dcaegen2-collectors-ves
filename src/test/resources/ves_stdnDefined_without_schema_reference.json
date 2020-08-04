@@ -1,0 +1,22 @@
+{
+  "event": {
+    "commonEventHeader": {
+      "version": "4.1",
+      "vesEventListenerVersion": "7.2",
+      "domain": "stndDefined",
+      "eventId": "stndDefined-gNB_Nokia000001",
+      "eventName": "stndDefined-gNB-Nokia-PowerLost",
+      "stndDefinedNamespace": "3GPP-FaultSupervision",
+      "startEpochMicrosec": 1413378172000000,
+      "lastEpochMicrosec": 1413378172000000,
+      "reportingEntityName": "ibcx0001vm002oam001",
+      "sourceName": "scfx0001vm002cap001",
+      "sequence": 1,
+      "priority": "High"
+    },
+    "stndDefinedFields": {
+      "data": {},
+      "stndDefinedFieldsVersion": "1.0"
+    }
+  }
+}

@@ -27,10 +27,12 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.onap.dcae.common.EventSender;
+import org.onap.dcae.common.validator.StndDefinedValidatorResolver;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.onap.dcae.common.publishing.PublisherConfig;
 import org.onap.dcae.controller.ConfigLoader;
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.service.StndDefinedValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -134,6 +136,11 @@ public class VesApplication {
     @Qualifier("eventSender")
     public EventSender eventSender() {
         return new EventSender(eventPublisher, applicationSettings.getDmaapStreamIds());
+    }
+
+    @Bean
+    public StndDefinedValidator getStndDefinedValidator(StndDefinedValidatorResolver resolver) {
+        return resolver.resolve();
     }
 
 }

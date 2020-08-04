@@ -29,6 +29,8 @@ import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.validator.GeneralEventValidator;
+import org.onap.dcae.common.validator.StndDefinedDataValidator;
 import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterHasEmptyValueException;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
@@ -61,18 +63,20 @@ public class VesRestController {
     private final Logger requestLogger;
     private EventSender eventSender;
     private final HeaderUtils headerUtils;
-    private final EventValidator eventValidator;
+    private final GeneralEventValidator generalEventValidator;
     private final EventUpdater eventUpdater;
+    private final StndDefinedDataValidator stndDefinedValidator;
 
-  @Autowired
-  VesRestController(ApplicationSettings settings,
-      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils) {
+    @Autowired
+    VesRestController(ApplicationSettings settings, @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+                      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils,
+                      StndDefinedDataValidator stndDefinedDataValidator) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
         this.eventSender = eventSender;
         this.headerUtils = headerUtils;
-        this.eventValidator = new EventValidator(settings);
+        this.stndDefinedValidator = stndDefinedDataValidator;
+        this.generalEventValidator = new GeneralEventValidator(settings);
         this.eventUpdater = new EventUpdater(settings);
     }
 
@@ -83,7 +87,6 @@ public class VesRestController {
         }
         return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
     }
-
 
     @PostMapping(value = {"/eventListener/{version}/eventBatch"}, consumes = "application/json")
     ResponseEntity<String> events(@RequestBody String events, @PathVariable String version, HttpServletRequest request) {
@@ -100,13 +103,14 @@ public class VesRestController {
             final String requestURI = request.getRequestURI();
             return handleEvent(vesEvent, version, type, headerUtils, requestURI);
         }
-        return badRequest().body(String.format(ApiException.INVALID_CUSTOM_HEADER.toString()));
+        return badRequest().body(ApiException.INVALID_CUSTOM_HEADER.toString());
     }
 
     private ResponseEntity<String> handleEvent(VesEvent vesEvent, String version, String type, CustomHeaderUtils headerUtils, String requestURI) {
         try {
-            eventValidator.validate(vesEvent, type, version);
+            generalEventValidator.validate(vesEvent, type, version);
             List<VesEvent> vesEvents = transformEvent(vesEvent, type, version, requestURI);
+            executeStndDefinedValidation(vesEvents);
             eventSender.send(vesEvents);
         } catch (EventValidatorException e) {
             return ResponseEntity.status(e.getApiException().httpStatusCode)
@@ -124,6 +128,12 @@ public class VesRestController {
                 .contentType(MediaType.APPLICATION_JSON).body("Accepted");
     }
 
+    private void executeStndDefinedValidation(List<VesEvent> vesEvents) {
+        if (settings.getExternalSchemaValidationCheckflag()) {
+            vesEvents.forEach(stndDefinedValidator::validate);
+        }
+    }
+
     private CustomHeaderUtils createHeaderUtils(String version, HttpServletRequest request) {
         return new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
                 headerUtils.extractHeaders(request),
@@ -133,8 +143,7 @@ public class VesRestController {
     }
 
     private List<VesEvent> transformEvent(VesEvent vesEvent, String type, String version, String requestURI) {
-        return this.eventUpdater.convert(
-                vesEvent, version, generateUUID(vesEvent, version, requestURI), type);
+        return this.eventUpdater.convert(vesEvent, version, generateUUID(vesEvent, version, requestURI), type);
     }
 
     private UUID generateUUID(VesEvent vesEvent, String version, String uri) {
