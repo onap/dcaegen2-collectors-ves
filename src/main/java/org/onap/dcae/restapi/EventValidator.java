@@ -31,43 +31,43 @@ import org.onap.dcae.common.model.VesEvent;
  */
 public class EventValidator {
 
-  private final SchemaValidator schemaValidator;
-  private final ApplicationSettings applicationSettings;
+    private final SchemaValidator schemaValidator;
+    private final ApplicationSettings applicationSettings;
 
-  public EventValidator(ApplicationSettings applicationSettings) {
-    this(applicationSettings, new SchemaValidator());
-  }
-
-  EventValidator(ApplicationSettings applicationSettings,  SchemaValidator schemaValidator) {
-    this.applicationSettings = applicationSettings;
-    this.schemaValidator = schemaValidator;
-  }
-
-  /**
-   * This method is validating given event using schema adn throws exception if event is not valid
-   *
-   * @param vesEvent event that will be validate
-   * @param type expected type of event
-   * @param version json schema version that will be used
-   * @throws EventValidatorException when event is not valid or have wrong type
-   */
-  public void validate(VesEvent vesEvent, String type, String version) throws EventValidatorException {
-    if (applicationSettings.eventSchemaValidationEnabled()) {
-      doValidation(vesEvent, type, version);
+    public EventValidator(ApplicationSettings applicationSettings) {
+        this(applicationSettings, new SchemaValidator());
     }
-  }
 
-  private void doValidation(VesEvent vesEvent, String type, String version) throws EventValidatorException {
-    if (vesEvent.hasType(type)) {
-      if (!isEventMatchToSchema(vesEvent, applicationSettings.jsonSchema(version))) {
-        throw new EventValidatorException(ApiException.SCHEMA_VALIDATION_FAILED);
-      }
-    } else {
-      throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
+    EventValidator(ApplicationSettings applicationSettings, SchemaValidator schemaValidator) {
+        this.applicationSettings = applicationSettings;
+        this.schemaValidator = schemaValidator;
     }
-  }
 
-  private boolean isEventMatchToSchema(VesEvent vesEvent, JsonSchema schema) {
-    return schemaValidator.conformsToSchema(vesEvent.asJsonObject(), schema);
-  }
+    /**
+     * This method is validating given event using schema adn throws exception if event is not valid
+     *
+     * @param vesEvent event that will be validate
+     * @param type     expected type of event
+     * @param version  json schema version that will be used
+     * @throws EventValidatorException when event is not valid or have wrong type
+     */
+    public void validate(VesEvent vesEvent, String type, String version) throws EventValidatorException {
+        if (applicationSettings.eventSchemaValidationEnabled()) {
+            doValidation(vesEvent, type, version);
+        }
+    }
+
+    private void doValidation(VesEvent vesEvent, String type, String version) throws EventValidatorException {
+        if (vesEvent.hasType(type)) {
+            if (!isEventMatchToSchema(vesEvent, applicationSettings.jsonSchema(version))) {
+                throw new EventValidatorException(ApiException.SCHEMA_VALIDATION_FAILED);
+            }
+        } else {
+            throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
+        }
+    }
+
+    private boolean isEventMatchToSchema(VesEvent vesEvent, JsonSchema schema) {
+        return schemaValidator.conformsToSchema(vesEvent.asJsonObject(), schema);
+    }
 }

@@ -149,7 +149,7 @@ class EventValidatorTest {
     @Test
     void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
         //given
-        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves_stdnDefined_valid.json"));
 
         mockJsonSchema(newSchemaV7);
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
