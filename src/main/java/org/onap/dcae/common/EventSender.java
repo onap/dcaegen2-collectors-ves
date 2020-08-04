@@ -34,22 +34,22 @@ import java.util.List;
 public class EventSender {
 
   private static final Logger metriclog = LoggerFactory.getLogger("com.att.ecomp.metrics");
-  private Map<String, String[]> dmaapStreamIds;
+  private Map<String, String[]> streamIdToDmaapIds;
   private EventPublisher eventPublisher;
   private static final Logger log = LoggerFactory.getLogger(EventSender.class);
 
-  public EventSender(EventPublisher eventPublisher, Map<String, String[]> dmaapStreamIds) {
+  public EventSender(EventPublisher eventPublisher, Map<String, String[]> streamIdToDmaapIds) {
     this.eventPublisher = eventPublisher;
-    this.dmaapStreamIds = dmaapStreamIds;
+    this.streamIdToDmaapIds = streamIdToDmaapIds;
   }
 
   public void send(List<VesEvent> vesEvents) {
     for (VesEvent vesEvent : vesEvents) {
       metriclog.info("EVENT_PUBLISH_START");
       setLoggingContext(vesEvent);
-      dmaapStreamIds.get(vesEvent.getDomain())
-          .onEmpty(() -> log.error("No StreamID defined for publish - Message dropped" + vesEvent.asJsonObject()))
-          .forEach(streamIds -> sendEventsToStreams(vesEvent, streamIds));
+      streamIdToDmaapIds.get(vesEvent.getStreamId())
+              .onEmpty(() -> log.error("No StreamID defined for publish - Message dropped" + vesEvent.asJsonObject()))
+              .forEach(streamIds -> sendEventsToStreams(vesEvent, streamIds));
       log.debug("Message published" + vesEvent.asJsonObject());
     }
     log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");

@@ -19,6 +19,9 @@
  */
 package org.onap.dcae.common.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 
 public class VesEvent {
@@ -29,6 +32,8 @@ public class VesEvent {
     private static final String DOMAIN = "domain";
     private static final String STND_DEFINED_NAMESPACE = "stndDefinedNamespace";
     private static final String STND_DEFINED_DOMAIN = "stndDefined";
+    private static final String STND_DEFINED_FIELDS = "stndDefinedFields";
+    public static final String SCHEMA_REFERENCE = "schemaReference";
 
     private final JSONObject event;
 
@@ -36,22 +41,32 @@ public class VesEvent {
         this.event = event;
     }
 
-    public String getDomain() {
-        final JSONObject eventHeader = event
-                .getJSONObject(EVENT_LITERAL)
-                .getJSONObject(COMMON_EVENT_HEADER);
+    public String getStreamId() {
+        String retVal = getDomain();
 
-        String eventDomain = eventHeader
-                .getString(DOMAIN);
-
-        if (isStdDefinedEvent(eventDomain)) {
-            eventDomain = resolveDomainForStndDomainEvent(eventHeader);
+        if (isStdDefinedDomain(retVal)) {
+            retVal = resolveDomainForStndDefinedEvent();
         }
 
-        return eventDomain;
+        return retVal;
     }
 
-    private String resolveDomainForStndDomainEvent(JSONObject eventHeader) {
+    public String getDomain() {
+        return getEventHeader().getString(DOMAIN);
+    }
+
+    public String getSchemaReference() {
+        return getStndDefinedFields().getString(SCHEMA_REFERENCE);
+    }
+
+    private JSONObject getStndDefinedFields() {
+        return event
+                .getJSONObject(EVENT_LITERAL)
+                .getJSONObject(STND_DEFINED_FIELDS);
+    }
+
+    private String resolveDomainForStndDefinedEvent() {
+        final JSONObject eventHeader = getEventHeader();
         if(eventHeader.has(STND_DEFINED_NAMESPACE)) {
             final String domain = eventHeader
                     .getString(STND_DEFINED_NAMESPACE);
@@ -64,7 +79,13 @@ public class VesEvent {
         }
     }
 
-    private boolean isStdDefinedEvent(String domain) {
+    private JSONObject getEventHeader() {
+        return event
+                .getJSONObject(EVENT_LITERAL)
+                .getJSONObject(COMMON_EVENT_HEADER);
+    }
+
+    private boolean isStdDefinedDomain(String domain) {
         return domain.equals(STND_DEFINED_DOMAIN);
     }
 
@@ -76,7 +97,13 @@ public class VesEvent {
         return new JSONObject(event.toString());
     }
 
+    public JsonNode asJsonNode() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(event.toString());
+    }
+
     public boolean hasType(String type) {
         return this.event.has(type);
     }
+
 }
