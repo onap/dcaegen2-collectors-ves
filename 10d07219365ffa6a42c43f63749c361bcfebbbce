@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "e56925ce_d88c7654",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-04T08:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0155089_6b7d9c79",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e7cc20f_b1771822",
         "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoader.java",
         "patchSetId": 3
@@ -82,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "07e793dd_d3ae88f1",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-04T08:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f556c2_c7ed7b89",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de453cc6_6b3b6aa2",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
         "patchSetId": 3
@@ -105,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "134ebc41_a59eb0e0",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-04T08:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de453cc6_6b3b6aa2",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1adbd3_d2be8616",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
         "patchSetId": 3
@@ -125,6 +197,30 @@
       "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae433c2f_225d2937",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-04T08:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1adbd3_d2be8616",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 39
+      },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
