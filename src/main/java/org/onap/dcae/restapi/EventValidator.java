@@ -20,41 +20,74 @@
  */
 package org.onap.dcae.restapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.networknt.schema.JsonSchema;
 import org.onap.dcae.ApplicationSettings;
+import org.onap.dcae.common.StndDefinedDataValidator;
 import org.onap.dcae.common.model.VesEvent;
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 
 public class EventValidator {
 
-  private final SchemaValidator schemaValidator;
-  private final ApplicationSettings applicationSettings;
+    public static final String STND_DEFINED_DOMAIN = "stndDefined";
+    private final SchemaValidator schemaValidator;
+    private final ApplicationSettings applicationSettings;
+    private final StndDefinedDataValidator stndDefinedDataValidator;
 
-  public EventValidator(ApplicationSettings applicationSettings) {
-    this(applicationSettings, new SchemaValidator());
-  }
-
-  EventValidator(ApplicationSettings applicationSettings,  SchemaValidator schemaValidator) {
-    this.applicationSettings = applicationSettings;
-    this.schemaValidator = schemaValidator;
-  }
-
-  public void validate(VesEvent vesEvent, String type, String version) throws EventValidatorException {
-    if (applicationSettings.eventSchemaValidationEnabled()) {
-      doValidation(vesEvent, type, version);
+    public EventValidator(ApplicationSettings applicationSettings, StndDefinedDataValidator stndDefinedDataValidator) {
+        this(applicationSettings, new SchemaValidator(), stndDefinedDataValidator);
     }
-  }
 
-  private void doValidation(VesEvent vesEvent, String type, String version) throws EventValidatorException {
-    if (vesEvent.hasType(type)) {
-      if (!isEventMatchToSchema(vesEvent, applicationSettings.jsonSchema(version))) {
-        throw new EventValidatorException(ApiException.SCHEMA_VALIDATION_FAILED);
-      }
-    } else {
-      throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
+    EventValidator(ApplicationSettings applicationSettings, SchemaValidator schemaValidator,
+                   StndDefinedDataValidator stndDefinedDataValidator) {
+        this.applicationSettings = applicationSettings;
+        this.schemaValidator = schemaValidator;
+        this.stndDefinedDataValidator = stndDefinedDataValidator;
     }
-  }
 
-  private boolean isEventMatchToSchema(VesEvent vesEvent, JsonSchema schema) {
-    return schemaValidator.conformsToSchema(vesEvent.asJsonObject(), schema);
-  }
+    public void validate(VesEvent vesEvent, String type, String version)
+            throws EventValidatorException, JsonProcessingException {
+        if (applicationSettings.eventSchemaValidationEnabled()) {
+            doValidation(vesEvent, type, version);
+        }
+    }
+
+    private void doValidation(VesEvent vesEvent, String type, String version)
+            throws EventValidatorException, JsonProcessingException {
+        if (vesEvent.hasType(type)) {
+
+            boolean generalValidationResult = doesEventMatchToSchema(vesEvent, applicationSettings.jsonSchema(version));
+            boolean stndDefinedValidationResult = true;
+            if (shouldStndDefinedFieldsBeValidated(generalValidationResult, vesEvent)) {
+                try {
+                    stndDefinedValidationResult = stndDefinedDataValidator.validate(vesEvent.asJsonNode());
+                } catch (NoLocalReferenceException e) {
+                    throw new EventValidatorException(ApiException.NO_LOCAL_SCHEMA_REFERENCE);
+                }
+//                catch (IncorrectInternalFileReferenceException e) {
+//                    throw new EventValidatorException(ApiException.);
+//                }
+            }
+
+            if (!generalValidationResult) {
+                throw new EventValidatorException(ApiException.SCHEMA_VALIDATION_FAILED);
+            }
+            if (!stndDefinedValidationResult) {
+                throw new EventValidatorException(ApiException.STND_DEFINED_VALIDATION_FAILED);
+            }
+        } else {
+            throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
+        }
+    }
+
+    private boolean shouldStndDefinedFieldsBeValidated(boolean validationResult, VesEvent event) {
+        return validationResult
+                && event.getDomain().equals(STND_DEFINED_DOMAIN)
+                && applicationSettings.getExternalSchema2ndStageValidation()
+                && !event.getSchemaReference().isEmpty();
+    }
+
+    private boolean doesEventMatchToSchema(VesEvent vesEvent, JsonSchema schema) {
+        return schemaValidator.conformsToSchema(vesEvent.asJsonObject(), schema);
+    }
 }

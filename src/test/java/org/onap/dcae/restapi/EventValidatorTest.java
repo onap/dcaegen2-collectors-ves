@@ -20,6 +20,7 @@
 
 package org.onap.dcae.restapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.FileReader;
+import org.onap.dcae.common.StndDefinedDataValidator;
+import org.onap.dcae.common.StndDefinedValidatorResolver;
 import org.onap.dcae.common.model.VesEvent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,6 +61,8 @@ class EventValidatorTest {
 
     private EventValidator sut;
 
+    private StndDefinedValidatorResolver resolver = new StndDefinedValidatorResolver(settings);
+    private StndDefinedDataValidator stndDefinedDataValidator = new StndDefinedDataValidator(resolver);
 
     @BeforeAll
     static void setupTests() {
@@ -66,13 +71,14 @@ class EventValidatorTest {
 
     @BeforeEach
     public void setUp(){
-        this.sut = new EventValidator(settings, schemaValidator);
+        this.sut = new EventValidator(settings, schemaValidator, stndDefinedDataValidator);
     }
 
     @Test
-    void shouldNotValidateEventWhenJsonSchemaValidationDisabled() throws EventValidatorException {
+    void shouldNotValidateEventWhenJsonSchemaValidationDisabled() throws EventValidatorException, JsonProcessingException {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(false);
+        when(settings.getExternalSchema2ndStageValidation()).thenReturn(false);
 
         //when
         this.sut.validate(new VesEvent(jsonObject), DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
@@ -83,7 +89,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnInvalidJsonErrorOnWrongType() {
+    void shouldReturnInvalidJsonErrorOnWrongType() throws JsonProcessingException {
         //given
         when(settings.eventSchemaValidationEnabled()).thenReturn(true);
 
@@ -99,7 +105,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() {
+    void shouldReturnSchemaValidationFailedErrorOnInvalidJsonObjectSchema() throws JsonProcessingException {
         //given
         String schemaRejectingEverything = "{\"not\":{}}";
         mockJsonSchema(schemaRejectingEverything);
@@ -116,7 +122,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
+    void shouldReturnEmptyOptionalOnValidJsonObjectSchema() throws JsonProcessingException {
         //given
         String schemaAcceptingEverything = "{}";
         mockJsonSchema(schemaAcceptingEverything);
@@ -131,7 +137,7 @@ class EventValidatorTest {
     }
 
     @Test
-    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() {
+    public void shouldReturnNoErrorsWhenValidating30_1_1ValidEvent() throws JsonProcessingException {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_30_1_1_event.json"));
 
@@ -147,7 +153,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() {
+    void shouldReturnNoErrorsWhenValidatingValidEventWithStndDefinedFields() throws JsonProcessingException {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_eventWithStndDefinedFields.json"));
 
@@ -163,7 +169,7 @@ class EventValidatorTest {
     }
 
     @Test
-    void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() {
+    void shouldReturnSchemaValidationFailedWhenValidating30_1_1InvalidEvent() throws JsonProcessingException {
         //given
         sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_invalid_30_1_1_event.json"));
 

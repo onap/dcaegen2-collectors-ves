@@ -44,6 +44,11 @@
       }
     }
   },
+  "collector.externalSchema.2ndStageValidation": -1,
+  "collector.externalSchema.schemasLocation": "./etc/externalRepo",
+  "collector.externalSchema.mappingFileLocation": "./etc/externalRepo/schema-map.json",
+  "collector.externalSchema.schemaRefPath": "/event/stndDefinedFields/schemaReference",
+  "collector.externalSchema.stndDefinedDataPath": "/event/stndDefinedFields/data",
   "collector.service.secure.port": "8443",
   "auth.method": "noAuth",
   "collector.keystore.file.location": "/opt/app/VESCollector/etc/keystore",

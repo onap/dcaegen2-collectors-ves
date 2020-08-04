@@ -24,11 +24,13 @@ package org.onap.dcae.restapi;
 import com.att.nsa.clock.SaClock;
 import com.att.nsa.logging.LoggingContext;
 import com.att.nsa.logging.log4j.EcompFields;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
+import org.onap.dcae.common.StndDefinedDataValidator;
 import org.onap.dcae.common.VESLogger;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterHasEmptyValueException;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
@@ -64,20 +66,21 @@ public class VesRestController {
     private final EventValidator eventValidator;
     private final EventUpdater eventUpdater;
 
-  @Autowired
-  VesRestController(ApplicationSettings settings,
-      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils) {
+    @Autowired
+    VesRestController(ApplicationSettings settings,
+                      @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
+                      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils,
+                      StndDefinedDataValidator stndDefinedDataValidator) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
         this.eventSender = eventSender;
         this.headerUtils = headerUtils;
-        this.eventValidator = new EventValidator(settings);
+        this.eventValidator = new EventValidator(settings, stndDefinedDataValidator);
         this.eventUpdater = new EventUpdater(settings);
     }
 
     @PostMapping(value = {"/eventListener/{version}"}, consumes = "application/json")
-    ResponseEntity<String> event(@RequestBody String event, @PathVariable String version, HttpServletRequest request) {
+    ResponseEntity<String> event(@RequestBody String event, @PathVariable String version, HttpServletRequest request) throws JsonProcessingException {
         if (settings.isVersionSupported(version)) {
             return process(event, version, request, EVENT);
         }
@@ -86,14 +89,14 @@ public class VesRestController {
 
 
     @PostMapping(value = {"/eventListener/{version}/eventBatch"}, consumes = "application/json")
-    ResponseEntity<String> events(@RequestBody String events, @PathVariable String version, HttpServletRequest request) {
+    ResponseEntity<String> events(@RequestBody String events, @PathVariable String version, HttpServletRequest request) throws JsonProcessingException {
         if (settings.isVersionSupported(version)) {
             return process(events, version, request, EVENT_LIST);
         }
         return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
     }
 
-    private ResponseEntity<String> process(String payload, String version, HttpServletRequest request, String type) {
+    private ResponseEntity<String> process(String payload, String version, HttpServletRequest request, String type) throws JsonProcessingException {
         CustomHeaderUtils headerUtils = createHeaderUtils(version, request);
         if (headerUtils.isOkCustomHeaders()) {
             final VesEvent vesEvent = new VesEvent(new JSONObject(payload));
@@ -103,7 +106,8 @@ public class VesRestController {
         return badRequest().body(String.format(ApiException.INVALID_CUSTOM_HEADER.toString()));
     }
 
-    private ResponseEntity<String> handleEvent(VesEvent vesEvent, String version, String type, CustomHeaderUtils headerUtils, String requestURI) {
+    private ResponseEntity<String> handleEvent(VesEvent vesEvent, String version, String type, CustomHeaderUtils headerUtils, String requestURI)
+            throws JsonProcessingException {
         try {
             eventValidator.validate(vesEvent, type, version);
             List<VesEvent> vesEvents = transformEvent(vesEvent, type, version, requestURI);
