@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3716cb0_91aaf0d3",
+        "filename": "etc/collector.properties",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "how about external schema mapfile and schemas?\nneed also separate property to control external/secondary schema validation",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 300
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c0591b_274d4a55",
+        "filename": "etc/collector.properties",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "As stndDefinedNamespace is identified as string in VES spec, need to confirm with exact casing (uppercase/camel case etc) expected",
+      "range": {
+        "startLine": 54,
+        "startChar": 370,
+        "endLine": 54,
+        "endChar": 391
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caef953c_388a5ec5",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "remove .s",
+      "range": {
+        "startLine": 6,
+        "startChar": 48,
+        "endLine": 6,
+        "endChar": 50
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8cfc8f0_54b9b826",
+        "filename": "src/main/java/org/onap/dcae/common/model/StndDefinedNamespaceParameterHasEmptyValueException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "remove .s",
+      "range": {
+        "startLine": 5,
+        "startChar": 48,
+        "endLine": 5,
+        "endChar": 50
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf0950b3_29306560",
+        "filename": "src/main/java/org/onap/dcae/common/model/StndDefinedNamespaceParameterNotDefinedException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "same comment as earlier; pls fix this on modified files",
+      "range": {
+        "startLine": 5,
+        "startChar": 48,
+        "endLine": 5,
+        "endChar": 50
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c6ca38_570d939f",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "Is this error code coming from VES spec?",
+      "range": {
+        "startLine": 35,
+        "startChar": 66,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "470456fd_d687b442",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "same comment as above; to be confirmed if this correspond to error code identified in VES 7.2 spec",
+      "range": {
+        "startLine": 36,
+        "startChar": 64,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3689e3d_47fc127d",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-04T03:59:04Z",
+      "side": 1,
+      "message": "fix indentation",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 99
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
