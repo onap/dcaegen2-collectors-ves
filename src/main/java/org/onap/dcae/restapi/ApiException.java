@@ -34,7 +34,10 @@ public enum ApiException {
     INVALID_CUSTOM_HEADER(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (Incorrect request api version)", 400),
     MISSING_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is missing from request", 400),
     EMPTY_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is empty in request", 400),
-    NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503);
+    NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503),
+    STND_DEFINED_VALIDATION_FAILED(ExceptionType.SERVICE_EXCEPTION, "SVC2000", "Event.stndDefinedFields.data invalid against event.stndDefinedFields.schemaReference", 400),
+    NO_LOCAL_SCHEMA_REFERENCE(ExceptionType.SERVICE_EXCEPTION, "SVC2004", "Invalid input value for attribute event.stndDefinedFields.schemaReference. Referred external schema not present in schema repository", 400),
+    INCORRECT_INTERNAL_FILE_REFERENCE(ExceptionType.SERVICE_EXCEPTION, "SVC2000", "Event.stndDefinedFields.schemaReference value does not correspond to any external event schema file in variable externalSchema repo", 400);
 
     public final int httpStatusCode;
     private final ExceptionType type;

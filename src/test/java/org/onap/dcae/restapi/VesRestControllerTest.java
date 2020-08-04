@@ -20,6 +20,7 @@
 
 package org.onap.dcae.restapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -40,6 +41,7 @@ import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
 import org.onap.dcae.common.JsonDataLoader;
+import org.onap.dcae.common.StndDefinedDataValidator;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -85,6 +87,9 @@ public class VesRestControllerTest {
     @Mock
     private EventPublisher eventPublisher;
 
+    @Mock
+    private StndDefinedDataValidator stndDefinedDataValidator;
+
     @Before
     public void setUp(){
 
@@ -93,12 +98,12 @@ public class VesRestControllerTest {
                 "3GPP-FaultSupervision", new String[]{VES_3_GPP_FAULT_SUPERVISION_TOPIC}
         );
         this.vesRestController = new VesRestController(
-                applicationSettings, logger, new EventSender(eventPublisher, streamIds),headerUtils
-        );
+                applicationSettings, logger, new EventSender(eventPublisher, streamIds),headerUtils,
+                stndDefinedDataValidator);
     }
 
     @Test
-    public void shouldReportThatApiVersionIsNotSupported() {
+    public void shouldReportThatApiVersionIsNotSupported() throws JsonProcessingException {
         // given
         when(applicationSettings.isVersionSupported("v20")).thenReturn(false);
         MockHttpServletRequest request = givenMockHttpServletRequest();
