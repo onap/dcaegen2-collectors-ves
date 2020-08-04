@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91866a8f_057563c4",
+        "filename": "etc/collector.properties",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "We have split stndDefined event routing into a few small user stories to have full control of implementation in VES.  Additionally it will be easier to review the code,\\.\n\n1. In the first US, which was merged, we added event schema and support event routing which depends only on domain parameter in the event.\n2. In the second US (this) we added event routing which depends on the domain and stndDefinedNamespace parameter.\n3. In the third US we implemented external schema validator which was added to dceagen2 sdk project. (already merged)\n4. In the fourth US we will add separate property (set default at false) to activate secondary schema validation and add external schema mapfile and schemas- to make sure that original ves validation won\u0027t be break.\n5. In the fifth US we will activate secondary schema validation and the same finish implementation of stndDefined event support.",
+      "parentUuid": "c3716cb0_91aaf0d3",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 300
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75c0591b_274d4a55",
         "filename": "etc/collector.properties",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-04T03:59:04Z",
       "side": 1,
       "message": "As stndDefinedNamespace is identified as string in VES spec, need to confirm with exact casing (uppercase/camel case etc) expected",
+      "range": {
+        "startLine": 54,
+        "startChar": 370,
+        "endLine": 54,
+        "endChar": 391
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11dd199_fa2dd25a",
+        "filename": "etc/collector.properties",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "I\u0027ve took names form specification: https://confluence.ext.net.nokia.com/display/MANO/stndDefined+domain#stndDefineddomain-VESCFYBlueprint\n\nSo, values should be correct. Do you have any other specification?",
+      "parentUuid": "75c0591b_274d4a55",
       "range": {
         "startLine": 54,
         "startChar": 370,
@@ -68,6 +116,30 @@
       "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75a9049_34a881b2",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caef953c_388a5ec5",
+      "range": {
+        "startLine": 6,
+        "startChar": 48,
+        "endLine": 6,
+        "endChar": 50
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "8f852ded_5bb4882e",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "Hmm, if https://confluence.ext.net.nokia.com/display/MANO/stndDefined+domain#stndDefineddomain-ErrorhandlinginroutingforstndDefineddomain is a VES 7.2 specification, then yes. I\u0027ve took error codes from specification.",
+      "parentUuid": "30c6ca38_570d939f",
+      "range": {
+        "startLine": 35,
+        "startChar": 66,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "470456fd_d687b442",
         "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
         "patchSetId": 11
@@ -151,6 +247,30 @@
       "writtenOn": "2020-08-04T03:59:04Z",
       "side": 1,
       "message": "same comment as above; to be confirmed if this correspond to error code identified in VES 7.2 spec",
+      "range": {
+        "startLine": 36,
+        "startChar": 64,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa66c831_be27866e",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "https://confluence.ext.net.nokia.com/display/MANO/stndDefined+domain#stndDefineddomain-ErrorhandlinginroutingforstndDefineddomain",
+      "parentUuid": "470456fd_d687b442",
       "range": {
         "startLine": 36,
         "startChar": 64,
@@ -183,6 +303,30 @@
       "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afdf6385_ab33401e",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T05:37:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3689e3d_47fc127d",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 99
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
