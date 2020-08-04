@@ -40,6 +40,7 @@ import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
 import org.onap.dcae.common.JsonDataLoader;
+import org.onap.dcae.common.validator.StndDefinedDataValidator;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -85,16 +86,17 @@ public class VesRestControllerTest {
     @Mock
     private EventPublisher eventPublisher;
 
+    @Mock
+    private StndDefinedDataValidator stndDefinedDataValidator;
+
     @Before
     public void setUp(){
-
         final HashMap<String, String[]> streamIds = HashMap.of(
                 "fault", new String[]{VES_FAULT_TOPIC},
                 "3GPP-FaultSupervision", new String[]{VES_3_GPP_FAULT_SUPERVISION_TOPIC}
         );
-        this.vesRestController = new VesRestController(
-                applicationSettings, logger, new EventSender(eventPublisher, streamIds),headerUtils
-        );
+        this.vesRestController = new VesRestController(applicationSettings, logger,
+                new EventSender(eventPublisher, streamIds), headerUtils, stndDefinedDataValidator);
     }
 
     @Test
@@ -229,7 +231,6 @@ public class VesRestControllerTest {
         configureHeadersForEventListener();
 
         MockHttpServletRequest request = givenMockHttpServletRequest();
-
         String validEvent = JsonDataLoader.loadContent("/ves_stdnDefined_valid_unknown_topic.json");
 
         //when
@@ -239,6 +240,44 @@ public class VesRestControllerTest {
         assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
         assertThat(response.getBody()).isEqualTo(ACCEPTED);
         verifyThatEventWasNotSend();
+    }
+
+    @Test
+    public void shouldExecuteStndDefinedValidationWhenFlagIsOnTrue() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+        String validEvent = JsonDataLoader.loadContent("/ves7_batch_with_stndDefined_valid.json");
+        when(applicationSettings.getExternalSchemaValidationCheckflag()).thenReturn(true);
+
+        //when
+        final ResponseEntity<String> response = vesRestController.events(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verify(stndDefinedDataValidator, times(2)).validate(any());
+    }
+
+    @Test
+    public void shouldNotExecuteStndDefinedValidationWhenFlagIsOnFalse() throws IOException {
+        //given
+        configureEventTransformations();
+        configureHeadersForEventListener();
+
+        MockHttpServletRequest request = givenMockHttpServletRequest();
+        String validEvent = JsonDataLoader.loadContent("/ves7_batch_with_stndDefined_valid.json");
+        when(applicationSettings.getExternalSchemaValidationCheckflag()).thenReturn(false);
+
+        //when
+        final ResponseEntity<String> response = vesRestController.events(validEvent, VERSION_V7, request);
+
+        //then
+        assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.SC_ACCEPTED);
+        assertThat(response.getBody()).isEqualTo(ACCEPTED);
+        verify(stndDefinedDataValidator, times(0)).validate(any());
     }
 
     private void verifyThatEventWasNotSend() {

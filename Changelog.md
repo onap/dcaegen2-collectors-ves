@@ -23,3 +23,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-1771](https://jira.onap.org/browse/DCAEGEN2-1771) - Add StndDefined event routing to dmaap streams defined in namespace event field - no second stage event validation.
         - [DCAEGEN2-1771](https://jira.onap.org/browse/DCAEGEN2-1771) - Fix error response model
         - [DCAEGEN2-1771](https://jira.onap.org/browse/DCAEGEN2-1771) - Update DPO model
+## [1.7.3] - 10/08/2020
+        - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Add implementation of stndDefined fields validation

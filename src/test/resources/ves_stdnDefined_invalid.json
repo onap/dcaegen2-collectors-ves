@@ -24,13 +24,13 @@
         "eventTime": "xyz",
         "systemDN": "xyz",
         "probableCause": 1,
-        "perceivedSeverity": "INDETERMINATE",
+        "perceivedSeverity": 1,
         "rootCauseIndicator": false,
         "specificProblem": "xyz",
         "correlatedNotifications": [],
         "backedUpStatus": true,
         "backUpObject": "xyz",
-        "trendIndication": "MORE_SEVERE",
+        "trendIndication": "123",
         "thresholdInfo": {
           "observedMeasurement": "new",
           "observedValue": 123
@@ -45,7 +45,7 @@
         "additionalInformation": {
           "addInfo": "new"
         },
-        "alarmId": "1",
+        "alarmId": 1,
         "alarmType": "COMMUNICATIONS_ALARM"
       },
       "stndDefinedFieldsVersion": "1.0"
