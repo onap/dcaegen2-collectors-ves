@@ -6,6 +6,11 @@
   "collector.service.port": "8080",
   "collector.schema.file": "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.2_ONAP.json\"}",
   "collector.keystore.passwordfile": "/opt/app/VESCollector/etc/passwordfile",
+  "collector.externalSchema.2ndStageValidation": -1,
+  "collector.externalSchema.schemasLocation":"./etc/externalRepo",
+  "collector.externalSchema.mappingFileLocation":"./etc/externalRepo/schema-map.json",
+  "collector.externalSchema.schemaRefPath":"/event/stndDefinedFields/schemaReference",
+  "collector.externalSchema.stndDefinedDataPath":"/event/stndDefinedFields/data",
   "streams_publishes": {
     "ves-measurement": {
       "type": "message_router",

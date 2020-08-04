@@ -30,6 +30,7 @@ import com.networknt.schema.JsonSchema;
 import io.vavr.Function1;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -37,6 +38,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.Nullable;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.onap.dcae.common.EventTransformation;
@@ -91,6 +93,7 @@ public class ApplicationSettings {
     public Map<String, String> validAuthorizationCredentials() {
         return prepareUsersMap(properties.getString("header.authlist", null));
     }
+
     public Path configurationFileLocation() {
         return Paths.get(configurationFileLocation);
     }
@@ -101,12 +104,12 @@ public class ApplicationSettings {
 
     public JsonSchema jsonSchema(String version) {
         return loadedJsonSchemas.get(version)
-            .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
-            .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
+                .orElse(loadedJsonSchemas.get(FALLBACK_VES_VERSION))
+                .getOrElseThrow(() -> new IllegalStateException("No fallback schema present in application."));
     }
 
-    public boolean isVersionSupported(String version){
-       return loadedJsonSchemas.containsKey(version);
+    public boolean isVersionSupported(String version) {
+        return loadedJsonSchemas.containsKey(version);
     }
 
     public int httpPort() {
@@ -153,11 +156,11 @@ public class ApplicationSettings {
         return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/DmaapConfig.json"));
     }
 
-    public String certSubjectMatcher(){
+    public String certSubjectMatcher() {
         return prependWithUserDirOnRelative(properties.getString("collector.cert.subject.matcher", "etc/certSubjectMatcher.properties"));
     }
 
-    public String authMethod(){
+    public String authMethod() {
         return properties.getString("auth.method", AuthMethodType.NO_AUTH.value());
     }
 
@@ -168,6 +171,26 @@ public class ApplicationSettings {
         } else {
             return convertDMaaPStreamsPropertyToMap(streamIdsProperty);
         }
+    }
+
+    public boolean getExternalSchema2ndStageValidation() {
+        return properties.getInt("collector.externalSchema.2ndStageValidation", -1) > 0;
+    }
+
+    public String getExternalSchemaSchemasLocation() {
+        return properties.getString("collector.externalSchema.schemasLocation", "./etc/externalRepo");
+    }
+
+    public String getExternalSchemaMappingFileLocation() {
+        return properties.getString("collector.externalSchema.mappingFileLocation", "./etc/externalRepo/schema-map.json");
+    }
+
+    public String getExternalSchemaSchemaRefPath() {
+        return properties.getString("collector.externalSchema.schemaRefPath", "/event/stndDefinedFields/schemaReference");
+    }
+
+    public String getExternalSchemaStndDefinedDataPath() {
+        return properties.getString("collector.externalSchema.stndDefinedDataPath", "/event/stndDefinedFields/data");
     }
 
     public List<EventTransformation> getEventTransformations() {
@@ -197,9 +220,9 @@ public class ApplicationSettings {
 
     private Map<String, String> prepareUsersMap(@Nullable String allowedUsers) {
         return allowedUsers == null ? HashMap.empty()
-            : io.vavr.collection.List.of(allowedUsers.split("\\|"))
-                .map(t->t.split(","))
-                .toMap(t-> t[0].trim(), t -> t[1].trim());
+                : io.vavr.collection.List.of(allowedUsers.split("\\|"))
+                .map(t -> t.split(","))
+                .toMap(t -> t[0].trim(), t -> t[1].trim());
     }
 
     private Map<String, String[]> convertDMaaPStreamsPropertyToMap(String streamIdsProperty) {
@@ -221,7 +244,8 @@ public class ApplicationSettings {
     }
 
     private List<EventTransformation> loadEventTransformations() {
-        Type EVENT_TRANSFORM_LIST_TYPE = new TypeToken<List<EventTransformation>>() {}.getType();
+        Type EVENT_TRANSFORM_LIST_TYPE = new TypeToken<List<EventTransformation>>() {
+        }.getType();
 
         try (FileReader fr = new FileReader(EVENT_TRANSFORM_FILE_PATH)) {
             log.info("parse " + EVENT_TRANSFORM_FILE_PATH + " file");

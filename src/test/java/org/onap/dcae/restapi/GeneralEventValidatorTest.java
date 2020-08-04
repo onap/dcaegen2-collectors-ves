@@ -41,7 +41,7 @@ import org.onap.dcae.FileReader;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class EventValidatorTest {
+public class GeneralEventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
     private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
@@ -54,7 +54,7 @@ public class EventValidatorTest {
     private static ApplicationSettings settings;
 
     @InjectMocks
-    private static EventValidator sut;
+    private static GeneralEventValidator sut;
 
 
     @BeforeAll

@@ -1,0 +1,26 @@
+[
+  {
+    "publicURL": "http://localhost:8080/external1",
+    "localURL": "rel-16.4/2020-07-10-3GPP_TS28532_FaultMNS.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/external2",
+    "localURL": "rel-16.4/2020-07-10-3GPP_TS28532_HeartBeatMNS.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/external3",
+    "localURL": "rel-16.4/2020-07-10-3GPP_TS28532_PerformanceMNS.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/external4",
+    "localURL": "rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/externalNoHash",
+    "localURL": "rel-16.4/NewAlarmSchema.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/external6",
+    "localURL": "rel-16.4/2020-07-10-3GPP_TS28532_StreamingDataReportingMNS.yaml"
+  }
+]
