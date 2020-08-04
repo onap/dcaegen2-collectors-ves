@@ -55,6 +55,8 @@ public class ApplicationSettings {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationSettings.class);
     private static final String FALLBACK_VES_VERSION = "v5";
+    private static final int DISABLED = -1;
+    private static final int ENABLED = 1;
     private final String appInvocationDir;
     private final String configurationFileLocation;
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
@@ -96,7 +98,7 @@ public class ApplicationSettings {
     }
 
     public boolean eventSchemaValidationEnabled() {
-        return properties.getInt("collector.schema.checkflag", -1) > 0;
+        return properties.getInt("collector.schema.checkflag", DISABLED) > 0;
     }
 
     public JsonSchema jsonSchema(String version) {
@@ -126,7 +128,7 @@ public class ApplicationSettings {
     }
 
     public boolean eventTransformingEnabled() {
-        return properties.getInt("event.transform.flag", 1) > 0;
+        return properties.getInt("event.transform.flag", ENABLED) > 0;
     }
 
     public String keystorePasswordFileLocation() {
@@ -168,6 +170,26 @@ public class ApplicationSettings {
         } else {
             return convertDMaaPStreamsPropertyToMap(streamIdsProperty);
         }
+    }
+
+    public boolean getExternalSchemaValidationCheckflag() {
+        return properties.getInt("collector.externalSchema.checkflag", DISABLED) > 0;
+    }
+
+    public String getExternalSchemaSchemasLocation() {
+        return properties.getString("collector.externalSchema.schemasLocation", "./etc/externalRepo");
+    }
+
+    public String getExternalSchemaMappingFileLocation() {
+        return properties.getString("collector.externalSchema.mappingFileLocation", "./etc/externalRepo/schema-map.json");
+    }
+
+    public String getExternalSchemaSchemaRefPath() {
+        return properties.getString("event.externalSchema.schemaRefPath", "/event/stndDefinedFields/schemaReference");
+    }
+
+    public String getExternalSchemaStndDefinedDataPath() {
+        return properties.getString("event.externalSchema.stndDefinedDataPath", "/event/stndDefinedFields/data");
     }
 
     public List<EventTransformation> getEventTransformations() {

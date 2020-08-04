@@ -19,6 +19,9 @@
  */
 package org.onap.dcae.common.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 
 /**
@@ -35,6 +38,8 @@ public class VesEvent {
     private static final String DOMAIN = "domain";
     private static final String STND_DEFINED_NAMESPACE = "stndDefinedNamespace";
     private static final String STND_DEFINED_DOMAIN = "stndDefined";
+    private static final String STND_DEFINED_FIELDS = "stndDefinedFields";
+    private static final String SCHEMA_REFERENCE = "schemaReference";
 
     private final JSONObject event;
 
@@ -64,6 +69,16 @@ public class VesEvent {
      */
     public String getDomain() {
         return getEventHeader().getString(DOMAIN);
+    }
+
+    public String getSchemaReference() {
+        return getStndDefinedFields().getString(SCHEMA_REFERENCE);
+    }
+
+    private JSONObject getStndDefinedFields() {
+        return event
+                .getJSONObject(EVENT_LITERAL)
+                .getJSONObject(STND_DEFINED_FIELDS);
     }
 
     private String resolveDomainForStndDefinedEvent() {
@@ -106,6 +121,11 @@ public class VesEvent {
      */
     public JSONObject asJsonObject() {
         return new JSONObject(event.toString());
+    }
+
+    public JsonNode asJsonNode() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(event.toString());
     }
 
     /**
