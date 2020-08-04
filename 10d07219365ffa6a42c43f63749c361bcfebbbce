@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "248dbc15_55210afa",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/EventPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T08:43:02Z",
+      "side": 1,
+      "message": "In my opinion it is a wrong use of static method.\nPls remove this method from interface. If you need factory method, then this method should be moved to DMaaPEventPublisher class.\n\nThe idea behind static interface methods is to provide a simple mechanism that allows us to increase the degree of cohesion of a design by putting together related methods in one single place without having to create an object.\n\nPretty much the same can be done with abstract classes. The main difference lies in the fact that abstract classes can have constructors, state, and behavior.\n\nFurthermore, static methods in interfaces make possible to group related utility methods, without having to create artificial utility classes that are simply placeholders for static methods.",
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0155089_6b7d9c79",
         "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoader.java",
         "patchSetId": 3
@@ -19,6 +36,23 @@
         "endLine": 23,
         "endChar": 26
       },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7cc20f_b1771822",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T08:43:02Z",
+      "side": 1,
+      "message": "add synchronize marker",
       "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -111,6 +145,40 @@
         "endLine": 35,
         "endChar": 26
       },
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7298842_baf83a28",
+        "filename": "src/test/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T08:43:02Z",
+      "side": 1,
+      "message": "why didn\u0027t you use constants from CbsClientConfigurationResolver class?\n\npls use it.",
+      "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a853da59_feef457c",
+        "filename": "src/test/java/org/onap/dcae/configuration/cbs/CbsClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-04T08:43:02Z",
+      "side": 1,
+      "message": "move null to const and give proper descriptive name",
       "revId": "10d07219365ffa6a42c43f63749c361bcfebbbce",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
