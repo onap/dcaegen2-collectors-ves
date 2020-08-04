@@ -15,7 +15,7 @@
       "priority": "High"
     },
     "stndDefinedFields": {
-      "schemaReference": "http://localhost:8080/external1#components/schemas/NotifyNewAlarm",
+      "schemaReference": "http://localhost:8081/external1#components/schemas/NotifyNewAlarm",
       "data": {
         "href": 1,
         "uri": "1",

@@ -54,8 +54,9 @@ public class ConfigProcessors {
 
         if (filter == null || isFilterMet(filter)) {
             getEventObjectVal(field);
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -65,8 +66,9 @@ public class ConfigProcessors {
         final JSONObject filter = jsonObject.optJSONObject(FILTER);
         if (filter == null || isFilterMet(filter)) {
             setEventObjectVal(field, value);
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -85,8 +87,9 @@ public class ConfigProcessors {
 
         if (filter == null || isFilterMet(filter)) {
             setEventObjectVal("suppressEvent", "true");
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -99,8 +102,9 @@ public class ConfigProcessors {
 
         if (filter == null || isFilterMet(filter)) {
             setEventObjectVal(field, value, fieldType);
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -111,8 +115,9 @@ public class ConfigProcessors {
         final JSONObject filter = jsonObject.optJSONObject(FILTER);
         if (filter == null || isFilterMet(filter)) {
             setEventObjectVal(field, value);
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -123,8 +128,9 @@ public class ConfigProcessors {
 
         if (filter == null || isFilterMet(filter)) {
             removeEventKey(field);
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -152,8 +158,9 @@ public class ConfigProcessors {
                 removeEventKey(oldfsplit[0]);
                 setEventObjectVal(fsplit[0], ja);
             }
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
     private void renameObject(JSONObject jsonObject) // map
@@ -170,29 +177,30 @@ public class ConfigProcessors {
                 setEventObjectVal(field, oldValue);
                 removeEventKey(oldField);
             }
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
-    
+
     public void map(JSONObject jsonObject) {
 
         final String field = jsonObject.getString(FIELD);
         final String mapType = jsonObject.optString(MAP_TYPE, "");
         if (field.contains("[]")) {
-            if (field.matches(".*\\[\\]\\..*\\[\\]"))
+            if (field.matches(".*\\[\\]\\..*\\[\\]")) {
                 renameArrayInArray(jsonObject);
-            else
+            } else {
                 mapToJArray(jsonObject);
+            }
+        } else if ("hashmapToNameValueArray".equals(mapType)) {
+            mapHashmapToNameValueArray(jsonObject);
+        } else if ("nameValueArrayToHashmap".equals(mapType)) {
+            mapNameValueArrayToHashmap(jsonObject);
+        } else if ("renameObject".equals(mapType)) {
+            renameObject(jsonObject);
+        } else {
+            mapAttribute(jsonObject);
         }
-        else if (mapType.equals("hashmapToNameValueArray"))
-        	mapHashmapToNameValueArray(jsonObject);
-        else if (mapType.equals("nameValueArrayToHashmap"))
-        	mapNameValueArrayToHashmap(jsonObject);
-    	else if (mapType.equals("renameObject"))
-    		renameObject(jsonObject);
-    		
-        else
-        mapAttribute(jsonObject);
     }
 
     private String performOperation(String operation, String value) {
@@ -216,15 +224,17 @@ public class ConfigProcessors {
 
             value = getEventObjectVal(oldField).toString();
             if (!value.equals(OBJECT_NOT_FOUND)) {
-                if (operation != null && !operation.isEmpty())
+                if (operation != null && !operation.isEmpty()) {
                     value = performOperation(operation, value);
+                }
 
                 setEventObjectVal(field, value);
 
                 removeEventKey(oldField);
             }
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -270,16 +280,21 @@ public class ConfigProcessors {
                             setEventObjectVal(field, ja);
                         }
                     } else // if new array
+                    {
                         setEventObjectVal(field + "[0]", new JSONObject(value), "JArray");
+                    }
                 } else // oldfield is jsonArray
+                {
                     setEventObjectVal(field, new JSONArray(value));
+                }
 
                 removeEventKey(oldField);
             }
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
-    
+
     // this method is to support the mapping 5.x to VES7.x format for additionalInformation field
     private void mapNameValueArrayToHashmap(JSONObject jsonObject) {
         log.info("mapNameValueArrayToHashmap");
@@ -288,17 +303,17 @@ public class ConfigProcessors {
         final JSONObject filter = jsonObject.optJSONObject(FILTER);
 
         if (filter == null || isFilterMet(filter)) {
-        	JSONObject newHashMap = new JSONObject(); // this will hold the newly mapped hashmap elements
+            JSONObject newHashMap = new JSONObject(); // this will hold the newly mapped hashmap elements
             JSONArray arrayValue = (JSONArray) getEventObjectVal(oldField); // old Array structure value
-            JSONObject tempJObj = null;
-            String tempName = "";
-            String tempValue = "";
+            JSONObject tempJObj;
+            String tempName;
+            String tempValue;
             if (!arrayValue.toString().equals(OBJECT_NOT_FOUND)) {
                 log.info("old value ==" + arrayValue.toString());
                 // Loop thru the JSONArray, get the name:value pair and write to new JSONObject as hashmap elements
                 for (int i = 0; i < arrayValue.length(); i++) {
 
-                	tempJObj = arrayValue.getJSONObject(i);
+                    tempJObj = arrayValue.getJSONObject(i);
                     if (tempJObj != null) {
                         tempName = tempJObj.get("name").toString();
                         tempValue = tempJObj.get(VALUE).toString();
@@ -310,11 +325,12 @@ public class ConfigProcessors {
                 //Add the new Hashmap 
                 setEventObjectVal(field, newHashMap);
             }
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
-    
- // this method is to support the mapping 7.x to VES5.x format for additionalInformation field
+
+    // this method is to support the mapping 7.x to VES5.x format for additionalInformation field
     private void mapHashmapToNameValueArray(JSONObject jsonObject) {
         log.info("mapHashmapToNameValueArray");
         System.out.println("mapHashmapToNameValueArray");
@@ -323,29 +339,30 @@ public class ConfigProcessors {
         final JSONObject filter = jsonObject.optJSONObject(FILTER);
 
         if (filter == null || isFilterMet(filter)) {
-        	JSONArray newArray = new JSONArray(); // this will hold the new name:value JSONObject
-        	JSONObject nameValJObj;
-        	System.out.println("object ==" + getEventObjectVal(oldField).toString());
-        	if (!getEventObjectVal(oldField).toString().equals(OBJECT_NOT_FOUND)) {
-        		
-	            JSONObject hashMap = (JSONObject) getEventObjectVal(oldField); // old hashmap structure value
-	            if (hashMap != null) {
-	                log.info("old value ==" + hashMap.toString());
-	                // Loop thru the hashMap JSONObject, get the hashmap elements add them as name:value JsonObject into the newArray
-	                for (String key : hashMap.keySet()) {
-	                	nameValJObj = new JSONObject(); //create new object so not to overwrite in memory for Array insertion
-	                	nameValJObj.put("name", key);
-	                	nameValJObj.put("value", hashMap.get(key));
-	                	newArray.put(nameValJObj);
-	                }
-	                // remove the old hashMap structure
-	                removeEventKey(oldField);
-	                //Add the newArray containing the name:value Object
-	                setEventObjectVal(field, newArray);
-	            }
-        	}
-        } else
+            JSONArray newArray = new JSONArray(); // this will hold the new name:value JSONObject
+            JSONObject nameValJObj;
+            System.out.println("object ==" + getEventObjectVal(oldField).toString());
+            if (!getEventObjectVal(oldField).toString().equals(OBJECT_NOT_FOUND)) {
+
+                JSONObject hashMap = (JSONObject) getEventObjectVal(oldField); // old hashmap structure value
+                if (hashMap != null) {
+                    log.info("old value ==" + hashMap.toString());
+                    // Loop thru the hashMap JSONObject, get the hashmap elements add them as name:value JsonObject into the newArray
+                    for (String key : hashMap.keySet()) {
+                        nameValJObj = new JSONObject(); //create new object so not to overwrite in memory for Array insertion
+                        nameValJObj.put("name", key);
+                        nameValJObj.put("value", hashMap.get(key));
+                        newArray.put(nameValJObj);
+                    }
+                    // remove the old hashMap structure
+                    removeEventKey(oldField);
+                    //Add the newArray containing the name:value Object
+                    setEventObjectVal(field, newArray);
+                }
+            }
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
     /**
@@ -367,16 +384,18 @@ public class ConfigProcessors {
 
                 String tempVal = evaluate(values.getString(i));
                 if (!tempVal.equals(OBJECT_NOT_FOUND)) {
-                    if (i == 0)
+                    if (i == 0) {
                         value.append(tempVal);
-                    else
+                    } else {
                         value.append(delimiter).append(tempVal);
+                    }
                 }
             }
 
             setEventObjectVal(field, value.toString());
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
     public void subtractValue(JSONObject jsonObject) {
@@ -391,16 +410,18 @@ public class ConfigProcessors {
                 String tempVal = evaluate(values.getString(i));
                 log.info("tempVal==" + tempVal);
                 if (!tempVal.equals(OBJECT_NOT_FOUND)) {
-                    if (i == 0)
-                        value = value + Float.valueOf(tempVal);
-                    else
-                        value = value - Float.valueOf(tempVal);
+                    if (i == 0) {
+                        value = value + Float.parseFloat(tempVal);
+                    } else {
+                        value = value - Float.parseFloat(tempVal);
+                    }
                 }
             }
             log.info("value ==" + value);
             setEventObjectVal(field, value, "number");
-        } else
+        } else {
             log.info(FILTER_NOT_MET);
+        }
     }
 
 
@@ -470,12 +491,14 @@ public class ConfigProcessors {
             if ("not".equals(key)) {
                 JSONObject njo = jo.getJSONObject(key);
                 for (String njoKey : njo.keySet()) {
-                    if (!checkFilter(njo, njoKey, key))
+                    if (!checkFilter(njo, njoKey, key)) {
                         return false;
+                    }
                 }
             } else {
-                if (!checkFilter(jo, key, key))
+                if (!checkFilter(jo, key, key)) {
                     return false;
+                }
             }
         }
         return true;
@@ -491,8 +514,9 @@ public class ConfigProcessors {
             keySeriesStr = keySeriesStr.replaceAll("\\.\\.", ".");
         }
 
-        if (keySeriesStr.lastIndexOf(".") == keySeriesStr.length() - 1)
+        if (keySeriesStr.lastIndexOf(".") == keySeriesStr.length() - 1) {
             keySeriesStr = keySeriesStr.substring(0, keySeriesStr.length() - 1);
+        }
         String[] keySet = keySeriesStr.split("\\.", keySeriesStr.length());
         Object keySeriesObj = event;
         for (String aKeySet : keySet) {
@@ -512,8 +536,9 @@ public class ConfigProcessors {
             }
         }
 
-        if (keySeriesObj == null)
+        if (keySeriesObj == null) {
             return OBJECT_NOT_FOUND;
+        }
         return keySeriesObj;
     }
 
@@ -532,8 +557,9 @@ public class ConfigProcessors {
         }
         log.info("fieldType==" + fieldType);
 
-        if (keySeriesStr.lastIndexOf(".") == keySeriesStr.length() - 1)
+        if (keySeriesStr.lastIndexOf(".") == keySeriesStr.length() - 1) {
             keySeriesStr = keySeriesStr.substring(0, keySeriesStr.length() - 1);
+        }
         String[] keySet = keySeriesStr.split("\\.", keySeriesStr.length());
         Object keySeriesObj = event;
         for (int i = 0; i < (keySet.length - 1); i++) {
@@ -552,9 +578,11 @@ public class ConfigProcessors {
                 {
                     log.info("Object is null, must add it");
                     if (keySet[i + 1].matches("[0-9]*")) // if index then array
+                    {
                         ((JSONArray) keySeriesObj).put(Integer.parseInt(keySet[i]), new JSONArray());
-                    else
+                    } else {
                         ((JSONArray) keySeriesObj).put(Integer.parseInt(keySet[i]), new JSONObject());
+                    }
                 }
                 keySeriesObj = ((JSONArray) keySeriesObj).optJSONObject(Integer.parseInt(keySet[i]));
 
@@ -570,9 +598,11 @@ public class ConfigProcessors {
                 // it
                 {
                     if (keySet[i + 1].matches("[0-9]*")) // if index then array
+                    {
                         ((JSONObject) keySeriesObj).put(keySet[i], new JSONArray());
-                    else
+                    } else {
                         ((JSONObject) keySeriesObj).put(keySet[i], new JSONObject());
+                    }
                     log.info("Object is null, must add it");
                 }
                 keySeriesObj = ((JSONObject) keySeriesObj).opt(keySet[i]);
@@ -582,17 +612,20 @@ public class ConfigProcessors {
         }
         if ("number".equals(fieldType)) {
             DecimalFormat df = new DecimalFormat("#.0");
-            if (value instanceof String)
+            if (value instanceof String) {
                 ((JSONObject) keySeriesObj).put(keySet[keySet.length - 1],
                         Float.valueOf(df.format(Float.valueOf((String) value))));
-            else
+            } else {
                 ((JSONObject) keySeriesObj).put(keySet[keySet.length - 1], Float.valueOf(df.format(value)));
-        } else if ("integer".equals(fieldType) && value instanceof String)
+            }
+        } else if ("integer".equals(fieldType) && value instanceof String) {
             ((JSONObject) keySeriesObj).put(keySet[keySet.length - 1], Integer.valueOf((String) value));
-        else if ("JArray".equals(fieldType))
+        } else if ("JArray".equals(fieldType)) {
+            assert keySeriesObj instanceof JSONArray;
             ((JSONArray) keySeriesObj).put(value);
-        else
+        } else {
             ((JSONObject) keySeriesObj).put(keySet[keySet.length - 1], value);
+        }
 
     }
 }

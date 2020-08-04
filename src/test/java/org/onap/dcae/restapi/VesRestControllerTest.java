@@ -40,6 +40,7 @@ import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
 import org.onap.dcae.common.JsonDataLoader;
+import org.onap.dcae.common.StndDefinedDataValidator;
 import org.onap.dcae.common.publishing.EventPublisher;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -85,16 +86,17 @@ public class VesRestControllerTest {
     @Mock
     private EventPublisher eventPublisher;
 
+    @Mock
+    private StndDefinedDataValidator stndDefinedDataValidator;
+
     @Before
     public void setUp(){
-
         final HashMap<String, String[]> streamIds = HashMap.of(
                 "fault", new String[]{VES_FAULT_TOPIC},
                 "3GPP-FaultSupervision", new String[]{VES_3_GPP_FAULT_SUPERVISION_TOPIC}
         );
-        this.vesRestController = new VesRestController(
-                applicationSettings, logger, new EventSender(eventPublisher, streamIds),headerUtils
-        );
+        this.vesRestController = new VesRestController(applicationSettings, logger,
+                new EventSender(eventPublisher, streamIds), headerUtils, stndDefinedDataValidator);
     }
 
     @Test

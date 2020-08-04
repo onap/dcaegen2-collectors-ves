@@ -37,6 +37,11 @@ import static org.onap.dcae.TLSTest.HttpsConfigurationWithTLSAuthenticationAndBa
 
 public class TLSTest extends TLSTestBase {
 
+    private static final String MAPPING_FILE_LOCATION = "./etc/externalRepo/schema-map.json";
+    private static final String SCHEMA_FILES_LOCATION = "./etc/externalRepo";
+    private static final String STND_DEFINED_DATA_PATH = "/event/stndDefinedFields/data";
+    private static final String SCHEMA_REF_PATH = "/event/stndDefinedFields/schemaReference";
+
     @Nested
     @Import(HttpConfiguration.class)
     class HttpTest extends TestClassBase {
@@ -69,10 +74,16 @@ public class TLSTest extends TLSTestBase {
 
     // ApplicationSettings configurations
     static class HttpConfiguration extends TLSTestBase.ConfigurationBase {
+
         @Override
         protected void configureSettings(ApplicationSettings settings) {
             when(settings.authMethod()).thenReturn(AuthMethodType.NO_AUTH.value());
             when(settings.httpPort()).thenReturn(1111);
+            when(settings.getExternalSchemaMappingFileLocation()).thenReturn(MAPPING_FILE_LOCATION);
+            when(settings.getExternalSchemaSchemasLocation()).thenReturn(SCHEMA_FILES_LOCATION);
+            when(settings.getExternalSchemaSchemaRefPath()).thenReturn(SCHEMA_REF_PATH);
+            when(settings.getExternalSchemaStndDefinedDataPath()).thenReturn(STND_DEFINED_DATA_PATH);
+
         }
     }
 
@@ -89,6 +100,10 @@ public class TLSTest extends TLSTestBase {
             when(settings.truststorePasswordFileLocation()).thenReturn(TRUSTSTORE_PASSWORD_FILE.toString());
             when(settings.certSubjectMatcher()).thenReturn(CERT_SUBJECT_MATCHER.toString());
             when(settings.httpPort()).thenReturn(1111);
+            when(settings.getExternalSchemaMappingFileLocation()).thenReturn(MAPPING_FILE_LOCATION);
+            when(settings.getExternalSchemaSchemasLocation()).thenReturn(SCHEMA_FILES_LOCATION);
+            when(settings.getExternalSchemaSchemaRefPath()).thenReturn(SCHEMA_REF_PATH);
+            when(settings.getExternalSchemaStndDefinedDataPath()).thenReturn(STND_DEFINED_DATA_PATH);
         }
     }
 }
