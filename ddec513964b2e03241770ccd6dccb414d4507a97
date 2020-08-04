@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e8c3d71_b5c2417b",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-04T10:50:13Z",
+      "side": 1,
+      "message": "This method doesn\u0027t always return domain value. Name is misleading. When domain is stndDefined it returns field stndDefinedNamespace.",
+      "revId": "ddec513964b2e03241770ccd6dccb414d4507a97",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
