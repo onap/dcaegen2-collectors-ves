@@ -15,7 +15,7 @@
       "vesEventListenerVersion": "7.2"
     },
     "stndDefinedFields": {
-      "schemaReference": "https://www.3gpp.org/Rel-16/TS28532_generic_fault_supervision.json#definitions/schemas/notifyNewAlarm-NotifType",
+      "schemaReference": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml#definitions/schemas/notifyNewAlarm-NotifType",
       "data": {
         "uri": "xyz",
         "notificationId": "xyz",
