@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11ae247e_a5c818da",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:25:35Z",
+      "side": 1,
+      "message": "new code should have javadocs on class and public methods. (And if possible, add missing javadocs on existing code.)",
+      "revId": "735a2b33a0c3a3f36bdee4e4ea166d96d6c2eede",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a64ccf76_7f61b498",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:25:35Z",
+      "side": 1,
+      "message": "new code should have javadocs on class and public methods. (And if possible, add missing javadocs on existing code.)",
+      "revId": "735a2b33a0c3a3f36bdee4e4ea166d96d6c2eede",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d96a7eb_5f79fc71",
+        "filename": "src/test/java/org/onap/dcae/common/JsonDataLoader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:25:35Z",
+      "side": 1,
+      "message": "new code should have javadocs on class and public methods. (And if possible, add missing javadocs on existing code.)",
+      "revId": "735a2b33a0c3a3f36bdee4e4ea166d96d6c2eede",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
