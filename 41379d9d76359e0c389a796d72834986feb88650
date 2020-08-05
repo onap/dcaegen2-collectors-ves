@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9113d5ee_105bcb4b",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:30:17Z",
+      "side": 1,
+      "message": "update copyright",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b23fb6d_c7578e74",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:30:17Z",
+      "side": 1,
+      "message": "please add javadocs on new classes / methods",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda59d96_97696194",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:30:17Z",
+      "side": 1,
+      "message": "please add javadocs on new classes / methods",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d54800_8d4165ff",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:30:17Z",
+      "side": 1,
+      "message": "update copyright",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2734dbb0_71b10b57",
+        "filename": "src/test/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolverTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T13:30:17Z",
+      "side": 1,
+      "message": "please add javadocs on new classes/methods",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
