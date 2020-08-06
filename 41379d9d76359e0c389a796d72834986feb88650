@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa181d3b_52e7c807",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-06T11:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9113d5ee_105bcb4b",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b23fb6d_c7578e74",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-08-05T13:30:17Z",
       "side": 1,
       "message": "please add javadocs on new classes / methods",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb5f8b0_38a63e15",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-06T11:25:16Z",
+      "side": 1,
+      "message": "Are javadocs necessary here? \nIn my opinion javadocos should be used on API classes and methods.\nAlso, this code is clear enough to understand. What do you think?",
+      "parentUuid": "9b23fb6d_c7578e74",
       "revId": "41379d9d76359e0c389a796d72834986feb88650",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -67,6 +103,24 @@
       "revId": "41379d9d76359e0c389a796d72834986feb88650",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772a6745_6900b25b",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-08-06T11:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d54800_8d4165ff",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
