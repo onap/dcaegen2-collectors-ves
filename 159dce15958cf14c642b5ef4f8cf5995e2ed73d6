@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "179ff427_dea373c6",
+        "filename": "etc/collector.properties",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T20:43:38Z",
+      "side": 1,
+      "message": "The provided link is not accessible (looks internal to Nokia); the value should correspond to definition on 3gpp spec. Damian - Could you provide reference link?",
+      "parentUuid": "b11dd199_fa2dd25a",
+      "range": {
+        "startLine": 54,
+        "startChar": 370,
+        "endLine": 54,
+        "endChar": 391
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "caef953c_388a5ec5",
         "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
         "patchSetId": 11
@@ -280,6 +304,30 @@
       "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "940f59c1_0e8c8f0e",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T20:43:38Z",
+      "side": 1,
+      "message": "Looks consistent with VES Spec (https://git.onap.org/vnfrqts/requirements/tree/docs/Chapter8/ves_7_2/ves_event_listener_7_2.rst)",
+      "parentUuid": "fa66c831_be27866e",
+      "range": {
+        "startLine": 36,
+        "startChar": 64,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "159dce15958cf14c642b5ef4f8cf5995e2ed73d6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
