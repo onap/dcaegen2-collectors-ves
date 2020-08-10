@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "398221af_418aa5cb",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "consider renaming to collector.externalSchema.secondaryValidation (or collector.externalSchema.checkflag to be consistent with other property)",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ec8dde_dbbc4922",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "pls clarify need for schemaRefPath \u0026 stndDefinedDataPath and what data gets persisted under this path?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88acc141_9004e0a7",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "Dint think TCA from 3gpp were part of initial scope. Damian - can you confirm if this is required?",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b48ad7b_37152069",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_ProvisioningMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "this domain also was not identified under original scope",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e78be29b_c7e077b5",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_StreamingDataReportingMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "not identified under original scope",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e5c762_cec6d8d5",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "To be verified if required for Guilin",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 81
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170940c4_76583831",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "include applicationSettings.eventSchemaValidationEnabled check also (secondary validation should not be done if primary ves validation is disabled)",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82d64d8_aaaa38a9",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-10T23:15:04Z",
+      "side": 1,
+      "message": "Fix spacing",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 72
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
