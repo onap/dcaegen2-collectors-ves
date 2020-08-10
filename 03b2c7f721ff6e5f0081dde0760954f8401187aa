@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36129962_855db6e5",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-10T13:29:54Z",
+      "side": 1,
+      "message": "Let`s change it to this: https://forge.etsi.org/rep/3GPP/5G_APIs/blob/REL-16/\n\nAnd then append with FileName starting with TS, e.g.\nhttps://forge.etsi.org/rep/3GPP/5G_APIs/blob/REL-16/TS28532_FaultMNS.yaml\n\nNote: This is not the final location of files. We`re still waiting for the official uplad of openAPI descriptions.",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "03b2c7f721ff6e5f0081dde0760954f8401187aa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb3f9b9_597d3b09",
+        "filename": "pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-10T13:29:54Z",
+      "side": 1,
+      "message": "If possible, updated this to 3.0.0",
+      "range": {
+        "startLine": 71,
+        "startChar": 31,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "03b2c7f721ff6e5f0081dde0760954f8401187aa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36861d30_6c06abd6",
+        "filename": "pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-10T13:29:54Z",
+      "side": 1,
+      "message": "We shall not use SNAPSHOT versions, only released version.\nCheck, if 1.4.1 is available already (should be actually).",
+      "range": {
+        "startLine": 81,
+        "startChar": 37,
+        "endLine": 81,
+        "endChar": 51
+      },
+      "revId": "03b2c7f721ff6e5f0081dde0760954f8401187aa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
