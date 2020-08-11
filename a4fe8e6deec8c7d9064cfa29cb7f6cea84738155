@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7bcf9ee4_6cd07061",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "398221af_418aa5cb",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84ec8dde_dbbc4922",
         "filename": "etc/collector.properties",
         "patchSetId": 10
@@ -83,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "12427a08_99440c66",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0088eebf_c5db2f1a",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b48ad7b_37152069",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_ProvisioningMNS.yaml",
         "patchSetId": 10
@@ -118,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "5a6c207f_0291eef9",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_ProvisioningMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61bde5c0_fb191e41",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e78be29b_c7e077b5",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_StreamingDataReportingMNS.yaml",
         "patchSetId": 10
@@ -150,6 +210,24 @@
       "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d621f0a5_67dca9fe",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_StreamingDataReportingMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b594e62_01a955c0",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -200,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "95467bac_baa90d21",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2e0a0c_dff7329b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 81
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170940c4_76583831",
         "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
         "patchSetId": 10
@@ -237,6 +339,30 @@
       "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02b363a_fbee642e",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-11T08:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82d64d8_aaaa38a9",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 72
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
