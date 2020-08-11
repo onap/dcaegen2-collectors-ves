@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ad08512a_3e68af1b",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-11T08:58:22Z",
+      "side": 1,
+      "message": "These are values of parameters for external-schema-manager. They mean internal JSON location (location in event) of schemaReference and data fields.\n \nThese locations depend on 1st stage schema in VES, where their existence is validated. So when they possibly change in future, the SDK tool doesn\u0027t need any change in code.\n \nAlso, we tried to make the tool as generic as possible, so these paths couldn\u0027t be hardcoded only for VES, because other components wouldn\u0027t be able to re-use it.",
+      "parentUuid": "84ec8dde_dbbc4922",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88acc141_9004e0a7",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
         "patchSetId": 10
@@ -316,6 +340,24 @@
       "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e928e5_79dfa076",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-11T08:58:22Z",
+      "side": 1,
+      "message": "This is checked in line 60. No validation is performed when applicationSettings.eventSchemaValidationEnabled is false.\n\nAlso when 1st stage validation fails and throws exception, 2nd stage won\u0027t be performed either which is not directly written as condition in this method.",
+      "parentUuid": "170940c4_76583831",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
