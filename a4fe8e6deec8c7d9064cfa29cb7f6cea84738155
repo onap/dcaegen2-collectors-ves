@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "0088eebf_c5db2f1a",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-11T07:34:49Z",
+      "side": 1,
+      "message": "Correct - not required.\n(I simply exported all the existing schemas from the 3GPP doc, and definitely there are more, than what`s defined currently).",
+      "parentUuid": "88acc141_9004e0a7",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b48ad7b_37152069",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_ProvisioningMNS.yaml",
         "patchSetId": 10
@@ -76,6 +94,24 @@
       "writtenOn": "2020-08-10T23:15:04Z",
       "side": 1,
       "message": "this domain also was not identified under original scope",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61bde5c0_fb191e41",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_ProvisioningMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-11T07:34:49Z",
+      "side": 1,
+      "message": "Correct - not required at this moment.",
+      "parentUuid": "5b48ad7b_37152069",
       "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -99,6 +135,24 @@
     },
     {
       "key": {
+        "uuid": "7b594e62_01a955c0",
+        "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_StreamingDataReportingMNS.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-11T07:34:49Z",
+      "side": 1,
+      "message": "correct - not required at this moment.",
+      "parentUuid": "e78be29b_c7e077b5",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54e5c762_cec6d8d5",
         "filename": "etc/externalRepo/schema-map.json",
         "patchSetId": 10
@@ -110,6 +164,30 @@
       "writtenOn": "2020-08-10T23:15:04Z",
       "side": 1,
       "message": "To be verified if required for Guilin",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 81
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2e0a0c_dff7329b",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-11T07:34:49Z",
+      "side": 1,
+      "message": "Correct - these entries are not required for Guilin.",
+      "parentUuid": "54e5c762_cec6d8d5",
       "range": {
         "startLine": 14,
         "startChar": 0,
