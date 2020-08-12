@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2b6dfd10_332bd6f5",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-12T22:31:23Z",
+      "side": 1,
+      "message": "Thanks, thats help\n\nFew comments\n\nAs this property reflect event schema (and not collector specific), would suggest renaming to event.externalSchema.schemaRefPath and \nevent.externalSchema.stndDefinedDataPath\n\nAnd will be better if this value (path) is represented as json notation - e.g event.stndDefinedFields.schemaReference (and update accordingly external-schema-manager)",
+      "parentUuid": "ad08512a_3e68af1b",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88acc141_9004e0a7",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
         "patchSetId": 10
@@ -355,6 +379,24 @@
       "side": 1,
       "message": "This is checked in line 60. No validation is performed when applicationSettings.eventSchemaValidationEnabled is false.\n\nAlso when 1st stage validation fails and throws exception, 2nd stage won\u0027t be performed either which is not directly written as condition in this method.",
       "parentUuid": "170940c4_76583831",
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e5ec9d5_fddd3a7f",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-12T22:31:23Z",
+      "side": 1,
+      "message": "missed it earlier - thx for the pointer",
+      "parentUuid": "49e928e5_79dfa076",
       "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false

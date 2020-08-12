@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8924149a_eefad9e4",
+        "filename": "etc/externalRepo/3gpp/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-12T22:31:23Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "50a081c667c5261d27daec7e3feb6333881e4d64",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b05ed5_79355554",
+        "filename": "src/test/resources/stndDefined/OpenAPI_faultMnS.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-12T22:31:23Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "50a081c667c5261d27daec7e3feb6333881e4d64",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
