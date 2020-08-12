@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "a8d3053d_a21cf7ba",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "This needs to be updated, as we received the official 3GPP repo details.\nhttps://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 91
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3532ba_897dc36d",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "3gpp/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 63
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa5b0b9_dafae297",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/heartbeatNtf.yaml",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 95
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c82bec_2fe8f247",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "3gpp/rep/sa5/data-models/blob/REL-16/OpenAPI/heartbeatNtf.yaml",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 67
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b219f72_f5d2df1e",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/PerDataFileReportMnS.yaml",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 97
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d9e642_10857aea",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "3gpp/rep/sa5/data-models/blob/REL-16/OpenAPI/PerDataFileReportMnS.yaml",
+      "range": {
+        "startLine": 12,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 69
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8751518_0712f8be",
+        "filename": "etc/externalRepo/schema-map.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-12T13:20:25Z",
+      "side": 1,
+      "message": "We`re missing here:\npublicURL: \"https://forge.3gpp.org/rep/sa5/data-models/blob/master/OpenAPI/provMnS.yaml\"\nlocalURL: \"3gpp/rep/sa5/data-models/blob/REL-16/OpenAPI/provMnS.yaml\"",
+      "range": {
+        "startLine": 13,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 3
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7bf7824b_0fa2de03",
         "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
         "patchSetId": 11
