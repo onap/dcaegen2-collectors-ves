@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bf7824b_0fa2de03",
+        "filename": "src/test/java/org/onap/dcae/restapi/EventValidatorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-08-12T09:28:57Z",
+      "side": 1,
+      "message": "\"src/test/resources\" may be extracted to common variable",
+      "range": {
+        "startLine": 163,
+        "startChar": 64,
+        "endLine": 163,
+        "endChar": 83
+      },
+      "revId": "ad09e0d5b4a545817a9840eda067e94a19d0eacc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
