@@ -85,6 +85,30 @@
         "version": "7.30.2",
         "type": "message router",
         "config_key": "ves-perf3gpp"
+      },
+      {
+        "format": "VES_specification",
+        "version": "7.30.2",
+        "type": "message router",
+        "config_key": "ves-3gpp-fault-supervision"
+      },
+      {
+        "format": "VES_specification",
+        "version": "7.30.2",
+        "type": "message router",
+        "config_key": "ves-3gpp-provisioning"
+      },
+      {
+        "format": "VES_specification",
+        "version": "7.30.2",
+        "type": "message router",
+        "config_key": "ves-3gpp-heartbeat"
+      },
+      {
+        "format": "VES_specification",
+        "version": "7.30.2",
+        "type": "message router",
+        "config_key": "ves-3gpp-performance-assurance"
       }
     ]
   },

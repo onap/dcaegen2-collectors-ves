@@ -22,6 +22,9 @@ package org.onap.dcae.restapi;
 import com.google.common.base.CaseFormat;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Pawel Szalapski (pawel.szalapski@nokia.com)
  */
@@ -32,19 +35,25 @@ public enum ApiException {
     INVALID_CONTENT_TYPE(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (Incorrect request Content-Type)", 400),
     UNAUTHORIZED_USER(ExceptionType.POLICY_EXCEPTION, "POL2000", "Unauthorized user", 401),
     INVALID_CUSTOM_HEADER(ExceptionType.SERVICE_EXCEPTION, "SVC0002", "Bad Parameter (Incorrect request api version)", 400),
-    MISSING_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is missing from request", 400),
-    EMPTY_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is empty in request", 400),
+    MISSING_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input %1 %2 is missing from request", List.of("attribute", "event.commonEventHeader.stndDefinedNamespace"), 400),
+    EMPTY_NAMESPACE_PARAMETER(ExceptionType.SERVICE_EXCEPTION, "SVC2006", "Mandatory input %1 %2 is empty in request", List.of("attribute", "event.commonEventHeader.stndDefinedNamespace"), 400),
     NO_SERVER_RESOURCES(ExceptionType.SERVICE_EXCEPTION, "SVC1000", "No server resources (internal processing queue full)", 503);
 
     public final int httpStatusCode;
     private final ExceptionType type;
     private final String code;
     private final String details;
+    private final List<String> variables;
 
     ApiException(ExceptionType type, String code, String details, int httpStatusCode) {
+        this(type, code, details, new ArrayList<>(), httpStatusCode);
+    }
+
+    ApiException(ExceptionType type, String code, String details, List<String> variables, int httpStatusCode) {
         this.type = type;
         this.code = code;
         this.details = details;
+        this.variables = variables;
         this.httpStatusCode = httpStatusCode;
     }
 
@@ -52,6 +61,9 @@ public enum ApiException {
         JSONObject exceptionTypeNode = new JSONObject();
         exceptionTypeNode.put("messageId", code);
         exceptionTypeNode.put("text", details);
+        if(!variables.isEmpty()) {
+            exceptionTypeNode.put("variables", variables);
+        }
 
         JSONObject requestErrorNode = new JSONObject();
         requestErrorNode.put(type.toString(), exceptionTypeNode);

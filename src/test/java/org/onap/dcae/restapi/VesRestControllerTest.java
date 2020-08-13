@@ -191,7 +191,8 @@ public class VesRestControllerTest {
         verifyErrorResponse(
                 response,
                 "SVC2006",
-                "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is missing from request"
+                "Mandatory input %1 %2 is missing from request",
+                List.of("attribute", "event.commonEventHeader.stndDefinedNamespace")
         );
         verifyThatEventWasNotSend();
     }
@@ -215,7 +216,8 @@ public class VesRestControllerTest {
         verifyErrorResponse(
                 response,
                 "SVC2006",
-                "Mandatory input attribute event.commonEventHeader.stndDefinedNamespace is empty in request"
+                "Mandatory input %1 %2 is empty in request",
+                List.of("attribute", "event.commonEventHeader.stndDefinedNamespace")
         );
         verifyThatEventWasNotSend();
     }
@@ -251,13 +253,14 @@ public class VesRestControllerTest {
         when(applicationSettings.jsonSchema(eq(VERSION_V7))).thenReturn(loadedJsonSchemas.get(VERSION_V7).get());
     }
 
-    private void verifyErrorResponse(ResponseEntity<String> response, String messageId, String messageText) throws com.fasterxml.jackson.core.JsonProcessingException {
-        final Map<String, String> errorDetails = fetchErrorDetails(response);
-        assertThat(errorDetails).containsEntry("messageId", messageId);
-        assertThat(errorDetails).containsEntry("text", messageText);
+    private void verifyErrorResponse(ResponseEntity<String> response, String messageId, String messageText, List<String> variables) throws com.fasterxml.jackson.core.JsonProcessingException {
+        final Map<String, ?> errorDetails = fetchErrorDetails(response);
+        assertThat((Map<String, String>)errorDetails).containsEntry("messageId", messageId);
+        assertThat((Map<String, String>)errorDetails).containsEntry("text", messageText);
+        assertThat((Map<String, List<String>>)errorDetails).containsEntry("variables",  variables);
     }
 
-    private Map<String, String> fetchErrorDetails(ResponseEntity<String> response) throws com.fasterxml.jackson.core.JsonProcessingException {
+    private Map<String, ?> fetchErrorDetails(ResponseEntity<String> response) throws com.fasterxml.jackson.core.JsonProcessingException {
         final String body = response.getBody();
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Map<String, Map<String,String>>> map = mapper.readValue(body, Map.class);
