@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4e085c14_bfefd9c9",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-17T11:25:01Z",
+      "side": 1,
+      "message": "We changed mentioned properties names, but changing values wouldn\u0027t be that easy for now. SDK tool requires notation with \u0027/\u0027, of course it can be done by modifying tool, but it would take some time to release new version of SDK image.\n\nWe will keep that in mind and with the next SDK update we will change it to json notation.",
+      "parentUuid": "2b6dfd10_332bd6f5",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88acc141_9004e0a7",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
         "patchSetId": 10
