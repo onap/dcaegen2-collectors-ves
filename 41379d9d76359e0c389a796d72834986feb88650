@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "011aa013_10ec3d67",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-17T10:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa181d3b_52e7c807",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b23fb6d_c7578e74",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
         "patchSetId": 6
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "79d54800_8d4165ff",
+      "revId": "41379d9d76359e0c389a796d72834986feb88650",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1268ba09_b64197a0",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-17T10:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "772a6745_6900b25b",
       "revId": "41379d9d76359e0c389a796d72834986feb88650",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false

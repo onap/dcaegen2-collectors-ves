@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7b74df47_52094c07",
+        "filename": "pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-17T10:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06217efd_4d5af819",
+      "range": {
+        "startLine": 81,
+        "startChar": 17,
+        "endLine": 81,
+        "endChar": 22
+      },
+      "revId": "5cee9d0b5f67878533166c72d8e921cad43f6937",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9459f2f8_6f2b41bb",
         "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "808ec7a5_a88f2e13",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-17T10:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9459f2f8_6f2b41bb",
+      "range": {
+        "startLine": 6,
+        "startChar": 53,
+        "endLine": 6,
+        "endChar": 55
+      },
+      "revId": "5cee9d0b5f67878533166c72d8e921cad43f6937",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "388a3a25_501fce5f",
         "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "5cee9d0b5f67878533166c72d8e921cad43f6937",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d979dec1_579d51ac",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-17T10:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388a3a25_501fce5f",
+      "range": {
+        "startLine": 6,
+        "startChar": 53,
+        "endLine": 6,
+        "endChar": 55
+      },
+      "revId": "5cee9d0b5f67878533166c72d8e921cad43f6937",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
