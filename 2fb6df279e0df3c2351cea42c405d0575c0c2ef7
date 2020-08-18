@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2edb94c7_fea5373c",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-18T11:45:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b2cf091_4fe54acc",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78984298_9139fa0e",
         "filename": "src/main/java/org/onap/dcae/common/StndDefinedDataValidator.java",
         "patchSetId": 15
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1ad8fda0_3a35dae4",
+        "filename": "src/main/java/org/onap/dcae/common/StndDefinedDataValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-18T11:45:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78984298_9139fa0e",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf89600_8bd06a9c",
         "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
         "patchSetId": 15
@@ -50,6 +86,24 @@
       "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de323feb_9fdd0089",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-18T11:45:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf89600_8bd06a9c",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

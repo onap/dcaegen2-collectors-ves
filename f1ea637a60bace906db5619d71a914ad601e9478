@@ -16,6 +16,24 @@
       "revId": "f1ea637a60bace906db5619d71a914ad601e9478",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af01f344_a8323f96",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-18T11:45:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "bb6c25db_365cf96a",
+      "revId": "f1ea637a60bace906db5619d71a914ad601e9478",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
