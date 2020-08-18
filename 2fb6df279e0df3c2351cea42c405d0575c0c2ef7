@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf89600_8bd06a9c",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-18T06:19:02Z",
+      "side": 1,
+      "message": "pls check if the second stage validation is activated and only then do the validation.",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
