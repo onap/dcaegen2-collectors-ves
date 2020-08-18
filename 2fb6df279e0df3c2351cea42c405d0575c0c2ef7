@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "4b2cf091_4fe54acc",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-18T07:02:14Z",
+      "side": 1,
+      "message": "extract -1 to const and give proper name",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78984298_9139fa0e",
+        "filename": "src/main/java/org/onap/dcae/common/StndDefinedDataValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-18T07:02:14Z",
+      "side": 1,
+      "message": "why don\u0027t we pass validator via constructor, rather that we pass resolver?",
+      "revId": "2fb6df279e0df3c2351cea42c405d0575c0c2ef7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3cf89600_8bd06a9c",
         "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
         "patchSetId": 15

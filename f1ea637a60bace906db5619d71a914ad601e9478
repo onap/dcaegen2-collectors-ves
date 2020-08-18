@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb6c25db_365cf96a",
+        "filename": "src/main/java/org/onap/dcae/restapi/EventValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-08-18T07:02:14Z",
+      "side": 0,
+      "message": "pls rename class name: currently we have two validators\n1. for event schema validation\n2. for stnd defined event validation",
+      "revId": "f1ea637a60bace906db5619d71a914ad601e9478",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
