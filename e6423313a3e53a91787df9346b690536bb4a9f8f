@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0f4e3587_a3ab0f3e",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-08-19T07:56:24Z",
+      "side": 1,
+      "message": "Nevermind, noticed it is a different type.",
+      "parentUuid": "a6beaac3_51c2f7a7",
+      "range": {
+        "startLine": 53,
+        "startChar": 72,
+        "endLine": 53,
+        "endChar": 109
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50134036_0ed54695",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
         "patchSetId": 10
