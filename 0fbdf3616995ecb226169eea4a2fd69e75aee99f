@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e741a042_44d08dad",
+        "filename": "Changelog.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-19T06:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9789d6c4_75e88e4c",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 69
+      },
+      "revId": "0fbdf3616995ecb226169eea4a2fd69e75aee99f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9f2d051_5407afd5",
         "filename": "Changelog.md",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "0fbdf3616995ecb226169eea4a2fd69e75aee99f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88178c10_4d2d5d22",
+        "filename": "Changelog.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-08-19T06:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9f2d051_5407afd5",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 71
+      },
+      "revId": "0fbdf3616995ecb226169eea4a2fd69e75aee99f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
