@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6beaac3_51c2f7a7",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-08-19T07:53:05Z",
+      "side": 1,
+      "message": "What is the purpose of that?",
+      "range": {
+        "startLine": 53,
+        "startChar": 72,
+        "endLine": 53,
+        "endChar": 109
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50134036_0ed54695",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-08-19T07:53:05Z",
+      "side": 1,
+      "message": "Looks like there\u0027s no way to create secure cbs client. The logic that allows change of protocol is in getFallbackConfiguration, which is confusing.\nAlso - shouldn\u0027t secure config be used?",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ebb905_e7369ef0",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-08-19T07:53:05Z",
+      "side": 1,
+      "message": "Name a bit confusing as it\u0027s not an env.",
+      "range": {
+        "startLine": 34,
+        "startChar": 24,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "401b154e_4f3dc8a3",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-08-19T07:53:05Z",
+      "side": 1,
+      "message": "Please look into SDK function: CbsClientConfiguration.fromEnvironment(). Env reading logic etc. is present there (also protocol is decided whether certificates are present).",
+      "range": {
+        "startLine": 59,
+        "startChar": 43,
+        "endLine": 59,
+        "endChar": 75
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
