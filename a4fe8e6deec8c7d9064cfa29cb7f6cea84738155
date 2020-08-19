@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "0e92e570_5e288cb7",
+        "filename": "etc/collector.properties",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-19T01:03:09Z",
+      "side": 1,
+      "message": "okay. Pls create a jira to track this update and reference here.",
+      "parentUuid": "4e085c14_bfefd9c9",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "a4fe8e6deec8c7d9064cfa29cb7f6cea84738155",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88acc141_9004e0a7",
         "filename": "etc/externalRepo/rel-16.4/2020-07-10-3GPP_TS28532_PerformanceThresholdMNS.yaml",
         "patchSetId": 10
