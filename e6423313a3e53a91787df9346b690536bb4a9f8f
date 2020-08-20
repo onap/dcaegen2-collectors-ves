@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "413ec46d_4addf677",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-20T08:11:30Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 104,
+        "startChar": 51,
+        "endLine": 104,
+        "endChar": 55
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6beaac3_51c2f7a7",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
         "patchSetId": 10
@@ -46,6 +69,23 @@
       "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ebe478f_0258cc0d",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-20T08:11:30Z",
+      "side": 1,
+      "message": "All this class does is done in sdk already. Please use interface CbsClientConfiguration.java. Then use CbsClientFactory from sdk. This should cause that this MR will be smaller.",
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
@@ -95,6 +135,30 @@
     },
     {
       "key": {
+        "uuid": "fe31f4c0_e58cf106",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-20T08:11:30Z",
+      "side": 1,
+      "message": "As far I can see in related jira: https://jira.onap.org/browse/DCAEGEN2-2212 there is something like that: \"This will also enable switching VES to CBS/https endpoint.\". So I think https is mandatory here or you are planning another MR for that?",
+      "parentUuid": "50134036_0ed54695",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "401b154e_4f3dc8a3",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
         "patchSetId": 10
@@ -111,6 +175,29 @@
         "startChar": 43,
         "endLine": 59,
         "endChar": 75
+      },
+      "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8372d8c0_6ce14d4f",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-20T08:11:30Z",
+      "side": 1,
+      "message": "To be removed. It is done already in sdk please note comment to CbsClientConfigurationResolver class.",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 5
       },
       "revId": "e6423313a3e53a91787df9346b690536bb4a9f8f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
