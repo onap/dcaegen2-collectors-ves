@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6abc749_9c4eb406",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-25T12:19:32Z",
+      "side": 1,
+      "message": "Is there any need to prepare CbsRequest on each getAppConfig method call?\nIf no, move it as a finals of this class in order do conctruct it just once.\n```\nfinal RequestDiagnosticContext diagnosticContext \u003d RequestDiagnosticContext.create();\nfinal CbsRequest request \u003d CbsRequests.getConfiguration(diagnosticContext);\n```",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 5
+      },
+      "revId": "59374fd554161e480b5514ffee20f1924d3958d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39b1ebf_6b37da01",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-25T12:19:32Z",
+      "side": 1,
+      "message": "Keep defaults here. Not pass it as instance variables.",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "59374fd554161e480b5514ffee20f1924d3958d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d69012ce_39350d74",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientFactory.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-25T12:19:32Z",
+      "side": 1,
+      "message": "I think keeping default values in factory just to pass it through constructor to place where they should lie as a constants make no sense.\nMove them to CbsClientConfigurationResolver and use simply in proper method call.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "59374fd554161e480b5514ffee20f1924d3958d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
