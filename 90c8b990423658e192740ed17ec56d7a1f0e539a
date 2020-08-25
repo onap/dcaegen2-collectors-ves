@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "3ed1a18c_f37587a5",
+        "filename": "Changelog.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-08-25T14:14:16Z",
+      "side": 1,
+      "message": "Config fetch",
+      "range": {
+        "startLine": 29,
+        "startChar": 72,
+        "endLine": 29,
+        "endChar": 83
+      },
+      "revId": "90c8b990423658e192740ed17ec56d7a1f0e539a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fcc994a_d1d874ff",
+        "filename": "README.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-08-25T14:14:16Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 68,
+        "startChar": 50,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "90c8b990423658e192740ed17ec56d7a1f0e539a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830445f3_d9b14ff4",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigLoaderFactory.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-08-25T14:14:16Z",
+      "side": 1,
+      "message": "Consider to make it static, the class doesn\u0027t have any fields (hasn\u0027t got a state).",
+      "range": {
+        "startLine": 29,
+        "startChar": 24,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "90c8b990423658e192740ed17ec56d7a1f0e539a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ca9304c_121e0c77",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsConfigResolver.java",
         "patchSetId": 14
@@ -18,6 +87,29 @@
         "startChar": 3,
         "endLine": 39,
         "endChar": 63
+      },
+      "revId": "90c8b990423658e192740ed17ec56d7a1f0e539a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ae2b09_a922db2d",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsConfigResolver.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-08-25T14:14:16Z",
+      "side": 1,
+      "message": "Consider to replace \"handleError()\" with \n\"error -\u003e log.warn(\"Failed to fetch configuration from CBS \" + error.getMessage()\"",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 36
       },
       "revId": "90c8b990423658e192740ed17ec56d7a1f0e539a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
