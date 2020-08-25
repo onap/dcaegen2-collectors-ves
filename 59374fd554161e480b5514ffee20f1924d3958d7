@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "118059e6_32dc4483",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-08-25T12:24:32Z",
+      "side": 1,
+      "message": "I would rename it to CbsConfigResolver (all factories respectivelly). Now you have CbsClient from lib inside yours CbsClient. This could make confused.",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "59374fd554161e480b5514ffee20f1924d3958d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6abc749_9c4eb406",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClient.java",
         "patchSetId": 12
