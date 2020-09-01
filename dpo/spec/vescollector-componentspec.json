@@ -293,6 +293,46 @@
       "sourced_at_deployment": false,
       "policy_editable": false,
       "designer_editable": false
+    },
+    {
+      "name": "collector.externalSchema.checkflag",
+      "value": 1,
+      "description": "Schema stndDefined validation flag. When enabled, collector will validate stndDefined fields in stndDefined domain events against mapped local schemas listed in file from property collector.externalSchema.mappingFileLocation.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": true
+    },
+    {
+      "name": "collector.externalSchema.schemasLocation",
+      "value": "./etc/externalRepo/",
+      "description": "External schemas repository. Path to schemas storage directory.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
+    },
+    {
+      "name": "collector.externalSchema.mappingFileLocation",
+      "value": "./etc/externalRepo/schema-map.json",
+      "description": "Path to JSON file containing mapping of externally located stndDefined schemas to local schema files.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
+    },
+    {
+      "name": "event.externalSchema.schemaRefPath",
+      "value": "$.event.stndDefinedFields.schemaReference",
+      "description": "An internal path from validated JSON. Defines which field is taken as public schema reference, which is later mapped.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
+    },
+    {
+      "name": "event.externalSchema.stndDefinedDataPath",
+      "value": "$.event.stndDefinedFields.data",
+      "description": "An internal path from validated JSON. Defines which field of event will be validated during stndDefined validation.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
     }
   ],
   "auxilary": {
