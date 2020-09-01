@@ -78,7 +78,7 @@
     <spring-boot-starter-test.version>2.1.0.RELEASE</spring-boot-starter-test.version>
     <api-custom-header.version>1.1.4</api-custom-header.version>
     <functionaljava.version>4.8.1</functionaljava.version>
-    <external-schema-manager.version>1.4.1</external-schema-manager.version>
+    <external-schema-manager.version>1.4.3</external-schema-manager.version>
     <sdk.version>1.4.2</sdk.version>
   </properties>
   <build>
