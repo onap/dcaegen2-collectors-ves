@@ -5,11 +5,10 @@
     "description": "VES spec for v7.2"
   },
   "dataformatversion": "1.0.0",
-
     "reference": {
         "name": "Common Event Format",
         "format": "JSON",
-        "version": "30.2",
+        "version": "30.2.0",
         "url" : "https://git.onap.org/dcaegen2/collectors/ves/tree/etc/CommonEventFormat_30.2_ONAP.json"
    }
 }
