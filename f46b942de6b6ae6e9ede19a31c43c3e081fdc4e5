@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_497c6e83",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/CommonStartup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:21:32Z",
+      "side": 1,
+      "message": "again, LOG is not a constant and should not be capitalized name\n\nc.f. our coding standaards",
+      "range": {
+        "startLine": 307,
+        "startChar": 21,
+        "endLine": 307,
+        "endChar": 22
+      },
+      "revId": "f46b942de6b6ae6e9ede19a31c43c3e081fdc4e5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
