@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb781aef_fa45763a",
+        "filename": "src/main/java/org/onap/dcae/common/configuration/ApiConfiguration.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:32:05Z",
+      "side": 1,
+      "message": "new files should not have old copyright dates",
+      "revId": "bb6b35198c9e946b39ed601b363dc84f70022d01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
