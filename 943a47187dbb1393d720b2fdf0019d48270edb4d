@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_e5c1334f",
+        "filename": "src/main/java/org/onap/dcae/commonFunction/AnyNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:29:51Z",
+      "side": 1,
+      "message": "this is a library module -- IMO the as* functions should be public. Vijay should confirm this.",
+      "revId": "943a47187dbb1393d720b2fdf0019d48270edb4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
