@@ -27,4 +27,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Add implementation of stndDefined fields validation
 ## [1.7.4] - 04/08/2020
         - [DCAEGEN2-2212](https://jira.onap.org/browse/DCAEGEN2-2212) - Config fetch for VESCollector through DCAE-SDK (CBS Client)
-        - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Post stndDefined implementation fixes        
+        - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Post stndDefined implementation fixes
+## [1.7.5] - 09/09/2020
+        - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Add StndDefined schemas ConfigMap bash script generator
