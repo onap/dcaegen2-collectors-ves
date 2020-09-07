@@ -337,7 +337,8 @@
      },
     "tls_info":{
 	"cert_directory":"/opt/app/dcae-certificate/",
-	"use_tls":true
+	"use_tls":true,
+       "use_external_tls": true
      }
   },
   "artifacts": [
