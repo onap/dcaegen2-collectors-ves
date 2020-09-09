@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4fc13ab_33be2d01",
+        "filename": "releases/1.7.4-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-09T02:53:01Z",
+      "side": 1,
+      "message": "since pom.xml and version.properties have 1.7.5, shouldn\u0027t this also be 1.7.5 ?\n\nboth within the file and the filename itself",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
