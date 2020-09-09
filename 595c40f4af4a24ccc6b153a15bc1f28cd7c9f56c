@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "efc14d28_d160ff27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-09T13:52:09Z",
+      "side": 1,
+      "message": "add brief description of what is included on new rls container for all self-release yaml submission",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a6c88b_903cef01",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-09T13:52:09Z",
+      "side": 1,
+      "message": "same comment as noted for version.properties file change",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4fc13ab_33be2d01",
         "filename": "releases/1.7.4-container.yaml",
         "patchSetId": 2
@@ -31,6 +71,47 @@
       "side": 1,
       "message": "I wanted to release last version 1.7.4 here and close development in it by setting the next version - 1.7.5, in pom.xml and version.properties. Correct me if i\u0027m wrong.",
       "parentUuid": "b4fc13ab_33be2d01",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b467a0_5a03bfba",
+        "filename": "releases/1.7.4-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-09T13:52:09Z",
+      "side": 1,
+      "message": "release yaml submission must not include any other parallel changes",
+      "parentUuid": "44864351_a2bc4655",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c6692e_c5dbb481",
+        "filename": "version.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-09T13:52:09Z",
+      "side": 1,
+      "message": "release yaml changes must not include any other changes. \n\nversion revision must be combined with subsequent patch",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
       "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
