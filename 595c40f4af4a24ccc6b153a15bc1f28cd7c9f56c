@@ -16,6 +16,24 @@
       "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44864351_a2bc4655",
+        "filename": "releases/1.7.4-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-09T08:29:13Z",
+      "side": 1,
+      "message": "I wanted to release last version 1.7.4 here and close development in it by setting the next version - 1.7.5, in pom.xml and version.properties. Correct me if i\u0027m wrong.",
+      "parentUuid": "b4fc13ab_33be2d01",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
