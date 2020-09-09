@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d6ebe70b_5ac1e620",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-09T14:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efc14d28_d160ff27",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07a6c88b_903cef01",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab63d55_7fd6ba77",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-09T14:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a6c88b_903cef01",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "b272bfde_de98822f",
+        "filename": "releases/1.7.4-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-09T14:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b467a0_5a03bfba",
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3c6692e_c5dbb481",
         "filename": "version.properties",
         "patchSetId": 2
@@ -115,6 +175,30 @@
       "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5acbed54_84fef4a5",
+        "filename": "version.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-09T14:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c6692e_c5dbb481",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "595c40f4af4a24ccc6b153a15bc1f28cd7c9f56c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
