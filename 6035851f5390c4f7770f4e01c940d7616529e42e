@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ece2351d_f72bbd25",
+        "filename": "schemasConfigMapGenerator/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "something is wrong here.\n\n...in Kubernetes from spec.?",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ef2254_784a5da7",
+        "filename": "schemasConfigMapGenerator/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "in the repository, not in repo",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9ccd6b_aa16831d",
+        "filename": "schemasConfigMapGenerator/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "Close an editor",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b905def_12e7118f",
+        "filename": "schemasConfigMapGenerator/generate.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "add information about license",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00954efe_c3879f19",
+        "filename": "schemasConfigMapGenerator/generate.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "pls add description for this method or change name to more descriptive",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3bb9877_2680e8cd",
+        "filename": "schemasConfigMapGenerator/generate.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-09T06:22:51Z",
+      "side": 1,
+      "message": "consider to collect all methods in single main method and invoke it.",
+      "revId": "6035851f5390c4f7770f4e01c940d7616529e42e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
