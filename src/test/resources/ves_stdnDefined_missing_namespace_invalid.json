@@ -14,29 +14,38 @@
       "vesEventListenerVersion": "7.2"
     },
     "stndDefinedFields": {
-      "schemaReference": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml#definitions/schemas/notifyNewAlarm-NotifType",
+      "schemaReference": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml#components/schemas/NotifyNewAlarm",
       "data": {
-        "uri": "xyz",
-        "notificationId": "xyz",
+        "href": 1,
+        "uri": "1",
+        "notificationId": 1,
         "notificationType": "notifyNewAlarm",
         "eventTime": "xyz",
         "systemDN": "xyz",
-        "probableCause": "xyz",
-        "perceivedSeverity": "Major",
+        "probableCause": 1,
+        "perceivedSeverity": "INDETERMINATE",
         "rootCauseIndicator": false,
         "specificProblem": "xyz",
         "correlatedNotifications": [],
         "backedUpStatus": true,
         "backUpObject": "xyz",
-        "trendIndication": "No change",
-        "thresholdInfo": {},
-        "stateChangeDefinition": [],
-        "monitoredAttributes": [],
+        "trendIndication": "MORE_SEVERE",
+        "thresholdInfo": {
+          "observedMeasurement": "new",
+          "observedValue": 123
+        },
+        "stateChangeDefinition": {
+        },
+        "monitoredAttributes": {
+          "newAtt": "new"
+        },
         "proposedRepairActions": "xyz",
         "additionalText": "xyz",
-        "additionalInformation": [],
-        "alarmId": "xyz",
-        "alarmType": "Environmental Alarm"
+        "additionalInformation": {
+          "addInfo": "new"
+        },
+        "alarmId": "1",
+        "alarmType": "COMMUNICATIONS_ALARM"
       },
       "stndDefinedFieldsVersion": "1.0"
     }
