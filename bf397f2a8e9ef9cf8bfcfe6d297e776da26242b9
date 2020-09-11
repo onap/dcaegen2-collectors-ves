@@ -16,6 +16,24 @@
       "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b884ba_47138203",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-11T09:55:43Z",
+      "side": 1,
+      "message": "Volumes for log_info and tls_info are created in k8s-plugin, so declaring them in volumes array is redundant and causes exception during creating of deployment, due to conflicting mount points (two volumes mounted in the same directory).\n\nNot sure what is the purpose of \"/opt/app/VESCollector/etc\" and if it is used anywhere (blueprint deployed ves doesn\u0027t have that volume).",
+      "parentUuid": "8b67499a_f141b685",
+      "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
