@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "755fd755_bc0ec0b8",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-11T20:52:53Z",
+      "side": 1,
+      "message": "update version to 1.7.4 to reflect master/current version",
+      "range": {
+        "startLine": 3,
+        "startChar": 16,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b67499a_f141b685",
         "filename": "dpo/spec/vescollector-componentspec.json",
         "patchSetId": 3
@@ -49,6 +72,47 @@
       "side": 1,
       "message": "Need to check with Vijay both cases.",
       "parentUuid": "f3b884ba_47138203",
+      "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21331477_d5990946",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-11T20:52:53Z",
+      "side": 1,
+      "message": "volume spec can be removed; it was used under legacy docker deployments and not applicable.",
+      "parentUuid": "def16077_7aee2313",
+      "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc33c666_d717c6a9",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-11T20:52:53Z",
+      "side": 1,
+      "message": "shouldn\u0027t default be false? or is this more for test purpose?",
+      "range": {
+        "startLine": 315,
+        "startChar": 28,
+        "endLine": 315,
+        "endChar": 32
+      },
       "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
