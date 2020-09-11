@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b67499a_f141b685",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-11T09:46:11Z",
+      "side": 1,
+      "message": "Why volumes were removed?",
+      "revId": "bf397f2a8e9ef9cf8bfcfe6d297e776da26242b9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
