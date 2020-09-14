@@ -333,6 +333,14 @@
       "sourced_at_deployment": false,
       "policy_editable": false,
       "designer_editable": false
+    },
+    {
+      "name": "collector.description.api.version.location",
+      "value": "etc/api_version_description.json",
+      "description": "Path to the file containing description of api versions",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
     }
   ],
   "auxilary": {

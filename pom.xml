@@ -210,6 +210,7 @@
           </runs>
           <exposes>
             <expose>8080</expose>
+            <expose>8000</expose>
             <expose>8443</expose>
           </exposes>
           <cmd>bin/docker-entry.sh</cmd>

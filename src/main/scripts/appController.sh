@@ -35,6 +35,8 @@ start() {
       -XX:ErrorFile=logs/java_error%p.log \
       -XX:+HeapDumpOnOutOfMemoryError \
       -Dhttps.protocols=TLSv1.1,TLSv1.2 \
+      -Xdebug \
+      -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:8000 \
       org.onap.dcae.VesApplication $* &
 }
 

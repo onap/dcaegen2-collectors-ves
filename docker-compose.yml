@@ -2,7 +2,13 @@ version: '3'
 services:
   ves:
     container_name: ves
-    image: onap/org.onap.dcaegen2.collectors.ves.vescollector:latest
+    image: nexus3.onap.org:10003/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.4-SNAPSHOT
     ports:
       - "8080:8080"
+      - "8000:8000"
       - "8443:8443"
+  onap-dmaap:
+    container_name: dmaap
+    image: dmaap-simulator
+    ports:
+      - "3904:3904"
