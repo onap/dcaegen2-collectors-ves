@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2019 VMware, Inc. All rights reserved.
- * Copyright (C) 2019 Nokia. All rights reserved.s
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,39 +23,33 @@ package org.onap.dcae.common;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 /**
- * @author nil
+ * A class with methods used in HTTP header management.
  */
 @Component
 public class HeaderUtils {
 
-  public String getApiVerFilePath(String fileName) {
-    return Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(fileName))
-        .getPath();
-  }
+    public String getRestApiIdentify(String uri) {
+        return isBatchRequest(uri) ? "eventListener_eventBatch" : "eventListener";
+    }
 
-  public String getRestApiIdentify(String uri) {
-    return isBatchRequest(uri) ? "eventListener_eventBatch" : "eventListener";
-  }
+    public Map<String, String> extractHeaders(HttpServletRequest request) {
+        return Collections.list(request.getHeaderNames()).stream()
+                .collect(Collectors.toMap(h -> h, request::getHeader));
+    }
 
-  public Map<String, String> extractHeaders(HttpServletRequest request) {
-    return Collections.list(request.getHeaderNames()).stream()
-        .collect(Collectors.toMap(h -> h, request::getHeader));
-  }
+    public HttpHeaders fillHeaders(Map<String, String> headers) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAll(headers);
+        return httpHeaders;
+    }
 
-  public HttpHeaders fillHeaders(Map<String, String> headers) {
-    HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.setAll(headers);
-    return httpHeaders;
-  }
-
-  private boolean isBatchRequest(String request) {
-    return request.contains("eventBatch");
-  }
+    private boolean isBatchRequest(String request) {
+        return request.contains("eventBatch");
+    }
 }

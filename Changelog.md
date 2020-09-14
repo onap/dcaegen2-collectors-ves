@@ -30,3 +30,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Post stndDefined implementation fixes  
 ## [1.7.5] - 09/09/2020
         - [DCAEGEN2-2264](https://jira.onap.org/browse/DCAEGEN2-2264) - Update schema-map.json
+        - [DCAEGEN2-2426](https://jira.onap.org/browse/DCAEGEN2-2426) - Fix bug throwing exception when first event is collected

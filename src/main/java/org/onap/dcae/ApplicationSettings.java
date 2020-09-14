@@ -196,6 +196,10 @@ public class ApplicationSettings {
         return eventTransformations;
     }
 
+    public String getApiVersionDescriptionFilepath() {
+        return properties.getString("collector.description.api.version.location", "etc/api_version_description.json");
+    }
+
     private void loadPropertiesFromFile() {
         try {
             properties.load(configurationFileLocation);
