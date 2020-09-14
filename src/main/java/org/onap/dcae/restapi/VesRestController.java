@@ -137,7 +137,7 @@ public class VesRestController {
     private CustomHeaderUtils createHeaderUtils(String version, HttpServletRequest request) {
         return new CustomHeaderUtils(version.toLowerCase().replace("v", ""),
                 headerUtils.extractHeaders(request),
-                headerUtils.getApiVerFilePath("api_version_config.json"),
+                settings.getApiVersionDescriptionFilepath(),
                 headerUtils.getRestApiIdentify(request.getRequestURI()));
 
     }

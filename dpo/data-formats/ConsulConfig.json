@@ -76,6 +76,7 @@
   "collector.service.secure.port": "8443",
   "auth.method": "noAuth",
   "collector.keystore.file.location": "/opt/app/VESCollector/etc/keystore",
+  "collector.description.api.version.location": "etc/api_version_description.json",
   "services_calls": [],
   "header.authlist": "sample1,$2a$10$0buh.2WeYwN868YMwnNNEuNEAMNYVU9.FSMJGyIKV3dGET/7oGOi6"
 }

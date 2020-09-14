@@ -20,7 +20,9 @@
 package org.onap.dcae.common;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -35,15 +37,15 @@ public final class JsonDataLoader {
     }
 
     /**
-     * This method is validating given event using schema adn throws exception if event is not valid
+     * This method is validating given event using schema and throws exception when event is invalid
      *
      * @param path to file that will be loaded
      * @return contend of the file located under path, given in parameters, as string
      * @throws IOException when file under given path was not found
      */
     public static String loadContent(String path) throws IOException {
-        return new String(
-                Files.readAllBytes(Paths.get(JsonDataLoader.class.getResource(path).getPath()))
-        );
+        URL resource = JsonDataLoader.class.getResource(path);
+        Path resourcePath = Paths.get(resource.getPath());
+        return new String(Files.readAllBytes(resourcePath));
     }
 }
