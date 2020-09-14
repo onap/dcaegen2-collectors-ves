@@ -315,9 +315,7 @@ public class VesRestControllerTest {
 
     private void configureHeadersForEventListener() {
         when(headerUtils.getRestApiIdentify(anyString())).thenReturn("eventListener");
-        when(headerUtils.getApiVerFilePath(anyString())).thenReturn(
-                this.getClass().getResource("/api_version_config.json").getPath()
-        );
+        when(applicationSettings.getApiVersionDescriptionFilepath()).thenReturn("etc/api_version_description.json");
     }
 
     private void verifyThatTransformedEventWasSend(DMaaPEventPublisher eventPublisher, String eventBeforeTransformation) {

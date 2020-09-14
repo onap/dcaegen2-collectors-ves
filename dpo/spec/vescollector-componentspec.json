@@ -240,7 +240,7 @@
     },
     {
       "name": "collector.dmaap.streamid",
-      "value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration|perf3gpp=ves-perf3gpp|stndDefined=ves-other",
+      "value": "fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration|3GPP-FaultSupervision=ves-3gpp-fault-supervision|3GPP-Heartbeat=ves-3gpp-heartbeat|3GPP-Provisioning=ves-3gpp-provisioning|3GPP-PerformanceAssurance=ves-3gpp-performance-assurance",
       "description": "domain-to-streamid mapping used by VESCollector to distributes events based on domain. Both primary and secondary config_key are included for resilency (multiple streamid can be included commma separated). The streamids MUST match to topic config_keys. For single site without resiliency deployment - configkeys with -secondary suffix can be removed",
       "sourced_at_deployment": true,
       "policy_editable": false,
@@ -330,6 +330,14 @@
       "name": "event.externalSchema.stndDefinedDataPath",
       "value": "$.event.stndDefinedFields.data",
       "description": "An internal path from validated JSON. Defines which field of event will be validated during stndDefined validation.",
+      "sourced_at_deployment": false,
+      "policy_editable": false,
+      "designer_editable": false
+    },
+    {
+      "name": "collector.description.api.version.location",
+      "value": "etc/api_version_description.json",
+      "description": "Path to the file containing description of api versions",
       "sourced_at_deployment": false,
       "policy_editable": false,
       "designer_editable": false
