@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1294790_1a302c26",
+        "filename": "src/main/java/org/onap/dcae/common/HeaderUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-15T09:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32ee97d8_2c0b089a",
+      "revId": "37100123ccf6f45889a85683a2d54f94f6ba509f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c60e8e4_bb5b48d3",
         "filename": "src/main/java/org/onap/dcae/common/HeaderUtils.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "37100123ccf6f45889a85683a2d54f94f6ba509f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f68b12c8_fe4041f8",
+        "filename": "src/main/java/org/onap/dcae/common/HeaderUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-15T09:30:59Z",
+      "side": 1,
+      "message": "I\u0027m not the author of this class, just fixed indentation and removed one unused method. I can remove this author signature as we have git history of the file.\n\nAs the name of this class says it\u0027s a class with methods used in HTTP header management. I described it in Javadoc.\n\nCreating utils classes is not really a good approach to OOP, but I prefer to not refactor it under this MR.",
+      "parentUuid": "5c60e8e4_bb5b48d3",
+      "revId": "37100123ccf6f45889a85683a2d54f94f6ba509f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
