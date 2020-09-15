@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32ee97d8_2c0b089a",
+        "filename": "src/main/java/org/onap/dcae/common/HeaderUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-15T02:22:36Z",
+      "side": 1,
+      "message": "Copyright (c) 2019-2020 Nokia . . .",
+      "revId": "37100123ccf6f45889a85683a2d54f94f6ba509f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c60e8e4_bb5b48d3",
+        "filename": "src/main/java/org/onap/dcae/common/HeaderUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-15T02:22:36Z",
+      "side": 1,
+      "message": "nil ???\nwhat does the module do?",
+      "revId": "37100123ccf6f45889a85683a2d54f94f6ba509f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
