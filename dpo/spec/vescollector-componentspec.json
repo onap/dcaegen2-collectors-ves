@@ -350,32 +350,6 @@
       "timeout": "1s",
       "endpoint": "/healthcheck"
     },
-    "volumes": [
-      {
-        "container": {
-          "bind": "/opt/app/dcae-certificate"
-        },
-        "host": {
-          "path": "/opt/app/dcae-certificate"
-        }
-      },
-      {
-        "container": {
-          "bind": "/opt/app/VESCollector/logs"
-        },
-        "host": {
-          "path": "/opt/logs/DCAE/VESCollector/logs"
-        }
-      },
-      {
-        "container": {
-          "bind": "/opt/app/VESCollector/etc"
-        },
-        "host": {
-          "path": "/opt/logs/DCAE/VESCollector/etc"
-        }
-      }
-    ],
     "ports": [
       "8080:0",
       "8443:0"
@@ -385,7 +359,8 @@
      },
     "tls_info":{
 	"cert_directory":"/opt/app/dcae-certificate/",
-	"use_tls":true
+	"use_tls":true,
+        "use_external_tls": false
      }
   },
   "artifacts": [
