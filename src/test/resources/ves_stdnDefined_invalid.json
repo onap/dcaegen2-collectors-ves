@@ -15,7 +15,7 @@
       "priority": "High"
     },
     "stndDefinedFields": {
-      "schemaReference": "https://forge.3gpp.org/rep/sa5/data-models/blob/REL-16/OpenAPI/faultMnS.yaml#components/schemas/NotifyNewAlarm",
+      "schemaReference": "https://forge.3gpp.org/rep/sa5/data-models/tree/SA88-Rel16/OpenAPI/faultMnS.yaml#components/schemas/NotifyNewAlarm",
       "data": {
         "href": 1,
         "uri": "1",
