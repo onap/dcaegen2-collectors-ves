@@ -1,0 +1,2 @@
+# JMeter generated Authorization file
+https://WORKER_IP:30417/eventListener/v7	sample1	sample1			BASIC
