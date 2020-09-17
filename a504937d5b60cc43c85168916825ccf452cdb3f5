@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c726debc_779980f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-17T15:55:40Z",
+      "side": 1,
+      "message": "next time pls add description on  changes/fixes introduced in this new version (copy of changelog entry will suffice)",
+      "revId": "a504937d5b60cc43c85168916825ccf452cdb3f5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
