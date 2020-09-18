@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "14d83697_6081d0f6",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T09:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b8c3a9_b765f13b",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8db88474_6c3a208b",
         "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2394e33e_21183bf4",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T09:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8db88474_6c3a208b",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 1
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40b66f47_ae39f102",
         "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
         "patchSetId": 1
@@ -89,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "7766d9a1_4f457f88",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T09:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40b66f47_ae39f102",
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c83add5a_5391c550",
         "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
         "patchSetId": 1
@@ -100,6 +166,30 @@
       "writtenOn": "2020-09-18T08:00:54Z",
       "side": 1,
       "message": "Fix the test. Event from givenVesEvent() doesn\u0027t contain VESUID.",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 48
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6873a45_0e8ed296",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T09:35:36Z",
+      "side": 1,
+      "message": "good point.",
+      "parentUuid": "c83add5a_5391c550",
       "range": {
         "startLine": 65,
         "startChar": 33,
