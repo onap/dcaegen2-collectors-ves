@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ed150e7_6dc01f54",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T12:11:37Z",
+      "side": 1,
+      "message": "What\u0027s that?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "4b3436293762aee198f135ab405c1a769cab156c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9de76fcf_171aadac",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T12:11:37Z",
+      "side": 1,
+      "message": "The test is exactly the same as shouldSendEventToTopic().",
+      "revId": "4b3436293762aee198f135ab405c1a769cab156c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
