@@ -39,6 +39,24 @@
       "revId": "4b3436293762aee198f135ab405c1a769cab156c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3124bfb_299edbb7",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T12:17:41Z",
+      "side": 1,
+      "message": "eh, doing three things at the same time is not a good option :/ Thanks for comment.",
+      "parentUuid": "9de76fcf_171aadac",
+      "revId": "4b3436293762aee198f135ab405c1a769cab156c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
