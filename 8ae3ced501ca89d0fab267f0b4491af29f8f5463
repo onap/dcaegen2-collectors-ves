@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6db272f_c73cb794",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T08:00:54Z",
+      "side": 1,
+      "message": "Consider using event directly, method asJsonObject seems to be inefficient.\nIs this toString used anywhere?\nYou could consider changing the calls to asJsonObject().toString() to toString()",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db88474_6c3a208b",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T08:00:54Z",
+      "side": 1,
+      "message": "formatting",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 1
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b66f47_ae39f102",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T08:00:54Z",
+      "side": 1,
+      "message": "spaces around \u0027\u003d\u0027",
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83add5a_5391c550",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPEventPublisherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-18T08:00:54Z",
+      "side": 1,
+      "message": "Fix the test. Event from givenVesEvent() doesn\u0027t contain VESUID.",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 48
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
