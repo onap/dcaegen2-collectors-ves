@@ -32,19 +32,59 @@ import org.json.JSONObject;
  */
 public class VesEvent {
 
-    private static final String EVENT_LITERAL = "event";
+    public static final String VES_UNIQUE_ID = "VESuniqueId";
     private static final String COMMON_EVENT_HEADER = "commonEventHeader";
-    private static final String VES_UNIQUE_ID = "VESuniqueId";
     private static final String DOMAIN = "domain";
     private static final String STND_DEFINED_NAMESPACE = "stndDefinedNamespace";
     private static final String STND_DEFINED_DOMAIN = "stndDefined";
     private static final String STND_DEFINED_FIELDS = "stndDefinedFields";
     private static final String SCHEMA_REFERENCE = "schemaReference";
+    private static final String EVENT = "event";
+    private static final String PARTITION_KEY = "sourceName";
 
     private final JSONObject event;
 
     public VesEvent(JSONObject event) {
         this.event = event;
+    }
+
+    public JsonNode asJsonNode() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(event.toString());
+    }
+
+    /**
+     * Returns VES event in form of JSON object.
+     *
+     * @return event in form of json Object
+     */
+    public JSONObject asJsonObject() {
+        return new JSONObject(event.toString());
+    }
+
+    /**
+     * Returns Domain name from VES event.
+     *
+     * @return domain
+     */
+    public String getDomain() {
+        return getEventHeader().getString(DOMAIN);
+    }
+
+    /**
+     * Returns event primary key.
+     * @return a primary key
+     */
+    public String getPK() {
+        return event.getJSONObject(EVENT).getJSONObject(COMMON_EVENT_HEADER).get(PARTITION_KEY).toString();
+    }
+
+    /**
+     * Returns schema reference.
+     * @return a schema reference.
+     */
+    public String getSchemaReference() {
+        return getStndDefinedFields().getString(SCHEMA_REFERENCE);
     }
 
     /**
@@ -63,21 +103,40 @@ public class VesEvent {
     }
 
     /**
-     * Returns Domain name from VES event.
+     * Returns unique ID of VES event.
      *
-     * @return domain
+     * @return unique ID
      */
-    public String getDomain() {
-        return getEventHeader().getString(DOMAIN);
+    public Object getUniqueId() {
+        return event.get(VES_UNIQUE_ID);
     }
 
-    public String getSchemaReference() {
-        return getStndDefinedFields().getString(SCHEMA_REFERENCE);
+    /**
+     * Checks if type of event is same as given in paramaters.
+     *
+     * @param type name that will be compared with event type
+     * @return true or false depending if type given in parameter is same as VES event type
+     */
+    public boolean hasType(String type) {
+        return this.event.has(type);
+    }
+
+    /**
+     * Remove Json element from event by key.
+     * @param key
+     */
+    public void removeElement(String key) {
+        this.event.remove(key);
+    }
+
+    @Override
+    public String toString() {
+        return asJsonObject().toString();
     }
 
     private JSONObject getStndDefinedFields() {
         return event
-                .getJSONObject(EVENT_LITERAL)
+                .getJSONObject(EVENT)
                 .getJSONObject(STND_DEFINED_FIELDS);
     }
 
@@ -97,44 +156,11 @@ public class VesEvent {
 
     private JSONObject getEventHeader() {
         return event
-                .getJSONObject(EVENT_LITERAL)
+                .getJSONObject(EVENT)
                 .getJSONObject(COMMON_EVENT_HEADER);
     }
 
     private boolean isStdDefinedDomain(String domain) {
         return domain.equals(STND_DEFINED_DOMAIN);
-    }
-
-    /**
-     * Returns unique ID of VES event.
-     *
-     * @return unique ID
-     */
-    public Object getUniqueId() {
-        return event.get(VES_UNIQUE_ID);
-    }
-
-    /**
-     * Returns VES event in form of JSON object.
-     *
-     * @return event in form of json Object
-     */
-    public JSONObject asJsonObject() {
-        return new JSONObject(event.toString());
-    }
-
-    public JsonNode asJsonNode() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readTree(event.toString());
-    }
-
-    /**
-     * Checks if type of event is same as given in paramaters.
-     *
-     * @param type name that will be compared with event type
-     * @return true or false depending if type given in parameter is same as VES event type
-     */
-    public boolean hasType(String type) {
-        return this.event.has(type);
     }
 }

@@ -49,17 +49,17 @@ public class EventSender {
       setLoggingContext(vesEvent);
       streamIdToDmaapIds.get(vesEvent.getStreamId())
           .onEmpty(() -> log.error("No StreamID defined for publish - Message dropped" + vesEvent.asJsonObject()))
-          .forEach(streamIds -> sendEventsToStreams(vesEvent, streamIds));
+          .forEach(dmaapIds -> sendEventsToStreams(vesEvent, dmaapIds));
       log.debug("Message published" + vesEvent.asJsonObject());
     }
     log.debug("CommonStartup.handleEvents:EVENTS has been published successfully!");
     metriclog.info("EVENT_PUBLISH_END");
   }
 
-  private void sendEventsToStreams(VesEvent vesEvent, String[] streamIdList) {
-    for (String streamId : streamIdList) {
-      log.info("Invoking publisher for streamId/domain:" + streamId);
-      eventPublisher.sendEvent(vesEvent.asJsonObject(), streamId);
+  private void sendEventsToStreams(VesEvent vesEvent, String[] dmaapIds) {
+    for (String dmaapId : dmaapIds) {
+      log.info("Invoking publisher for streamId/domain:" + dmaapId);
+      eventPublisher.sendEvent(vesEvent, dmaapId);
     }
   }
 

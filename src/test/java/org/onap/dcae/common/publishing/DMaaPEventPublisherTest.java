@@ -32,7 +32,7 @@ import java.io.IOException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
+import org.onap.dcae.common.model.VesEvent;
 
 public class DMaaPEventPublisherTest {
 
@@ -49,29 +49,20 @@ public class DMaaPEventPublisherTest {
         when(DMaaPPublishersCache.getPublisher(anyString())).thenReturn(Option(cambriaPublisher));
         eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache);
     }
-
     @Test
     public void shouldSendEventToTopic() throws Exception {
-        // given
-        JSONObject event = new JSONObject("{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}");
-
-
         // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+        eventPublisher.sendEvent(givenVesEvent(), STREAM_ID);
 
         // then
-        verify(cambriaPublisher).send("dns01cmd004", event.toString());
+        verify(cambriaPublisher).send("dns01cmd004", new JSONObject("{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}").toString());
     }
-    
+
 
     @Test
     public void shouldRemoveInternalVESUIDBeforeSending() throws Exception {
-        // given
-        JSONObject event = new JSONObject(
-            "{\"VESuniqueId\": \"362e0146-ec5f-45f3-8d8f-bfe877c3f58e\",\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}"); 
-
         // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+        eventPublisher.sendEvent(givenVesEvent(), STREAM_ID);
 
         // then
         verify(cambriaPublisher).send("dns01cmd004", new JSONObject("{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}").toString());
@@ -80,13 +71,18 @@ public class DMaaPEventPublisherTest {
     @Test
     public void shouldCloseConnectionWhenExceptionOccurred() throws Exception {
         // given
-        JSONObject event = new JSONObject("{}");
-        given(cambriaPublisher.send(anyString(), anyString())).willThrow(new IOException("epic fail"));
+        given(cambriaPublisher.send(anyString(), anyString())).willThrow(new IOException("Expected exception - test case scenario!"));
 
         // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+        eventPublisher.sendEvent(givenVesEvent(), STREAM_ID);
 
         // then
         verify(DMaaPPublishersCache).closePublisherFor(STREAM_ID);
+    }
+
+    private VesEvent givenVesEvent() {
+        return new VesEvent(
+                new JSONObject(
+                        "{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}"));
     }
 }
