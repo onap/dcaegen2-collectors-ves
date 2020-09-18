@@ -20,6 +20,14 @@
  */
 package org.onap.dcae.common.publishing;
 
+import com.att.nsa.cambria.client.CambriaBatchingPublisher;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
+import org.onap.dcae.common.model.VesEvent;
+
+import java.io.IOException;
+
 import static io.vavr.API.Option;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -27,66 +35,92 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.att.nsa.cambria.client.CambriaBatchingPublisher;
-import java.io.IOException;
-import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Test;
-import org.slf4j.Logger;
-
 public class DMaaPEventPublisherTest {
 
-    private static final String STREAM_ID = "sampleStreamId";
+  private static final String STREAM_ID = "sampleStreamId";
 
-    private DMaaPEventPublisher eventPublisher;
-    private CambriaBatchingPublisher cambriaPublisher;
-    private DMaaPPublishersCache DMaaPPublishersCache;
+  private static final JSONObject EXPECTED_EVENT =
+      new JSONObject(
+          "{\"VESversion\":\"v7\",\"event\":{"
+              + "\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,"
+              + "\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\","
+              + "\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\","
+              + "\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\","
+              + "\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,"
+              + "\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\","
+              + "\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\","
+              + "\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}");
 
-    @Before
-    public void setUp() {
-        cambriaPublisher = mock(CambriaBatchingPublisher.class);
-        DMaaPPublishersCache = mock(DMaaPPublishersCache.class);
-        when(DMaaPPublishersCache.getPublisher(anyString())).thenReturn(Option(cambriaPublisher));
-        eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache);
-    }
+  private static final String PARTITION = "dns01cmd004";
 
-    @Test
-    public void shouldSendEventToTopic() throws Exception {
-        // given
-        JSONObject event = new JSONObject("{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}");
+  private DMaaPEventPublisher eventPublisher;
+  private CambriaBatchingPublisher cambriaPublisher;
+  private DMaaPPublishersCache DMaaPPublishersCache;
 
+  @Before
+  public void setUp() {
+    cambriaPublisher = mock(CambriaBatchingPublisher.class);
+    DMaaPPublishersCache = mock(DMaaPPublishersCache.class);
+    when(DMaaPPublishersCache.getPublisher(anyString())).thenReturn(Option(cambriaPublisher));
+    eventPublisher = new DMaaPEventPublisher(DMaaPPublishersCache);
+  }
 
-        // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+  @Test
+  public void shouldSendEventToTopic() throws Exception {
+    // when
+    eventPublisher.sendEvent(givenVesEventWithoutVESuniqueIdField(), STREAM_ID);
 
-        // then
-        verify(cambriaPublisher).send("dns01cmd004", event.toString());
-    }
-    
+    // then
+    verify(cambriaPublisher).send(PARTITION, EXPECTED_EVENT.toString());
+  }
 
-    @Test
-    public void shouldRemoveInternalVESUIDBeforeSending() throws Exception {
-        // given
-        JSONObject event = new JSONObject(
-            "{\"VESuniqueId\": \"362e0146-ec5f-45f3-8d8f-bfe877c3f58e\",\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}"); 
+  @Test
+  public void shouldRemoveInternalVESUIDBeforeSending() throws Exception {
+    // when
+    eventPublisher.sendEvent(givenVesEventWithVESUniqueIdField(), STREAM_ID);
 
-        // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+    // then
+    verify(cambriaPublisher).send(PARTITION, EXPECTED_EVENT.toString());
+  }
 
-        // then
-        verify(cambriaPublisher).send("dns01cmd004", new JSONObject("{\"event\":{\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019,\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\",\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\",\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312,\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\",\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}").toString());
-    }
+  @Test
+  public void shouldCloseConnectionWhenExceptionOccurred() throws Exception {
+    // given
+    given(cambriaPublisher.send(anyString(), anyString()))
+        .willThrow(new IOException("Expected exception - test case scenario!"));
 
-    @Test
-    public void shouldCloseConnectionWhenExceptionOccurred() throws Exception {
-        // given
-        JSONObject event = new JSONObject("{}");
-        given(cambriaPublisher.send(anyString(), anyString())).willThrow(new IOException("epic fail"));
+    // when
+    eventPublisher.sendEvent(givenVesEventWithVESUniqueIdField(), STREAM_ID);
 
-        // when
-        eventPublisher.sendEvent(event, STREAM_ID);
+    // then
+    verify(DMaaPPublishersCache).closePublisherFor(STREAM_ID);
+  }
 
-        // then
-        verify(DMaaPPublishersCache).closePublisherFor(STREAM_ID);
-    }
+  private VesEvent givenVesEventWithVESUniqueIdField() {
+    return new VesEvent(
+        new JSONObject(
+            "{\"VESversion\":\"v7\",\"VESuniqueId\":\"fd69d432-5cd5-4c15-9d34-407c81c61c6a-0\"," +
+                    "\"event\":{" +
+                    "\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019," +
+                    "\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\"," +
+                    "\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\"," +
+                    "\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\"," +
+                    "\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312," +
+                    "\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\"," +
+                    "\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}"));
+  }
+
+  private VesEvent givenVesEventWithoutVESuniqueIdField() {
+    return new VesEvent(
+            new JSONObject(
+                    "{\"VESversion\":\"v7\"," +
+                            "\"event\":{" +
+                            "\"commonEventHeader\":{\"startEpochMicrosec\":1537562659253019," +
+                            "\"sourceId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\"," +
+                            "\"eventId\":\"Heartbeat_vDNS_100.100.10.10\",\"nfcNamingCode\":\"DNS\"," +
+                            "\"reportingEntityId\":\"79e90d76-513a-4f79-886d-470a0037c5cf\",\"eventType\":\"applicationVnf\"," +
+                            "\"priority\":\"Normal\",\"version\":3,\"reportingEntityName\":\"dns01cmd004\",\"sequence\":36312," +
+                            "\"domain\":\"heartbeat\",\"lastEpochMicrosec\":1537562659253019,\"eventName\":\"Heartbeat_vDNS\"," +
+                            "\"sourceName\":\"dns01cmd004\",\"nfNamingCode\":\"MDNS\"}}}"));
+  }
 }
