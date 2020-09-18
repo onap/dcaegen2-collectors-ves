@@ -40,6 +40,7 @@ import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventTransformation;
 import org.onap.dcae.common.HeaderUtils;
 import org.onap.dcae.common.JsonDataLoader;
+import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcae.common.validator.StndDefinedDataValidator;
 import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.slf4j.Logger;
@@ -323,11 +324,11 @@ public class VesRestControllerTest {
         assertThat(eventBeforeTransformation).contains("\"version\": \"4.0.1\"");
         assertThat(eventBeforeTransformation).contains("\"faultFieldsVersion\": \"4.0\"");
 
-        ArgumentCaptor<JSONObject> argument = ArgumentCaptor.forClass(JSONObject.class);
+        ArgumentCaptor<VesEvent> argument = ArgumentCaptor.forClass(VesEvent.class);
         ArgumentCaptor<String> domain = ArgumentCaptor.forClass(String.class);
         verify(eventPublisher).sendEvent(argument.capture(), domain.capture());
 
-        final String transformedEvent = argument.getValue().toString();
+        final String transformedEvent = argument.getValue().asJsonObject().toString();
         final String eventSentAtTopic = domain.getValue();
 
         // event after transformation
