@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19b8c3a9_b765f13b",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-09-18T08:12:37Z",
+      "side": 1,
+      "message": "you have right. My bad. I will fix it. Yes it is used in the code when information about an event is logged.",
+      "parentUuid": "e6db272f_c73cb794",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "8ae3ced501ca89d0fab267f0b4491af29f8f5463",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8db88474_6c3a208b",
         "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
         "patchSetId": 1
