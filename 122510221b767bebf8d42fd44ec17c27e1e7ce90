@@ -22,6 +22,30 @@
       "revId": "122510221b767bebf8d42fd44ec17c27e1e7ce90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2508f745_af2018e4",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-21T13:07:34Z",
+      "side": 1,
+      "message": "This should work IMO but lets check the latest stage-release job to confirm. If same issue is found again, i can revert this patch",
+      "parentUuid": "ed552d2b_e6174056",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 23
+      },
+      "revId": "122510221b767bebf8d42fd44ec17c27e1e7ce90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
