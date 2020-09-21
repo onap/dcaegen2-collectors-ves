@@ -184,6 +184,7 @@
             <imageTag>${project.version}-${maven.build.timestamp}Z</imageTag>
             <imageTag>${project.version}</imageTag>
             <imageTag>latest</imageTag>
+
           </imageTags>
           <baseImage>openjdk:11-jre-slim</baseImage>
           <user>vescollector</user>
