@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed552d2b_e6174056",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-21T12:55:00Z",
+      "side": 1,
+      "message": "Are you sure that latest tag is not going to get pushed? When doing docker build you actually get a latest tag from:\n          \u003cimageName\u003e${onap.nexus.dockerregistry.daily}/${docker.image.name}\u003c/imageName\u003e",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 23
+      },
+      "revId": "122510221b767bebf8d42fd44ec17c27e1e7ce90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
