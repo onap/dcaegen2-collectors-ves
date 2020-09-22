@@ -1,7 +1,6 @@
 # UUID                                                                                  	Group Name
 #
 12595e63c97bb1533597370ccfe4a3d15208b978                                                	saml/onap-gerrit-dcaegen2-collectors-ves-committers
-71c7bb7d9f95811481f9dd5014b61170d9a99c26                                                	ci-management-committers
 89d362029514c4ee83998322389ebd87042c5519                                                	saml/lf-gerrit-transfer
 daebbf523be390041a1a9c0e340a6d833aae5043                                                	GitHub Replication
 ldap:cn=onap-gerrit-dcaegen2-collectors-ves-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-dcaegen2-collectors-ves-committers
