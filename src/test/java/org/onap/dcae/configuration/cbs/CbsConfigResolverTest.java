@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
@@ -34,6 +36,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class CbsConfigResolverTest {
@@ -47,20 +50,20 @@ public class CbsConfigResolverTest {
     public final WireMockRule wireMockRule = new WireMockRule(
             wireMockConfig().dynamicPort().dynamicPort());
 
+    @Mock
+    private CbsClientConfigurationResolver cbsClientConfigurationResolver;
+
+    @InjectMocks
+    private CbsConfigResolver cbsConfigResolver;
+
     @Test
     public void shouldFetchConfigurationFromCBS() {
         // given
-        final int PORT = wireMockRule.port();
         stubCBSToReturnAppConfig();
+        mockCbsClientConfiguration();
 
         // when
-        CbsClientConfiguration cbsClientConfiguration = ImmutableCbsClientConfiguration.builder()
-                .protocol(PROTOCOL)
-                .hostname(HOSTNAME)
-                .port(PORT)
-                .appName(APP_NAME)
-                .build();
-        JSONObject appConfig = new CbsConfigResolver(cbsClientConfiguration).getAppConfig().get();
+        JSONObject appConfig = cbsConfigResolver.getAppConfig().get();
 
         // then
         assertThat(appConfig).isNotNull();
@@ -69,6 +72,17 @@ public class CbsConfigResolverTest {
 
     private void stubCBSToReturnAppConfig() {
         stubFor(get(urlEqualTo("/service_component/VESCollector"))
-                .willReturn(aResponse().withBody(CbsConfigResolverTest.VES_CONFIG)));
+            .willReturn(aResponse().withBody(CbsConfigResolverTest.VES_CONFIG)));
+    }
+
+    private void mockCbsClientConfiguration() {
+        final int PORT = wireMockRule.port();
+        CbsClientConfiguration cbsClientConfiguration = ImmutableCbsClientConfiguration.builder()
+            .protocol(PROTOCOL)
+            .hostname(HOSTNAME)
+            .port(PORT)
+            .appName(APP_NAME)
+            .build();
+        when(cbsClientConfigurationResolver.resolveCbsClientConfiguration()).thenReturn(cbsClientConfiguration);
     }
 }

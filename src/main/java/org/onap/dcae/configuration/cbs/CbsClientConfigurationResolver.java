@@ -19,7 +19,6 @@
  */
 package org.onap.dcae.configuration.cbs;
 
-import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
 import org.slf4j.Logger;

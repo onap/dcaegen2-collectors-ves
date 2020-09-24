@@ -21,7 +21,6 @@ package org.onap.dcae.configuration.cbs;
 
 import com.google.gson.JsonObject;
 import io.vavr.control.Option;
-import java.util.function.Consumer;
 import org.json.JSONObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
@@ -37,16 +36,17 @@ public class CbsConfigResolver {
 
     private static final Logger log = LoggerFactory.getLogger(CbsConfigResolver.class);
 
-    private final CbsClientConfiguration cbsClientConfiguration;
+    private final CbsClientConfigurationResolver cbsClientConfigurationResolver;
     private final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
     private final CbsRequest cbsConfigurationRequest = CbsRequests.getConfiguration(diagnosticContext);
 
-    CbsConfigResolver(CbsClientConfiguration cbsClientConfiguration) {
-        this.cbsClientConfiguration = cbsClientConfiguration;
+    CbsConfigResolver(CbsClientConfigurationResolver cbsClientConfigurationResolver) {
+        this.cbsClientConfigurationResolver = cbsClientConfigurationResolver;
     }
 
     public Option<JSONObject> getAppConfig() {
         JsonObject emptyJson = new JsonObject();
+        CbsClientConfiguration cbsClientConfiguration = cbsClientConfigurationResolver.resolveCbsClientConfiguration();
         JsonObject jsonObject = CbsClientFactory.createCbsClient(cbsClientConfiguration)
             .flatMap(cbsClient -> cbsClient.get(cbsConfigurationRequest))
             .doOnError(error -> log.warn("Failed to fetch configuration from CBS " + error.getMessage()))
