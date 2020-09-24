@@ -19,13 +19,10 @@
  */
 package org.onap.dcae.configuration.cbs;
 
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
-
 public class CbsConfigResolverFactory {
 
     public CbsConfigResolver create() {
         CbsClientConfigurationResolver resolver = new CbsClientConfigurationResolver();
-        CbsClientConfiguration cbsClientConfiguration = resolver.resolveCbsClientConfiguration();
-        return new CbsConfigResolver(cbsClientConfiguration);
+        return new CbsConfigResolver(resolver);
     }
 }
