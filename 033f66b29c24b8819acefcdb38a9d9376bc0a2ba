@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+2: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-by: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-at: Fri, 25 Sep 2020 07:26:19 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/113109
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
