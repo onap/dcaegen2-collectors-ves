@@ -33,3 +33,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-2426](https://jira.onap.org/browse/DCAEGEN2-2426) - Fix bug throwing exception when first event is collected
 ## [1.7.6] - 18/09/2020
         - [DCAEGEN-2374](https://jira.onap.org/browse/DCAEGEN2-2374) - Fix an error reported by DMaapEventPublisher test when pk is not available.
+        - [DCAEGEN2-2453](https://jira.onap.org/browse/DCAEGEN2-2453) - Fix VES problem with subsequent fetching from CBS.
