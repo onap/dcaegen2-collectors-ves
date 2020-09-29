@@ -34,3 +34,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.7.6] - 18/09/2020
         - [DCAEGEN-2374](https://jira.onap.org/browse/DCAEGEN2-2374) - Fix an error reported by DMaapEventPublisher test when pk is not available.
         - [DCAEGEN2-2453](https://jira.onap.org/browse/DCAEGEN2-2453) - Fix VES problem with subsequent fetching from CBS.
+## [1.7.7] - 29/09/2020
+         - [DCAEGEN2-2462](https://jira.onap.org/browse/DCAEGEN2-2462) - Adapt schema-map.json and test files to updated 3GPP repos 
