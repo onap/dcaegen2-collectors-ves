@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1277f82f_25213058",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-05T16:23:36Z",
+      "side": 1,
+      "message": "DCAEGEN2-2264 is closed; suggest creating separate jira for H",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "d920b71a4f32eb0bcf590edc5a22ddf6a60a71bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
