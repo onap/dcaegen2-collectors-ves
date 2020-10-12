@@ -36,3 +36,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - [DCAEGEN2-2453](https://jira.onap.org/browse/DCAEGEN2-2453) - Fix VES problem with subsequent fetching from CBS.
 ## [1.7.7] - 29/09/2020
          - [DCAEGEN2-2462](https://jira.onap.org/browse/DCAEGEN2-2462) - Adapt schema-map.json and test files to updated 3GPP repos 
+## [1.7.7] - 13/10/2020
+          - [DCAEGEN2-2478](https://jira.onap.org/browse/DCAEGEN2-2478) - Add logs from external-repo-menager lib
