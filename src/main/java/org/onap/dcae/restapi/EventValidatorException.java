@@ -22,6 +22,11 @@ package org.onap.dcae.restapi;
 public class EventValidatorException extends RuntimeException {
     private final ApiException apiException;
 
+    public EventValidatorException(ApiException apiException, Exception cause) {
+        super(cause);
+        this.apiException = apiException;
+    }
+
     public EventValidatorException(ApiException apiException) {
         this.apiException = apiException;
     }
