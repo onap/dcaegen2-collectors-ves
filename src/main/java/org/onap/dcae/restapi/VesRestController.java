@@ -61,6 +61,7 @@ public class VesRestController {
     private static final String EVENT = "event";
     private final ApplicationSettings settings;
     private final Logger requestLogger;
+    private final Logger logger;
     private EventSender eventSender;
     private final HeaderUtils headerUtils;
     private final GeneralEventValidator generalEventValidator;
@@ -69,10 +70,11 @@ public class VesRestController {
 
     @Autowired
     VesRestController(ApplicationSettings settings, @Qualifier("incomingRequestsLogger") Logger incomingRequestsLogger,
-                      @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils,
+                      @Qualifier("errorLog") Logger logger, @Qualifier("eventSender") EventSender eventSender, HeaderUtils headerUtils,
                       StndDefinedDataValidator stndDefinedDataValidator) {
         this.settings = settings;
         this.requestLogger = incomingRequestsLogger;
+        this.logger = logger;
         this.eventSender = eventSender;
         this.headerUtils = headerUtils;
         this.stndDefinedValidator = stndDefinedDataValidator;
@@ -113,6 +115,7 @@ public class VesRestController {
             executeStndDefinedValidation(vesEvents);
             eventSender.send(vesEvents);
         } catch (EventValidatorException e) {
+           logger.error(e.getMessage());
             return ResponseEntity.status(e.getApiException().httpStatusCode)
                     .body(e.getApiException().toJSON().toString());
         } catch (StndDefinedNamespaceParameterNotDefinedException e) {
