@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-by: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-at: Thu, 15 Oct 2020 07:27:55 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/113777
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/guilin
