@@ -27,6 +27,7 @@ import com.networknt.schema.JsonSchema;
 import io.vavr.collection.HashMap;
 import org.apache.http.HttpStatus;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,9 +82,6 @@ public class VesRestControllerTest {
     private Logger logger;
 
     @Mock
-    private Logger errorLogger;
-
-    @Mock
     private HeaderUtils headerUtils;
 
     @Mock
@@ -99,7 +97,7 @@ public class VesRestControllerTest {
                 "3GPP-FaultSupervision", new String[]{VES_3_GPP_FAULT_SUPERVISION_TOPIC}
         );
         this.vesRestController = new VesRestController(applicationSettings, logger,
-                errorLogger, new EventSender(eventPublisher, streamIds), headerUtils, stndDefinedDataValidator);
+                new EventSender(eventPublisher, streamIds), headerUtils, stndDefinedDataValidator);
     }
 
     @Test

@@ -29,8 +29,6 @@ import org.onap.dcae.restapi.EventValidatorException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.IncorrectInternalFileReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.service.StndDefinedValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +38,6 @@ public class StndDefinedDataValidator {
     private static final String STND_DEFINED_DOMAIN = "stndDefined";
 
     private final StndDefinedValidator stndDefinedValidator;
-
-    public static final Logger log = LoggerFactory.getLogger(StndDefinedDataValidator.class);
 
     @Autowired
     public StndDefinedDataValidator(StndDefinedValidator validator) {
@@ -60,7 +56,7 @@ public class StndDefinedDataValidator {
                 throw new EventValidatorException(ApiException.STND_DEFINED_VALIDATION_FAILED);
             }
         } catch (JsonProcessingException ex) {
-            throw new EventValidatorException(ApiException.INVALID_JSON_INPUT, ex);
+            throw new EventValidatorException(ApiException.INVALID_JSON_INPUT);
         }
     }
 
@@ -68,9 +64,9 @@ public class StndDefinedDataValidator {
         try {
             return stndDefinedValidator.validate(event);
         } catch (NoLocalReferenceException e) {
-            throw new EventValidatorException(ApiException.NO_LOCAL_SCHEMA_REFERENCE, e);
+            throw new EventValidatorException(ApiException.NO_LOCAL_SCHEMA_REFERENCE);
         } catch (IncorrectInternalFileReferenceException e) {
-            throw new EventValidatorException(ApiException.INCORRECT_INTERNAL_FILE_REFERENCE, e);
+            throw new EventValidatorException(ApiException.INCORRECT_INTERNAL_FILE_REFERENCE);
         }
     }
 
