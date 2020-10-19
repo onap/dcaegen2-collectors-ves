@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cac1ff7e_fa60c134",
+        "filename": "releases/1.7.8-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T10:14:37Z",
+      "side": 1,
+      "message": "is it really correct tag? 1.7.6?",
+      "revId": "e3c954320d6bf200b95d3abd496f9c2395210b3a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
