@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.7.8'
+project: 'dcaegen2-collectors-ves'
+log_dir: 'dcaegen2-collectors-ves-maven-docker-stage-guilin/18/'
+ref: 7be86e2ca0247f5939406f07c6fdefcee0cf963f
+containers:
+  - name: 'org.onap.dcaegen2.collectors.ves.vescollector'
+    version: '1.7.8-20201016T105512Z'
