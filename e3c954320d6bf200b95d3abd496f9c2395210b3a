@@ -33,6 +33,42 @@
       "revId": "e3c954320d6bf200b95d3abd496f9c2395210b3a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f90f80_22f3374f",
+        "filename": "releases/1.7.8-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-10-19T10:33:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac1ff7e_fa60c134",
+      "revId": "e3c954320d6bf200b95d3abd496f9c2395210b3a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e23d84f_604a6607",
+        "filename": "releases/1.7.8-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2020-10-19T10:33:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a53f316_81d09cce",
+      "revId": "e3c954320d6bf200b95d3abd496f9c2395210b3a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
