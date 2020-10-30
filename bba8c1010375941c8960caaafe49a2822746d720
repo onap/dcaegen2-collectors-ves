@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddd771ef_00856a60",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "\"need to activate\"\n\nAlso - consider adding some note that those are steps to run VES locally with \"real\" CBS. Current wording suggests that VES runs without Consul by default.",
+      "range": {
+        "startLine": 43,
+        "startChar": 35,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf257772_a99d5892",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Main thread may be a little confusing as run() method runs on thread created with ThreadPoolExecutor.",
+      "range": {
+        "startLine": 47,
+        "startChar": 18,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d97878_2b36abc5",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Formatting",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b49cc65_383c6d67",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Consider name like stopListeningForConfigurationUpdates, it would match with listenForConfigurationUpdates",
+      "range": {
+        "startLine": 82,
+        "startChar": 9,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779a80ec_32c09231",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Formatting",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "971f595d_a7bb6f62",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Can be private",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f9f83dd_757f7b87",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Not used outside main()",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23fed3f1_87646d5b",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "I think ScheduledThreadPoolExecutor is a bit of overkill now. There is only one \"task\" so Thread could be used probably.",
+      "range": {
+        "startLine": 67,
+        "startChar": 42,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8838c5a4_067b6d22",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12fd0b77_0967e5d5",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Consider extracting to method - isDevModeEnabled()",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 61
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb4e5fa_81a4d580",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Consider extracting to method - getDevConfiguration()",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a18ca1_d5984f9d",
+        "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-10-30T15:21:24Z",
+      "side": 1,
+      "message": "Not changed, but logger is duplicated in getFallbackConfiguration. Could You remove one of them?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
