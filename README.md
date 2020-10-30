@@ -38,7 +38,42 @@ Run the image using docker-compose.yml
 ```
 docker-compose up
 ```
+### Developer mode
 
+To run application with Consul you need activate developer mode.
+
+1. Configure host mapping
+    
+    For Linux: In host file add mapping for config-binding-service
+    
+        vi /etc/hosts
+        SET_HERE_IP config-binding-service
+    
+2. At lab open port for config-binding-service
+
+    - Get basic information about config-binding-service
+    
+        ```
+        ubuntu@onap-7607-rke-node:~$ kubectl -n onap get services | grep config-binding-service
+        config-binding-service  ClusterIP  10.43.227.68    <none>  10000/TCP,10443/TCP  6d2h
+        ```
+    - Edit config-binding-service to change ClusterIP to NodePort to expose port
+ 
+        ```
+        kubectl -n onap edit service config-binding-service
+        ```
+      
+    - Get information about opened port for config-binding-service
+        
+        ```
+        ubuntu@onap-7607-rke-node:~$ kubectl -n onap get services | grep config-binding-service
+        config-binding-service  NodePort  10.43.227.68  <none>  10000:31029/TCP,10443:32719/TCP  6d2h
+        ```
+      
+3. Run application with properties 
+
+        -DdevMode=true -DcbsPort=31029
+        
 ### Generate auth credential
 
 Library to generate new cryptographic password is stored in dcaegen2/sdk -"security/crypt-password"
