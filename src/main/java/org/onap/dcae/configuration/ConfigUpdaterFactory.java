@@ -17,12 +17,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.configuration.cbs;
+package org.onap.dcae.configuration;
 
-public class CbsConfigResolverFactory {
+import java.nio.file.Path;
+import org.onap.dcae.VesApplication;
 
-    public CbsConfigResolver create() {
-        CbsClientConfigurationResolver resolver = new CbsClientConfigurationResolver();
-        return new CbsConfigResolver(resolver);
+public class ConfigUpdaterFactory {
+
+    private ConfigUpdaterFactory() {
+    }
+
+    public static ConfigUpdater create(Path propertiesFile, Path dmaapConfigFile) {
+        ConfigFilesFacade configFilesFacade = new ConfigFilesFacade(propertiesFile, dmaapConfigFile);
+        return new ConfigUpdater(
+            configFilesFacade,
+                VesApplication::restartApplication);
     }
 }

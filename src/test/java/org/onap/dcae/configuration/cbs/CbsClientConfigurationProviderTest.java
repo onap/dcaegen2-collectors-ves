@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 
-public class CbsClientConfigurationResolverTest {
+public class CbsClientConfigurationProviderTest {
 
     private static final String DEFAULT_PROTOCOL = "http";
     private static final String DEFAULT_HOSTNAME = "config-binding-service";
@@ -36,7 +36,7 @@ public class CbsClientConfigurationResolverTest {
     @DisabledIfEnvironmentVariable(named = "CONFIG_BINDING_SERVICE", matches = ".+")
     public void shouldLoadDefaultConfigWhenEnvNotPresent() {
         // when
-        CbsClientConfiguration configuration = new CbsClientConfigurationResolver().resolveCbsClientConfiguration();
+        CbsClientConfiguration configuration = new CbsClientConfigurationProvider().get();
 
         // then
         assertThat(configuration.protocol()).isEqualTo(DEFAULT_PROTOCOL);
