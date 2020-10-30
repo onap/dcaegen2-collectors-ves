@@ -17,20 +17,27 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcae.configuration.cbs;
+package org.onap.dcae.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.nio.file.Path;
 import org.junit.Test;
 
-public class CbsClientFactoryTest {
+public class ConfigUpdaterFactoryTest {
 
     @Test
-    public void createsClientSuccessfully() {
+    public void createsCbsConfigUpdaterSuccessfully() {
+        // given
+        Path testPropertiesPath = Path.of("src/test/resources/testcollector.properties");
+        Path testDmaapConfigPath = Path.of("src/test/resources/testParseDMaaPCredentialsGen2.json");
+
         // when
-        CbsConfigResolver cbsConfigResolver = new CbsConfigResolverFactory().create();
+        ConfigUpdater configLoader = ConfigUpdaterFactory.create(
+            testPropertiesPath,
+            testDmaapConfigPath);
 
         // then
-        assertThat(cbsConfigResolver).isNotNull();
+        assertThat(configLoader).isNotNull();
     }
 }

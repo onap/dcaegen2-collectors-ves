@@ -27,8 +27,10 @@ import org.onap.dcae.common.validator.StndDefinedValidatorResolver;
 import org.onap.dcae.common.publishing.DMaaPConfigurationParser;
 import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.onap.dcae.common.publishing.PublisherConfig;
-import org.onap.dcae.configuration.ConfigLoader;
-import org.onap.dcae.configuration.ConfigLoaderFactory;
+import org.onap.dcae.configuration.ConfigurationHandler;
+import org.onap.dcae.configuration.ConfigUpdater;
+import org.onap.dcae.configuration.ConfigUpdaterFactory;
+import org.onap.dcae.configuration.cbs.CbsClientConfigurationResolver;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.service.StndDefinedValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,37 +44,38 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
 import java.nio.file.Paths;
-import java.util.concurrent.ScheduledFuture;
+import java.time.Duration;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
+
+    private static final int DEFAULT_CONFIGURATION_FETCH_PERIOD = 5;
 
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
     private static ApplicationSettings applicationSettings;
     private static ConfigurableApplicationContext context;
-    private static ConfigLoader configLoader;
-    private static ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+    private static ConfigUpdater configUpdater;
     private static DMaaPEventPublisher eventPublisher;
-    private static ScheduledFuture<?> scheduleFeatures;
+    private static ApplicationConfigProvider applicationConfigProvider;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(VesApplication.class);
         applicationSettings = new ApplicationSettings(args, CLIUtils::processCmdLine);
-        scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
         init();
+
+        applicationConfigProvider = startListeningForApplicationConfigurationStoredInConsul();
+
         app.setAddCommandLineProperties(true);
         context = app.run();
-        configLoader.updateConfig();
     }
 
     public static void restartApplication() {
         Thread thread = new Thread(() -> {
             context.close();
             applicationSettings.reloadProperties();
-            scheduleFeatures.cancel(true);
+            applicationConfigProvider.reload(Duration.ofMinutes(applicationSettings.configurationUpdateFrequency()));
             init();
             context = SpringApplication.run(VesApplication.class);
         });
@@ -81,26 +84,20 @@ public class VesApplication {
     }
 
     private static void init() {
-        createConfigLoader();
-        createSchedulePoolExecutor();
-        createExecutors();
-    }
-
-    private static void createExecutors() {
+        configUpdater = ConfigUpdaterFactory.create(
+                applicationSettings.configurationFileLocation(),
+                Paths.get(applicationSettings.dMaaPConfigurationFileLocation()));
         eventPublisher = new DMaaPEventPublisher(getDmaapConfig());
     }
 
-    private static void createSchedulePoolExecutor() {
-        scheduleFeatures = scheduledThreadPoolExecutor.scheduleAtFixedRate(configLoader::updateConfig,
-                applicationSettings.configurationUpdateFrequency(),
-                applicationSettings.configurationUpdateFrequency(),
-                TimeUnit.MINUTES);
-    }
+    private static ApplicationConfigProvider startListeningForApplicationConfigurationStoredInConsul() {
+        ConfigurationHandler cbsHandler = new ConfigurationHandler(new CbsClientConfigurationResolver(), configUpdater);
+        ApplicationConfigProvider applicationConfigProvider = new ApplicationConfigProvider(Duration.ofMinutes(DEFAULT_CONFIGURATION_FETCH_PERIOD), cbsHandler);
 
-    private static void createConfigLoader() {
-        configLoader = ConfigLoaderFactory.create(
-                applicationSettings.configurationFileLocation(),
-                Paths.get(applicationSettings.dMaaPConfigurationFileLocation()));
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+        scheduledThreadPoolExecutor.execute(applicationConfigProvider);
+
+        return applicationConfigProvider;
     }
 
     private static Map<String, PublisherConfig> getDmaapConfig() {
@@ -136,5 +133,4 @@ public class VesApplication {
     public StndDefinedValidator getStndDefinedValidator(StndDefinedValidatorResolver resolver) {
         return resolver.resolve();
     }
-
 }
