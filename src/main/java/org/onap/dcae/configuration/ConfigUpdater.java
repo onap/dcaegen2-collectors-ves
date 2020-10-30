@@ -22,27 +22,23 @@ package org.onap.dcae.configuration;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 import org.json.JSONObject;
-import org.onap.dcae.configuration.cbs.CbsConfigResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfigLoader {
+public class ConfigUpdater {
 
-    private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(ConfigUpdater.class);
     private final ConfigFilesFacade configFilesFacade;
-    private final CbsConfigResolver cbsConfigResolver;
     private final Runnable applicationRestarter;
     private boolean isApplicationRestartNeeded;
 
-    ConfigLoader(ConfigFilesFacade configFilesFacade, CbsConfigResolver cbsConfigResolver, Runnable applicationRestarter) {
+    public ConfigUpdater(ConfigFilesFacade configFilesFacade, Runnable applicationRestarter) {
         this.configFilesFacade = configFilesFacade;
-        this.cbsConfigResolver = cbsConfigResolver;
         this.applicationRestarter = applicationRestarter;
         this.isApplicationRestartNeeded = false;
     }
 
-    public synchronized void updateConfig() {
-        Option<JSONObject> appConfig = cbsConfigResolver.getAppConfig();
+    public synchronized void updateConfig(Option<JSONObject> appConfig) {
         appConfig.peek(this::handleUpdate).onEmpty(logSkipMessage());
     }
 
