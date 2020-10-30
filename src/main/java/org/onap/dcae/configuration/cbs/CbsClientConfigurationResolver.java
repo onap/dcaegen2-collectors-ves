@@ -24,20 +24,29 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCb
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class CbsClientConfigurationResolver {
+public class CbsClientConfigurationResolver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigurationResolver.class);
 
-    private final String defaultProtocol = "http";
-    private final String defaultHostname = "config-binding-service";
-    private final int defaultPort = 10000;
-    private final String defaultAppName = "dcae-ves-collector";
+    private static final String DEFAULT_PROTOCOL = "http";
+    private static final String DEFAULT_HOSTNAME = "config-binding-service";
+    private static final int DEFAULT_PORT = 10000;
+    private static final String DEFAULT_APP_NAME = "dcae-ves-collector";
+    public static final String DEV_MODE_PROPERTY = "devMode";
+    public static final String CBS_PORT_PROPERTY = "cbsPort";
 
-    CbsClientConfiguration resolveCbsClientConfiguration() {
+    public CbsClientConfiguration resolveCbsClientConfiguration() {
         try {
-            return CbsClientConfiguration.fromEnvironment();
+            if (System.getProperty(DEV_MODE_PROPERTY) != null) {
+                return createCbsClientConfiguration(
+                        DEFAULT_PROTOCOL, DEFAULT_HOSTNAME, DEFAULT_APP_NAME,
+                        Integer.parseInt(System.getProperty(CBS_PORT_PROPERTY, String.valueOf(DEFAULT_PORT)))
+                );
+            } else {
+                return CbsClientConfiguration.fromEnvironment();
+            }
         } catch (Exception e) {
-            LOGGER.warn("Failed resolving CBS client configuration from system environments: " + e);
+            LOGGER.warn(String.format("Failed resolving CBS client configuration from system environments: %s", e));
         }
         LOGGER.info("Falling back to use default CBS client configuration properties");
         return getFallbackConfiguration();
@@ -45,7 +54,7 @@ class CbsClientConfigurationResolver {
 
     private ImmutableCbsClientConfiguration getFallbackConfiguration() {
         LOGGER.info("Falling back to use default CBS client configuration");
-        return createCbsClientConfiguration(defaultProtocol, defaultHostname, defaultAppName, defaultPort);
+        return createCbsClientConfiguration(DEFAULT_PROTOCOL, DEFAULT_HOSTNAME, DEFAULT_APP_NAME, DEFAULT_PORT);
     }
 
     private ImmutableCbsClientConfiguration createCbsClientConfiguration(String protocol, String hostname,

@@ -87,6 +87,15 @@
   </Appenders>
 
   <Loggers>
+    <logger additivity="false" level="error" name="org.onap.dcaegen2.services.sdk">
+      <AppenderRef ref="ROL_CONSOLE"/>
+      <AppenderRef ref="EFILE"/>
+    </logger>
+
+    <logger additivity="false" level="error" name="org.onap.dcae.restapi">
+      <AppenderRef ref="ROL_CONSOLE"/>
+      <AppenderRef ref="EFILE"/>
+    </logger>
 
     <Logger additivity="false" level="info" name="org.onap.dcae.common.input">
       <AppenderRef ref="IFILE"/>
