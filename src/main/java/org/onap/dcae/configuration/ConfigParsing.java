@@ -47,11 +47,11 @@ interface ConfigParsing {
     }
 
     static Map<String, String> getProperties(JSONObject configuration) {
-        log.info(f("Getting properties configuration from app configuration: '%s'", configuration));
+        log.debug(f("Getting properties configuration from app configuration: '%s'", configuration));
         Map<String, String> confEntries = toList(configuration.toMap().entrySet().iterator())
             .toMap(e -> Tuple(e.getKey(), String.valueOf(e.getValue())))
             .filterKeys(e -> !e.startsWith("streams_publishes"));
-        log.info(f("Found following app properties: '%s'", confEntries));
+        log.debug(f("Found following app properties: '%s'", confEntries));
         return confEntries;
     }
 }
