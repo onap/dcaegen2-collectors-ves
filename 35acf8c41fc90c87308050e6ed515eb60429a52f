@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec47494d_fa477dc4",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-10-30T17:43:40Z",
+      "side": 1,
+      "message": "new code should have javadocs on file and public methods",
+      "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8aed084_b5155556",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigurationHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-10-30T17:43:40Z",
+      "side": 1,
+      "message": "new code should have javadocs on file and public methods",
+      "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
