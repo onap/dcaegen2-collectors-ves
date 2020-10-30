@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.7.8-SNAPSHOT</version>
+  <version>1.7.9-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -205,7 +205,7 @@
             <!-- Maven is loosing file permissions during artifacts copy -->
             <run>chmod +x bin/*.sh</run>
             <run>
-              <![CDATA[apt-get update && apt-get install -y --no-install-recommends procps && apt-get install -y vim && apt-get install -y curl && apt-get clean all]]></run>
+              <![CDATA[apt-get update && apt-get install -y --no-install-recommends procps && apt-get install -y less && apt-get install -y vim && apt-get install -y curl && apt-get clean all]]></run>
           </runs>
           <exposes>
             <expose>8080</expose>
@@ -434,6 +434,12 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <version>${spring-boot-starter-test.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.vaadin.external.google</groupId>
+          <artifactId>android-json</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.onap.dcaegen2.services.sdk.security.crypt</groupId>

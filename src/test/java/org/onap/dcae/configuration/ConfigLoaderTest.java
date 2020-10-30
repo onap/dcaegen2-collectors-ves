@@ -40,7 +40,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.onap.dcae.configuration.cbs.CbsConfigResolver;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ConfigLoaderTest {
@@ -53,14 +52,12 @@ public class ConfigLoaderTest {
     private static final String COLLECTOR_SCHEMA_FILE = "collector.schema.file";
     private static final String SOME_SCHEMA = "some schema";
 
-    @Mock
-    private CbsConfigResolver cbsConfigResolverMock;
 
     @Mock
     private ConfigFilesFacade configFilesFacadeMock;
 
     @InjectMocks
-    private ConfigLoader configLoader;
+    private ConfigUpdater configLoader;
 
     @Mock
     private Runnable applicationRestarter;
@@ -73,28 +70,14 @@ public class ConfigLoaderTest {
     }
 
     @Test
-    public void shouldCallConfigSourceForData() {
-        // given
-        HashMap<String, String> properties = HashMap.of(COLLECTOR_PORT, PORT_8080);
-        mockVesInitialProperties(properties);
-        mockVesConfigInCbs(properties);
-
-        // when
-        configLoader.updateConfig();
-
-        // then
-        verify(cbsConfigResolverMock).getAppConfig();
-    }
-
-    @Test
     public void shouldNotUpdatePropertiesWhenSameKeySetAndSameValues() {
         // given
-        HashMap<String, String> properties = HashMap.of(COLLECTOR_PORT, PORT_8080);
+        Map<String, String> properties = HashMap.of(COLLECTOR_PORT, PORT_8080);
         mockVesInitialProperties(properties);
-        mockVesConfigInCbs(properties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(properties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, never()).writeProperties(any());
@@ -104,13 +87,13 @@ public class ConfigLoaderTest {
     @Test
     public void shouldUpdatePropertiesWhenSameKeySetButDifferentValues() {
         // given
-        HashMap<String, String> initialProperties = HashMap.of(COLLECTOR_PORT, PORT_8080);
-        HashMap<String, String> cbsProperties = HashMap.of(COLLECTOR_PORT, PORT_8081);
+        Map<String, String> initialProperties = HashMap.of(COLLECTOR_PORT, PORT_8080);
+        Map<String, String> cbsProperties = HashMap.of(COLLECTOR_PORT, PORT_8081);
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -120,16 +103,16 @@ public class ConfigLoaderTest {
     @Test
     public void shouldUpdatePropertiesWhenVesKeysAreSubsetOfCbsKeysAndSubsetHasSameValues() {
         // given
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -138,16 +121,16 @@ public class ConfigLoaderTest {
 
     @Test
     public void shouldUpdatePropertiesWhenVesKeysAreSubsetOfCbsKeysAndSubsetHasDifferentValues() {
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8081,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -156,16 +139,16 @@ public class ConfigLoaderTest {
 
     @Test
     public void shouldNotUpdatePropertiesWhenCbsKeysAreSubsetOfVesKeysAndSubsetHasSameValues() {
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080);
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, never()).writeProperties(any());
@@ -174,16 +157,16 @@ public class ConfigLoaderTest {
 
     @Test
     public void shouldUpdatePropertiesWhenCbsKeysAreSubsetOfVesKeysAndSubsetHasDifferentValues() {
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8081);
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -192,18 +175,18 @@ public class ConfigLoaderTest {
 
     @Test
     public void shouldUpdatePropertiesWhenVesAndCbsKeySetsIntersectAndIntersectingKeysHaveSameValues() {
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_SCHEMA_FILE, SOME_SCHEMA
         );
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -212,18 +195,17 @@ public class ConfigLoaderTest {
 
     @Test
     public void shouldUpdatePropertiesWhenVesAndCbsKeySetsIntersectAndIntersectingKeysHaveDifferentValues() {
-        HashMap<String, String> initialProperties = HashMap.of(
+        Map<String, String> initialProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8080,
             COLLECTOR_KEYSTORE_FILE_LOCATION, SOME_PATH);
-        HashMap<String, String> cbsProperties = HashMap.of(
+        Map<String, String> cbsProperties = HashMap.of(
             COLLECTOR_PORT, PORT_8081,
             COLLECTOR_SCHEMA_FILE, SOME_SCHEMA
         );
         mockVesInitialProperties(initialProperties);
-        mockVesConfigInCbs(cbsProperties);
-
+        final Option<JSONObject> configuration = givenVesConfigInCbs(cbsProperties);
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, times(1)).writeProperties(cbsProperties);
@@ -236,10 +218,10 @@ public class ConfigLoaderTest {
         JSONObject emptyDmaapConfig = new JSONObject();
         JSONObject dmaapConfig = loadSampleDmaapConfig();
         mockVesInitialDmaapConfig(emptyDmaapConfig);
-        mockVesDmaapConfigInCbs(dmaapConfig);
+        final Option<JSONObject> configuration = givenVesDmaapConfigInCbs(dmaapConfig);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock).writeDMaaPConfiguration(argThat(dmaapConfig::similar));
@@ -251,10 +233,10 @@ public class ConfigLoaderTest {
         // given
         JSONObject dmaapConf = loadSampleDmaapConfig();
         mockVesInitialDmaapConfig(dmaapConf);
-        mockVesDmaapConfigInCbs(dmaapConf);
+        final Option<JSONObject> configuration = givenVesDmaapConfigInCbs(dmaapConf);
 
         // when
-        configLoader.updateConfig();
+        configLoader.updateConfig(configuration);
 
         // then
         verify(configFilesFacadeMock, never()).writeDMaaPConfiguration(any());
@@ -265,16 +247,16 @@ public class ConfigLoaderTest {
         when(configFilesFacadeMock.readDMaaPConfiguration()).thenReturn(Try.of(() -> dmaapConf));
     }
 
-    private void mockVesDmaapConfigInCbs(JSONObject dmaapConf) {
+    private Option<JSONObject> givenVesDmaapConfigInCbs(JSONObject dmaapConf) {
         JSONObject jsonObject = new JSONObject(f("{\"streams_publishes\": %s}}", dmaapConf));
-        when(cbsConfigResolverMock.getAppConfig()).thenReturn(Option.of(jsonObject));
+        return Option.of(jsonObject);
     }
 
-    private void mockVesConfigInCbs(HashMap<String, String> properties) {
-        when(cbsConfigResolverMock.getAppConfig()).thenReturn(Option.of(prepareConfigurationJson(properties)));
+    private Option<JSONObject> givenVesConfigInCbs(Map<String, String> properties) {
+        return Option.of(prepareConfigurationJson(properties));
     }
 
-    private void mockVesInitialProperties(HashMap<String, String> properties) {
+    private void mockVesInitialProperties(Map<String, String> properties) {
         when(configFilesFacadeMock.readCollectorProperties()).thenReturn(Try.of(() -> properties));
     }
 
