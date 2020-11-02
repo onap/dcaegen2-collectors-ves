@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "87e47979_0954375a",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-11-02T07:25:18Z",
+      "side": 1,
+      "message": "Fine for me",
+      "parentUuid": "61035734_1dca51f3",
+      "range": {
+        "startLine": 67,
+        "startChar": 42,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "bba8c1010375941c8960caaafe49a2822746d720",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8838c5a4_067b6d22",
         "filename": "src/main/java/org/onap/dcae/configuration/cbs/CbsClientConfigurationResolver.java",
         "patchSetId": 2
