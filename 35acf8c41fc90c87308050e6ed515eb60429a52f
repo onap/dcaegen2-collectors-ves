@@ -19,6 +19,42 @@
     },
     {
       "key": {
+        "uuid": "505aa259_86f16aee",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-11-02T16:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec47494d_fa477dc4",
+      "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4744a28_cb55d123",
+        "filename": "src/main/java/org/onap/dcae/ApplicationConfigurationListener.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-11-02T16:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec47494d_fa477dc4",
+      "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8aed084_b5155556",
         "filename": "src/main/java/org/onap/dcae/configuration/ConfigurationHandler.java",
         "patchSetId": 4
@@ -33,6 +69,24 @@
       "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da4480f6_5679c062",
+        "filename": "src/main/java/org/onap/dcae/configuration/ConfigurationHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-11-02T16:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8aed084_b5155556",
+      "revId": "35acf8c41fc90c87308050e6ed515eb60429a52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
