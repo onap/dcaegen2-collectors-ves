@@ -25,6 +25,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Path;
+
 public class ConfigUpdater {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigUpdater.class);
@@ -38,6 +40,15 @@ public class ConfigUpdater {
         this.isApplicationRestartNeeded = false;
     }
 
+    /**
+     * Set new paths
+     * @param propertiesFile application property file
+     * @param dmaapConfigFile dmaap configuration file
+     */
+    public void setPaths(Path propertiesFile, Path dmaapConfigFile){
+        this.configFilesFacade.setPaths(propertiesFile, dmaapConfigFile);
+
+    }
     public synchronized void updateConfig(Option<JSONObject> appConfig) {
         appConfig.peek(this::handleUpdate).onEmpty(logSkipMessage());
     }
