@@ -40,16 +40,29 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class ConfigFilesFacade {
+/**
+ * ConfigFilesFacade is used for reading and writing application properties and dmaap configuration.
+ */
+public class ConfigFilesFacade {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigFilesFacade.class);
 
-    private final Path dMaaPConfigPath;
-    private final Path propertiesPath;
+    private Path dmaapConfigPath;
+    private Path propertiesPath;
 
     ConfigFilesFacade(Path propertiesPath, Path dMaaPConfigPath) {
         this.propertiesPath = propertiesPath;
-        this.dMaaPConfigPath = dMaaPConfigPath;
+        this.dmaapConfigPath = dMaaPConfigPath;
+    }
+
+    /**
+     * Set new paths
+     * @param propertiesFile application property file
+     * @param dmaapConfigFile dmaap configuration file
+     */
+    public void setPaths(Path propertiesFile, Path dmaapConfigFile) {
+        this.propertiesPath = propertiesFile;
+        this.dmaapConfigPath = dmaapConfigFile;
     }
 
     Try<Map<String, String>> readCollectorProperties() {
@@ -62,19 +75,19 @@ class ConfigFilesFacade {
     }
 
     Try<JSONObject> readDMaaPConfiguration() {
-        log.info(f("Reading DMaaP configuration from file: '%s'", dMaaPConfigPath));
-        return readFile(dMaaPConfigPath)
+        log.info(f("Reading DMaaP configuration from file: '%s'", dmaapConfigPath));
+        return readFile(dmaapConfigPath)
             .recover(FileNotFoundException.class, __ -> "{}")
-            .mapFailure(enhanceError("Unable to read DMaaP configuration from file '%s'", dMaaPConfigPath))
+            .mapFailure(enhanceError("Unable to read DMaaP configuration from file '%s'", dmaapConfigPath))
             .flatMap(Conversions::toJson)
             .onFailure(logError(log))
             .peek(props -> log.info(f("Read following DMaaP properties: '%s'", props)));
     }
 
     Try<Void> writeDMaaPConfiguration(JSONObject dMaaPConfiguration) {
-        log.info(f("Writing DMaaP configuration '%s' into file '%s'", dMaaPConfiguration, dMaaPConfigPath));
-        return writeFile(dMaaPConfigPath, indentConfiguration(dMaaPConfiguration.toString()))
-            .mapFailure(enhanceError("Could not save new DMaaP configuration to path '%s'", dMaaPConfigPath))
+        log.info(f("Writing DMaaP configuration '%s' into file '%s'", dMaaPConfiguration, dmaapConfigPath));
+        return writeFile(dmaapConfigPath, indentConfiguration(dMaaPConfiguration.toString()))
+            .mapFailure(enhanceError("Could not save new DMaaP configuration to path '%s'", dmaapConfigPath))
             .onFailure(logError(log))
             .peek(__ -> log.info("Written successfully"));
     }
