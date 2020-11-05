@@ -42,7 +42,7 @@ import static org.onap.dcae.common.publishing.VavrUtils.f;
 public class DMaaPEventPublisher {
     private static final int PENDING_MESSAGE_LOG_THRESHOLD = 100;
     private static final Logger log = LoggerFactory.getLogger(DMaaPEventPublisher.class);
-    private final DMaaPPublishersCache publishersCache;
+    private DMaaPPublishersCache publishersCache;
     private final Logger outputLogger = LoggerFactory.getLogger("org.onap.dcae.common.output");
 
     DMaaPEventPublisher(DMaaPPublishersCache publishersCache) {
@@ -51,6 +51,14 @@ public class DMaaPEventPublisher {
 
     public DMaaPEventPublisher(Map<String, PublisherConfig> dMaaPConfig) {
         this(new DMaaPPublishersCache(dMaaPConfig));
+    }
+
+    /**
+     * Reload Dmaap configuration
+     * @param dmaapConfiguration Dmaap configuration
+     */
+    public void reload(Map<String, PublisherConfig> dmaapConfiguration){
+        this.publishersCache = new DMaaPPublishersCache(dmaapConfiguration);
     }
 
     public void sendEvent(VesEvent vesEvent, String dmaapId){

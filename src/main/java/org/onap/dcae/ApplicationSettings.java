@@ -80,7 +80,10 @@ public class ApplicationSettings {
         eventTransformations = loadEventTransformations();
     }
 
-    public void reloadProperties() {
+    /**
+     * Reload application settings.
+     */
+    public void reload() {
         try {
             properties.load(configurationFileLocation);
             properties.refresh();

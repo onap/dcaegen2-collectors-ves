@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Lazy;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.locks.ReentrantLock;
 
 @SpringBootApplication(exclude = {GsonAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class VesApplication {
@@ -59,45 +60,63 @@ public class VesApplication {
     private static ConfigUpdater configUpdater;
     private static DMaaPEventPublisher eventPublisher;
     private static ApplicationConfigurationListener applicationConfigurationListener;
+    private static ReentrantLock applicationLock = new ReentrantLock();
 
     public static void main(String[] args) {
+        applicationLock.lock();
+        try {
+            startApplication(args);
+            startListeningForApplicationConfigurationStoredInConsul();
+        } finally {
+            applicationLock.unlock();
+        }
+    }
+
+    private static void startApplication(String[] args) {
         SpringApplication app = new SpringApplication(VesApplication.class);
         applicationSettings = new ApplicationSettings(args, CLIUtils::processCmdLine);
-        init();
-
-        applicationConfigurationListener = startListeningForApplicationConfigurationStoredInConsul();
-
+        configUpdater = ConfigUpdaterFactory.create(
+                applicationSettings.configurationFileLocation(),
+                Paths.get(applicationSettings.dMaaPConfigurationFileLocation()));
+        eventPublisher = new DMaaPEventPublisher(getDmaapConfig());
         app.setAddCommandLineProperties(true);
         context = app.run();
     }
 
     public static void restartApplication() {
-        Thread thread = new Thread(() -> {
-            context.close();
-            applicationSettings.reloadProperties();
-            applicationConfigurationListener.reload(Duration.ofMinutes(applicationSettings.configurationUpdateFrequency()));
-            init();
-            context = SpringApplication.run(VesApplication.class);
-        });
-        thread.setDaemon(false);
-        thread.start();
+        applicationLock.lock();
+        try {
+            Thread thread = new Thread(() -> {
+                reloadApplicationResources();
+                reloadSpringContext();
+            });
+            thread.setDaemon(false);
+            thread.start();
+        } finally {
+            applicationLock.unlock();
+        }
     }
 
-    private static void init() {
-        configUpdater = ConfigUpdaterFactory.create(
-                applicationSettings.configurationFileLocation(),
+    private static void reloadApplicationResources() {
+        applicationSettings.reload();
+        eventPublisher.reload(getDmaapConfig());
+        configUpdater.setPaths(applicationSettings.configurationFileLocation(),
                 Paths.get(applicationSettings.dMaaPConfigurationFileLocation()));
-        eventPublisher = new DMaaPEventPublisher(getDmaapConfig());
+        applicationConfigurationListener.reload(Duration.ofMinutes(applicationSettings.configurationUpdateFrequency()));
     }
 
-    private static ApplicationConfigurationListener startListeningForApplicationConfigurationStoredInConsul() {
+    private static void reloadSpringContext() {
+        context.close();
+        context = SpringApplication.run(VesApplication.class);
+    }
+
+    private static void startListeningForApplicationConfigurationStoredInConsul() {
         ConfigurationHandler cbsHandler = new ConfigurationHandler(new CbsClientConfigurationProvider(), configUpdater);
         ApplicationConfigurationListener applicationConfigProvider = new ApplicationConfigurationListener(Duration.ofMinutes(DEFAULT_CONFIGURATION_FETCH_PERIOD), cbsHandler);
 
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
         scheduledThreadPoolExecutor.execute(applicationConfigProvider);
-
-        return applicationConfigProvider;
+        applicationConfigurationListener = applicationConfigProvider;
     }
 
     private static Map<String, PublisherConfig> getDmaapConfig() {
