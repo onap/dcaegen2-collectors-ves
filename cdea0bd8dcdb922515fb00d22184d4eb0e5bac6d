@@ -94,6 +94,30 @@
       "revId": "cdea0bd8dcdb922515fb00d22184d4eb0e5bac6d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cae7b6c_29a30dba",
+        "filename": "src/main/java/org/onap/dcae/VesApplication.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-11-06T10:37:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4a30bb6_9340ed27",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 7
+      },
+      "revId": "cdea0bd8dcdb922515fb00d22184d4eb0e5bac6d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
