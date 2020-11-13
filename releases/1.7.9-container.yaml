@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.7.9'
+project: 'dcaegen2-collectors-ves'
+log_dir: 'dcaegen2-collectors-ves-maven-docker-stage-guilin/43/'
+ref: b937b203b9e3276041428c7090c41a58583bc3f6
+containers:
+  - name: 'org.onap.dcaegen2.collectors.ves.vescollector'
+    version: '1.7.9-20201109T191152Z'
