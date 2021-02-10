@@ -38,5 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2462](https://jira.onap.org/browse/DCAEGEN2-2462) - Adapt schema-map.json and test files to updated 3GPP repos 
 ## [1.7.8] - 13/10/2020
           - [DCAEGEN2-2478](https://jira.onap.org/browse/DCAEGEN2-2478) - Add logs from external-repo-manager lib
- # [1.7.9] - 01/11/2020
+## [1.7.9] - 01/11/2020
          -  [DCAEGEN2-2495](https://jira.onap.org/browse/DCAEGEN2-2495) - Ves Collector is down because of java heap space
+## [1.7.10] - 10/02/2021
+         -  [DCAEGEN2-2593](https://jira.onap.org/browse/DCAEGEN2-2593) - Vulnerability removal for ves collector
