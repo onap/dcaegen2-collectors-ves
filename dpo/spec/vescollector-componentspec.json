@@ -350,6 +350,21 @@
       "timeout": "1s",
       "endpoint": "/healthcheck"
     },
+    "volumes": [{
+      "config_volume": {
+        "name": "stnd-defined-schemamap"
+      },
+      "container": {
+        "bind": "/opt/app/VESCollector/etc/externalRepo/schema-map/"
+      }
+    }, {
+      "config_volume": {
+	    "name": "3gpp-rel17-schemas"
+      },
+      "container": {
+        "bind": "/opt/app/VESCollector/etc/externalRepo/3gpp/rep/sa5/data-models/Rel17/OpenAPI/"
+      }
+    }],
     "ports": [
       "8080:0",
       "8443:0"
