@@ -22,6 +22,30 @@
       "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387f4b3b_71522ffd",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 3793
+      },
+      "writtenOn": "2021-02-11T06:40:33Z",
+      "side": 1,
+      "message": "Not for now. Currently it is only place holder util we make changes in ves-open-api-manager and config map generation scripts in oom.",
+      "parentUuid": "01f418be_128e6f85",
+      "range": {
+        "startLine": 358,
+        "startChar": 17,
+        "endLine": 358,
+        "endChar": 67
+      },
+      "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
