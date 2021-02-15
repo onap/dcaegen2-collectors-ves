@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1460cd38_ad450863",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 3793
+      },
+      "writtenOn": "2021-02-15T12:32:19Z",
+      "side": 1,
+      "message": "Yes you are totally right but if we change path now in line 315 and there will be no config map then it will stop working tests will fail. We plan to do this after config map creation will be merged. So we can prepare volume now and match paths once DCAEGEN2-2576 will be merged or we wait with this for config maps.",
+      "parentUuid": "0ef955db_dfd2d697",
+      "range": {
+        "startLine": 358,
+        "startChar": 17,
+        "endLine": 358,
+        "endChar": 67
+      },
+      "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b16f9ce6_1fbd10be",
         "filename": "dpo/spec/vescollector-componentspec.json",
         "patchSetId": 1
