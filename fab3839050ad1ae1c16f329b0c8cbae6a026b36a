@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "d80d96d3_a15901a8",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-16T16:10:58Z",
+      "side": 1,
+      "message": "Thanks for fino Marek; would suggest marking this WIP until the change for config-map creation is merged and then update to reflect the correct path here.",
+      "parentUuid": "1460cd38_ad450863",
+      "range": {
+        "startLine": 358,
+        "startChar": 17,
+        "endLine": 358,
+        "endChar": 67
+      },
+      "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b16f9ce6_1fbd10be",
         "filename": "dpo/spec/vescollector-componentspec.json",
         "patchSetId": 1
