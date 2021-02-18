@@ -42,3 +42,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          -  [DCAEGEN2-2495](https://jira.onap.org/browse/DCAEGEN2-2495) - Ves Collector is down because of java heap space
 ## [1.7.10] - 10/02/2021
          -  [DCAEGEN2-2593](https://jira.onap.org/browse/DCAEGEN2-2593) - Vulnerability removal for ves collector
+## [1.7.11] - 18/02/2021
+         -  [DCAEGEN2-2593](https://jira.onap.org/browse/DCAEGEN2-2593) - Vulnerability removal for ves collector
+            Fix sonar reporting problem
