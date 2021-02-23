@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "769b34fc_3974e51c",
+        "filename": "src/test/java/org/onap/dcae/common/validator/GeneralEventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "Remove \u0027new\u0027 from variable names or it will be new forever.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 113
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a90cf5e_3157335a",
+        "filename": "src/test/java/org/onap/dcae/common/validator/GeneralEventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "I would propose something like below instead of these all try-catches with fail(). It eliminates false-positive mistakes in tests and it\u0027s more readable. Probably may be better formatted so treat it more like a hint.\n------------------------------------------------------\n\nExecutable testedMethod \u003d () -\u003e sut.validate(new VesEvent(jsonObject), \"wrongType\", DUMMY_SCHEMA_VERSION);\n\nEventValidatorException thrownException \u003d assertThrows(EventValidatorException.class, testedMethod);\nassertEquals(ApiException.SCHEMA_VALIDATION_FAILED, thrownException.getApiException());",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf78db1_c32c3dc2",
+        "filename": "src/test/java/org/onap/dcae/common/validator/GeneralEventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "And instead of try-catches without fail(), just use:\n\nassertDoesNotThrow(() -\u003e sut.validate(new VesEvent(jsonObject), DUMMY_TYPE, DUMMY_SCHEMA_VERSION));",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9aa75c5_4261e8b1",
+        "filename": "src/test/java/org/onap/dcae/common/validator/GeneralEventValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "I think this schema variable copying is unnecessary. Just use newSchemaWithIP.",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f15c6094_90ea1ced",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_short_with_too_much_colons.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "many not much in filename",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3c5226_667ac1e3",
+        "filename": "src/test/resources/ves7_invalid_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "fix formatting",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d8d460a_ab32f693",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "fix formatting",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6619b8d_fb322624",
+        "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-23T14:59:30Z",
+      "side": 1,
+      "message": "fix formatting",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
