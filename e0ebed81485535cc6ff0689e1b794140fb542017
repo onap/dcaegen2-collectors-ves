@@ -76,6 +76,98 @@
     },
     {
       "key": {
+        "uuid": "05723041_054c3a76",
+        "filename": "src/test/resources/ves7_invalid_ip_v4_with_ipv6_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "This shall be 7.2.1, see as well other json files attached.",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05c1b184_5431d0fd",
+        "filename": "src/test/resources/ves7_invalid_ip_v4_with_ipv6_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "let`s make this pnfRegistration (and adapt other fields)",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6525b278_7295f2e6",
+        "filename": "src/test/resources/ves7_invalid_ip_v4_with_ipv6_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "We don`t need this part, let`s keep the pnfRegistrationFields only.",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc74183d_ad832eed",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_short_with_more_than_two_colons.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f15c6094_90ea1ced",
         "filename": "src/test/resources/ves7_invalid_ip_v6_short_with_too_much_colons.json",
         "patchSetId": 1
@@ -92,6 +184,167 @@
         "startChar": 0,
         "endLine": 1,
         "endChar": 1
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099c572b_3ae3842e",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_short_with_too_much_colons.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5016f00_2a6bd90a",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_short_with_too_much_colons.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "How is this different from ipV6 with more than 2 colons?\nIt looks to be the same data in both files...",
+      "range": {
+        "startLine": 35,
+        "startChar": 24,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa997719_824293c4",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_with_ipv4_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 33,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c89285_ba7888d0",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_with_ipv4_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "We don`t really need FaultFields here.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bb934b_9eb7a0c8",
+        "filename": "src/test/resources/ves7_invalid_ip_v6_with_ipv4_format.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Can we try this without the leading zeros? (e.g. 8.8.8.8 is Google`s \"main\" DNS server)",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0bb196a_fa9fa187",
+        "filename": "src/test/resources/ves7_invalid_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 40,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b6f80f_54c4fca7",
+        "filename": "src/test/resources/ves7_invalid_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "update to pnfRegistration, and all other fields, like eventName, eventID...\nJust for the future, that we`re able to deal with additional things.",
+      "range": {
+        "startLine": 6,
+        "startChar": 23,
+        "endLine": 6,
+        "endChar": 28
       },
       "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -116,6 +369,121 @@
     },
     {
       "key": {
+        "uuid": "3956c3e4_468de47b",
+        "filename": "src/test/resources/ves7_invalid_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Replace this with something compliant to hex (0-9a-f).",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 46
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e958a6_3dfcc543",
+        "filename": "src/test/resources/ves7_invalid_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "remove tabs",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5246d4b_107c7901",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 40,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a27293_84f47b46",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration",
+      "range": {
+        "startLine": 6,
+        "startChar": 23,
+        "endLine": 6,
+        "endChar": 28
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1b3473_af6cddf6",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "This part of not needed, remove",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d8d460a_ab32f693",
         "filename": "src/test/resources/ves7_valid_ip_v4.json",
         "patchSetId": 1
@@ -133,6 +501,259 @@
     },
     {
       "key": {
+        "uuid": "cc27f047_ed4329f3",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Remove leading zeros.",
+      "range": {
+        "startLine": 35,
+        "startChar": 30,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a4f16b_2b6bebbd",
+        "filename": "src/test/resources/ves7_valid_ip_v4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Tabs.... remove.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df50471_9645006c",
+        "filename": "src/test/resources/ves7_valid_ip_v6.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4fe8f9_52c7a255",
+        "filename": "src/test/resources/ves7_valid_ip_v6.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32acd54b_defbbeea",
+        "filename": "src/test/resources/ves7_valid_ip_v6.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Remove this part.",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aac9ea85_d0ab5e9b",
+        "filename": "src/test/resources/ves7_valid_ip_v6_full.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b7d1b4_4c87c583",
+        "filename": "src/test/resources/ves7_valid_ip_v6_full.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration...",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8155d46_7ca83ea9",
+        "filename": "src/test/resources/ves7_valid_ip_v6_full.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6a653f_783e4058",
+        "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 39,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35b7d0ea_fbc1a427",
+        "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration",
+      "range": {
+        "startLine": 6,
+        "startChar": 23,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4941adbb_17b3f7a9",
+        "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6619b8d_fb322624",
         "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
         "patchSetId": 1
@@ -144,6 +765,190 @@
       "writtenOn": "2021-02-23T14:59:30Z",
       "side": 1,
       "message": "fix formatting",
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6107ca_1853b44f",
+        "filename": "src/test/resources/ves7_valid_ip_v6_modulo.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cddbd0c_a2b6d3e6",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_one.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca99f334_1daaa464",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_one.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bdd1ffe_af70c4e2",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_one.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f087ef15_04c4f46d",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_with_big_letters.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "7.2.1",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 39
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a0b4f25_a14b6b5f",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_with_big_letters.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "pnfRegistration",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a725629_6c6f7211",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_with_big_letters.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "546bf88b_5fae076b",
+        "filename": "src/test/resources/ves7_valid_ip_v6_short_with_big_letters.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-02-23T15:15:48Z",
+      "side": 1,
+      "message": "Capitals shall be seen as invalid.\nIs the validator responding with them as valid?",
+      "range": {
+        "startLine": 35,
+        "startChar": 24,
+        "endLine": 35,
+        "endChar": 37
+      },
       "revId": "e0ebed81485535cc6ff0689e1b794140fb542017",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
