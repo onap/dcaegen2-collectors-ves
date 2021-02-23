@@ -1,0 +1,27 @@
+{
+  "event": {
+    "commonEventHeader": {
+      "version": "4.0.1",
+      "vesEventListenerVersion": "7.2.1",
+      "domain": "pnfRegistration",
+      "eventName": "pnfRegistration",
+      "eventId": "pnfRegistration",
+      "sequence": 1,
+      "priority": "High",
+      "reportingEntityId": "cc305d54-75b4-431b-adb2-eb6b9e541234",
+      "reportingEntityName": "ibcx0001vm002oam001",
+      "sourceId": "de305d54-75b4-431b-adb2-eb6b9e546014",
+      "sourceName": "scfx0001vm002cap001",
+      "nfVendorName": "Ericsson",
+      "nfNamingCode": "scfx",
+      "nfcNamingCode": "ssc",
+      "startEpochMicrosec": 1413378172000000,
+      "lastEpochMicrosec": 1413378172000000,
+      "timeZoneOffset": "UTC-05:30"
+    },
+    "pnfRegistrationFields": {
+      "pnfRegistrationFieldsVersion": "2.1",
+      "oamV4IpAddress": "9.9.9.9"
+    }
+  }
+}

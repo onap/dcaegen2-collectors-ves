@@ -45,3 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.7.11] - 18/02/2021
          -  [DCAEGEN2-2593](https://jira.onap.org/browse/DCAEGEN2-2593) - Vulnerability removal for ves collector
             Fix sonar reporting problem
+## [1.8.0] - 24/02/2021
+         -  [DCAEGEN2-2477](https://jira.onap.org/browse/DCAEGEN2-2477) - Update VESCollector CommonEventSchema to ONAP/Honolulu version
+            Use updated CommonEventSchema to validate IP in VES Collector             
+            
