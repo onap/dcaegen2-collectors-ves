@@ -28,6 +28,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -49,6 +51,7 @@ class GeneralEventValidatorTest {
     private static final String DUMMY_SCHEMA_VERSION = "v5";
     private static final String DUMMY_TYPE = "type";
     private final String newSchemaV7 = FileReader.readFileAsString("etc/CommonEventFormat_30.2_ONAP.json");
+    private final String newSchemaWithIP = FileReader.readFileAsString("etc/CommonEventFormat_30.2.1_ONAP.json");
     private JSONObject sentEvent;
     private static final String V7_VERSION = "v7";
     private static JSONObject jsonObject;
@@ -57,7 +60,7 @@ class GeneralEventValidatorTest {
     @Mock
     private ApplicationSettings settings;
 
-    private SchemaValidator schemaValidator = Mockito.spy( new SchemaValidator());
+    private SchemaValidator schemaValidator = Mockito.spy(new SchemaValidator());
 
     private GeneralEventValidator sut;
 
@@ -68,7 +71,7 @@ class GeneralEventValidatorTest {
     }
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         this.sut = new GeneralEventValidator(settings, schemaValidator);
     }
 
@@ -93,6 +96,7 @@ class GeneralEventValidatorTest {
         //when
         try {
             sut.validate(new VesEvent(jsonObject), "wrongType", DUMMY_SCHEMA_VERSION);
+            fail();
         } catch (EventValidatorException e) {
             //then
             Assertions.assertEquals(ApiException.INVALID_JSON_INPUT, e.getApiException());
@@ -111,12 +115,14 @@ class GeneralEventValidatorTest {
         //when
         try {
             sut.validate(new VesEvent(jsonObject), DUMMY_TYPE, DUMMY_SCHEMA_VERSION);
+            fail();
         } catch (EventValidatorException e) {
             //then
             assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
         }
 
     }
+
 
     @Test
     void shouldReturnEmptyOptionalOnValidJsonObjectSchema() {
@@ -176,12 +182,82 @@ class GeneralEventValidatorTest {
         //when
         try {
             sut.validate(new VesEvent(this.sentEvent), EVENT_TYPE, V7_VERSION);
+            fail();
         } catch (EventValidatorException e) {
             //then
             assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
         }
+    }
 
+    @Test
+    void shouldReturnNoErrorWhenIPv4ValidInLongFrom() {
+        //given
+        String schema = newSchemaWithIP;
+        mockJsonSchema(schema);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/ves7_valid_ip_v4.json"));
+        //when
+        try {
+            sut.validate(new VesEvent(sentEvent), EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            failWithError();
+        }
+    }
 
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = {"ves7_invalid_ip_v4_with_ipv6_format.json", "ves7_invalid_ipv4.json"})
+    void shouldReturnSchemaValidationErrorWhenIPv4Invalid(String filename) {
+        //given
+        String schema = newSchemaWithIP;
+        mockJsonSchema(schema);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/" + filename));
+        //when
+        try {
+            sut.validate(new VesEvent(sentEvent), EVENT_TYPE, V7_VERSION);
+            fail();
+        } catch (EventValidatorException e) {
+            assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
+        }
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = {"ves7_valid_ip_v6_modulo.json",
+            "ves7_valid_ip_v6.json", "ves7_valid_ip_v6_short_one.json",
+            "ves7_valid_ip_v6_full.json", "ves7_valid_ip_v6_short_without_end.json",
+            "ves7_valid_ip_v6_short_with_big_letters.json"})
+    void shouldReturnNoErrorWhenIPv6Valid(String filename) {
+        //given
+        String schema = newSchemaWithIP;
+        mockJsonSchema(schema);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/" + filename));
+        //when
+        try {
+            sut.validate(new VesEvent(sentEvent), EVENT_TYPE, V7_VERSION);
+        } catch (EventValidatorException e) {
+            failWithError();
+        }
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = {"ves7_invalid_ip_v6_short_with_more_than_two_colons.json",
+            "ves7_invalid_ip_v6_with_ipv4_format.json",
+            "ves7_invalid_ip_v6_short_with_too_much_colons.json"
+    })
+    void shouldReturnSchemaValidationErrorWhenIPv6Invalid(String filename) {
+        //given
+        String schema = newSchemaWithIP;
+        mockJsonSchema(schema);
+        when(settings.eventSchemaValidationEnabled()).thenReturn(true);
+        sentEvent = new JSONObject(FileReader.readFileAsString("src/test/resources/" + filename));
+        //when
+        try {
+            sut.validate(new VesEvent(sentEvent), EVENT_TYPE, V7_VERSION);
+            fail();
+        } catch (EventValidatorException e) {
+            assertEquals(ApiException.SCHEMA_VALIDATION_FAILED, e.getApiException());
+        }
     }
 
     private void failWithError() {
