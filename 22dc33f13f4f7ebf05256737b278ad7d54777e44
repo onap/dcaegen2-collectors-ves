@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6883559_f143d72f",
+        "filename": "src/test/java/org/onap/dcae/common/validator/GeneralEventValidatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-02-24T06:52:25Z",
+      "side": 1,
+      "message": "please replace with assertThrows, like above",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 85
+      },
+      "revId": "22dc33f13f4f7ebf05256737b278ad7d54777e44",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
