@@ -1,6 +1,6 @@
 {
   "self": {
-    "version": "1.7.4",
+    "version": "1.8.0",
     "name": "dcae-ves-collector",
     "description": "Collector for receiving VES events through restful interface",
     "component_type": "docker"
