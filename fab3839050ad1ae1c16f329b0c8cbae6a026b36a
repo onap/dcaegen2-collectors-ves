@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "12ef10b8_8e34ca20",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-26T16:12:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d80d96d3_a15901a8",
+      "range": {
+        "startLine": 358,
+        "startChar": 17,
+        "endLine": 358,
+        "endChar": 67
+      },
+      "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b16f9ce6_1fbd10be",
         "filename": "dpo/spec/vescollector-componentspec.json",
         "patchSetId": 1
@@ -141,6 +165,30 @@
       "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df5fa45_c49a9297",
+        "filename": "dpo/spec/vescollector-componentspec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-26T16:12:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16f9ce6_1fbd10be",
+      "range": {
+        "startLine": 362,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 1
+      },
+      "revId": "fab3839050ad1ae1c16f329b0c8cbae6a026b36a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
