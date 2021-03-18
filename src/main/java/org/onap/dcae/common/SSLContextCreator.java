@@ -56,7 +56,7 @@ public class SSLContextCreator {
     private void configureKeyStore(final Ssl ssl) {
         final String keyStore = keyStoreFile.toAbsolutePath().toString();
         ssl.setKeyStore(keyStore);
-        ssl.setKeyPassword(keyStorePassword);
+        ssl.setKeyStorePassword(keyStorePassword);
         ssl.setKeyAlias(certAlias);
     }
 
