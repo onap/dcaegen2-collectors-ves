@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
+ * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,7 +131,7 @@ public class ApiAuthInterceptionTest {
 
   private HttpServletRequest createEmptyRequest() {
     return MockMvcRequestBuilders
-            .post("")
+            .post("/")
             .buildRequest(null);
   }
 
