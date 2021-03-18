@@ -48,4 +48,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.8.0] - 24/02/2021
          -  [DCAEGEN2-2477](https://jira.onap.org/browse/DCAEGEN2-2477) - Update VESCollector CommonEventSchema to ONAP/Honolulu version
             Use updated CommonEventSchema to validate IP in VES Collector             
-            
+## [1.8.1] - 18/03/2021
+         -  [DCAEGEN2-2682](https://jira.onap.org/browse/DCAEGEN2-2682) - Update libraries  

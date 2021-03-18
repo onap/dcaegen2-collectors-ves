@@ -131,7 +131,7 @@ public class ApiAuthInterceptionTest {
 
   private HttpServletRequest createEmptyRequest() {
     return MockMvcRequestBuilders
-            .post("")
+            .post("/")
             .buildRequest(null);
   }
 
