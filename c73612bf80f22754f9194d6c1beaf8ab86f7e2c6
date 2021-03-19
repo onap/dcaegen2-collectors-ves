@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "d2c1ac96_fa8c8cfe",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-19T22:07:22Z",
+      "side": 1,
+      "message": "add 2020-2021",
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2c392d7_edad3833",
         "filename": "pom.xml",
         "patchSetId": 5
@@ -42,6 +59,40 @@
         "endLine": 22,
         "endChar": 18
       },
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e5a2258_114a258d",
+        "filename": "src/main/java/org/onap/dcae/common/SSLContextCreator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-19T22:07:22Z",
+      "side": 1,
+      "message": "add 2021 Nokia",
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5935260_136350bd",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-19T22:07:22Z",
+      "side": 1,
+      "message": "add 2021 Nokia",
       "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
