@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe95cfcc_0962ab98",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-03-19T11:43:29Z",
+      "side": 1,
+      "message": "Please update minor version instead of patch. (To allow bugfixes for honolulu branch if it was needed)",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "8c093ec484fc9c14c5bff9652435912f6c3515af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
