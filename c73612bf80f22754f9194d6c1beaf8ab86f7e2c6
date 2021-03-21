@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "065a29e3_ecba3087",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-03-21T16:13:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b73f3be_ed724728",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2c1ac96_fa8c8cfe",
         "filename": "pom.xml",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e82ffec_2c3c281e",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-03-21T16:13:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2c1ac96_fa8c8cfe",
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e55bf896_c8af473e",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-03-21T16:13:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2c392d7_edad3833",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e5a2258_114a258d",
         "filename": "src/main/java/org/onap/dcae/common/SSLContextCreator.java",
         "patchSetId": 5
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "a032ef47_c109b35b",
+        "filename": "src/main/java/org/onap/dcae/common/SSLContextCreator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-03-21T16:13:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e5a2258_114a258d",
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5935260_136350bd",
         "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
         "patchSetId": 5
@@ -96,6 +180,24 @@
       "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc24f6e_836c9950",
+        "filename": "src/test/java/org/onap/dcae/restapi/ApiAuthInterceptionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-03-21T16:13:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5935260_136350bd",
+      "revId": "c73612bf80f22754f9194d6c1beaf8ab86f7e2c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
