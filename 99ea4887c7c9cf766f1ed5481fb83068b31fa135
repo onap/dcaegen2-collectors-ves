@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5ea13b_42a04c09",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-24T09:55:58Z",
+      "side": 1,
+      "message": "consider to use \"sdk.version\" for all dependencies from sdk",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "99ea4887c7c9cf766f1ed5481fb83068b31fa135",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
