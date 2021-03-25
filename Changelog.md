@@ -46,7 +46,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          -  [DCAEGEN2-2593](https://jira.onap.org/browse/DCAEGEN2-2593) - Vulnerability removal for ves collector
             Fix sonar reporting problem
 ## [1.8.0] - 24/02/2021
-         -  [DCAEGEN2-2477](https://jira.onap.org/browse/DCAEGEN2-2477) - Update VESCollector CommonEventSchema to ONAP/Honolulu version
-            Use updated CommonEventSchema to validate IP in VES Collector             
+         -  [DCAEGEN2-2477](https://jira.onap.org/browse/DCAEGEN2-2477) - Update VESCollector CommonEventSchema to ONAP/Honolulu version            
 ## [1.9.0] - 18/03/2021
-         -  [DCAEGEN2-2682](https://jira.onap.org/browse/DCAEGEN2-2682) - Update libraries  
+         -  [DCAEGEN2-2682](https://jira.onap.org/browse/DCAEGEN2-2682) - Update libraries
+## [1.9.1] - 22/03/2021
+         -  [DCAEGEN2-2683](https://jira.onap.org/browse/DCAEGEN2-2683) - Enable Spring Prometheus metrics end-point in VES
+            Remove mvn profile for enable/disable Prometheus metrics

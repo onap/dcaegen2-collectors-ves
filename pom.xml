@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.9.0-SNAPSHOT</version>
+  <version>1.9.1-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -208,30 +208,6 @@
   </build>
   <profiles>
     <profile>
-      <id>buildForPerfTests</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <dependencies>
-        <!-- Libraries related with performance tests-->
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-actuator</artifactId>
-          <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.micrometer</groupId>
-          <artifactId>micrometer-registry-prometheus</artifactId>
-          <version>${micrometer.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.micrometer</groupId>
-          <artifactId>micrometer-core</artifactId>
-          <version>${micrometer.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
       <id>with-system-proxy</id>
       <build>
         <plugins>
@@ -290,6 +266,22 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <!-- Libraries related with performance tests-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>${micrometer.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+      <version>${micrometer.version}</version>
+    </dependency>
     <!-- JSON RELATED -->
     <dependency>
       <groupId>com.networknt</groupId>
