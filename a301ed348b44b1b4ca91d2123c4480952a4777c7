@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Tomasz Kogut <tomasz.kogut@nokia.com>
+Code-Review+2: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-by: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-at: Thu, 25 Mar 2021 08:44:01 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/119702
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
