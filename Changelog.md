@@ -52,3 +52,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.9.1] - 22/03/2021
          -  [DCAEGEN2-2683](https://jira.onap.org/browse/DCAEGEN2-2683) - Enable Spring Prometheus metrics end-point in VES
             Remove mvn profile for enable/disable Prometheus metrics
+## [1.9.2] - 14/05/2021
+         -  [DCAEGEN2-2683](https://jira.onap.org/browse/DCAEGEN2-2683) - Enable Spring Prometheus metrics end-point in VES
+            Temporary add mvn profile for enabling/disabling Prometheus metrics            
