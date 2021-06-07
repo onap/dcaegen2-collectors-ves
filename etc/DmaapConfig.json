@@ -6,7 +6,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-fault",
@@ -14,7 +14,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-heartbeat",
@@ -22,7 +22,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-other",
@@ -30,7 +30,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-notification",
@@ -38,7 +38,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-pnfRegistration",
@@ -46,7 +46,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-3gpp-fault-supervision",
@@ -54,7 +54,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-3gpp-provisioning",
@@ -62,7 +62,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-3gpp-heartbeat",
@@ -70,7 +70,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     },
     {
       "name": "ves-3gpp-performance-assurance",
@@ -78,7 +78,7 @@
       "class": "HpCambriaOutputStream",
       "stripHpId": "true",
       "type": "out",
-      "cambria.hosts": "onap-dmaap"
+      "cambria.hosts": "onap-dmaap:3904"
     }
   ]
 }
