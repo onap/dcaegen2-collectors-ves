@@ -37,11 +37,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.onap.dcae.CLIUtils.processCmdLine;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 
@@ -315,26 +311,26 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnDMAAPStreamId() throws IOException {
         // given
-        Map<String, String[]> expected = HashMap.of(
-                "log", new String[]{"ves-syslog", "ves-auditlog"},
-                "fault", new String[]{"ves-fault"}
+        Map<String, String> expected = HashMap.of(
+                "log", "ves-syslog",
+                "fault", "ves-fault"
         );
 
         // when
-        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration(
-                "collector.dmaap.streamid=fault=ves-fault|log=ves-syslog,ves-auditlog")
+        Map<String, String> dmaapStreamID = fromTemporaryConfiguration(
+                "collector.dmaap.streamid=fault=ves-fault,stream1|log=ves-syslog,stream2,stream3")
                 .getDmaapStreamIds();
 
         // then
-        assertArrayEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
-        assertArrayEquals(expected.get("fault").get(), Objects.requireNonNull(dmaapStreamID).get("fault").get());
+        assertEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
+        assertEquals(expected.get("fault").get(), Objects.requireNonNull(dmaapStreamID).get("fault").get());
         assertEquals(expected.keySet(), dmaapStreamID.keySet());
     }
 
     @Test
     public void shouldReturnDefaultDMAAPStreamId() throws IOException {
         // when
-        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration().getDmaapStreamIds();
+        Map<String, String> dmaapStreamID = fromTemporaryConfiguration().getDmaapStreamIds();
 
         // then
         assertEquals(dmaapStreamID, HashMap.empty());

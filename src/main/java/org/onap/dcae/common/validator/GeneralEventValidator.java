@@ -25,7 +25,6 @@ import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcae.restapi.ApiException;
 import org.onap.dcae.restapi.EventValidatorException;
-
 /**
  * This class is using ApplicationSetting and SchemaValidator to validate VES event.
  *
