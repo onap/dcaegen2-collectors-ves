@@ -2,7 +2,7 @@
   "channels": [
     {
       "name": "url-precedes-hosts",
-      "cambria.url": "127.0.0.1:3904",
+      "cambria.url": "onap-dmaap:3904",
       "cambria.hosts": "h1.att.com,h2.att.com",
       "cambria.topic": "DCAE-SE-COLLECTOR-EVENTS-DEV",
     },

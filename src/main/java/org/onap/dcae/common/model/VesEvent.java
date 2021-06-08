@@ -22,7 +22,9 @@ package org.onap.dcae.common.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Optional;
 
 /**
  * This class is a wrapper for JSONObject, that represents VES event.
@@ -109,6 +111,16 @@ public class VesEvent {
      */
     public Object getUniqueId() {
         return event.get(VES_UNIQUE_ID);
+    }
+
+    /**
+     * Returns optional stndDefinedNamespace name from VES event.
+     *
+     * @return Optional stndDefinedNamespace
+     */
+    public Optional<String> getStndDefinedNamespace() throws JSONException {
+        return isStdDefinedDomain(getDomain()) ? Optional.ofNullable(getEventHeader())
+                .map(header -> header.getString(STND_DEFINED_NAMESPACE)) : Optional.empty();
     }
 
     /**

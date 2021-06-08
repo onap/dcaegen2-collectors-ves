@@ -100,7 +100,7 @@ public class DMaaPConfigurationParserTest {
             .parseToDomainMapping(exemplaryConfig);
 
         PublisherConfig urlFirstThenHosts = publisherConfigs.get().get("url-precedes-hosts").getOrNull();
-        assertThat(urlFirstThenHosts.destinations()).isEqualTo(List("127.0.0.1:3904"));
+        assertThat(urlFirstThenHosts.destinations()).isEqualTo(List("onap-dmaap:3904"));
         assertThat(urlFirstThenHosts.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
 
         PublisherConfig urlKeyMissing = publisherConfigs.get().get("url-key-missing").getOrNull();
