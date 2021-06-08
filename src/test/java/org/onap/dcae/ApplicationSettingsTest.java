@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 - 2020 Nokia. All rights reserved.
+ * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -37,11 +38,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.onap.dcae.CLIUtils.processCmdLine;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 
@@ -233,15 +233,6 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnDefaultDMAAPConfigFileLocation() throws IOException {
-        // when
-        String dmaapConfigFileLocation = fromTemporaryConfiguration().dMaaPConfigurationFileLocation();
-
-        // then
-        assertEquals(sanitizePath("etc/DmaapConfig.json"), dmaapConfigFileLocation);
-    }
-
-    @Test
     public void shouldTellIfSchemaValidationIsEnabled() throws IOException {
         // when
         boolean jsonSchemaValidationEnabled = fromTemporaryConfiguration("collector.schema.checkflag=1")
@@ -315,26 +306,26 @@ public class ApplicationSettingsTest {
     @Test
     public void shouldReturnDMAAPStreamId() throws IOException {
         // given
-        Map<String, String[]> expected = HashMap.of(
-                "log", new String[]{"ves-syslog", "ves-auditlog"},
-                "fault", new String[]{"ves-fault"}
+        Map<String, String> expected = HashMap.of(
+                "log", "ves-syslog",
+                "fault", "ves-fault"
         );
 
         // when
-        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration(
-                "collector.dmaap.streamid=fault=ves-fault|log=ves-syslog,ves-auditlog")
+        Map<String, String> dmaapStreamID = fromTemporaryConfiguration(
+                "collector.dmaap.streamid=fault=ves-fault,stream1|log=ves-syslog,stream2,stream3")
                 .getDmaapStreamIds();
 
         // then
-        assertArrayEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
-        assertArrayEquals(expected.get("fault").get(), Objects.requireNonNull(dmaapStreamID).get("fault").get());
+        assertEquals(expected.get("log").get(), Objects.requireNonNull(dmaapStreamID).get("log").get());
+        assertEquals(expected.get("fault").get(), Objects.requireNonNull(dmaapStreamID).get("fault").get());
         assertEquals(expected.keySet(), dmaapStreamID.keySet());
     }
 
     @Test
     public void shouldReturnDefaultDMAAPStreamId() throws IOException {
         // when
-        Map<String, String[]> dmaapStreamID = fromTemporaryConfiguration().getDmaapStreamIds();
+        Map<String, String> dmaapStreamID = fromTemporaryConfiguration().getDmaapStreamIds();
 
         // then
         assertEquals(dmaapStreamID, HashMap.empty());
@@ -391,24 +382,24 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReturnCambriaConfigurationFileLocation() throws IOException {
+    public void shouldReturnConfigurationFileLocation() throws IOException {
         // when
-        String cambriaConfigurationFileLocation = fromTemporaryConfiguration(
-                "collector.dmaapfile=/somewhere/dmaapConfig")
+        String configurationFileLocation = fromTemporaryConfiguration(
+                "collector.dmaapfile=/somewhere/data-formats/ves-dmaap-config.json")
                 .dMaaPConfigurationFileLocation();
 
         // then
-        assertEquals(sanitizePath("/somewhere/dmaapConfig"), cambriaConfigurationFileLocation);
+        assertEquals(sanitizePath("/somewhere/data-formats/ves-dmaap-config.json"), configurationFileLocation);
     }
 
     @Test
-    public void shouldReturnDefaultCambriaConfigurationFileLocation() throws IOException {
+    public void shouldReturnDefaultConfigurationFileLocation() throws IOException {
         // when
-        String cambriaConfigurationFileLocation = fromTemporaryConfiguration()
+        String configurationFileLocation = fromTemporaryConfiguration()
                 .dMaaPConfigurationFileLocation();
 
         // then
-        assertEquals(sanitizePath("etc/DmaapConfig.json"), cambriaConfigurationFileLocation);
+        assertEquals(sanitizePath("dpo/data-formats/ves-dmaap-config.json"), configurationFileLocation);
     }
 
     @Test
