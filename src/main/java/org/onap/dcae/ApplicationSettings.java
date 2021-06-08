@@ -1,9 +1,9 @@
 /*
  * ============LICENSE_START=======================================================
- * PROJECT
+ * VES Collector
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 - 2020 Nokia. All rights reserved.s
+ * Copyright (C) 2018 - 2021 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@
 
 package org.onap.dcae;
 
-import static java.lang.String.format;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -30,25 +28,31 @@ import com.networknt.schema.JsonSchema;
 import io.vavr.Function1;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.onap.dcae.common.EventTransformation;
+import org.onap.dcae.common.configuration.AuthMethodType;
+import org.onap.dcae.multiplestreamreducer.MultipleStreamReducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nullable;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import javax.annotation.Nullable;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.onap.dcae.common.EventTransformation;
-import org.onap.dcae.common.configuration.AuthMethodType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 /**
  * Abstraction over application configuration.
  * Its job is to provide easily discoverable (by method names lookup) and type safe access to configuration properties.
  */
 public class ApplicationSettings {
+
+    public static String backwardsCompatibility;
 
     private static final String EVENT_TRANSFORM_FILE_PATH = "./etc/eventTransform.json";
     private static final String COULD_NOT_FIND_FILE = "Couldn't find file " + EVENT_TRANSFORM_FILE_PATH;
@@ -62,6 +66,7 @@ public class ApplicationSettings {
     private final PropertiesConfiguration properties = new PropertiesConfiguration();
     private final Map<String, JsonSchema> loadedJsonSchemas;
     private final List<EventTransformation> eventTransformations;
+    private final MultipleStreamReducer multipleStreamReducer = new MultipleStreamReducer();
 
     public ApplicationSettings(String[] args, Function1<String[], Map<String, String>> argsParser) {
         this(args, argsParser, System.getProperty("user.dir"));
@@ -78,6 +83,7 @@ public class ApplicationSettings {
                 format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
         loadedJsonSchemas = new JSonSchemasSupplier().loadJsonSchemas(collectorSchemaFile);
         eventTransformations = loadEventTransformations();
+        backwardsCompatibility = getBackwardsCompatibilityFlag();
     }
 
     /**
@@ -166,13 +172,9 @@ public class ApplicationSettings {
         return properties.getString("auth.method", AuthMethodType.NO_AUTH.value());
     }
 
-    public Map<String, String[]> getDmaapStreamIds() {
+    public Map<String, String> getDmaapStreamIds() {
         String streamIdsProperty = properties.getString("collector.dmaap.streamid", null);
-        if (streamIdsProperty == null) {
-            return HashMap.empty();
-        } else {
-            return convertDMaaPStreamsPropertyToMap(streamIdsProperty);
-        }
+        return streamIdsProperty == null ? HashMap.empty() : reduceStream(streamIdsProperty);
     }
 
     public boolean getExternalSchemaValidationCheckflag() {
@@ -201,6 +203,10 @@ public class ApplicationSettings {
 
     public String getApiVersionDescriptionFilepath() {
         return properties.getString("collector.description.api.version.location", "etc/api_version_description.json");
+    }
+
+    private String getBackwardsCompatibilityFlag() {
+        return properties.getString("collector.backwards.compatibility", "v7.2");
     }
 
     private void loadPropertiesFromFile() {
@@ -259,6 +265,13 @@ public class ApplicationSettings {
             log.error(COULD_NOT_FIND_FILE, e);
             throw new ApplicationException(COULD_NOT_FIND_FILE, e);
         }
+    }
+
+    private Map<String, String> reduceStream(String streamIdsProperty) {
+        Map<String, String[]> dMaaPStreamsProperty = convertDMaaPStreamsPropertyToMap(streamIdsProperty);
+        final Map<String, String> domainToStreamConfig = multipleStreamReducer.reduce(dMaaPStreamsProperty);
+        log.warn(multipleStreamReducer.getDomainToStreamsInfo(domainToStreamConfig));
+        return domainToStreamConfig;
     }
 
     @VisibleForTesting

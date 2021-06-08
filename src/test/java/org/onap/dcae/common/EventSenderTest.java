@@ -1,9 +1,9 @@
 /*
  * ============LICENSE_START=======================================================
- * PROJECT
+ * VES Collector
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018,2020 Nokia. All rights reserved.
+ * Copyright (C) 2018,2020-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
 import org.onap.dcae.common.model.VesEvent;
 import org.onap.dcae.common.publishing.DMaaPEventPublisher;
+import org.onap.dcae.restapi.EventValidatorException;
 
 import java.io.IOException;
 import java.util.List;
@@ -53,31 +54,18 @@ public class EventSenderTest {
     List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves7_valid_event.json");
 
     // when
-    eventSender.send(eventToSend);
+    assertThatExceptionOfType(EventValidatorException.class)
+            .isThrownBy(() -> eventSender.send(eventToSend));
 
     // then
     verifyThatEventWasNotSendAtStream();
   }
 
   @Test
-  public void shouldSendEventAtStreamsAssignedToEventDomain() throws IOException {
-    // given
-    EventSender eventSender = givenConfiguredEventSender(HashMap.of("fault", new String[]{"ves-fault", "fault-ves"}));
-    List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves7_valid_event.json");
-
-    // when
-    eventSender.send(eventToSend);
-
-    //then
-    verifyThatEventWasSendAtStream("ves-fault");
-    verifyThatEventWasSendAtStream("fault-ves");
-  }
-
-  @Test
   public void shouldSendStdDefinedEventAtStreamAssignedToEventDomain() throws IOException {
     // given
     EventSender eventSender = givenConfiguredEventSender(
-            HashMap.of("3GPP-FaultSupervision", new String[]{"ves-3gpp-fault-supervision"})
+            HashMap.of("3GPP-FaultSupervision", "ves-3gpp-fault-supervision")
     );
     List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves_stdnDefined_valid.json");
 
@@ -95,7 +83,8 @@ public class EventSenderTest {
     List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves_stdnDefined_valid.json");
 
     // when
-    eventSender.send(eventToSend);
+    assertThatExceptionOfType(EventValidatorException.class)
+            .isThrownBy(() -> eventSender.send(eventToSend));
 
     // then
     verifyThatEventWasNotSendAtStream();
@@ -122,7 +111,7 @@ public class EventSenderTest {
     return givenEventToSend(event);
   }
 
-  private EventSender givenConfiguredEventSender(io.vavr.collection.Map<String, String[]> streamIds) {
+  private EventSender givenConfiguredEventSender(io.vavr.collection.Map<String, String> streamIds) {
     return new EventSender(eventPublisher, streamIds);
   }
 
@@ -132,10 +121,10 @@ public class EventSenderTest {
   }
 
   private void verifyThatEventWasNotSendAtStream() {
-    verify(eventPublisher,never()).sendEvent(any(),any());
+      verify(eventPublisher,never()).sendEvent(any(),any());
   }
 
   private void verifyThatEventWasSendAtStream(String s) {
-    verify(eventPublisher).sendEvent(any(), eq(s));
-  }
+      verify(eventPublisher).sendEvent(any(), eq(s));
+    }
 }

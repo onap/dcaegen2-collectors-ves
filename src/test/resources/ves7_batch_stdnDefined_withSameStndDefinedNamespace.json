@@ -1,0 +1,108 @@
+
+{
+   "eventList": [
+      {
+         "commonEventHeader": {
+            "version": "4.1",
+            "vesEventListenerVersion": "7.2",
+            "domain": "stndDefined",
+            "eventId": "stndDefined-gNB_Nokia000001",
+            "eventName": "stndDefined-gNB-Nokia-PowerLost",
+            "stndDefinedNamespace": "3GPP-FaultSupervision",
+            "startEpochMicrosec": 1413378172000000,
+            "lastEpochMicrosec": 1413378172000000,
+            "reportingEntityName": "ibcx0001vm002oam001",
+            "sourceName": "scfx0001vm002cap001",
+            "sequence": 1,
+            "priority": "High"
+         },
+         "stndDefinedFields": {
+            "schemaReference": "https://forge.3gpp.org/rep/sa5/MnS/blob/SA88-Rel16/OpenAPI/faultMnS.yaml#components/schemas/NotifyNewAlarm",
+            "data": {
+               "href": 1,
+               "uri": "1",
+               "notificationId": 1,
+               "notificationType": "notifyNewAlarm",
+               "eventTime": "xyz",
+               "systemDN": "xyz",
+               "probableCause": 1,
+               "perceivedSeverity": "INDETERMINATE",
+               "rootCauseIndicator": false,
+               "specificProblem": "xyz",
+               "correlatedNotifications": [],
+               "backedUpStatus": true,
+               "backUpObject": "xyz",
+               "trendIndication": "MORE_SEVERE",
+               "thresholdInfo": {
+                  "observedMeasurement": "new",
+                  "observedValue": 123
+               },
+               "stateChangeDefinition": {
+               },
+               "monitoredAttributes": {
+                  "newAtt": "new"
+               },
+               "proposedRepairActions": "xyz",
+               "additionalText": "xyz",
+               "additionalInformation": {
+                  "addInfo": "new"
+               },
+               "alarmId": "1",
+               "alarmType": "COMMUNICATIONS_ALARM"
+            },
+            "stndDefinedFieldsVersion": "1.0"
+         }},
+      {
+         "commonEventHeader": {
+            "version": "4.1",
+            "vesEventListenerVersion": "7.2",
+            "domain": "stndDefined",
+            "eventId": "stndDefined-gNB_Nokia000001",
+            "eventName": "stndDefined-gNB-Nokia-PowerLost",
+            "stndDefinedNamespace": "3GPP-FaultSupervision",
+            "startEpochMicrosec": 1413378172000000,
+            "lastEpochMicrosec": 1413378172000000,
+            "reportingEntityName": "ibcx0001vm002oam001",
+            "sourceName": "scfx0001vm002cap001",
+            "sequence": 1,
+            "priority": "High"
+         },
+         "stndDefinedFields": {
+            "schemaReference": "https://forge.3gpp.org/rep/sa5/MnS/blob/SA88-Rel16/OpenAPI/faultMnS.yaml#components/schemas/NotifyNewAlarm",
+            "data": {
+               "href": 1,
+               "uri": "1",
+               "notificationId": 1,
+               "notificationType": "notifyNewAlarm",
+               "eventTime": "xyz",
+               "systemDN": "xyz",
+               "probableCause": 1,
+               "perceivedSeverity": "INDETERMINATE",
+               "rootCauseIndicator": false,
+               "specificProblem": "xyz",
+               "correlatedNotifications": [],
+               "backedUpStatus": true,
+               "backUpObject": "xyz",
+               "trendIndication": "MORE_SEVERE",
+               "thresholdInfo": {
+                  "observedMeasurement": "new",
+                  "observedValue": 123
+               },
+               "stateChangeDefinition": {
+               },
+               "monitoredAttributes": {
+                  "newAtt": "new"
+               },
+               "proposedRepairActions": "xyz",
+               "additionalText": "xyz",
+               "additionalInformation": {
+                  "addInfo": "new"
+               },
+               "alarmId": "1",
+               "alarmType": "COMMUNICATIONS_ALARM"
+            },
+            "stndDefinedFieldsVersion": "1.0"
+         }}
+   ]
+}
+

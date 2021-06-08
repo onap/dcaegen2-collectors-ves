@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,7 +100,7 @@ public class DMaaPConfigurationParserTest {
             .parseToDomainMapping(exemplaryConfig);
 
         PublisherConfig urlFirstThenHosts = publisherConfigs.get().get("url-precedes-hosts").getOrNull();
-        assertThat(urlFirstThenHosts.destinations()).isEqualTo(List("127.0.0.1:3904"));
+        assertThat(urlFirstThenHosts.destinations()).isEqualTo(List("onap-dmaap:3904"));
         assertThat(urlFirstThenHosts.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
 
         PublisherConfig urlKeyMissing = publisherConfigs.get().get("url-key-missing").getOrNull();
