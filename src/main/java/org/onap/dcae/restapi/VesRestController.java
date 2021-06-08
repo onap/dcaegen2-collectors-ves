@@ -21,24 +21,24 @@
 
 package org.onap.dcae.restapi;
 
-import com.att.nsa.clock.SaClock;
-import com.att.nsa.logging.LoggingContext;
-import com.att.nsa.logging.log4j.EcompFields;
 import org.json.JSONObject;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.EventSender;
 import org.onap.dcae.common.EventUpdater;
 import org.onap.dcae.common.HeaderUtils;
-import org.onap.dcae.common.validator.GeneralEventValidator;
-import org.onap.dcae.common.validator.StndDefinedDataValidator;
-import org.onap.dcae.common.VESLogger;
+import org.onap.dcae.common.model.BackwardsCompatibilityException;
+import org.onap.dcae.common.model.InternalException;
+import org.onap.dcae.common.model.PayloadToLargeException;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterHasEmptyValueException;
 import org.onap.dcae.common.model.StndDefinedNamespaceParameterNotDefinedException;
 import org.onap.dcae.common.model.VesEvent;
+import org.onap.dcae.common.validator.GeneralEventValidator;
+import org.onap.dcae.common.validator.StndDefinedDataValidator;
 import org.onap.dcaegen2.services.sdk.standardization.header.CustomHeaderUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +50,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
-import static org.springframework.http.ResponseEntity.accepted;
+import static org.onap.dcae.common.validator.BatchEventValidator.executeBatchEventValidation;
 import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 public class VesRestController {
@@ -113,22 +114,30 @@ public class VesRestController {
             generalEventValidator.validate(vesEvent, type, version);
             List<VesEvent> vesEvents = transformEvent(vesEvent, type, version, requestURI);
             executeStndDefinedValidation(vesEvents);
-            eventSender.send(vesEvents);
-        } catch (EventValidatorException e) {
+            executeBatchEventValidation(vesEvents);
+            HttpStatus httpStatus = eventSender.send(vesEvents);
+            return status(httpStatus).contentType(MediaType.APPLICATION_JSON).body("Successfully send event");
+        }
+        catch (EventValidatorException e) {
            logger.error(e.getMessage());
-            return ResponseEntity.status(e.getApiException().httpStatusCode)
+            return status(e.getApiException().httpStatusCode)
                     .body(e.getApiException().toJSON().toString());
         } catch (StndDefinedNamespaceParameterNotDefinedException e) {
-            return ResponseEntity.status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
+            return status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
                     .body(ApiException.MISSING_NAMESPACE_PARAMETER.toJSON().toString());
         } catch (StndDefinedNamespaceParameterHasEmptyValueException e) {
-            return ResponseEntity.status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
+            return status(ApiException.MISSING_NAMESPACE_PARAMETER.httpStatusCode)
                     .body(ApiException.EMPTY_NAMESPACE_PARAMETER.toJSON().toString());
+        }catch (InternalException e) {
+            return status(ApiException.SERVICE_UNAVAILABLE.httpStatusCode)
+                    .body(e.getApiException().toJSON().toString());
+        }catch (PayloadToLargeException e){
+            return status(ApiException.PAYLOAD_TO_LARGE.httpStatusCode)
+                    .body(ApiException.PAYLOAD_TO_LARGE.toJSON().toString());
+        }catch (BackwardsCompatibilityException e){
+            return status(ApiException.INTERNAL_SERVER_ERROR.httpStatusCode)
+                    .body(ApiException.INTERNAL_SERVER_ERROR.toJSON().toString());
         }
-
-        // TODO call service and return status, replace CambriaClient, split event to single object and list of them
-        return accepted().headers(this.headerUtils.fillHeaders(headerUtils.getRspCustomHeader()))
-                .contentType(MediaType.APPLICATION_JSON).body("Accepted");
     }
 
     private void executeStndDefinedValidation(List<VesEvent> vesEvents) {
@@ -142,7 +151,6 @@ public class VesRestController {
                 headerUtils.extractHeaders(request),
                 settings.getApiVersionDescriptionFilepath(),
                 headerUtils.getRestApiIdentify(request.getRequestURI()));
-
     }
 
     private List<VesEvent> transformEvent(VesEvent vesEvent, String type, String version, String requestURI) {
@@ -151,13 +159,7 @@ public class VesRestController {
 
     private UUID generateUUID(VesEvent vesEvent, String version, String uri) {
         UUID uuid = UUID.randomUUID();
-        setUpECOMPLoggingForRequest(uuid);
         requestLogger.info(String.format(VES_EVENT_MESSAGE, vesEvent.asJsonObject(), uuid, version, uri));
         return uuid;
-    }
-
-    private static void setUpECOMPLoggingForRequest(UUID uuid) {
-        LoggingContext localLC = VESLogger.getLoggingContextForThread(uuid);
-        localLC.put(EcompFields.kBeginTimestampMs, SaClock.now());
     }
 }
