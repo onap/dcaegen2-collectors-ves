@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ public final class PublisherConfig {
         this.topic = topic;
     }
 
+
     PublisherConfig(List<String> destinations, String topic, String userName, String password) {
         this.destinations = destinations;
         this.topic = topic;
@@ -48,6 +49,10 @@ public final class PublisherConfig {
 
     List<String> destinations() {
         return destinations;
+    }
+
+    String getHostAndPort(){
+        return destinations.get(0);
     }
 
     String topic() {
