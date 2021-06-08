@@ -55,3 +55,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.9.2] - 14/05/2021
          -  [DCAEGEN2-2683](https://jira.onap.org/browse/DCAEGEN2-2683) - Enable Spring Prometheus metrics end-point in VES
             Temporary add mvn profile for enabling/disabling Prometheus metrics            
+## [1.10.0] - 11/06/2021
+         -  [DCAEGEN2-1483](https://jira.onap.org/browse/DCAEGEN2-1483) - VESCollector Event ordering
+            - remove cambria, add DmaaP client
+            - sending event for many topics at once is no longer supported
+            - add backward compatibility status codes
+            - add additional validation for batchEvent            
