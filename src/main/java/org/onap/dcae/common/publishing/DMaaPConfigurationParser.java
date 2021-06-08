@@ -63,28 +63,10 @@ public final class DMaaPConfigurationParser {
     }
 
     private static Try<Map<String, PublisherConfig>> toConfigMap(AnyNode config) {
-        return Try(() -> usesLegacyFormat(config) ? parseLegacyFormat(config) : parseNewFormat(config))
+        return Try(() -> parseNewFormat(config))
                 .mapFailure(enhanceError(f("Parsing DMaaP configuration: '%s' failed, probably it is in unexpected format", config)));
     }
 
-    private static boolean usesLegacyFormat(AnyNode dMaaPConfig) {
-        return dMaaPConfig.has("channels");
-    }
-
-    private static Map<String, PublisherConfig> parseLegacyFormat(AnyNode root) {
-        return root.get("channels").toList().toMap(
-                channel -> channel.get("name").toString(),
-                channel -> {
-                    String destinationsStr = channel.getAsOption("cambria.url")
-                            .getOrElse(channel.getAsOption("cambria.hosts").get())
-                            .toString();
-                    String topic = channel.get("cambria.topic").toString();
-                    Option<String> maybeUser = channel.getAsOption("basicAuthUsername").map(AnyNode::toString);
-                    Option<String> maybePassword = channel.getAsOption("basicAuthPassword").map(AnyNode::toString);
-                    List<String> destinations = List(destinationsStr.split(","));
-                    return buildBasedOnAuth(maybeUser, maybePassword, topic, destinations);
-                });
-    }
 
     private static Map<String, PublisherConfig> parseNewFormat(AnyNode root) {
         return root.keys().toMap(

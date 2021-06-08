@@ -47,7 +47,7 @@
     </RollingFile>
 
     <RollingFile fileName="logs/eelf/audit.log" filePattern="logs/eelf/audit-%d{yyyy-MM-dd}-%i.log" name="EELF_AUDIT">
-      <LevelRangeFilter maxLevel="DEBUG" minLevel="INFO"/>
+      <LevelRangeFilter maxLevel="TRACE" minLevel="INFO"/>
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="64 MB"/>
@@ -87,7 +87,7 @@
   </Appenders>
 
   <Loggers>
-    <logger additivity="false" level="error" name="org.onap.dcaegen2.services.sdk">
+    <logger additivity="true" level="trace" name="org.onap.dcaegen2.services.sdk">
       <AppenderRef ref="ROL_CONSOLE"/>
       <AppenderRef ref="EFILE"/>
     </logger>
