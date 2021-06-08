@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2018,2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,29 +56,6 @@ public class DMaaPConfigurationParserTest {
         assertThat(authCredentialsKeysMissing.isSecured()).isFalse();
     }
 
-
-    @Test
-    public void testParseCredentialsForLegacy() {
-        Path path = Paths.get("src/test/resources/testParseDMaaPCredentialsLegacy.json");
-        Try<Map<String, PublisherConfig>> publisherConfigs = parseToDomainMapping(path);
-
-        PublisherConfig authCredentialsNull = publisherConfigs.get().get("auth-credentials-null").getOrNull();
-        assertThat(authCredentialsNull.userName().isEmpty()).isTrue();
-        assertThat(authCredentialsNull.password().isEmpty()).isTrue();
-        assertThat(authCredentialsNull.isSecured()).isFalse();
-
-        PublisherConfig authCredentialsPresent = publisherConfigs.get().get("auth-credentials-present").getOrNull();
-        assertThat(authCredentialsPresent.userName().getOrNull()).isEqualTo("sampleUser");
-        assertThat(authCredentialsPresent.password().getOrNull()).isEqualTo("samplePassword");
-        assertThat(authCredentialsPresent.isSecured()).isTrue();
-
-        PublisherConfig authCredentialsMissing = publisherConfigs.get().get("auth-credentials-missing").getOrNull();
-        assertThat(authCredentialsMissing.userName().isEmpty()).isTrue();
-        assertThat(authCredentialsMissing.password().isEmpty()).isTrue();
-        assertThat(authCredentialsMissing.isSecured()).isFalse();
-    }
-
-
     @Test
     public void testParseGen2() {
         Path path = Paths.get("src/test/resources/testParseDMaaPGen2.json");
@@ -93,22 +70,4 @@ public class DMaaPConfigurationParserTest {
         assertThat(withOtherSegment.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
     }
 
-    @Test
-    public void testParseLegacy() {
-        Path exemplaryConfig = Paths.get("src/test/resources/testParseDMaaPLegacy.json");
-        Try<Map<String, PublisherConfig>> publisherConfigs = DMaaPConfigurationParser
-            .parseToDomainMapping(exemplaryConfig);
-
-        PublisherConfig urlFirstThenHosts = publisherConfigs.get().get("url-precedes-hosts").getOrNull();
-        assertThat(urlFirstThenHosts.destinations()).isEqualTo(List("127.0.0.1:3904"));
-        assertThat(urlFirstThenHosts.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
-
-        PublisherConfig urlKeyMissing = publisherConfigs.get().get("url-key-missing").getOrNull();
-        assertThat(urlKeyMissing.destinations()).isEqualTo(List("h1.att.com", "h2.att.com"));
-        assertThat(urlKeyMissing.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
-
-        PublisherConfig urlIsMissing = publisherConfigs.get().get("url-is-null").getOrNull();
-        assertThat(urlIsMissing.destinations()).isEqualTo(List("h1.att.com", "h2.att.com"));
-        assertThat(urlIsMissing.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
-    }
 }

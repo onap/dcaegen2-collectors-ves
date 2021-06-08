@@ -154,6 +154,14 @@ To fetch configuration from Consul, VES collector uses CBS client from DCAE SDK.
 
 Sample configuration of VESCollector K-V store can be found under /dpo/data-formats/ConsulConfig.json
 
+### How to send event locally
+
+1. In /etc/hosts add: 127.0.0.1 onap-dmaap
+2. Go into: ./src/test/resources/dmaap-msg-router
+3. Run: docker-compose -f message-router-compose.yml up -d
+4. Run ves application
+5. Now you can send events to ves
+6. Check topics on message-router: curl http://127.0.0.1:3904/topics
 
 ### Testing
 
