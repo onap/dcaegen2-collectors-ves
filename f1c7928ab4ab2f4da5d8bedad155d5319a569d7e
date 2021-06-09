@@ -186,6 +186,29 @@
     },
     {
       "key": {
+        "uuid": "92c5af17_6bf176b6",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 6,
+        "startChar": 26,
+        "endLine": 6,
+        "endChar": 27
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff121463_00073202",
         "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
         "patchSetId": 2
@@ -202,6 +225,52 @@
         "startChar": 21,
         "endLine": 5,
         "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93e5087f_8a6f66d4",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "So you return status from first event only?",
+      "range": {
+        "startLine": 62,
+        "startChar": 93,
+        "endLine": 62,
+        "endChar": 103
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e39f52_2c5df0a8",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "couldn\u0027t just do:\n        return io.vavr.collection.List.ofAll(vesEvents)\n                .map(event -\u003e event.asJsonObject().toString());\n?",
+      "range": {
+        "startLine": 67,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 26
       },
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -248,6 +317,121 @@
         "startChar": 3,
         "endLine": 3,
         "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d224321f_f74f0581",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "expand the import please.",
+      "range": {
+        "startLine": 32,
+        "startChar": 72,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0ed170_595d6b64",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "this(retryConfiguration());\n\ncould be used",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e6ea18_b0b65eb1",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "publishEvents",
+      "range": {
+        "startLine": 48,
+        "startChar": 46,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d7443a_b73f3556",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "Consider using the second method.\n return publishEvent(events, createPublishRequest(publisherConfig));",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 86
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e43c9568_a3260f96",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "publishEvents",
+      "range": {
+        "startLine": 53,
+        "startChar": 46,
+        "endLine": 53,
+        "endChar": 58
       },
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -318,6 +502,23 @@
         "endLine": 6,
         "endChar": 22
       },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f5c0ae2_34a3a98f",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-09T12:38:35Z",
+      "side": 1,
+      "message": "formatting",
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
