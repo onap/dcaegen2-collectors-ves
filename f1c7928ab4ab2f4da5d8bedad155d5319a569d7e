@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "17684dfe_e8616915",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "302cc2e3_d9c4aebf",
+      "range": {
+        "startLine": 5,
+        "startChar": 19,
+        "endLine": 5,
+        "endChar": 20
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "305045fc_4e33c9f6",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd92ffc_3508a024",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "305045fc_4e33c9f6",
+      "range": {
+        "startLine": 339,
+        "startChar": 15,
+        "endLine": 339,
+        "endChar": 20
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3e89bb85_39ec3ea0",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cf32141_7ed59aa1",
+      "range": {
+        "startLine": 345,
+        "startChar": 15,
+        "endLine": 345,
+        "endChar": 21
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff4e2e6c_31400043",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c80475_a6276c42",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff4e2e6c_31400043",
+      "range": {
+        "startLine": 350,
+        "startChar": 15,
+        "endLine": 350,
+        "endChar": 21
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6910a93f_ffd722a2",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c4aa176_824940db",
+      "range": {
+        "startLine": 399,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 24
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44887d98_5e6d3d74",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "706c22d2_e9e9e39f",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44887d98_5e6d3d74",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cb04b47_b32a1239",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11111940_585bbf1f",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb04b47_b32a1239",
+      "range": {
+        "startLine": 6,
+        "startChar": 24,
+        "endLine": 6,
+        "endChar": 28
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,54 @@
     },
     {
       "key": {
+        "uuid": "423c96d4_854b1bfa",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92c5af17_6bf176b6",
+      "range": {
+        "startLine": 6,
+        "startChar": 26,
+        "endLine": 6,
+        "endChar": 27
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49a44090_d61a296b",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "296f156c_6de2c12f",
+      "range": {
+        "startLine": 6,
+        "startChar": 21,
+        "endLine": 6,
+        "endChar": 26
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff121463_00073202",
         "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
         "patchSetId": 2
@@ -229,6 +445,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3aa114_171bbb56",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff121463_00073202",
+      "range": {
+        "startLine": 5,
+        "startChar": 21,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "f2975094_f2f6b54e",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "We always send a list of events and get Flux which has one element as a response",
+      "parentUuid": "93e5087f_8a6f66d4",
+      "range": {
+        "startLine": 62,
+        "startChar": 93,
+        "endLine": 62,
+        "endChar": 103
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39e39f52_2c5df0a8",
         "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
         "patchSetId": 2
@@ -275,6 +539,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e2787e_ec453e14",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39e39f52_2c5df0a8",
+      "range": {
+        "startLine": 67,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "995e8dc8_78442d7e",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DmaapRequestConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee476e6_77456eaf",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bfbb89d_c4012dd0",
         "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
         "patchSetId": 2
@@ -321,6 +633,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa13061_03d9fcdd",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bfbb89d_c4012dd0",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "dd86d357_20413b3a",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d224321f_f74f0581",
+      "range": {
+        "startLine": 32,
+        "startChar": 72,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d0ed170_595d6b64",
         "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
         "patchSetId": 2
@@ -367,6 +727,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac31ddf2_f81891aa",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d0ed170_595d6b64",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "07b79571_04577c9a",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53e6ea18_b0b65eb1",
+      "range": {
+        "startLine": 48,
+        "startChar": 46,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58d7443a_b73f3556",
         "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
         "patchSetId": 2
@@ -413,6 +821,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aa8ccb_c2905f12",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58d7443a_b73f3556",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 86
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -439,6 +871,30 @@
     },
     {
       "key": {
+        "uuid": "9000a679_6620cb87",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e43c9568_a3260f96",
+      "range": {
+        "startLine": 53,
+        "startChar": 46,
+        "endLine": 53,
+        "endChar": 58
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fe3976e_386741f5",
         "filename": "src/main/java/org/onap/dcae/common/validator/BatchEventValidator.java",
         "patchSetId": 2
@@ -459,6 +915,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c41693f_2a39645c",
+        "filename": "src/main/java/org/onap/dcae/common/validator/BatchEventValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe3976e_386741f5",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -485,6 +965,30 @@
     },
     {
       "key": {
+        "uuid": "34afd298_d12a1951",
+        "filename": "src/main/java/org/onap/dcae/restapi/ApiException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3389df7_edd7a4d6",
+      "range": {
+        "startLine": 5,
+        "startChar": 21,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0b854e3_3acdbc42",
         "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
         "patchSetId": 2
@@ -508,6 +1012,30 @@
     },
     {
       "key": {
+        "uuid": "dd83b7dd_38f11c6e",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0b854e3_3acdbc42",
+      "range": {
+        "startLine": 6,
+        "startChar": 21,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f5c0ae2_34a3a98f",
         "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
         "patchSetId": 2
@@ -522,6 +1050,24 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f381a3a3_dcf3ede4",
+        "filename": "src/main/java/org/onap/dcae/restapi/VesRestController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5c0ae2_34a3a98f",
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -548,6 +1094,30 @@
     },
     {
       "key": {
+        "uuid": "9d8d8029_01a8ac42",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06c7c3bc_cd754bc9",
+      "range": {
+        "startLine": 5,
+        "startChar": 24,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "658519a0_ec13d42f",
         "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
         "patchSetId": 2
@@ -568,6 +1138,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a5bbbb4_bb9dba9b",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "658519a0_ec13d42f",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -594,6 +1188,30 @@
     },
     {
       "key": {
+        "uuid": "1e526351_07b02fd8",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b6dd79a_ceabea53",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e70c461f_386d02c4",
         "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
         "patchSetId": 2
@@ -614,6 +1232,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d804de1_01d5a84a",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e70c461f_386d02c4",
+      "range": {
+        "startLine": 6,
+        "startChar": 21,
+        "endLine": 6,
+        "endChar": 27
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -640,6 +1282,30 @@
     },
     {
       "key": {
+        "uuid": "7d1ffbf4_ca5f4f9e",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06b3227d_f341149c",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89661815_e36d1b8e",
         "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPConfigurationParserTest.java",
         "patchSetId": 2
@@ -660,6 +1326,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaa8134b_69096d91",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89661815_e36d1b8e",
+      "range": {
+        "startLine": 6,
+        "startChar": 21,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -686,6 +1376,30 @@
     },
     {
       "key": {
+        "uuid": "16d61f56_64b129fe",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaapContainer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10b99e7e_e8ff36ba",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 24
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31622bb6_971fe279",
         "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
         "patchSetId": 2
@@ -706,6 +1420,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a264fb0e_a92a3928",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31622bb6_971fe279",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -732,6 +1470,30 @@
     },
     {
       "key": {
+        "uuid": "82c1762e_d7a34f97",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTestMockServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "873851fc_032d6b5e",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba3ae1f5_94590fdc",
         "filename": "src/test/java/org/onap/dcae/common/validator/BatchEventValidatorTest.java",
         "patchSetId": 2
@@ -752,6 +1514,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5174a719_b652c1d6",
+        "filename": "src/test/java/org/onap/dcae/common/validator/BatchEventValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba3ae1f5_94590fdc",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -778,6 +1564,30 @@
     },
     {
       "key": {
+        "uuid": "631d3590_befb63d4",
+        "filename": "src/test/java/org/onap/dcae/multiplestreamreducer/MultipleStreamReducerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22369add_f9b57e80",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1ae6d5f_3f9a1cae",
         "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
         "patchSetId": 2
@@ -801,6 +1611,30 @@
     },
     {
       "key": {
+        "uuid": "2ee7143c_6a269543",
+        "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1ae6d5f_3f9a1cae",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3b2ad80_e3086837",
         "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
         "patchSetId": 2
@@ -821,6 +1655,30 @@
       "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8388c96d_fcf7ba9f",
+        "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-10T11:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b2ad80_e3086837",
+      "range": {
+        "startLine": 5,
+        "startChar": 21,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
