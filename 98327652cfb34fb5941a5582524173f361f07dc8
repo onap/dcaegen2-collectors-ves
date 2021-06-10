@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddf16fc8_96cff664",
+        "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 6,
+        "startChar": 56,
+        "endLine": 6,
+        "endChar": 57
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f018e657_0d06bd39",
+        "filename": "src/main/java/org/onap/dcae/common/EventSender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "I think just 2018-2021 will be fine",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ab53d8_f4cb89c7",
+        "filename": "src/main/java/org/onap/dcae/common/model/VesEvent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 5,
+        "startChar": 54,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f14adfac_a0550777",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/DMaaPEventPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "2018-2021",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6461320_c84e41bf",
+        "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "2018-2021",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e055158f_a7d86a99",
+        "filename": "src/test/java/org/onap/dcae/restapi/VesRestControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-10T13:31:15Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 5,
+        "startChar": 54,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
