@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "006972ac_baaccfe8",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "to be bumped up",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "f1c7928ab4ab2f4da5d8bedad155d5319a569d7e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "305045fc_4e33c9f6",
         "filename": "pom.xml",
         "patchSetId": 2

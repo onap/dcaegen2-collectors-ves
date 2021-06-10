@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "4880af89_c0956ad5",
+        "filename": "etc/DmaapConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "This was legacy structure used in docker deployment which is no longer supported; this file can be removed and DMaaPConfigurationParser.java refactored accordingly",
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33a937d7_3a20e249",
+        "filename": "etc/collector.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "For none option, add brief comment on list of new RC expected",
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1c9688_57a5cbdb",
+        "filename": "etc/collector.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "Will be better to rename this property to collector.response.compatibility",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 80,
+        "endChar": 19
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddf16fc8_96cff664",
         "filename": "src/main/java/org/onap/dcae/ApplicationSettings.java",
         "patchSetId": 3
@@ -94,6 +151,29 @@
     },
     {
       "key": {
+        "uuid": "3fdf9e07_a551108f",
+        "filename": "src/main/java/org/onap/dcae/common/publishing/PublisherConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "2018,2021",
+      "range": {
+        "startLine": 5,
+        "startChar": 17,
+        "endLine": 5,
+        "endChar": 27
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6461320_c84e41bf",
         "filename": "src/test/java/org/onap/dcae/common/EventSenderTest.java",
         "patchSetId": 3
@@ -109,6 +189,29 @@
         "startLine": 6,
         "startChar": 17,
         "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979a0a98_a6bd1d6e",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/DMaaPConfigurationParserTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "this test and corresponding method in DMaaPConfigurationParser class can be removed",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
         "endChar": 31
       },
       "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
@@ -134,6 +237,86 @@
         "endLine": 5,
         "endChar": 55
       },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a3718f_384873f2",
+        "filename": "src/test/resources/dmaap-msg-router/message-router-compose.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "1.0.5",
+      "range": {
+        "startLine": 26,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec11ea7_cc4670b8",
+        "filename": "src/test/resources/dmaap-msg-router/message-router-compose.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "use current/released image dmaap-mr:1.1.20",
+      "range": {
+        "startLine": 52,
+        "startChar": 44,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0501ffdf_82be11f5",
+        "filename": "src/test/resources/testParseDMaaPCredentialsLegacy.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "file/corresponding test can be removed",
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06485a4d_279d30fc",
+        "filename": "src/test/resources/testParseDMaaPLegacy.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-10T21:45:17Z",
+      "side": 1,
+      "message": "file can be removed",
       "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
