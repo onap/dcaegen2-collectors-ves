@@ -589,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "059a9a1e_a98a37d2",
+        "filename": "src/test/resources/dmaap-msg-router/message-router-compose.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-11T22:42:03Z",
+      "side": 1,
+      "message": "Missed to be addressed?",
+      "parentUuid": "ad084c03_84bd0c21",
+      "range": {
+        "startLine": 52,
+        "startChar": 44,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0501ffdf_82be11f5",
         "filename": "src/test/resources/testParseDMaaPCredentialsLegacy.json",
         "patchSetId": 3
