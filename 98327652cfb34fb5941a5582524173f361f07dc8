@@ -637,6 +637,30 @@
     },
     {
       "key": {
+        "uuid": "1d0751ce_7d7bd24c",
+        "filename": "src/test/resources/dmaap-msg-router/message-router-compose.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-14T22:06:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00236779_e2ff9689",
+      "range": {
+        "startLine": 52,
+        "startChar": 44,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "98327652cfb34fb5941a5582524173f361f07dc8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0501ffdf_82be11f5",
         "filename": "src/test/resources/testParseDMaaPCredentialsLegacy.json",
         "patchSetId": 3
