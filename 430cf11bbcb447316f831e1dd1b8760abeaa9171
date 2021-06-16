@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef0fd840_9ce8948d",
+        "filename": "etc/collector.properties",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-16T17:15:31Z",
+      "side": 1,
+      "message": "should be ./etc/ as file has been moved",
+      "range": {
+        "startLine": 66,
+        "startChar": 21,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "430cf11bbcb447316f831e1dd1b8760abeaa9171",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
