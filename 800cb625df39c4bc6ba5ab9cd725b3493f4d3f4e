@@ -16,6 +16,24 @@
       "revId": "800cb625df39c4bc6ba5ab9cd725b3493f4d3f4e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942d6c7e_c4c2af28",
+        "filename": "etc/collector.properties",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-06-16T13:29:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ae9b3f4_9fd13b79",
+      "revId": "800cb625df39c4bc6ba5ab9cd725b3493f4d3f4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
