@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Micha? Ba?ka <michal.banka@nokia.com>
+Code-Review+1: Bartosz Gardziejewski <bartosz.gardziejewski@nokia.com>
+Code-Review+2: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-by: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Submitted-at: Fri, 18 Jun 2021 08:19:09 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/122035
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/honolulu
