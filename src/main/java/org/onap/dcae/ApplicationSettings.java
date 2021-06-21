@@ -161,7 +161,7 @@ public class ApplicationSettings {
     }
 
     public String dMaaPConfigurationFileLocation() {
-        return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "dpo/data-formats/ves-dmaap-config.json"));
+        return prependWithUserDirOnRelative(properties.getString("collector.dmaapfile", "etc/ves-dmaap-config.json"));
     }
 
     public String certSubjectMatcher(){

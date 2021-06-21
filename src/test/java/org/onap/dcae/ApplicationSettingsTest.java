@@ -385,11 +385,11 @@ public class ApplicationSettingsTest {
     public void shouldReturnConfigurationFileLocation() throws IOException {
         // when
         String configurationFileLocation = fromTemporaryConfiguration(
-                "collector.dmaapfile=/somewhere/data-formats/ves-dmaap-config.json")
+                "collector.dmaapfile=/somewhere/etc/ves-dmaap-config.json")
                 .dMaaPConfigurationFileLocation();
 
         // then
-        assertEquals(sanitizePath("/somewhere/data-formats/ves-dmaap-config.json"), configurationFileLocation);
+        assertEquals(sanitizePath("/somewhere/etc/ves-dmaap-config.json"), configurationFileLocation);
     }
 
     @Test
@@ -399,7 +399,7 @@ public class ApplicationSettingsTest {
                 .dMaaPConfigurationFileLocation();
 
         // then
-        assertEquals(sanitizePath("dpo/data-formats/ves-dmaap-config.json"), configurationFileLocation);
+        assertEquals(sanitizePath("etc/ves-dmaap-config.json"), configurationFileLocation);
     }
 
     @Test
