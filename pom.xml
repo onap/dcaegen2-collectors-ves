@@ -100,6 +100,11 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
+          <configuration>
+            <environmentVariables>
+              <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
+            </environmentVariables>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>com.spotify</groupId>
