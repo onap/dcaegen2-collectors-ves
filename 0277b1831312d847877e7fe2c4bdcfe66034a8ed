@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Maciej Malewski <maciej.malewski@nokia.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Wed, 30 Jun 2021 18:02:13 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/122360
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
