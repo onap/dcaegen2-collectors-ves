@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.s
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,9 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CbsConfigurationHandlerTest {
@@ -67,9 +67,8 @@ public class CbsConfigurationHandlerTest {
     @Test
     public void shouldCreateCbsConfigurationHandler() {
         // given
-
-        when(cbsConfigurationHandler.createCbsClient(cbsClientConfiguration)).thenReturn(cbsClient);
-        when(cbsClientConfigurationProvider.get()).thenReturn(cbsClientConfiguration);
+        doReturn(cbsClient).when(cbsConfigurationHandler).createCbsClient(cbsClientConfiguration);
+        doReturn(cbsClientConfiguration).when(cbsClientConfigurationProvider).get();
 
         // when
         final Disposable handler = cbsConfigurationHandler.startListen(Duration.ofMinutes(5));
@@ -81,10 +80,10 @@ public class CbsConfigurationHandlerTest {
     @Test
     public void shouldUpdateAppConfigurationWhenConfigurationIsValid() {
         // given
-        final JsonObject configuration = createConsulConfiguration(VES_CONSUL_CONFIG);
+        final JsonObject configuration = createConfiguration(VES_CONSUL_CONFIG);
 
         // when
-        this.cbsConfigurationHandler.handleConfigurationFromConsul(configuration);
+        this.cbsConfigurationHandler.handleConfiguration(configuration);
 
         // then
         final ArgumentCaptor<Option<JSONObject>> acConfiguration = ArgumentCaptor.forClass(Option.class);
@@ -93,12 +92,12 @@ public class CbsConfigurationHandlerTest {
     }
 
     @Test
-    public void shouldReportAnErrorWhenConsulReturnsEmptyConfiguration() {
+    public void shouldReportAnErrorWhenConfigHandlerReturnsEmptyConfiguration() {
         // given
-        final JsonObject configuration = createConsulConfiguration("{}");
+        final JsonObject configuration = createConfiguration("{}");
 
         // when
-        assertThatThrownBy(() -> this.cbsConfigurationHandler.handleConfigurationFromConsul(configuration))
+        assertThatThrownBy(() -> this.cbsConfigurationHandler.handleConfiguration(configuration))
                 .isInstanceOf(IllegalArgumentException.class).hasMessageContaining(String.format("Invalid application configuration: %s ", "{}"));
 
         // then
@@ -109,8 +108,8 @@ public class CbsConfigurationHandlerTest {
         return new JSONObject(vesConfig).toString();
     }
 
-    private JsonObject createConsulConfiguration(String vesConsulConfig) {
-        return new JsonParser().parse(vesConsulConfig).getAsJsonObject();
+    private JsonObject createConfiguration(String vesConfig) {
+        return new JsonParser().parse(vesConfig).getAsJsonObject();
     }
 
 

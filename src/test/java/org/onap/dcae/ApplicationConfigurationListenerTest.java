@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class ApplicationConfigurationListenerTest {
     private ApplicationConfigurationListener applicationConfigurationListener;
 
     @Test
-    public void shouldStopJobAndCloseConnectionWhenErrorOccurredDuringListenAtConsulChange() {
+    public void shouldStopJobAndCloseConnectionWhenErrorOccurredDuringListenAtConfigChange() {
 
        // given
        Mockito.doThrow(new RuntimeException("Simulate exception")).when(configurationHandler).startListen(any());
