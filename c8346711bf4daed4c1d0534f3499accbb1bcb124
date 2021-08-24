@@ -22,6 +22,30 @@
       "revId": "c8346711bf4daed4c1d0534f3499accbb1bcb124",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e79d9b7_8271be23",
+        "filename": "src/test/java/org/onap/dcae/configuration/CbsConfigurationHandlerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6592
+      },
+      "writtenOn": "2021-08-24T13:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cde98a1_5db2c109",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "c8346711bf4daed4c1d0534f3499accbb1bcb124",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
