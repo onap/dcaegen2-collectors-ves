@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cde98a1_5db2c109",
+        "filename": "src/test/java/org/onap/dcae/configuration/CbsConfigurationHandlerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-08-24T13:05:08Z",
+      "side": 1,
+      "message": "Unused import now",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "c8346711bf4daed4c1d0534f3499accbb1bcb124",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
