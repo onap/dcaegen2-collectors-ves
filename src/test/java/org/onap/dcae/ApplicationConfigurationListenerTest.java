@@ -43,7 +43,7 @@ public class ApplicationConfigurationListenerTest {
     private ApplicationConfigurationListener applicationConfigurationListener;
 
     @Test
-    public void shouldStopJobAndCloseConnectionWhenErrorOccurredDuringListenAtConsulChange() {
+    public void shouldStopJobAndCloseConnectionWhenErrorOccurredDuringListenAtConfigChange() {
 
        // given
        Mockito.doThrow(new RuntimeException("Simulate exception")).when(configurationHandler).startListen(any());

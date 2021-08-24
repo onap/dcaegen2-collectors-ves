@@ -66,7 +66,7 @@ public class VesApplication {
         applicationLock.lock();
         try {
             startApplication(args);
-            startListeningForApplicationConfigurationStoredInConsul();
+            startListeningForApplicationConfiguration();
         } finally {
             applicationLock.unlock();
         }
@@ -110,7 +110,7 @@ public class VesApplication {
         context = SpringApplication.run(VesApplication.class);
     }
 
-    private static void startListeningForApplicationConfigurationStoredInConsul() {
+    private static void startListeningForApplicationConfiguration() {
         ConfigurationHandler cbsHandler = new ConfigurationHandler(new CbsClientConfigurationProvider(), configUpdater);
         ApplicationConfigurationListener applicationConfigProvider = new ApplicationConfigurationListener(Duration.ofMinutes(DEFAULT_CONFIGURATION_FETCH_PERIOD), cbsHandler);
 

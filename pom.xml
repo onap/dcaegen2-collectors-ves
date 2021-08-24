@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.10.0-SNAPSHOT</version>
+  <version>1.10.1-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -69,10 +69,9 @@
     <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
     <assertj-core.version>3.19.0</assertj-core.version>
     <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
-    <sdk.version>1.8.0</sdk.version>
+    <sdk.version>1.8.6</sdk.version>
     <guava.version>30.1-jre</guava.version>
     <mock-server.version>5.11.1</mock-server.version>
-    <dmaap-client.version>1.8.6</dmaap-client.version>
     <reactor-test.version>3.4.0</reactor-test.version>
     <testcontainers.version>1.15.1</testcontainers.version>
     <junit-jupiter.version>1.15.1</junit-jupiter.version>
@@ -333,7 +332,7 @@
     <dependency>
       <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
       <artifactId>dmaap-client</artifactId>
-      <version>${dmaap-client.version}</version>
+      <version>${sdk.version}</version>
       <exclusions>
         <exclusion>
           <groupId>ch.qos.logback</groupId>
