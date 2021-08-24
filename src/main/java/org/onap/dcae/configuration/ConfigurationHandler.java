@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.s
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 /**
- * ConfigurationHandler is responsible for receiving configuration updates from Consul.
- * Any change made in the Consul will be reported as a notification.
+ * ConfigurationHandler is responsible for receiving configuration updates from config file or Consul (if config file doesn't exist).
+ * Any change made in the configuration will be reported as a notification.
  */
 public class ConfigurationHandler {
 
@@ -61,12 +61,12 @@ public class ConfigurationHandler {
     /**
      * Start listen for application configuration notifications with configuration changes
      * @param interval defines period of time when notification can come
-     * @return {@link Disposable} handler to close Consul listener at the end
+     * @return {@link Disposable} handler to close configuration listener at the end
      */
     public Disposable startListen(Duration interval) {
 
-        log.info("Start listening for configuration from Consul ...");
-        log.info(String.format("Consul configuration will be fetched in %s period.", interval));
+        log.info("Start listening for configuration ...");
+        log.info(String.format("Configuration will be fetched in %s period.", interval));
 
         // Polling properties
         final Duration initialDelay = Duration.ofSeconds(5);
@@ -78,7 +78,7 @@ public class ConfigurationHandler {
         return createCbsClient(cbsClientConfiguration)
                 .flatMapMany(cbsClient -> cbsClient.updates(request, initialDelay, period))
                 .subscribe(
-                        this::handleConfigurationFromConsul,
+                        this::handleConfiguration,
                         this::handleError
                 );
     }
@@ -87,8 +87,8 @@ public class ConfigurationHandler {
         return CbsClientFactory.createCbsClient(cbsClientConfiguration);
     }
 
-    void handleConfigurationFromConsul(JsonObject jsonObject) {
-        log.info("Configuration update from Consul {}", jsonObject);
+    void handleConfiguration(JsonObject jsonObject) {
+        log.info("Configuration update {}", jsonObject);
         if(jsonObject.has(CONFIG_DICT)) {
             JsonObject config = jsonObject.getAsJsonObject(CONFIG_DICT);
             JSONObject jObject = new JSONObject(config.toString());
@@ -99,7 +99,7 @@ public class ConfigurationHandler {
     }
 
     private void handleError(Throwable throwable) {
-        log.error("Unexpected error occurred during fetching configuration from Consul", throwable);
+        log.error("Unexpected error occurred during fetching configuration", throwable);
     }
 
     private CbsRequest createCbsRequest() {
