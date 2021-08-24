@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import reactor.core.Disposable;
 import java.time.Duration;
 
 /**
- * ApplicationConfigurationListener is used to listen at notifications with configuration updates send from Consul.
+ * ApplicationConfigurationListener is used to listen at notifications with configuration updates.
  */
 public class ApplicationConfigurationListener implements Runnable {
 
@@ -42,7 +42,7 @@ public class ApplicationConfigurationListener implements Runnable {
     /**
      * Constructor
      * @param interval defines period of time when notification can come
-     * @param configurationHandler handles notifications send by Consul
+     * @param configurationHandler handles notifications
      */
     public ApplicationConfigurationListener(Duration interval, ConfigurationHandler configurationHandler) {
         this.interval = interval;
@@ -50,7 +50,7 @@ public class ApplicationConfigurationListener implements Runnable {
     }
 
     /**
-     * Reload listener to start listening for Consul notifications with defined interval.
+     * Reload listener to start listening for configurations notifications with defined interval.
      * @param interval defines period of time when notification can come
      */
     public synchronized void reload(Duration interval) {
@@ -64,23 +64,23 @@ public class ApplicationConfigurationListener implements Runnable {
     }
 
     /**
-     * Start listening for Consul notification.
+     * Start listening for configurations notification.
      */
     @Override
     public void run() {
-        Disposable consulListener = null;
+        Disposable configListener = null;
         do {
             try {
-                consulListener = listenForConfigurationUpdates();
+                configListener = listenForConfigurationUpdates();
                 synchronized (this) {
-                    log.info("Switch to configuration handler thread. Active waiting for configuration from Consul.");
+                    log.info("Switch to configuration handler thread. Active waiting for configuration.");
                     this.wait();
                 }
             } catch (Exception e) {
-                log.error("Unexpected error occurred during handling data from Consul.", e);
+                log.error("Unexpected error occurred during handling data.", e);
                 terminate();
             } finally {
-                stopListeningForConfigurationUpdates(consulListener);
+                stopListeningForConfigurationUpdates(configListener);
             }
         } while (!this.terminate);
     }
@@ -95,7 +95,7 @@ public class ApplicationConfigurationListener implements Runnable {
 
     /**
      * Release resources when there is a need to stop listener
-     * @param consulListener Handler to Consul listener
+     * @param consulListener Handler to configurations listener
      */
     void stopListeningForConfigurationUpdates(Disposable consulListener) {
         if (consulListener != null) {
