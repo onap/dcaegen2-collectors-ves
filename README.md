@@ -103,6 +103,7 @@ Variables set manually / coming from deployment system:
 - CONFIG_BINDING_SERVICE - should be a name of CBS
 - CONFIG_BINDING_SERVICE_SERVICE_PORT - should be an http port of CBS
 - HOSTNAME - should be a name of VESCollector application as it is registered in CBS catalog
+- CBS_CLIENT_CONFIG_PATH - (optional) should contain path to application config file.
 
 ### Docker file system layout
 The main directory where all code resides in docker container
@@ -143,14 +144,16 @@ For testing purpose, the docker image includes preset configuration which can be
 
 
 
-### Consul - Dynamic configuration 
+### Dynamic configuration 
 
 
-Application properties like /etc/collector.properties and Dmaap configuration /etc/DmaapConfig.json are updated frequently by configuration stored in Consul(CBS)
+Application properties like /etc/collector.properties and Dmaap configuration /etc/DmaapConfig.json are updated frequently by configuration stored in config file or if it doesn't exist, in Consul (CBS)
 http://<kubernetes_host_ip>:30270/ui/#/dc1/kv/<vescollector_SCN> 
-Configuration stored in Consul have bigger priority and always will override local configuration so all configuration modification should be done using Consul update on corresponding kv store. 
-Frequently how often configuration will be fetch from Consul server is manageable in /etc/collector.properties property "collector.dynamic.config.update.frequency={time in minutes}".
-To fetch configuration from Consul, VES collector uses CBS client from DCAE SDK.
+By default, config file is located in /app-config/application_config.yaml and this path can be changed by CBS_CLIENT_CONFIG_PATH env.
+Configuration stored in config file has the biggest priority and always will override local configuration. 
+If config file doesn't exist then configuration will be fetched from Consul server.
+Frequently how often configuration will be dynamically fetched is manageable in /etc/collector.properties property "collector.dynamic.config.update.frequency={time in minutes}".
+To fetch configuration, VES collector uses CBS client from DCAE SDK.
 
 Sample configuration of VESCollector K-V store can be found under /dpo/data-formats/ConsulConfig.json
 

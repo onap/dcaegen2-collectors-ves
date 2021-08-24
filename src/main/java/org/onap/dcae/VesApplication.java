@@ -3,7 +3,7 @@
  * PROJECT
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public class VesApplication {
         applicationLock.lock();
         try {
             startApplication(args);
-            startListeningForApplicationConfigurationStoredInConsul();
+            startListeningForApplicationConfiguration();
         } finally {
             applicationLock.unlock();
         }
@@ -110,7 +110,7 @@ public class VesApplication {
         context = SpringApplication.run(VesApplication.class);
     }
 
-    private static void startListeningForApplicationConfigurationStoredInConsul() {
+    private static void startListeningForApplicationConfiguration() {
         ConfigurationHandler cbsHandler = new ConfigurationHandler(new CbsClientConfigurationProvider(), configUpdater);
         ApplicationConfigurationListener applicationConfigProvider = new ApplicationConfigurationListener(Duration.ofMinutes(DEFAULT_CONFIGURATION_FETCH_PERIOD), cbsHandler);
 
