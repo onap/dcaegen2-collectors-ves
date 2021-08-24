@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61ec763f_9b646dca",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-08-24T11:31:56Z",
+      "side": 1,
+      "message": "use 1.8.7",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 22
+      },
+      "revId": "d028cd93851baad1876d86c4fc6f3455cc1185df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
