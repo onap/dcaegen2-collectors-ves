@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0744a11b_73c9ef73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-08-31T16:35:43Z",
+      "side": 1,
+      "message": "I think you mean \"fix ambiguous\"",
+      "revId": "886fb256c6e6ded9c0a5eb04e62654e0b034a29c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
