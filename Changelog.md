@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
             - sending event for many topics at once is no longer supported
             - add backward compatibility status codes
             - add additional validation for batchEvent            
-## [1.10.1] - 24/08/2021
+## [1.10.1] - 31/08/2021
          -  [DCAEGEN2-1483](https://jira.onap.org/browse/DCAEGEN2-2719) - CBS-Client supporting configMap
             - update CBS-Client from 1.8.0 to 1.8.7 in order to enable config file support
+            - fix ambiguous spring-boot-maven-plugin import
