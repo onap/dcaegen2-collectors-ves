@@ -82,6 +82,7 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
@@ -185,7 +186,7 @@
             <imageTag>${project.version}</imageTag>
             <imageTag>latest</imageTag>
           </imageTags>
-          <baseImage>openjdk:11-jre-slim</baseImage>
+          <baseImage>openjdk:11.0.11-jre-slim</baseImage>
           <user>vescollector</user>
           <env>
             <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
