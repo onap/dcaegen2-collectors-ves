@@ -62,6 +62,11 @@ committers:
       company: 'Nokia'
       id: 'twrobel'
       timezone: 'Europe/Warsaw'
+    - name: 'Niranjana Y'
+      email: 'niranjana.y60@wipro.com'
+      company: 'Wipro'
+      id: 'niranjana.y60@wipro.com'
+      timezone: 'India/IST UTC+5:30'
 tsc:
     approval: 'https://lists.onap.org/pipermail/onap-tsc'
     changes:
@@ -107,3 +112,6 @@ tsc:
         - type: 'Addition'
           name: 'Joanna Jeremicz'
           link: 'https://lists.onap.org/g/onap-tsc/message/7583'
+        - type: 'Addition'
+          name: 'Niranjana Y'
+          link: 'https://lists.onap.org/g/onap-tsc/message/8135'
