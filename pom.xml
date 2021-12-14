@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
     ================================================================================
-	Copyright (c) 2017-2019 AT&T Intellectual Property. All rights reserved.
+	Copyright (c) 2017-2019,2021 AT&T Intellectual Property. All rights reserved.
 	Copyright (c) 2020-2021 Nokia. All rights reserved.
 	================================================================================
 	Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.10.1-SNAPSHOT</version>
+  <version>1.10.2-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -65,7 +65,8 @@
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-configuration.version>1.10</commons-configuration.version>
     <vavr.version>0.10.3</vavr.version>
-    <spring-boot-starter-log4j2.version>2.4.3</spring-boot-starter-log4j2.version>
+    <spring-boot-starter-log4j2.version>2.6.1</spring-boot-starter-log4j2.version>
+    <log4j.version>2.16.0</log4j.version>
     <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
     <assertj-core.version>3.19.0</assertj-core.version>
     <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
@@ -392,6 +393,16 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
       <version>${spring-boot-starter-log4j2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
     </dependency>
     <dependency>
       <groupId>io.springfox</groupId>
