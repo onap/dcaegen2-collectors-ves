@@ -16,6 +16,24 @@
       "revId": "4d5c70e337087907aca0e32e89c367554fc42429",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404703b6_49e57bb7",
+        "filename": "dpo/spec/vescollector-componentspec-v3.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-01-04T22:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12eaf5b6_f0c15072",
+      "revId": "4d5c70e337087907aca0e32e89c367554fc42429",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
