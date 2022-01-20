@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d3ce3c7_f566d5d8",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-01-20T01:03:25Z",
+      "side": 1,
+      "message": "missing LICENSE_START line",
+      "revId": "0d1658f6df52d1cf35c5e8c8d856a6fb668f009d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
