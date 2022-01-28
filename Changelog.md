@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.4] - 2022/01/28
+         - [DCAEGEN2-2961] - Switch VESCollector to Integration base image(onap/integration-java11:10.0.0)
+
 ## [1.10.3] - 2022/01/18
          - [DCAEGEN2-3022] - Remediation for Log4Shell vulnerability (upgrade to 2.17.1)
 
