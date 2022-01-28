@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <!--
-    ================================================================================
+	============LICENSE_START=======================================================
+	dcaegen2-collectors-ves
+	================================================================================
 	Copyright (c) 2017-2019,2021 AT&T Intellectual Property. All rights reserved.
 	Copyright (c) 2020-2022 Nokia. All rights reserved.
 	================================================================================
@@ -24,7 +26,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.10.3-SNAPSHOT</version>
+  <version>1.10.4-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -76,6 +78,7 @@
     <reactor-test.version>3.4.0</reactor-test.version>
     <testcontainers.version>1.15.1</testcontainers.version>
     <junit-jupiter.version>1.15.1</junit-jupiter.version>
+    <docker-maven-plugin.baseImage>nexus3.onap.org:10001/onap/integration-java11:10.0.0</docker-maven-plugin.baseImage>
   </properties>
   <build>
     <pluginManagement>
@@ -187,7 +190,7 @@
             <imageTag>${project.version}</imageTag>
             <imageTag>latest</imageTag>
           </imageTags>
-          <baseImage>openjdk:11.0.11-jre-slim</baseImage>
+          <baseImage>${docker-maven-plugin.baseImage}</baseImage>
           <user>vescollector</user>
           <env>
             <HOSTALIASES>/etc/host.aliases</HOSTALIASES>
@@ -200,7 +203,8 @@
             </resource>
           </resources>
           <runs>
-            <run>useradd -r -U vescollector</run>
+            <run>addgroup vescollector</run>
+            <run>adduser --system --disabled-password --no-create-home --ingroup vescollector vescollector</run>
             <run>chown -R vescollector:vescollector /opt/app</run>
             <run>mkdir /opt/app/VESCollector/logs</run>
             <run>chown -R vescollector:vescollector /opt/app/VESCollector/logs</run>
@@ -208,7 +212,7 @@
             <!-- Maven is loosing file permissions during artifacts copy -->
             <run>chmod +x bin/*.sh</run>
             <run>
-              <![CDATA[apt-get update && apt-get install -y --no-install-recommends procps && apt-get install -y less && apt-get install -y vim && apt-get install -y curl && apt-get clean all]]></run>
+              <![CDATA[apk update && apk add -y --no-install-recommends procps && apk add -y less && apk add -y vim && apk add -y curl && apk clean all]]></run>
           </runs>
           <exposes>
             <expose>8080</expose>
