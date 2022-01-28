@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56ba83d4_0dd48fd3",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-01-28T21:28:25Z",
+      "side": 1,
+      "message": "the top \u003d\u003d\u003d\u003d line (or an additional line) should have LICENSE_START on it to match the LICENSE_END line below.",
+      "revId": "aa098528ec353e8ac5cbb071bebd584429b2e912",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
