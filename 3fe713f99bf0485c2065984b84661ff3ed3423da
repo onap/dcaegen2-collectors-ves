@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7210e0a3_c64509ea",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-01-31T15:32:27Z",
+      "side": 1,
+      "message": "replace tabs with spaces",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "3fe713f99bf0485c2065984b84661ff3ed3423da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea16740_f1c5a60b",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-01-31T15:32:27Z",
+      "side": 1,
+      "message": "Minor version update (1.11.0) would be better here; this will also help avoiding any conflicts with istanbul maintenance work if any",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "3fe713f99bf0485c2065984b84661ff3ed3423da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
