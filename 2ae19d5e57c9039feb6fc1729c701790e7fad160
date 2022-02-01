@@ -22,6 +22,30 @@
       "revId": "2ae19d5e57c9039feb6fc1729c701790e7fad160",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee70b848_b2b90247",
+        "filename": "pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2022-02-01T12:41:26Z",
+      "side": 1,
+      "message": "I couldn\u0027t switch to root in pom.xml, so we decided to create Dockerfile. This solution should work and it is a better way to create containers.",
+      "parentUuid": "3be5965b_dece5506",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 44
+      },
+      "revId": "2ae19d5e57c9039feb6fc1729c701790e7fad160",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
