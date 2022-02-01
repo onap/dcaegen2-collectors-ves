@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56531f1f_a9a46762",
+        "filename": "pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-01T22:53:02Z",
+      "side": 1,
+      "message": "tabs are not allowed, but since this is far away from the modifications, I wouldn\u0027t block if it didn\u0027t get fixed",
+      "revId": "439dd97ea830d8bc42ea2cbe846656598cff1fb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b52555c_b7f2d5b2",
+        "filename": "src/docker/Dockerfile",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-01T22:53:02Z",
+      "side": 1,
+      "message": "there should be a copyright and license block, surrounded by LICENSE_START / LICENSE_END lines",
+      "revId": "439dd97ea830d8bc42ea2cbe846656598cff1fb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
