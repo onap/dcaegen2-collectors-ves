@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe29d08e_3938bb60",
+        "filename": "pom.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-03T15:12:52Z",
+      "side": 1,
+      "message": "I won\u0027t block on this, but this tab should be fixed",
+      "revId": "a8e59fe8d77d5df48bcbe3899d3cefbf3f9fcd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfecf72f_697c3b8c",
+        "filename": "src/docker/Dockerfile",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-03T15:12:52Z",
+      "side": 1,
+      "message": "hmmm, we\u0027ve been trying to avoid using bash in our deliverables.\n\nCan these scripts be fixed to be sh/dash-compatible and avoid bash?",
+      "revId": "a8e59fe8d77d5df48bcbe3899d3cefbf3f9fcd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
