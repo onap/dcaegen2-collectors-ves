@@ -33,6 +33,24 @@
       "revId": "a8e59fe8d77d5df48bcbe3899d3cefbf3f9fcd87",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e0df1b_afdec9bb",
+        "filename": "src/docker/Dockerfile",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-02-04T00:54:42Z",
+      "side": 1,
+      "message": "Agreed, however this could be addressed as separate jira as scripts are not introduced/updated under this change.",
+      "parentUuid": "bfecf72f_697c3b8c",
+      "revId": "a8e59fe8d77d5df48bcbe3899d3cefbf3f9fcd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
