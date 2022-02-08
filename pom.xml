@@ -61,7 +61,7 @@
     <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
     <json-simple.version>1.1.1</json-simple.version>
     <json-schema-validator.version>1.0.49</json-schema-validator.version>
-    <gson.version>2.8.6</gson.version>
+    <gson.version>2.8.9</gson.version>
     <json.version>20210307</json.version>
     <unirest-java.version>1.4.9</unirest-java.version>
     <commons-collections.version>3.2.2</commons-collections.version>
@@ -78,6 +78,7 @@
     <reactor-test.version>3.4.0</reactor-test.version>
     <testcontainers.version>1.15.1</testcontainers.version>
     <junit-jupiter.version>1.15.1</junit-jupiter.version>
+    <netty-bom.version>4.1.73.Final</netty-bom.version>
   </properties>
   <build>
     <pluginManagement>
@@ -274,6 +275,13 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-bom</artifactId>
+        <version>${netty-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -290,7 +298,7 @@
       <artifactId>json-schema-validator</artifactId>
       <version>${json-schema-validator.version}</version>
       <exclusions>
-        <exclusion>
+        <exclusion>netty-bom
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>
         </exclusion>
