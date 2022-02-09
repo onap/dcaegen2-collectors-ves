@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b70d8367_ee06fe12",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2022-02-09T15:21:26Z",
+      "side": 1,
+      "message": "Please wait for sdk 1.8.8 https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/127031",
+      "range": {
+        "startLine": 75,
+        "startChar": 17,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "7b083c4fbc22485a8801f9c1f11a50e87a6bc9ac",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
