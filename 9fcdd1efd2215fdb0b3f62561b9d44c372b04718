@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50264645_3565187b",
+        "filename": "releases/1.11.0-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2022-02-15T08:39:39Z",
+      "side": 1,
+      "message": "Build not exist",
+      "range": {
+        "startLine": 4,
+        "startChar": 60,
+        "endLine": 4,
+        "endChar": 63
+      },
+      "revId": "9fcdd1efd2215fdb0b3f62561b9d44c372b04718",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
