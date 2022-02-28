@@ -107,7 +107,8 @@
             "stndDefined",
             "syslog",
             "thresholdCrossingAlert",
-            "voiceQuality"
+            "voiceQuality",
+            "ccvpnNotification"
           ]
         },
         "eventId": {
@@ -733,6 +734,9 @@
         },
         "voiceQualityFields": {
           "$ref": "#/definitions/voiceQualityFields"
+        },
+        "ccvpnNotificationFields": {
+          "$ref": "#/definitions/ccvpnNotificationFields"
         }
       },
       "additionalProperties": false,
@@ -3085,6 +3089,55 @@
         "midCallRtcp",
         "vendorNfNameFields",
         "voiceQualityFieldsVersion"
+      ]
+    },
+    "ccvpnNotificationFields": {
+      "description": "ccvpn notification fields",
+      "type": "object",
+      "properties": {
+        "additionalFields": {
+          "$ref": "#/definitions/hashMap"
+        },
+        "arrayOfNamedHashMap": {
+          "$ref": "#/definitions/arrayOfNamedHashMap"
+        },
+        "changeContact": {
+          "description": "identifier for a contact related to the change",
+          "type": "string"
+        },
+        "changeIdentifier": {
+          "description": "system or session identifier associated with the change",
+          "type": "string"
+        },
+        "changeType": {
+          "description": "describes what has changed for the entity",
+          "type": "string"
+        },
+        "newState": {
+          "description": "new state of the entity",
+          "type": "string"
+        },
+        "oldState": {
+          "description": "previous state of the entity",
+          "type": "string"
+        },
+        "ccvpnNotificationFieldsVersion": {
+          "description": "version of the ccvpn-notificationFields block",
+          "type": "string",
+          "enum": [
+            "2.0"
+          ]
+        },
+        "stateInterface": {
+          "description": "card or port name of the entity that changed state",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "changeIdentifier",
+        "changeType",
+        "notificationFieldsVersion"
       ]
     }
   }
