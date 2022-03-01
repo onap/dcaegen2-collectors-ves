@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eeef3325_3b2878a9",
+        "filename": "etc/CommonEventFormat_30.2.1_ONAP.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-03-01T00:08:13Z",
+      "side": 1,
+      "message": "This datamodel corresponds to approved ONAP VES specification (https://docs.onap.org/projects/onap-vnfrqts-requirements/en/latest/Chapter8/ves_7_2/ves_event_listener_7_2.html) and collector defaults include only what has been approved.\n\nYou can either use current - \"notification\" for your usecase or modify usecase deployment of VES to mount dynamic schema files (similar to stddefined domain as documented here - https://docs.onap.org/projects/onap-dcaegen2/en/latest/sections/services/ves-http/installation-helm.html#external-repository-schema-files-integration-with-ves-collector)",
+      "range": {
+        "startLine": 111,
+        "startChar": 13,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "ed0f134ca305ec3dc840111b6dc7920bfb282630",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
