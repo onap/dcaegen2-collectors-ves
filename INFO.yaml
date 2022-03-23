@@ -52,11 +52,6 @@ committers:
       id: 'Pawel'
       timezone: 'Europe/Warsaw'
 
-    - name: 'Joanna Jeremicz'
-      email: 'joanna.jeremicz@nokia.com'
-      company: 'Nokia'
-      id: 'joannajeremicz'
-      timezone: 'Europe/Warsaw'
     - name: 'Tomasz Wróbel'
       email: 'tomasz.wrobel@nokia.com'
       company: 'Nokia'
@@ -115,3 +110,6 @@ tsc:
         - type: 'Addition'
           name: 'Niranjana Y'
           link: 'https://lists.onap.org/g/onap-tsc/message/8135'
+        - type: 'Removal'
+          name: 'Joanna Jeremicz'
+          link: 'https://lists.onap.org/g/onap-tsc/message/8524'
