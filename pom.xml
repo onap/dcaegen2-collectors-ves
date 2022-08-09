@@ -48,36 +48,34 @@
     <onap.nexus.dockerregistry.daily>nexus3.onap.org:10003</onap.nexus.dockerregistry.daily>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
-    <sonar.coverage.jacoco.xmlReportPaths>
-	${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
-    </sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <!-- DEPENDENCY RELATED SETTINGS -->
     <micrometer.version>1.6.5</micrometer.version>
-    <spring.version>2.5.9</spring.version>
+    <spring.version>2.7.2</spring.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
     <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
     <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
     <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
     <json-simple.version>1.1.1</json-simple.version>
-    <json-schema-validator.version>1.0.49</json-schema-validator.version>
+    <json-schema-validator.version>1.0.72</json-schema-validator.version>
     <gson.version>2.8.9</gson.version>
-    <json.version>20210307</json.version>
+    <json.version>20220320</json.version>
     <unirest-java.version>1.4.9</unirest-java.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-configuration.version>1.10</commons-configuration.version>
     <vavr.version>0.10.3</vavr.version>
     <spring-boot-starter-log4j2.version>2.6.3</spring-boot-starter-log4j2.version>
-    <log4j.version>2.17.1</log4j.version>
+    <log4j.version>2.18.0</log4j.version>
     <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
-    <assertj-core.version>3.19.0</assertj-core.version>
+    <assertj-core.version>3.23.1</assertj-core.version>
     <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
     <sdk.version>1.8.8</sdk.version>
-    <guava.version>30.1-jre</guava.version>
-    <mock-server.version>5.11.1</mock-server.version>
+    <guava.version>31.1-jre</guava.version>
+    <mock-server.version>5.13.2</mock-server.version>
     <reactor-test.version>3.4.0</reactor-test.version>
-    <testcontainers.version>1.16.3</testcontainers.version>
-    <junit-jupiter.version>1.15.1</junit-jupiter.version>
+    <testcontainers.version>1.17.3</testcontainers.version>
+    <junit-jupiter.version>1.17.3</junit-jupiter.version>
     <netty-bom.version>4.1.73.Final</netty-bom.version>
   </properties>
   <build>
@@ -307,7 +305,6 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>${gson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -334,7 +331,6 @@
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
-      <version>${reactor-test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -381,7 +377,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
-      <version>${spring-boot-starter-log4j2.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -419,7 +414,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring-boot-starter-test.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
