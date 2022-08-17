@@ -48,7 +48,9 @@
     <onap.nexus.dockerregistry.daily>nexus3.onap.org:10003</onap.nexus.dockerregistry.daily>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
-    <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>
+      ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
     <!-- DEPENDENCY RELATED SETTINGS -->
     <micrometer.version>1.6.5</micrometer.version>
     <spring.version>2.7.2</spring.version>
