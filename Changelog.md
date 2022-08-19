@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.11.1] - 2022/01/28
          - [DCAEGEN2-3214] - Dcaegen2-collectors-ves vulnerability updates 
- 
+
 ## [1.11.0] - 2022/01/28
          - [DCAEGEN2-2961] - Switch VESCollector to Integration base image(onap/integration-java11:10.0.0)
          - [DCAEGEN2-3045] - Vulnerability addressal for VESCollector
