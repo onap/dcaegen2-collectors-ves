@@ -3,7 +3,7 @@
     ============LICENSE_START=======================================================
     dcaegen2-collectors-ves
     ================================================================================
-    Copyright (c) 2017-2019,2021 AT&T Intellectual Property. All rights reserved.
+    Copyright (c) 2017-2019,2021-2022 AT&T Intellectual Property. All rights reserved.
     Copyright (c) 2020-2022 Nokia. All rights reserved.
     ================================================================================
     Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -49,7 +49,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <sonar.coverage.jacoco.xmlReportPaths>
-      ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
+        ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
     <!-- DEPENDENCY RELATED SETTINGS -->
     <micrometer.version>1.6.5</micrometer.version>
@@ -307,6 +307,7 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -333,6 +334,7 @@
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
+      <version>${reactor-test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -379,6 +381,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
+      <version>${spring-boot-starter-log4j2.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -416,6 +419,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <version>${spring-boot-starter-test.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
