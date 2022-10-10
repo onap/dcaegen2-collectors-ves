@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [1.12.0] - 2022/10/10
+         - [DCAEGEN2-3295] - SDK upgrade to 1.9.0 (CBSclient changed to remove CBS/Consul parameters) 
+
 ## [1.11.1] - 2022/01/28
          - [DCAEGEN2-3214] - Dcaegen2-collectors-ves vulnerability updates
 

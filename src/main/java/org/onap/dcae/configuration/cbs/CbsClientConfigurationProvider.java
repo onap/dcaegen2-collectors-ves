@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2022 AT&T. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +33,12 @@ public class CbsClientConfigurationProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigurationProvider.class);
 
-    private static final String DEFAULT_PROTOCOL = "http";
-    private static final String DEFAULT_HOSTNAME = "config-binding-service";
-    private static final int DEFAULT_PORT = 10000;
+
     private static final String DEFAULT_APP_NAME = "dcae-ves-collector";
     private static final String DEV_MODE_PROPERTY = "devMode";
     private static final String CBS_PORT_PROPERTY = "cbsPort";
-
+    private static String CBS_CLIENT_CONFIG_PATH = "/app-config/application_config.yaml";
+    
     /**
      * Returns configuration for CBS client.
      * @return Production or dev configuration for CBS client, depends on application run arguments.
@@ -58,10 +58,8 @@ public class CbsClientConfigurationProvider {
 
     @NotNull
     private ImmutableCbsClientConfiguration getDevConfiguration() {
-        return createCbsClientConfiguration(
-                DEFAULT_PROTOCOL, DEFAULT_HOSTNAME, DEFAULT_APP_NAME,
-                Integer.parseInt(System.getProperty(CBS_PORT_PROPERTY, String.valueOf(DEFAULT_PORT)))
-        );
+        System.setProperty(CBS_CLIENT_CONFIG_PATH,"./etc/ves-application_config.yaml");
+        return createCbsClientConfiguration(DEFAULT_APP_NAME);
     }
 
     private boolean isDevModeEnabled() {
@@ -70,15 +68,11 @@ public class CbsClientConfigurationProvider {
 
     private ImmutableCbsClientConfiguration getFallbackConfiguration() {
         LOGGER.info("Falling back to use default CBS client configuration");
-        return createCbsClientConfiguration(DEFAULT_PROTOCOL, DEFAULT_HOSTNAME, DEFAULT_APP_NAME, DEFAULT_PORT);
+        return createCbsClientConfiguration(DEFAULT_APP_NAME);
     }
 
-    private ImmutableCbsClientConfiguration createCbsClientConfiguration(String protocol, String hostname,
-        String appName, Integer port) {
+    private ImmutableCbsClientConfiguration createCbsClientConfiguration(String appName) {
         return ImmutableCbsClientConfiguration.builder()
-            .protocol(protocol)
-            .hostname(hostname)
-            .port(port)
             .appName(appName)
             .build();
     }

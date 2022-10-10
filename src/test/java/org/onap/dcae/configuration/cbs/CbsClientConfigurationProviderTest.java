@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2022 AT&T. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +28,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientCo
 
 public class CbsClientConfigurationProviderTest {
 
-    private static final String DEFAULT_PROTOCOL = "http";
-    private static final String DEFAULT_HOSTNAME = "config-binding-service";
-    private static final int DEFAULT_PORT = 10000;
     private static final String DEFAULT_APP_NAME = "dcae-ves-collector";
 
     @Test
@@ -39,9 +37,6 @@ public class CbsClientConfigurationProviderTest {
         CbsClientConfiguration configuration = new CbsClientConfigurationProvider().get();
 
         // then
-        assertThat(configuration.protocol()).isEqualTo(DEFAULT_PROTOCOL);
-        assertThat(configuration.hostname()).isEqualTo(DEFAULT_HOSTNAME);
-        assertThat(configuration.port()).isEqualTo(DEFAULT_PORT);
         assertThat(configuration.appName()).isEqualTo(DEFAULT_APP_NAME);
     }
 }
