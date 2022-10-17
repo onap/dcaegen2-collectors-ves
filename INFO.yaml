@@ -57,6 +57,11 @@ committers:
       company: 'Wipro'
       id: 'Niranjana'
       timezone: 'India/IST UTC+5:30'
+    - name: 'Shuting Qing'
+      email: 'qingshuting1@huawei.com'
+      company: 'Huawei'
+      id: 'mirandatsing'
+      timezone: 'China/Beijing UTC+8.00'
 tsc:
     approval: 'https://lists.onap.org/pipermail/onap-tsc'
     changes:
@@ -111,3 +116,6 @@ tsc:
         - type: 'Removal'
           name: 'Remigiusz Janeczek'
           link: 'https://lists.onap.org/g/onap-tsc/message/8871'
+        - type: 'Addition'
+          name: 'Shuting Qing'
+          link: 'https://lists.onap.org/g/onap-tsc/message/8974'
