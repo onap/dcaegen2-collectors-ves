@@ -26,7 +26,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.11.1-SNAPSHOT</version>
+  <version>1.12.0-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -72,7 +72,7 @@
     <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
     <assertj-core.version>3.23.1</assertj-core.version>
     <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
-    <sdk.version>1.8.10</sdk.version>
+    <sdk.version>1.9.0</sdk.version>
     <guava.version>31.1-jre</guava.version>
     <mock-server.version>5.13.2</mock-server.version>
     <reactor-test.version>3.4.0</reactor-test.version>
