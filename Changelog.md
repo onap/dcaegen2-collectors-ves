@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.1] - 2022/12/05
+         - [DCAEGEN2-3257] - Align DCAE components with the new logging GR.
 
 ## [1.12.0] - 2022/10/10
          - [DCAEGEN2-3295] - SDK upgrade to 1.9.0 (CBSclient changed to remove CBS/Consul parameters) 
@@ -103,4 +105,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.6.0] - 2020/05/13
         - [DCAEGEN2-608](https://jira.onap.org/browse/DCAEGEN2-608) - Expose Prometheus API for performance tests
-
