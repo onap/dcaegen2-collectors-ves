@@ -1,3 +1,24 @@
+<!--
+============LICENSE_START=======================================================
+    dcaegen2-collectors-ves
+================================================================================
+Copyright (c) 2022 AT&T Intellectual Property. All rights reserved.
+================================================================================
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+============LICENSE_END=========================================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.
+-->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Configuration status="INFO">
@@ -6,8 +27,17 @@
 
     <Console name="CONSOLE" target="SYSTEM_OUT" >
       <LevelRangeFilter maxLevel="INFO" minLevel="ERROR"/>
-      <PatternLayout
-        pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+      <JsonLayout eventEOL="true" compact="true" stacktraceAsString="true" properties="true" propertiesAsList="true">
+        <KeyValuePair key="logTimeStamp" value="$${date:yyyy-MM-dd HH:mm:ss:-null}" />
+        <KeyValuePair key="logTypeName" value="$${event:Logger:-null}" />
+        <KeyValuePair key="logLevel" value="$${event:Level:-null}" />
+        <KeyValuePair key="traceId" value="${:-null}" />
+        <KeyValuePair key="statusCode" value="${:-null}" />
+        <KeyValuePair key="pricipalId" value="${:-vescollector}" />
+        <KeyValuePair key="serviceName" value="${k8s:containerName:-vescollector}" />
+        <KeyValuePair key="exception" value="$${event:Exception:-None}" />
+        <KeyValuePair key="PID" value="$${sys:pid:-null}" />
+      </JsonLayout>
     </Console>
 
     <RollingFile fileName="logs/collector.log" filePattern="logs/collector-%d{yyyy-MM-dd}-%i.log" name="ROL_CONSOLE">
