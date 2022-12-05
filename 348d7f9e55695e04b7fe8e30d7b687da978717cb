@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c67c56a1_ceea4893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-12-05T20:13:40Z",
+      "side": 1,
+      "message": "change this to \"Logging GR\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 38,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "348d7f9e55695e04b7fe8e30d7b687da978717cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586ce187_4a84cf46",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-12-05T20:13:40Z",
+      "side": 1,
+      "message": "Version bump recommended for this change.. add entry as 1.12.1 and provide jira# with brief description",
+      "revId": "348d7f9e55695e04b7fe8e30d7b687da978717cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c241f8e_438bbd15",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-12-05T20:13:40Z",
+      "side": 1,
+      "message": "Remove extra new line",
+      "revId": "348d7f9e55695e04b7fe8e30d7b687da978717cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
