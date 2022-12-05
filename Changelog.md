@@ -104,4 +104,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.6.0] - 2020/05/13
         - [DCAEGEN2-608](https://jira.onap.org/browse/DCAEGEN2-608) - Expose Prometheus API for performance tests
 
-
