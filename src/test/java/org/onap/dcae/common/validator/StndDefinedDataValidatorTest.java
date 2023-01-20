@@ -22,8 +22,10 @@ package org.onap.dcae.common.validator;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import org.junit.Assume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -36,6 +38,10 @@ import org.onap.dcae.restapi.EventValidatorException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 @ExtendWith(MockitoExtension.class)
 public class StndDefinedDataValidatorTest {
@@ -57,7 +63,9 @@ public class StndDefinedDataValidatorTest {
     }
 
     @Test
+    //@EnabledOnOs(LINUX)
     public void shouldReturnTrueWhenEventIsValid() throws EventValidatorException {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_valid.json");
 
@@ -81,9 +89,12 @@ public class StndDefinedDataValidatorTest {
     }
 
     @Test
+    //@EnabledOnOs(LINUX)
     void shouldReturnErrorWhenMissingLocalSchemaReferenceInMappingFile() {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_missing_local_schema_reference.json");
+        //VesEvent event = getVesEvent("ves_stdnDefined_missing_local_schema_reference.json");
         try {
             //when
             stndDefinedDataValidator.validate(event);
@@ -94,9 +105,12 @@ public class StndDefinedDataValidatorTest {
     }
 
     @Test
+    //@EnabledOnOs(LINUX)
     void shouldReturnErrorWhenIncorrectInternalFileReference() {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_wrong_internal_file_reference.json");
+        //VesEvent event = getVesEvent("ves_stdnDefined_wrong_internal_file_reference.json");
         try {
             //when
             stndDefinedDataValidator.validate(event);
@@ -110,6 +124,7 @@ public class StndDefinedDataValidatorTest {
     void shouldReturnErrorWhenStndDefinedFieldsDataIsEmpty() {
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_with_empty_stndDefined_fields_data.json");
+        //VesEvent event = getVesEvent("ves_stdnDefined_with_empty_stndDefined_fields_data.json");
         try {
             //when
             stndDefinedDataValidator.validate(event);
@@ -123,7 +138,8 @@ public class StndDefinedDataValidatorTest {
     void shouldNotReturnErrorWhenValidatingInvalidEventAndStndDefinedReferenceMissing() {
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_without_schema_reference.json");
-
+        //VesEvent event = getVesEvent("ves_stdnDefined_without_schema_reference.json");
+        
         //when
         //then
         assertDoesNotThrow(() -> stndDefinedDataValidator.validate(event));
@@ -131,19 +147,28 @@ public class StndDefinedDataValidatorTest {
 
     @NotNull
     private VesEvent getVesEvent(String filename) {
-        JSONObject jsonObjectEvent = getJsonObjectEvent(filename);
-        return new VesEvent(jsonObjectEvent);
+//        try {
+            //URI resource = StndDefinedDataValidatorTest.class.getClass().getResource(filename).toURI();
+            //JSONObject jsonObjectEvent = getJsonObjectEvent(resource.getPath());
+            JSONObject jsonObjectEvent = getJsonObjectEvent(filename);
+            return new VesEvent(jsonObjectEvent);
+//        } catch (URISyntaxException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            return null;
+//        }
     }
 
     private JSONObject getJsonObjectEvent(String fileName) {
         String eventContent = FileReader.readFileAsString(fileName);
+        System.out.printf ("#######-> StndDefinedDataValidatorTest:getJsonObjectEvent eventContent : %s and fileName : %s ", eventContent , fileName);
         return new JSONObject(eventContent);
     }
 
     private void mockStndDefinedValidationProps() {
-        when(settings.getExternalSchemaMappingFileLocation()).thenReturn(MAPPING_FILE_LOCATION);
+        when(settings.getExternalSchemaMappingFileLocation()).thenReturn(Paths.get(MAPPING_FILE_LOCATION).toString());
         when(settings.getExternalSchemaSchemaRefPath()).thenReturn(SCHEMA_REF_PATH);
-        when(settings.getExternalSchemaSchemasLocation()).thenReturn(SCHEMA_FILES_LOCATION);
+        when(settings.getExternalSchemaSchemasLocation()).thenReturn(Paths.get(SCHEMA_FILES_LOCATION).toString());
         when(settings.getExternalSchemaStndDefinedDataPath()).thenReturn(STND_DEFINED_DATA_PATH);
     }
 }

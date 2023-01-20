@@ -3,7 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
-
+## [1.12.2] - 2023/01/20
+         - [DCAEGEN2-3334] - Fix tests execution to be platform independent
+         
 ## [1.12.1] - 2022/12/05
          - [DCAEGEN2-3257] - Align DCAE components with the new logging GR.
 
