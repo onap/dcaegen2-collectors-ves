@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017,2023 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +32,7 @@ import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.onap.dcae.restapi.EventValidatorException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -48,7 +49,7 @@ public class EventSenderTest {
 
 
   @Test
-  public void shouldNotSendEventWhenStreamIdIsNotDefined() throws IOException {
+  public void shouldNotSendEventWhenStreamIdIsNotDefined() throws IOException, URISyntaxException {
     // given
     EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
     List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves7_valid_event.json");
@@ -62,7 +63,7 @@ public class EventSenderTest {
   }
 
   @Test
-  public void shouldSendStdDefinedEventAtStreamAssignedToEventDomain() throws IOException {
+  public void shouldSendStdDefinedEventAtStreamAssignedToEventDomain() throws IOException, URISyntaxException {
     // given
     EventSender eventSender = givenConfiguredEventSender(
             HashMap.of("3GPP-FaultSupervision", "ves-3gpp-fault-supervision")
@@ -77,7 +78,7 @@ public class EventSenderTest {
   }
 
   @Test
-  public void shouldNotSendStndEventWhenStreamIsNotDefined() throws IOException {
+  public void shouldNotSendStndEventWhenStreamIsNotDefined() throws IOException, URISyntaxException {
     // given
     EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
     List<VesEvent> eventToSend = createEventToSend("/eventsAfterTransformation/ves_stdnDefined_valid.json");
@@ -91,7 +92,7 @@ public class EventSenderTest {
   }
 
   @Test
-  public void shouldReportThatNoStndDefinedNamespaceParameterIsDefinedInEvent() throws IOException {
+  public void shouldReportThatNoStndDefinedNamespaceParameterIsDefinedInEvent() throws IOException, URISyntaxException {
     // given
     EventSender eventSender = givenConfiguredEventSender(HashMap.empty());
     List<VesEvent> eventToSend = createEventToSend(
@@ -106,7 +107,7 @@ public class EventSenderTest {
     verifyThatEventWasNotSendAtStream();
   }
 
-  private List<VesEvent> createEventToSend(String path) throws IOException {
+  private List<VesEvent> createEventToSend(String path) throws IOException, URISyntaxException {
     String event = JsonDataLoader.loadContent(path);
     return givenEventToSend(event);
   }

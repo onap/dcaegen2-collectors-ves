@@ -7,3 +7,4 @@ logs
 /opt/
 .idea
 *.iml
+classpath*
