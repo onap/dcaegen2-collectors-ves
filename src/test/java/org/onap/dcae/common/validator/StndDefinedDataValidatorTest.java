@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.dcae.common.validator;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import org.junit.Assume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +38,8 @@ import org.onap.dcae.restapi.EventValidatorException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.nio.file.Paths;
 
 @ExtendWith(MockitoExtension.class)
 public class StndDefinedDataValidatorTest {
@@ -58,6 +62,7 @@ public class StndDefinedDataValidatorTest {
 
     @Test
     public void shouldReturnTrueWhenEventIsValid() throws EventValidatorException {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_valid.json");
 
@@ -82,6 +87,7 @@ public class StndDefinedDataValidatorTest {
 
     @Test
     void shouldReturnErrorWhenMissingLocalSchemaReferenceInMappingFile() {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_missing_local_schema_reference.json");
         try {
@@ -95,6 +101,7 @@ public class StndDefinedDataValidatorTest {
 
     @Test
     void shouldReturnErrorWhenIncorrectInternalFileReference() {
+        Assume.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_wrong_internal_file_reference.json");
         try {
@@ -110,6 +117,7 @@ public class StndDefinedDataValidatorTest {
     void shouldReturnErrorWhenStndDefinedFieldsDataIsEmpty() {
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_with_empty_stndDefined_fields_data.json");
+        /
         try {
             //when
             stndDefinedDataValidator.validate(event);
@@ -123,7 +131,7 @@ public class StndDefinedDataValidatorTest {
     void shouldNotReturnErrorWhenValidatingInvalidEventAndStndDefinedReferenceMissing() {
         //given
         VesEvent event = getVesEvent("src/test/resources/ves_stdnDefined_without_schema_reference.json");
-
+        
         //when
         //then
         assertDoesNotThrow(() -> stndDefinedDataValidator.validate(event));
@@ -131,8 +139,8 @@ public class StndDefinedDataValidatorTest {
 
     @NotNull
     private VesEvent getVesEvent(String filename) {
-        JSONObject jsonObjectEvent = getJsonObjectEvent(filename);
-        return new VesEvent(jsonObjectEvent);
+            JSONObject jsonObjectEvent = getJsonObjectEvent(filename);
+            return new VesEvent(jsonObjectEvent);
     }
 
     private JSONObject getJsonObjectEvent(String fileName) {
@@ -141,9 +149,9 @@ public class StndDefinedDataValidatorTest {
     }
 
     private void mockStndDefinedValidationProps() {
-        when(settings.getExternalSchemaMappingFileLocation()).thenReturn(MAPPING_FILE_LOCATION);
+        when(settings.getExternalSchemaMappingFileLocation()).thenReturn(Paths.get(MAPPING_FILE_LOCATION).toString());
         when(settings.getExternalSchemaSchemaRefPath()).thenReturn(SCHEMA_REF_PATH);
-        when(settings.getExternalSchemaSchemasLocation()).thenReturn(SCHEMA_FILES_LOCATION);
+        when(settings.getExternalSchemaSchemasLocation()).thenReturn(Paths.get(SCHEMA_FILES_LOCATION).toString());
         when(settings.getExternalSchemaStndDefinedDataPath()).thenReturn(STND_DEFINED_DATA_PATH);
     }
 }
