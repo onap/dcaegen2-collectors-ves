@@ -3,7 +3,7 @@
     ============LICENSE_START=======================================================
     dcaegen2-collectors-ves
     ================================================================================
-    Copyright (c) 2017-2019,2021-2022 AT&T Intellectual Property. All rights reserved.
+    Copyright (c) 2017-2019,2021-2023 AT&T Intellectual Property. All rights reserved.
     Copyright (c) 2020-2022 Nokia. All rights reserved.
     ================================================================================
     Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -22,11 +22,10 @@
     <groupId>org.onap.oparent</groupId>
     <artifactId>oparent</artifactId>
     <version>3.2.0</version>
-    <relativePath/>
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.12.1-SNAPSHOT</version>
+  <version>1.12.2-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>

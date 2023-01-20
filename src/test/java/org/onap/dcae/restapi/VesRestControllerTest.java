@@ -3,6 +3,7 @@
  * VES Collector
  * ================================================================================
  * Copyright (C) 2020-2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +56,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -69,6 +72,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.nio.file.Paths;
 
 @ExtendWith(MockitoExtension.class)
 public class VesRestControllerTest {
@@ -125,7 +129,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldTransformEventAccordingToEventTransformFile() throws IOException {
+    void shouldTransformEventAccordingToEventTransformFile() throws IOException, URISyntaxException{
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -145,7 +149,7 @@ public class VesRestControllerTest {
 
 
     @Test
-    void shouldSendBatchEvent() throws IOException {
+    void shouldSendBatchEvent() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -164,7 +168,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldSendStndDomainEventIntoDomainStream() throws IOException {
+    void shouldSendStndDomainEventIntoDomainStream() throws IOException, URISyntaxException{
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -186,7 +190,7 @@ public class VesRestControllerTest {
 
 
     @Test
-    void shouldReportThatStndDomainEventHasntGotNamespaceParameter() throws IOException {
+    void shouldReportThatStndDomainEventHasntGotNamespaceParameter() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -211,7 +215,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldReportThatStndDomainEventNamespaceParameterIsEmpty() throws IOException {
+    void shouldReportThatStndDomainEventNamespaceParameterIsEmpty() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -236,7 +240,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldNotSendStndDomainEventWhenTopicCannotBeFoundInConfiguration() throws IOException {
+    void shouldNotSendStndDomainEventWhenTopicCannotBeFoundInConfiguration() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -253,7 +257,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldExecuteStndDefinedValidationWhenFlagIsOnTrue() throws IOException {
+    void shouldExecuteStndDefinedValidationWhenFlagIsOnTrue() throws IOException, URISyntaxException{
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -272,7 +276,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldNotExecuteStndDefinedValidationWhenFlagIsOnFalse() throws IOException {
+    void shouldNotExecuteStndDefinedValidationWhenFlagIsOnFalse() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -292,7 +296,7 @@ public class VesRestControllerTest {
     }
 
     @Test
-    void shouldReturn413WhenPayloadIsTooLarge() throws IOException {
+    void shouldReturn413WhenPayloadIsTooLarge() throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -316,7 +320,7 @@ public class VesRestControllerTest {
 
     @ParameterizedTest
     @MethodSource("errorsCodeAndResponseBody")
-    void shouldMapErrorTo503AndReturnOriginalBody(ApiException apiException,String bodyVariable,String bodyVariable2) throws IOException {
+    void shouldMapErrorTo503AndReturnOriginalBody(ApiException apiException,String bodyVariable,String bodyVariable2) throws IOException, URISyntaxException {
         //given
         configureEventTransformations();
         configureHeadersForEventListener();
@@ -376,7 +380,7 @@ public class VesRestControllerTest {
         return map.get("requestError").get("ServiceException");
     }
 
-    private void configureEventTransformations() throws IOException {
+    private void configureEventTransformations() throws IOException, URISyntaxException {
         final List<EventTransformation> eventTransformations = loadEventTransformations();
         when(applicationSettings.isVersionSupported(VERSION_V7)).thenReturn(true);
         when(applicationSettings.eventTransformingEnabled()).thenReturn(true);
@@ -415,12 +419,13 @@ public class VesRestControllerTest {
         return request;
     }
 
-    private List<EventTransformation> loadEventTransformations() throws IOException {
+    private List<EventTransformation> loadEventTransformations() throws IOException, URISyntaxException {
         Type EVENT_TRANSFORM_LIST_TYPE = new TypeToken<List<EventTransformation>>() {
         }.getType();
 
-        try (FileReader fr = new FileReader(this.getClass().getResource(EVENT_TRANSFORM_FILE_PATH).getPath())) {
-            return new Gson().fromJson(fr, EVENT_TRANSFORM_LIST_TYPE);
-        }
+            URI resource = this.getClass().getResource(EVENT_TRANSFORM_FILE_PATH).toURI();
+            try (FileReader fr = new FileReader(resource.getPath())) {
+                return new Gson().fromJson(fr, EVENT_TRANSFORM_LIST_TYPE);
+            }
     }
 }
