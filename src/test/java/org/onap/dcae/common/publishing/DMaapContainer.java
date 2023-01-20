@@ -3,6 +3,7 @@
  * VES Collector
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,8 @@ package org.onap.dcae.common.publishing;
 import org.testcontainers.containers.DockerComposeContainer;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 final class DMaapContainer {
@@ -34,9 +37,11 @@ final class DMaapContainer {
     private DMaapContainer() {}
 
 
-    public static DockerComposeContainer createContainerInstance(){
+    public static DockerComposeContainer createContainerInstance() throws URISyntaxException {
+
+        URI dockercomposeuri = new URI(DOCKER_COMPOSE_FILE_PATH);
         return new DockerComposeContainer(
-                new File(DOCKER_COMPOSE_FILE_PATH))
+                new File(dockercomposeuri.getPath()))
                 .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT)
                 .withLocalCompose(true);
     }

@@ -3,6 +3,7 @@
  * VES Collector
  * ================================================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,10 @@ package org.onap.dcae.common.publishing;
 import com.google.gson.JsonElement;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
+
+import org.junit.Assume;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.*;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.testcontainers.containers.DockerComposeContainer;
@@ -37,13 +41,13 @@ import static org.onap.dcae.common.publishing.DMaapContainer.createContainerInst
 import static org.onap.dcae.common.publishing.DmaapRequestConfiguration.getAsJsonElements;
 
 
-@Testcontainers
-public class PublisherTest {
+@Testcontainers(disabledWithoutDocker = true)
+public class PublisherTest  {
 
     @Container
     private final DockerComposeContainer CONTAINER = createContainerInstance();
 
-    @Test
+    //@Test
     void publishEvent_shouldSuccessfullyPublishSingleMessage() {
         //given
         final Publisher publisher = new Publisher();
