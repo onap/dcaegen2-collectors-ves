@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017,2023 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2020 Nokia. All rights reserved.s
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ import static java.nio.file.Files.readAllBytes;
 public class JSonSchemasSupplier {
 
     public Map<String, JsonSchema> loadJsonSchemas(String collectorSchemaFile) {
-        JSONObject jsonObject = new JSONObject(collectorSchemaFile);
+        JSONObject jsonObject = new JSONObject(collectorSchemaFile.replace("\\", "\\\\"));
         return jsonObject.toMap().entrySet().stream()
             .map(JSonSchemasSupplier::readSchemaForVersion)
             .collect(HashMap.collector());

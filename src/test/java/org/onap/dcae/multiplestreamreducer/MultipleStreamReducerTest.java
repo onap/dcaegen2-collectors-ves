@@ -3,6 +3,7 @@
  * VES Collector
  * ================================================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +22,11 @@ package org.onap.dcae.multiplestreamreducer;
 
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class MultipleStreamReducerTest {
 
@@ -52,12 +55,13 @@ class MultipleStreamReducerTest {
 
     @Test
     void shouldReturnInfoAboutDomainToStreamsConfig() {
+        String newLine = System.getProperty("line.separator");
         //given
         final Map<String, String> domainToStreamsAfterReduce = multipleStreamReducer.reduce(domainToStreams);
         String expectedRedundantStreamsInfo =
-                "Domain: fault has active stream: ves-fault\n" +
-                "Domain: log has active stream: ves-syslog\n" +
-                "Domain: test has active stream: stream6\n";
+                "Domain: fault has active stream: ves-fault" + newLine + 
+                "Domain: log has active stream: ves-syslog" + newLine +
+                "Domain: test has active stream: stream6" + newLine;
 
         //when
         final String domainToStreamsConfigInfo = multipleStreamReducer.getDomainToStreamsInfo(domainToStreamsAfterReduce);

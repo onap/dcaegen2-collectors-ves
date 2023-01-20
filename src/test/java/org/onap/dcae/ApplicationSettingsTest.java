@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
- * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018,2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,6 @@ public class ApplicationSettingsTest {
         // when
         int applicationPort = fromTemporaryConfiguration("collector.service.port=8090")
                 .httpPort();
-
         // then
         assertEquals(8090, applicationPort);
     }
@@ -258,7 +257,7 @@ public class ApplicationSettingsTest {
 
         // when
         JsonSchema schema = fromTemporaryConfiguration(
-                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile.toString().replace("\\", "\\\\")))
                 .jsonSchema("v1");
 
         // then
@@ -275,7 +274,7 @@ public class ApplicationSettingsTest {
 
         // when
         JsonSchema schema = fromTemporaryConfiguration(
-                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile.toString().replace("\\", "\\\\")))
                 .jsonSchema("v1");
 
         // then
@@ -409,7 +408,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaSchemasLocation();
 
         //then
-        assertEquals(sanitizePath("./etc/externalRepo"), externalSchemaSchemasLocation);
+        assertEquals("./etc/externalRepo", externalSchemaSchemasLocation);
     }
 
     @Test
@@ -419,7 +418,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaMappingFileLocation();
 
         //then
-        assertEquals(sanitizePath("./etc/externalRepo/schema-map.json"), externalSchemaMappingFileLocation);
+        assertEquals("./etc/externalRepo/schema-map.json", externalSchemaMappingFileLocation);
     }
 
     @Test
@@ -429,7 +428,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaSchemaRefPath();
 
         //then
-        assertEquals(sanitizePath("/event/stndDefinedFields/schemaReference"), externalSchemaSchemaRefPath);
+        assertEquals("/event/stndDefinedFields/schemaReference", externalSchemaSchemaRefPath);
     }
 
     @Test
@@ -439,7 +438,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaStndDefinedDataPath();
 
         //then
-        assertEquals(sanitizePath("/event/stndDefinedFields/data"), externalSchemaStndDefinedDataPath);
+        assertEquals("/event/stndDefinedFields/data", externalSchemaStndDefinedDataPath);
     }
 
     @Test

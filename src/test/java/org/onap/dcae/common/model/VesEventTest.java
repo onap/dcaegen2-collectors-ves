@@ -2,7 +2,8 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.s
+ * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,7 @@ import org.junit.Test;
 import org.onap.dcae.common.JsonDataLoader;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -36,7 +38,7 @@ public class VesEventTest {
   private static final String STND_DEFINED_STREAM_ID = "3GPP-FaultSupervision";
 
     @Test
-    public void shouldReturnsOriginalDomainForNonStdEvent() throws IOException {
+    public void shouldReturnsOriginalDomainForNonStdEvent() throws IOException, URISyntaxException {
         // given
         final VesEvent vesEvent = createVesEvent("/eventsAfterTransformation/ves7_valid_event.json");
 
@@ -46,7 +48,7 @@ public class VesEventTest {
     }
 
     @Test
-    public void shouldReturnsDomainStoredInStndDefinedNamespaceParameterForNonStdEvent() throws IOException {
+    public void shouldReturnsDomainStoredInStndDefinedNamespaceParameterForNonStdEvent() throws IOException, URISyntaxException {
         // given
         final VesEvent vesEvent = createVesEvent("/eventsAfterTransformation/ves_stdnDefined_valid.json");
 
@@ -57,7 +59,7 @@ public class VesEventTest {
 
 
     @Test
-    public void shouldReportThatStndDefinedNamespaceParameterIsNotDefinedInEvent() throws IOException {
+    public void shouldReportThatStndDefinedNamespaceParameterIsNotDefinedInEvent() throws IOException, URISyntaxException {
         // given
         final VesEvent vesEvent = createVesEvent(
                 "/eventsAfterTransformation/ves_stdnDefined_missing_namespace_invalid.json"
@@ -72,7 +74,7 @@ public class VesEventTest {
     }
 
     @Test
-    public void shouldReportThatStndDefinedNamespaceParameterHasEmptyValue() throws IOException {
+    public void shouldReportThatStndDefinedNamespaceParameterHasEmptyValue() throws IOException, URISyntaxException {
         // given
         final VesEvent vesEvent = createVesEvent(
                 "/eventsAfterTransformation/ves_stdnDefined_empty_namespace_invalid.json"
@@ -85,7 +87,7 @@ public class VesEventTest {
                 });
     }
 
-    private VesEvent createVesEvent(String path) throws IOException {
+    private VesEvent createVesEvent(String path) throws IOException, URISyntaxException {
         String event = JsonDataLoader.loadContent(path);
         return new VesEvent(new JSONObject(event));
     }
