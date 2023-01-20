@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * VES Collector
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017,2023 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,7 +80,8 @@ public class ApplicationSettings {
         loadPropertiesFromFile();
         parsedArgs.filterKeys(k -> !"c".equals(k)).forEach(this::addOrUpdate);
         String collectorSchemaFile = properties.getString("collector.schema.file",
-                format("{\"%s\":\"etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
+                format("{\"%s\":\"./etc/CommonEventFormat_28.4.1.json\"}", FALLBACK_VES_VERSION));
+        
         loadedJsonSchemas = new JSonSchemasSupplier().loadJsonSchemas(collectorSchemaFile);
         eventTransformations = loadEventTransformations();
         responseCompatibility = getResponseCompatibilityFlag();
