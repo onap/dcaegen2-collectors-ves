@@ -3,7 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
- * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018,2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,6 +48,16 @@ import static org.onap.dcae.CLIUtils.processCmdLine;
 import static org.onap.dcae.TestingUtilities.createTemporaryFile;
 
 public class ApplicationSettingsTest {
+    
+    /**
+    * The Unix separator character.
+    */
+    private static final char UNIX_SEPARATOR = '/';
+    
+    /**
+    * The Windows separator character.
+    */
+    private static final char WINDOWS_SEPARATOR = '\\';    
 
     private static final String SAMPLE_JSON_SCHEMA = "{"
             + "  \"type\": \"object\","
@@ -53,6 +65,19 @@ public class ApplicationSettingsTest {
             + "     \"state\": { \"type\": \"string\" }"
             + "  }"
             + "}";
+    
+    /**
+    * Converts all separators to the Unix separator of forward slash.
+    *
+    * @param path  the path to be changed, null ignored
+    * @return the updated path
+    */    
+    private static String separatorsToUnix(final String path) {
+        if (path == null || path.indexOf(WINDOWS_SEPARATOR) == -1) {
+            return path;
+        }
+        return path.replace(WINDOWS_SEPARATOR, UNIX_SEPARATOR);
+    }    
 
     @Test
     public void shouldMakeApplicationSettingsOutOfCLIArguments() {
@@ -113,7 +138,6 @@ public class ApplicationSettingsTest {
         // when
         int applicationPort = fromTemporaryConfiguration("collector.service.port=8090")
                 .httpPort();
-
         // then
         assertEquals(8090, applicationPort);
     }
@@ -252,13 +276,13 @@ public class ApplicationSettingsTest {
     }
 
     @Test
-    public void shouldReportValidateJSONSchemaErrorWhenJsonContainsIntegerValueNotString() throws IOException {
+    public void shouldReportValidateJSONSchemaErrorWhenJsonContainsIntegerValueNotString() throws IOException, URISyntaxException {
         // when
         Path temporarySchemaFile = createTemporaryFile(SAMPLE_JSON_SCHEMA);
-
+        String normalizedSchemaFile = separatorsToUnix(temporarySchemaFile.toString());
         // when
         JsonSchema schema = fromTemporaryConfiguration(
-                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                String.format("collector.schema.file={\"v1\": \"%s\"}", normalizedSchemaFile))
                 .jsonSchema("v1");
 
         // then
@@ -272,10 +296,10 @@ public class ApplicationSettingsTest {
     public void shouldDoNotReportAnyValidateJSONSchemaError() throws IOException {
         // when
         Path temporarySchemaFile = createTemporaryFile(SAMPLE_JSON_SCHEMA);
-
+        String normalizedSchemaFile = separatorsToUnix(temporarySchemaFile.toString());
         // when
         JsonSchema schema = fromTemporaryConfiguration(
-                String.format("collector.schema.file={\"v1\": \"%s\"}", temporarySchemaFile))
+                String.format("collector.schema.file={\"v1\": \"%s\"}", normalizedSchemaFile))
                 .jsonSchema("v1");
 
         // then
@@ -409,7 +433,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaSchemasLocation();
 
         //then
-        assertEquals(sanitizePath("./etc/externalRepo"), externalSchemaSchemasLocation);
+        assertEquals("./etc/externalRepo", externalSchemaSchemasLocation);
     }
 
     @Test
@@ -419,7 +443,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaMappingFileLocation();
 
         //then
-        assertEquals(sanitizePath("./etc/externalRepo/schema-map.json"), externalSchemaMappingFileLocation);
+        assertEquals("./etc/externalRepo/schema-map.json", externalSchemaMappingFileLocation);
     }
 
     @Test
@@ -429,7 +453,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaSchemaRefPath();
 
         //then
-        assertEquals(sanitizePath("/event/stndDefinedFields/schemaReference"), externalSchemaSchemaRefPath);
+        assertEquals("/event/stndDefinedFields/schemaReference", externalSchemaSchemaRefPath);
     }
 
     @Test
@@ -439,7 +463,7 @@ public class ApplicationSettingsTest {
                 .getExternalSchemaStndDefinedDataPath();
 
         //then
-        assertEquals(sanitizePath("/event/stndDefinedFields/data"), externalSchemaStndDefinedDataPath);
+        assertEquals("/event/stndDefinedFields/data", externalSchemaStndDefinedDataPath);
     }
 
     @Test
