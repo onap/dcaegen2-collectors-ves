@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ea11ecbd_10a07800",
+        "filename": "src/main/java/org/onap/dcae/JSonSchemasSupplier.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2023-01-27T21:30:44Z",
+      "side": 1,
+      "message": "This wasn\u0027t required; removed in the latest patch",
+      "parentUuid": "13a11278_cf1837df",
+      "revId": "4952931a6f34ff811cf246bdff25e4048a7d52e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eef6c8a2_03dc78a9",
         "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "aa07277f_0254b9cb",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2023-01-27T21:30:44Z",
+      "side": 1,
+      "message": "yes indeed. \"temporarySchemaFile\" contains absolute path (which includes \"\\\" in windows) but when passed as argument to the function, backslashes are treated as escape char and resulting as invalid path.",
+      "parentUuid": "eef6c8a2_03dc78a9",
+      "revId": "4952931a6f34ff811cf246bdff25e4048a7d52e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53caffd6_ef751f5f",
         "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2023-01-26T04:04:30Z",
       "side": 1,
       "message": "any particular reason this test is being removed?",
+      "revId": "4952931a6f34ff811cf246bdff25e4048a7d52e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b65b82_a14aeb53",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2023-01-27T21:30:44Z",
+      "side": 1,
+      "message": "Fixed in latest patch",
+      "parentUuid": "53caffd6_ef751f5f",
       "revId": "4952931a6f34ff811cf246bdff25e4048a7d52e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
