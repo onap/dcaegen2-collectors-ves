@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b36dd3fb_9174e337",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-02-01T22:10:39Z",
+      "side": 1,
+      "message": "unfortunately, this will break (albeit rare) unix filenames that have a legitimate \\ in them",
+      "revId": "952fa4a24a47b648b68f6d86b73e2cc05e044d46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
