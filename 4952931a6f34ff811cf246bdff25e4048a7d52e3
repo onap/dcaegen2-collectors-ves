@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "4f9d6e32_64ceb85e",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-02-01T22:12:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29181ab0_517ac6ad",
+      "revId": "4952931a6f34ff811cf246bdff25e4048a7d52e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53caffd6_ef751f5f",
         "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
         "patchSetId": 8
