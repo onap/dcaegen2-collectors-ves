@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethodType;
@@ -32,13 +34,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -129,6 +135,41 @@ public class ApiAuthInterceptionTest {
     verify(response).setStatus(HttpStatus.BAD_REQUEST.value());
   }
 
+  @Test
+  public void shouldPassAuthorizationWithValidHeader() throws IOException {
+
+    // given
+    //Map<String, String> map =  HashMap.of("sample1", "$2a$10$0buh.2WeYwN868YMwnNNEuNEAMNYVU9.FSMJGyIKV3dGET/7oGOi6");
+    Map<String, String> map =  HashMap.of("test1", "testpassword");
+    when(settings.validAuthorizationCredentials()).thenReturn(map);
+    ApiAuthInterceptor spyauthint = Mockito.spy(new ApiAuthInterceptor(settings, log));
+    String str = "Basic dGVzdDE6dGVzdHBhc3N3b3Jk";
+    doReturn(true).when(spyauthint).verifyCryptPassword(Mockito.any(), Mockito.any());
+    
+    // when
+    boolean isAuthorized = spyauthint.isAuthorized(str);
+
+    // then
+    assertTrue(isAuthorized); 
+  }
+
+  @Test
+  public void shouldFailAuthorizationWithoutValidHeader() throws IOException {
+
+    // given
+    Map<String, String> map =  HashMap.of("test1", "testpassword");
+    when(settings.validAuthorizationCredentials()).thenReturn(map);
+    ApiAuthInterceptor spyauthint = Mockito.spy(new ApiAuthInterceptor(settings, log));
+    String str = "Basic randombase64authheader12345";
+    doReturn(true).when(spyauthint).verifyCryptPassword(Mockito.any(), Mockito.any());
+    
+    // when
+    boolean isAuthorized = spyauthint.isAuthorized(str);
+
+    // then
+    assertFalse(isAuthorized); 
+  }  
+  
   private HttpServletRequest createEmptyRequest() {
     return MockMvcRequestBuilders
             .post("/")

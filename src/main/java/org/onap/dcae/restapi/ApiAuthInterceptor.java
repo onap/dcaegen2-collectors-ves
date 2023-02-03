@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
+ * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,23 +116,27 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
         return false;
     }
 
-    private boolean isBasicAuth() {
+    boolean isBasicAuth() {
         return settings.authMethod().equalsIgnoreCase(AuthMethodType.CERT_BASIC_AUTH.value());
     }
 
-    private boolean isAuthorized(String authorizationHeader) {
+    boolean isAuthorized(String authorizationHeader) {
         try  {
             String decodeCredentials = decodeCredentials(authorizationHeader);
             String providedUser = extractUser(decodeCredentials);
             String providedPassword = extractPassword(decodeCredentials);
             Option<String> maybeSavedPassword = settings.validAuthorizationCredentials().get(providedUser);
             boolean userRegistered = maybeSavedPassword.isDefined();
-            return userRegistered && cryptPassword.matches(providedPassword,maybeSavedPassword.get());
+            return userRegistered && verifyCryptPassword(providedPassword,maybeSavedPassword);
         } catch (Exception e) {
             LOG.warn(String.format("Could not check if user is authorized (header: '%s')), probably malformed header.",
                 authorizationHeader), e);
             return false;
         }
+    }
+
+    Boolean verifyCryptPassword(String providedPassword, Option<String> maybeSavedPassword) {
+        return cryptPassword.matches(providedPassword,maybeSavedPassword.get());
     }
 
     private String extractPassword(String decodeCredentials) {
