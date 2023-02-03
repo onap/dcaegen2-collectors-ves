@@ -1,6 +1,6 @@
 //
 //        ================================================================================
-//        Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+//        Copyright (c) 2017-2018,2023 AT&T Intellectual Property. All rights reserved.
 //        Copyright (c) 2018 Nokia. All rights reserved.
 //        ================================================================================
 //        Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,7 @@
 //
 package org.onap.dcae.common;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -53,6 +54,18 @@ public class ConfigProcessorAdapterTest {
         verify(configProcessors, times(1)).isFilterMet(parameter);
     }
 
+    @Test
+    public void shouldCallIsFilterNotMetOnAdapter() {
+        //given
+        JSONObject parameter = new JSONObject();
+        when(configProcessors.isFilterMet(parameter)).thenReturn(false);
+        //when
+        boolean actualReturn = configProcessorAdapter.isFilterMet(parameter);
+        //then
+        assertFalse(actualReturn);
+        verify(configProcessors, times(1)).isFilterMet(parameter);
+    }    
+    
     @Test
     public void shouldCallGivenMethodFromConfigProcessor() throws Exception {
         JSONObject parameter = new JSONObject();

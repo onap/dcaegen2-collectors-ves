@@ -2,8 +2,7 @@
  * ============LICENSE_START=======================================================
  * PROJECT
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights
- * 						reserved.
+ * Copyright (C) 2017,2023 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +71,7 @@ public class ConfigProcessors {
     }
 
 
-    private String evaluate(String str) {
+    String evaluate(String str) {
         String value = str;
         if (str.startsWith("$")) {
             value = (String) getEventObjectVal(str.substring(1));
@@ -134,7 +133,7 @@ public class ConfigProcessors {
     }
 
 
-    private void renameArrayInArray(JSONObject jsonObject) // map
+    void renameArrayInArray(JSONObject jsonObject) // map
     {
         log.info("renameArrayInArray");
         final String field = jsonObject.getString(FIELD);
@@ -437,7 +436,7 @@ public class ConfigProcessors {
     }
 
 
-    private boolean checkFilter(JSONObject jo, String key, String logicKey) {
+    boolean checkFilter(JSONObject jo, String key, String logicKey) {
         String filterValue = jo.getString(key);
         if (filterValue.contains(":")) {
             String[] splitVal = filterValue.split(":");
@@ -455,7 +454,7 @@ public class ConfigProcessors {
                 }
 
             }
-            if ("contains".equals(splitVal[0])) {
+            if ("contains".equals(splitVal[0])) {          
                 if ("not".equals(logicKey)) {
                     if (getEventObjectVal(key).toString().contains(splitVal[1])) {
                         log.info(filterValue + "==" + key + "==" + getEventObjectVal(key) + COMP_FALSE);
