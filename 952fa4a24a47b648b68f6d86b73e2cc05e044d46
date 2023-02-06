@@ -16,6 +16,24 @@
       "revId": "952fa4a24a47b648b68f6d86b73e2cc05e044d46",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c5e974_9cf9d6e0",
+        "filename": "src/test/java/org/onap/dcae/ApplicationSettingsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-02-06T19:48:14Z",
+      "side": 1,
+      "message": "I am clearing this because it lives ONLY in test code and not in the main code.",
+      "parentUuid": "b36dd3fb_9174e337",
+      "revId": "952fa4a24a47b648b68f6d86b73e2cc05e044d46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
