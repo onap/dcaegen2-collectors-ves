@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2017,2020 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017,2020,2023 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -58,11 +58,16 @@ public class DMaaPEventPublisher {
     public HttpStatus sendEvent(List<VesEvent> vesEvents, String dmaapId) {
         clearVesUniqueIdFromEvent(vesEvents);
         io.vavr.collection.List<String> events = mapListOfEventsToVavrList(vesEvents);
+        HttpStatus rc = messageRouterPublishResponse(events, dmaapId );
+        return rc;
+    }
+
+    HttpStatus messageRouterPublishResponse (io.vavr.collection.List<String> events, String dmaapId) {
         Flux<MessageRouterPublishResponse> messageRouterPublishFlux = dmaapPublisher.publishEvents(events, dMaaPConfig.get(dmaapId));
         MessageRouterPublishResponse messageRouterPublishResponse = messageRouterPublishFlux.blockFirst();
         return getHttpStatus(Objects.requireNonNull(messageRouterPublishResponse));
-    }
 
+    }
     private io.vavr.collection.List<String> mapListOfEventsToVavrList(List<VesEvent> vesEvents) {
         return io.vavr.collection.List.ofAll(vesEvents)
                 .map(event -> event.asJsonObject().toString());

@@ -202,7 +202,7 @@ public class ConfigProcessors {
         }
     }
 
-    private String performOperation(String operation, String value) {
+    String performOperation(String operation, String value) {
         log.info("performOperation");
         if ("convertMBtoKB".equals(operation)) {
             float kbValue = Float.parseFloat(value) * 1024;
