@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
- * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018,2023 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018,2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,11 @@ package org.onap.dcae.common.publishing;
 
 import static io.vavr.API.List;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.onap.dcae.common.publishing.DMaaPConfigurationParser.parseToDomainMapping;
 
+import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.control.Try;
 import java.nio.file.Path;
@@ -70,4 +73,13 @@ public class DMaaPConfigurationParserTest {
         assertThat(withOtherSegment.topic()).isEqualTo("DCAE-SE-COLLECTOR-EVENTS-DEV");
     }
 
+    @Test
+    public void testPubConfigOverrideFunction() {
+        List<String> dmaapHost = List.of("dmaapHost:3904");
+        PublisherConfig pubConfig = new PublisherConfig(dmaapHost,"VES-OUTPUT", "TEST","TEST");
+        assertTrue(pubConfig.equals(pubConfig));
+        //negative tests
+        assertFalse(pubConfig.equals(null));
+        assertFalse(pubConfig.equals(new PublisherConfig(dmaapHost,"VES-OUTPUT1", "TEST1","TEST1")));
+    }
 }

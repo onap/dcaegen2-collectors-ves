@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.12.3] - 2023/02/14
+         - [DCAEGEN2-3345] - Test updates for ConfigProcessor, DMaaPConfigurationParser & DMaaPEventPublisher
+
 ## [1.12.2] - 2023/01/20
          - [DCAEGEN2-3334] - Update tests execution to be platform agnostic
          - [DCAEGEN2-3345] - Add additional tests for ConfigProcessor and ApiAuthInterceptor

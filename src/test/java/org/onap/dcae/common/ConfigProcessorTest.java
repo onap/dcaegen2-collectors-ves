@@ -29,6 +29,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,14 @@ public class ConfigProcessorTest {
                 + "        }");
         doReturn("ObjectNotFound").when(configProcessors).getEventObjectVal(Mockito.any());
         configProcessors.renameArrayInArray(jsonObj);
+        JSONObject jsonObj1 = new JSONObject(" {\r\n"
+                + "          \"field\": \"event[].measurementsForVfScalingFields[]\",\r\n"
+                + "          \"oldField\": \"event[].measurementFields[]\",\r\n"
+                + "          \"mapType\": \"renameObject\"\r\n"
+                + "        }");
+        String oldvalue =  "[{\"cpuUsageNice\":0,\"percentUsage\":0.39,\"cpuIdentifier\":\"all\",\"cpuIdle\":99.61,\"cpuUsageSystem\":0,\"cpuUsageUser\":0.22},{\"cpuUsageNice\":0,\"percentUsage\":0.36,\"cpuIdentifier\":\"cpu0\",\"cpuIdle\":99.64,\"cpuUsageSystem\":0,\"cpuUsageUser\":0.21},{\"cpuUsageNice\":0,\"percentUsage\":0.33,\"cpuIdentifier\":\"cpu3\",\"cpuIdle\":99.67,\"cpuUsageSystem\":0,\"cpuUsageUser\":0.19}]";
+        doReturn(oldvalue).when(configProcessors).getEventObjectVal(Mockito.any());
+        configProcessors.renameArrayInArray(jsonObj1);
 
     }
 
@@ -123,5 +132,12 @@ public class ConfigProcessorTest {
 
         doReturn(true).when(configProcessors).checkFilter(Mockito.any(),Mockito.any(),Mockito.any());
         assertTrue((configProcessors.isFilterMet(jsonObj)));
+    }
+
+    @Test
+    public void verifyConvertMBtoKBOperation() {
+        String operation = "convertMBtoKB";
+        String expval = "5120.0";
+        assertEquals (expval, configProcessors.performOperation( operation, "5"));
     }
 }
