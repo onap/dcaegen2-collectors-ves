@@ -41,12 +41,6 @@ committers:
       company: 'IC'
       id: 'jackl'
       timezone: 'America/New_York'
-    - name: 'Pawel Kasperkiewicz'
-      email: 'pawel.kasperkiewicz@nokia.com'
-      company: 'Nokia'
-      id: 'Pawel'
-      timezone: 'Europe/Warsaw'
-
     - name: 'Tomasz Wróbel'
       email: 'tomasz.wrobel@nokia.com'
       company: 'Nokia'
