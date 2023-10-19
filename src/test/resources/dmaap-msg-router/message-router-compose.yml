@@ -32,13 +32,14 @@ services:
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 40000
       KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 40000
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://localhost:9092
       KAFKA_LISTENERS: INTERNAL_PLAINTEXT://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_PLAINTEXT
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/jaas/zk_client_jaas.conf
       KAFKA_ZOOKEEPER_SET_ACL: 'true'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CREATE_TOPICS: "topic:1:3"
     volumes:
       - ./zk_client_jaas.conf:/etc/kafka/secrets/jaas/zk_client_jaas.conf
     networks:
@@ -48,25 +49,6 @@ services:
     depends_on:
       - zookeeper
 
-  onap-dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.20
-    ports:
-      - "3904:3904"
-      - "3905:3905"
-    environment:
-      enableCadi: 'false'
-    volumes:
-      - ./MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
-      - ./logback.xml:/appl/dmaapMR1/bundleconfig/etc/logback.xml
-      - ./cadi.properties:/appl/dmaapMR1/etc/cadi.properties
-    networks:
-      net:
-        aliases:
-          - onap-dmaap
-    depends_on:
-      - zookeeper
-      - kafka
-
   mockserver:
     image: mockserver/mockserver:mockserver-5.11.2
     command: -serverPort 1090 -proxyRemotePort 3904 -proxyRemoteHost onap-dmaap
@@ -74,8 +56,6 @@ services:
       - "1080:1090"
     networks:
       - net
-    depends_on:
-      - onap-dmaap
 
 networks:
   net:
