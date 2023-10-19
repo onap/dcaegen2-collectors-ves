@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.4] - 2023/10/19
+         - [DCAEGEN2-3401] - Remove DMaaP dependency in VES-Collector
+
 ## [1.12.3] - 2023/02/14
          - [DCAEGEN2-3345] - Test updates for ConfigProcessor, DMaaPConfigurationParser & DMaaPEventPublisher
 

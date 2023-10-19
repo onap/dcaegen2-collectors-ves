@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
  * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2023 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import com.google.gson.JsonElement;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.Assume;
 import org.junit.Before;
 
@@ -34,19 +36,25 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
+import uk.org.webcompere.systemstubs.jupiter.SystemStub;
+import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
 import java.time.Duration;
 
 import static org.onap.dcae.common.publishing.DMaapContainer.createContainerInstance;
 import static org.onap.dcae.common.publishing.DmaapRequestConfiguration.getAsJsonElements;
 
-
+@ExtendWith(SystemStubsExtension.class)
 @Testcontainers(disabledWithoutDocker = true)
 public class PublisherTest  {
-
+    
+    @SystemStub
+    EnvironmentVariables environmentVariables = new EnvironmentVariables();
+    
     @Container
     private final DockerComposeContainer CONTAINER = createContainerInstance();
-    
+        
     @Before
     public void linuxOnly() {
         Assume.assumeFalse
@@ -56,6 +64,8 @@ public class PublisherTest  {
     @Test
     public void publishEvent_shouldSuccessfullyPublishSingleMessage() {
         //given
+        environmentVariables
+        .set("BOOTSTRAP_SERVERS", "localhost:9092");
         final Publisher publisher = new Publisher();
         final String simpleEvent = "{\"message\":\"message1\"}";
         final List<String> twoJsonMessages = List.of(simpleEvent);
