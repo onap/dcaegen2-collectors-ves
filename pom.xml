@@ -5,6 +5,7 @@
     ================================================================================
     Copyright (c) 2017-2019,2021-2023 AT&T Intellectual Property. All rights reserved.
     Copyright (c) 2020-2022 Nokia. All rights reserved.
+    Copyright (c) 2023 Deutsche Telekom Intellectual Property. All rights reserved.
     ================================================================================
     Licensed under the Apache License, Version 2.0 (the "License"); you may not
     use this file except in compliance with the License. You may obtain a copy
@@ -25,7 +26,7 @@
   </parent>
   <groupId>org.onap.dcaegen2.collectors.ves</groupId>
   <artifactId>VESCollector</artifactId>
-  <version>1.12.3-SNAPSHOT</version>
+  <version>1.12.4-SNAPSHOT</version>
   <name>dcaegen2-collectors-ves</name>
   <description>VESCollector</description>
   <properties>
@@ -71,7 +72,7 @@
     <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
     <assertj-core.version>3.23.1</assertj-core.version>
     <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
-    <sdk.version>1.9.0</sdk.version>
+    <sdk.version>1.9.4</sdk.version>
     <guava.version>31.1-jre</guava.version>
     <mock-server.version>5.13.2</mock-server.version>
     <reactor-test.version>3.4.0</reactor-test.version>
@@ -452,6 +453,12 @@
       <artifactId>cbs-client</artifactId>
       <version>${sdk.version}</version>
     </dependency>
+    <dependency>
+          <groupId>uk.org.webcompere</groupId>
+          <artifactId>system-stubs-jupiter</artifactId>
+          <version>1.1.0</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
   <repositories>
     <repository>
