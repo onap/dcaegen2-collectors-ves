@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4f9a0b_9da34c57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-11-16T18:52:16Z",
+      "side": 1,
+      "message": "Please check my comment.",
+      "revId": "8d64c2048bed0c9d8248308a8220020dae73225f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56738d75_695d8a21",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-11-16T18:52:16Z",
+      "side": 1,
+      "message": "I\u0027m concerned about this.  Sleeping an arbitrary time has two issues:\n1) you wind up ALWAYS waiting that long, no matter if the thing you\u0027re waiting on went quickly or not\n2) sometimes it\u0027s just not long enough\n\nIs there some way to test or ask something if all of the containers are started? If so, then this can be changed to use a much shorter sleep in conjunction with the test.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 7
+      },
+      "revId": "8d64c2048bed0c9d8248308a8220020dae73225f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
