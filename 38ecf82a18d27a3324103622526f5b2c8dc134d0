@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "38ecf82a18d27a3324103622526f5b2c8dc134d0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "096a105d_d61d2bab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-12-06T15:43:19Z",
+      "side": 1,
+      "message": "please do a Reply on the issue raised in Patchset 1. I see you added code to do a wait for a listener. Does this resolve that issue? If so, please say so.",
+      "revId": "38ecf82a18d27a3324103622526f5b2c8dc134d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
