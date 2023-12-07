@@ -39,6 +39,30 @@
       },
       "revId": "8d64c2048bed0c9d8248308a8220020dae73225f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3541ca8c_b803aa74",
+        "filename": "src/test/java/org/onap/dcae/common/publishing/PublisherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2023-12-07T18:19:36Z",
+      "side": 1,
+      "message": "from Sushant Jadhav:\n\nHi Tony, I have made changes as per your suggestions on Patchset 1 and now the test doesn\u0027t have \u0027sleep\u0027 mechanism. The test is passing on my local machine. I will see why it\u0027s failing on Jenkins.",
+      "parentUuid": "56738d75_695d8a21",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 7
+      },
+      "revId": "8d64c2048bed0c9d8248308a8220020dae73225f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
