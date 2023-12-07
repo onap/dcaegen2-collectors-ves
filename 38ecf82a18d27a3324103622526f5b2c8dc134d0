@@ -33,6 +33,24 @@
       "message": "please do a Reply on the issue raised in Patchset 1. I see you added code to do a wait for a listener. Does this resolve that issue? If so, please say so.",
       "revId": "38ecf82a18d27a3324103622526f5b2c8dc134d0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bbc24d6_e3b3068c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8243
+      },
+      "writtenOn": "2023-12-07T09:53:53Z",
+      "side": 1,
+      "message": "Hi Tony, I have made changes as per your suggestions on Patchset 1 and now the test doesn\u0027t have \u0027sleep\u0027 mechanism. The test is passing on my local machine. I will see why it\u0027s failing on Jenkins.",
+      "parentUuid": "096a105d_d61d2bab",
+      "revId": "38ecf82a18d27a3324103622526f5b2c8dc134d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
