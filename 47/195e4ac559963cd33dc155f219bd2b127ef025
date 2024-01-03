@@ -1,0 +1,8 @@
+Code-Review+2: Tony Hansen <tony@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Wed, 03 Jan 2024 19:14:55 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/collectors/ves/+/136184
+Project: dcaegen2/collectors/ves
+Branch: refs/heads/master
