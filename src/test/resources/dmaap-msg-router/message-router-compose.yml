@@ -23,7 +23,7 @@ services:
           - zookeeper
 
   kafka:
-    image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.5
+    image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.4
     ports:
       - "9092:9092"
     environment:
