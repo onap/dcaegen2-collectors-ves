@@ -50,6 +50,23 @@
       "message": "stage-release",
       "revId": "b9ba682f1ab02e963e16aa254b98cab22a902ad8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61d6bc3_71543b07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7833
+      },
+      "writtenOn": "2024-12-09T14:14:34Z",
+      "side": 1,
+      "message": "remerge",
+      "revId": "b9ba682f1ab02e963e16aa254b98cab22a902ad8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ],
   "submitRequirementResults": [
