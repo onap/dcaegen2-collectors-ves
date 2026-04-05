@@ -16,25 +16,24 @@
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 
-FROM nexus3.onap.org:10001/onap/integration-java11:10.0.0
+FROM eclipse-temurin:11-jre-alpine
 
-ENV HOSTALIASES /etc/host.aliases
+ENV HOSTALIASES=/etc/host.aliases
 ARG user=vescollector
 ARG group=vescollector
 WORKDIR /opt/app/VESCollector
 
-ADD ./ ./
-USER root
+COPY ./ ./
 
-RUN addgroup $group && adduser --system --disabled-password --no-create-home --ingroup $group $user
-RUN chown -R vescollector:vescollector /opt/app
-RUN apk update && apk add procps && apk add less && apk add vim && apk add curl && apk add bash
-RUN mkdir /opt/app/VESCollector/logs
-RUN chown -R vescollector:vescollector /opt/app/VESCollector/logs
-RUN chown -R vescollector:vescollector /opt/app/VESCollector/etc
-RUN chmod +x bin/*.sh
+RUN addgroup "$group" \
+    && adduser --system --disabled-password --no-create-home --ingroup "$group" "$user" \
+    && apk add --no-cache procps curl \
+    && mkdir -p /opt/app/VESCollector/logs \
+    && chown -R vescollector:vescollector /opt/app \
+    && chmod +x bin/*.sh
+
 USER $user
 
 EXPOSE 8080 8443
 
-ENTRYPOINT bin/docker-entry.sh
+ENTRYPOINT ["bin/docker-entry.sh"]
