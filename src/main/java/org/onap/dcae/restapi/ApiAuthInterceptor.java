@@ -140,11 +140,11 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     private String extractPassword(String decodeCredentials) {
-        return decodeCredentials.split(":")[1].trim();
+        return decodeCredentials.split(":", 2)[1].trim();
     }
 
     private String extractUser(String decodeCredentials) {
-        return decodeCredentials.split(":")[0].trim();
+        return decodeCredentials.split(":", 2)[0].trim();
     }
 
     private String decodeCredentials(String authorizationHeader) {

@@ -21,10 +21,11 @@
 
 package org.onap.dcae.common;
 
-import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +44,8 @@ public class EventUpdater {
   private static final String EVENT_LITERAL = "event";
   private static final String COMMON_EVENT_HEADER = "commonEventHeader";
   private ApplicationSettings settings;
-  private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MM dd yyyy hh:mm:ss z");
+  private static final DateTimeFormatter DATE_FORMAT =
+      DateTimeFormatter.ofPattern("EEE, MM dd yyyy hh:mm:ss z", Locale.US);
 
   public EventUpdater(ApplicationSettings settings) {
     this.settings = settings;
@@ -89,13 +91,12 @@ public class EventUpdater {
     if (jsonObject.has(VES_VERSION))
        jsonObject.remove(VES_VERSION);
 
-    log.debug("Modified event:" + jsonObject);
+    log.debug("Modified event: {}", jsonObject);
     return jsonObject;
   }
 
   private JSONObject addCurrentTimeToEvent(JSONObject event) {
-    final Date currentTime = new Date();
-    JSONObject collectorTimeStamp = new JSONObject().put("collectorTimeStamp", dateFormat.format(currentTime));
+    JSONObject collectorTimeStamp = new JSONObject().put("collectorTimeStamp", DATE_FORMAT.format(ZonedDateTime.now()));
     JSONObject commonEventHeaderkey = event.getJSONObject(EVENT_LITERAL).getJSONObject(COMMON_EVENT_HEADER);
     commonEventHeaderkey.put("internalHeaderFields", collectorTimeStamp);
     event.getJSONObject(EVENT_LITERAL).put(COMMON_EVENT_HEADER, commonEventHeaderkey);
@@ -120,7 +121,7 @@ public class EventUpdater {
       try {
         configProcessorAdapter.runConfigProcessorFunctionByName(functionName, args);
       } catch (ReflectiveOperationException e) {
-        log.error("EventProcessor Exception" + e.getMessage() + e + e.getCause());
+        log.error("EventProcessor Exception", e);
       }
     }
   }

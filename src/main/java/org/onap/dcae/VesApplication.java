@@ -55,11 +55,11 @@ public class VesApplication {
 
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
-    private static ApplicationSettings applicationSettings;
-    private static ConfigurableApplicationContext context;
-    private static ConfigUpdater configUpdater;
-    private static DMaaPEventPublisher eventPublisher;
-    private static ApplicationConfigurationListener applicationConfigurationListener;
+    private static volatile ApplicationSettings applicationSettings;
+    private static volatile ConfigurableApplicationContext context;
+    private static volatile ConfigUpdater configUpdater;
+    private static volatile DMaaPEventPublisher eventPublisher;
+    private static volatile ApplicationConfigurationListener applicationConfigurationListener;
     private static ReentrantLock applicationLock = new ReentrantLock();
 
     public static void main(String[] args) {

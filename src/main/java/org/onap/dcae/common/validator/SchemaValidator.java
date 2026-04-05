@@ -34,13 +34,13 @@ import java.util.Set;
 
 class SchemaValidator {
     public static final Logger log = LoggerFactory.getLogger(SchemaValidator.class);
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public boolean conformsToSchema(JSONObject payload, JsonSchema schema) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
 
             String content = payload.toString();
-            JsonNode node = mapper.readTree(content);
+            JsonNode node = MAPPER.readTree(content);
             Set<ValidationMessage> messageSet = schema.validate(node);
 
             if (messageSet.isEmpty()) {

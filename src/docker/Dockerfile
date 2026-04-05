@@ -28,7 +28,7 @@ COPY ./ ./
 
 RUN addgroup "$group" \
     && adduser --system --disabled-password --no-create-home --ingroup "$group" "$user" \
-    && apk add --no-cache procps curl \
+    && apk add --no-cache procps curl bash \
     && mkdir -p /opt/app/VESCollector/logs \
     && chown -R vescollector:vescollector /opt/app \
     && chmod +x bin/*.sh
