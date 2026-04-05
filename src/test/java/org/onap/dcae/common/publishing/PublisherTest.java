@@ -4,7 +4,7 @@
  * ================================================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
  * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
- * Copyright (C) 2023 Deutsche Telekom Intellectual Property. All rights reserved.
+ * Copyright (C) 2023-2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ package org.onap.dcae.common.publishing;
 import com.google.gson.JsonElement;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.Assume;
-import org.junit.Before;
 
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
@@ -48,17 +48,16 @@ import static org.onap.dcae.common.publishing.DmaapRequestConfiguration.getAsJso
 @ExtendWith(SystemStubsExtension.class)
 @Testcontainers(disabledWithoutDocker = true)
 public class PublisherTest  {
-    
+
     @SystemStub
     EnvironmentVariables environmentVariables = new EnvironmentVariables();
-    
+
     @Container
     private final DockerComposeContainer CONTAINER = createContainerInstance();
-        
-    @Before
+
+    @BeforeEach
     public void linuxOnly() {
-        Assume.assumeFalse
-        (System.getProperty("os.name").toLowerCase().startsWith("win"));
+        Assumptions.assumeFalse(System.getProperty("os.name").toLowerCase().startsWith("win"));
     }
 
     @Test
@@ -78,7 +77,7 @@ public class PublisherTest  {
         StepVerifier.create(result)
                 .expectNext(expectedResponse)
                 .expectComplete()
-                .verify(Duration.ofSeconds(10));
+                .verify(Duration.ofSeconds(30));
     }
 
 

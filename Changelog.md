@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.6] - 2026/04/05
+         - [DCAEGEN2-3437] - Modernise ves-collector base image
+
 ## [1.12.5] - 2024/05/17
          - [DCAEGEN2-3411] - Validation of OpenAPI files in externalrepo fails
 
