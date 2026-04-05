@@ -32,6 +32,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.Duration;
 
 final class DMaapContainer {
     private static final String MR_COMPOSE_RESOURCE_NAME = "dmaap-msg-router/message-router-compose.yml";
@@ -39,7 +40,7 @@ final class DMaapContainer {
     static final int KAFKA_SERVICE_EXPOSED_PORT = 9092;
     static final String KAFKA_SERVICE_NAME = "kafka";
     private static final Logger log = LoggerFactory.getLogger(DMaapContainer.class);
-    
+
     private DMaapContainer() {}
 
 
@@ -53,7 +54,9 @@ final class DMaapContainer {
         }
         return new DockerComposeContainer(
                 new File(dockercomposeuri.getPath()))
-                .withExposedService(KAFKA_SERVICE_NAME, KAFKA_SERVICE_EXPOSED_PORT, Wait.forListeningPort())
+                .withExposedService(KAFKA_SERVICE_NAME, KAFKA_SERVICE_EXPOSED_PORT,
+                        Wait.forLogMessage(".*\\[KafkaServer id=.*\\] started.*\\n", 1)
+                                .withStartupTimeout(Duration.ofSeconds(120)))
                 .withLocalCompose(true);
     }
 
