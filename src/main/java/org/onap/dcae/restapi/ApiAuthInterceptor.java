@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
  * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,11 +141,11 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     private String extractPassword(String decodeCredentials) {
-        return decodeCredentials.split(":")[1].trim();
+        return decodeCredentials.split(":", 2)[1].trim();
     }
 
     private String extractUser(String decodeCredentials) {
-        return decodeCredentials.split(":")[0].trim();
+        return decodeCredentials.split(":", 2)[0].trim();
     }
 
     private String decodeCredentials(String authorizationHeader) {

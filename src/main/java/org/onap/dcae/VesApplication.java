@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2020-2021 Nokia. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,11 +56,11 @@ public class VesApplication {
 
     private static final Logger incomingRequestsLogger = LoggerFactory.getLogger("org.onap.dcae.common.input");
     private static final Logger errorLog = LoggerFactory.getLogger("org.onap.dcae.common.error");
-    private static ApplicationSettings applicationSettings;
-    private static ConfigurableApplicationContext context;
-    private static ConfigUpdater configUpdater;
-    private static DMaaPEventPublisher eventPublisher;
-    private static ApplicationConfigurationListener applicationConfigurationListener;
+    private static volatile ApplicationSettings applicationSettings;
+    private static volatile ConfigurableApplicationContext context;
+    private static volatile ConfigUpdater configUpdater;
+    private static volatile DMaaPEventPublisher eventPublisher;
+    private static volatile ApplicationConfigurationListener applicationConfigurationListener;
     private static ReentrantLock applicationLock = new ReentrantLock();
 
     public static void main(String[] args) {

@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2019 Nokia. All rights reserved.s
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,13 +35,13 @@ import java.util.Set;
 
 class SchemaValidator {
     public static final Logger log = LoggerFactory.getLogger(SchemaValidator.class);
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public boolean conformsToSchema(JSONObject payload, JsonSchema schema) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
 
             String content = payload.toString();
-            JsonNode node = mapper.readTree(content);
+            JsonNode node = MAPPER.readTree(content);
             Set<ValidationMessage> messageSet = schema.validate(node);
 
             if (messageSet.isEmpty()) {
