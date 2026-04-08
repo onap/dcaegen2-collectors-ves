@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018 Nokia. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,25 @@
 
 package org.onap.dcae.common;
 
-import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import org.json.JSONObject;
 
 class ConfigProcessorAdapter {
+
+  private static final Map<String, BiConsumer<ConfigProcessors, JSONObject>> DISPATCH =
+      Map.of(
+          "getValue", ConfigProcessors::getValue,
+          "setValue", ConfigProcessors::setValue,
+          "suppressEvent", ConfigProcessors::suppressEvent,
+          "addAttribute", ConfigProcessors::addAttribute,
+          "updateAttribute", ConfigProcessors::updateAttribute,
+          "removeAttribute", ConfigProcessors::removeAttribute,
+          "map", ConfigProcessors::map,
+          "mapAttribute", ConfigProcessors::mapAttribute,
+          "concatenateValue", ConfigProcessors::concatenateValue,
+          "subtractValue", ConfigProcessors::subtractValue
+      );
 
   private final ConfigProcessors configProcessors;
 
@@ -36,10 +52,11 @@ class ConfigProcessorAdapter {
         return configProcessors.isFilterMet(parameter);
     }
 
-    void runConfigProcessorFunctionByName(String functionName, JSONObject parameter)
-        throws ReflectiveOperationException {
-        Method method = configProcessors.getClass()
-            .getDeclaredMethod(functionName, parameter.getClass());
-        method.invoke(configProcessors, parameter);
+    void runConfigProcessorFunctionByName(String functionName, JSONObject parameter) {
+        BiConsumer<ConfigProcessors, JSONObject> handler = DISPATCH.get(functionName);
+        if (handler == null) {
+            throw new IllegalArgumentException("Unknown config processor function: " + functionName);
+        }
+        handler.accept(configProcessors, parameter);
     }
 }

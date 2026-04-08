@@ -5,10 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.13.0] - 2026/04/08
+
+         - [DCAEGEN2-3447] - Replace reflection with dispatch map, SLF4J parameterised logging in ConfigProcessors, NPE guard in DMaaPEventPublisher, empty-list guard in EventSender, log4j 2.24.3, commons-collections4 4.4
+
 ## [1.12.6] - 2026/04/05
 
          - [DCAEGEN2-3437] - Modernise ves-collector base image
          - [DCAEGEN2-3441] - Fix critical and performance issues: volatile static fields, thread-safe DateTimeFormatter, ObjectMapper singleton, SLF4J parameterised logging, bash in container image
+         - [DCAEGEN2-3441] - Replace reflection with dispatch map, SLF4J parameterised logging in ConfigProcessors
 
 ## [1.12.5] - 2024/05/17
 

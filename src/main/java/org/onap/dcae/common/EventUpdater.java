@@ -115,13 +115,12 @@ public class EventUpdater {
 
   private void callProcessorsMethod(ConfigProcessorAdapter configProcessorAdapter, List<Processor> processors) {
     for (Processor processor : processors) {
-      //TODO try to remove refection
       final String functionName = processor.functionName;
       final JSONObject args = new JSONObject(processor.args.toString());
-      log.info(String.format("functionName==%s | args==%s", functionName, args));
+      log.info("functionName=={} | args=={}", functionName, args);
       try {
         configProcessorAdapter.runConfigProcessorFunctionByName(functionName, args);
-      } catch (ReflectiveOperationException e) {
+      } catch (RuntimeException e) {
         log.error("EventProcessor Exception", e);
       }
     }
