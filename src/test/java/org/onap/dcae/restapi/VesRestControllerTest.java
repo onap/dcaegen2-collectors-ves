@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -48,6 +50,7 @@ import org.onap.dcae.common.publishing.DMaaPEventPublisher;
 import org.onap.dcae.common.validator.StndDefinedDataValidator;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -71,6 +74,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.nio.file.Paths;
 
@@ -113,18 +120,18 @@ public class VesRestControllerTest {
                 errorLogger, new EventSender(eventPublisher, streamIds), headerUtils, stndDefinedDataValidator);
     }
 
-    @Test
-    void shouldReportThatApiVersionIsNotSupported() {
-        // given
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "/eventListener/v20", "/eventListener/v20/",
+        "/eventListener/v20/eventBatch", "/eventListener/v20/eventBatch/"
+    })
+    void shouldReportThatApiVersionIsNotSupported(String route) throws Exception {
         when(applicationSettings.isVersionSupported("v20")).thenReturn(false);
-        MockHttpServletRequest request = givenMockHttpServletRequest();
 
-        // when
-        final ResponseEntity<String> event = vesRestController.event("", "v20", request);
-
-        // then
-        assertThat(event.getStatusCodeValue()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(event.getBody()).isEqualTo("API version v20 is not supported");
+        standaloneSetup(vesRestController).build()
+                .perform(post(route).contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("API version v20 is not supported"));
         verifyThatEventWasNotSend();
     }
 

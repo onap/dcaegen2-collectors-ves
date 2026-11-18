@@ -3,6 +3,7 @@
  * VES Collector
  * ================================================================================
  * Copyright (C) 2020-2021 Nokia. All rights reserved.s
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +35,7 @@ import org.onap.dcae.configuration.cbs.CbsClientConfigurationProvider;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -56,7 +58,7 @@ public class CbsConfigurationHandlerTest {
     @Mock
     private CbsClientConfiguration cbsClientConfiguration;
     @Mock
-    private Mono<CbsClient> cbsClient;
+    private CbsClient cbsClient;
     @Mock
     private ConfigUpdater configLoader;
 
@@ -67,7 +69,8 @@ public class CbsConfigurationHandlerTest {
     @Test
     public void shouldCreateCbsConfigurationHandler() {
         // given
-        doReturn(cbsClient).when(cbsConfigurationHandler).createCbsClient(cbsClientConfiguration);
+        doReturn(Mono.just(cbsClient)).when(cbsConfigurationHandler).createCbsClient(cbsClientConfiguration);
+        doReturn(Flux.empty()).when(cbsClient).updates(any(), any(), any());
         doReturn(cbsClientConfiguration).when(cbsClientConfigurationProvider).get();
 
         // when

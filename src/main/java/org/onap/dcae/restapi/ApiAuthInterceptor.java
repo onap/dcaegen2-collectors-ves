@@ -27,28 +27,29 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.common.configuration.AuthMethodType;
 import org.onap.dcae.common.configuration.SubjectMatcher;
 import org.onap.dcaegen2.services.sdk.security.CryptPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
+public class ApiAuthInterceptor implements HandlerInterceptor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiAuthInterceptor.class);
-    private static final String CERTIFICATE_X_509 = "javax.servlet.request.X509Certificate";
+    private static final String CERTIFICATE_X_509 = "jakarta.servlet.request.X509Certificate";
     private static final String MESSAGE = "SubjectDN didn't match with any regexp from %s";
     private final CryptPassword cryptPassword = new CryptPassword();
     private final ApplicationSettings settings;
     private Logger errorLogger;
 
-    public ApiAuthInterceptor(ApplicationSettings applicationSettings, Logger errorLogger) {
+    public ApiAuthInterceptor(ApplicationSettings applicationSettings, @Qualifier("errorLog") Logger errorLogger) {
         this.settings = applicationSettings;
         this.errorLogger = errorLogger;
     }

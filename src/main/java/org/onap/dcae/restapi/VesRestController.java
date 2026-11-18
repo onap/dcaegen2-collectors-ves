@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2020-2021 Nokia. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +47,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,16 +84,19 @@ public class VesRestController {
         this.eventUpdater = new EventUpdater(settings);
     }
 
-    @PostMapping(value = {"/eventListener/{version}"}, consumes = "application/json")
-    ResponseEntity<String> event(@RequestBody String event, @PathVariable String version, HttpServletRequest request) {
+    @PostMapping(value = {"/eventListener/{version}", "/eventListener/{version}/"}, consumes = "application/json")
+    ResponseEntity<String> event(@RequestBody String event, @PathVariable("version") String version,
+                                 HttpServletRequest request) {
         if (settings.isVersionSupported(version)) {
             return process(event, version, request, EVENT);
         }
         return badRequest().contentType(MediaType.APPLICATION_JSON).body(String.format("API version %s is not supported", version));
     }
 
-    @PostMapping(value = {"/eventListener/{version}/eventBatch"}, consumes = "application/json")
-    ResponseEntity<String> events(@RequestBody String events, @PathVariable String version, HttpServletRequest request) {
+    @PostMapping(value = {"/eventListener/{version}/eventBatch", "/eventListener/{version}/eventBatch/"},
+        consumes = "application/json")
+    ResponseEntity<String> events(@RequestBody String events, @PathVariable("version") String version,
+                                  HttpServletRequest request) {
         if (settings.isVersionSupported(version)) {
             return process(events, version, request, EVENT_LIST);
         }

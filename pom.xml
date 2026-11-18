@@ -33,7 +33,8 @@
     <!-- PROJECT SETTINGS -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
+    <jacoco.version>0.8.16</jacoco.version>
     <docker.image.name>onap/org.onap.dcaegen2.collectors.ves.vescollector</docker.image.name>
     <!-- TEST SETTINGS -->
     <surefire.redirectTestOutputToFile>true</surefire.redirectTestOutputToFile>
@@ -52,33 +53,26 @@
         ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
     <!-- DEPENDENCY RELATED SETTINGS -->
-    <micrometer.version>1.6.5</micrometer.version>
-    <spring.version>2.7.2</spring.version>
+    <spring.version>3.5.16</spring.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
     <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
     <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
     <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
     <json-simple.version>1.1.1</json-simple.version>
     <json-schema-validator.version>1.0.49</json-schema-validator.version>
-    <gson.version>2.8.9</gson.version>
-    <json.version>20220320</json.version>
+    <json.version>20260814</json.version>
     <unirest-java.version>1.4.9</unirest-java.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-configuration.version>1.10</commons-configuration.version>
     <vavr.version>0.10.3</vavr.version>
-    <spring-boot-starter-log4j2.version>2.6.3</spring-boot-starter-log4j2.version>
-    <log4j.version>2.18.0</log4j.version>
-    <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
-    <assertj-core.version>3.23.1</assertj-core.version>
-    <spring-boot-starter-test.version>2.2.13.RELEASE</spring-boot-starter-test.version>
     <sdk.version>1.9.5</sdk.version>
-    <guava.version>31.1-jre</guava.version>
+    <guava.version>33.8.0-jre</guava.version>
     <mock-server.version>5.13.2</mock-server.version>
-    <reactor-test.version>3.4.0</reactor-test.version>
-    <testcontainers.version>1.17.3</testcontainers.version>
-    <junit-jupiter.version>1.17.3</junit-jupiter.version>
-    <netty-bom.version>4.1.73.Final</netty-bom.version>
+    <netty-bom.version>4.1.141.Final</netty-bom.version>
+    <tomcat.version>10.1.61</tomcat.version>
+    <jackson-bom.version>2.21.8</jackson-bom.version>
+    <commons-text.version>1.13.1</commons-text.version>
   </properties>
   <build>
     <pluginManagement>
@@ -197,6 +191,7 @@
             </resource>
           </resources>
           <dockerDirectory>src/docker</dockerDirectory>
+          <pullOnBuild>true</pullOnBuild>
         </configuration>
       </plugin>
     </plugins>
@@ -212,17 +207,14 @@
         <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-actuator</artifactId>
-          <version>${spring.version}</version>
         </dependency>
         <dependency>
           <groupId>io.micrometer</groupId>
           <artifactId>micrometer-registry-prometheus</artifactId>
-          <version>${micrometer.version}</version>
         </dependency>
         <dependency>
           <groupId>io.micrometer</groupId>
           <artifactId>micrometer-core</artifactId>
-          <version>${micrometer.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -274,10 +266,39 @@
   </reporting>
   <dependencyManagement>
     <dependencies>
+      <!-- Override the DCAE SDK's vulnerable transitive Commons Text version. -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>${commons-text.version}</version>
+      </dependency>
+      <!-- Keep embedded Tomcat aligned at the patched 10.1.x release. -->
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>${tomcat.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-el</artifactId>
+        <version>${tomcat.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-websocket</artifactId>
+        <version>${tomcat.version}</version>
+      </dependency>
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-bom</artifactId>
         <version>${netty-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -307,7 +328,6 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>${gson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -334,18 +354,17 @@
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
-      <version>${reactor-test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <version>${testcontainers.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.mashape.unirest</groupId>
@@ -381,28 +400,24 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
-      <version>${spring-boot-starter-log4j2.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>${log4j.version}</version>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>${springfox-swagger2.version}</version>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${springfox-swagger2.version}</version>
-      <scope>compile</scope>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mock-server</groupId>
@@ -413,13 +428,11 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>${assertj-core.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring-boot-starter-test.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -456,7 +469,7 @@
     <dependency>
           <groupId>uk.org.webcompere</groupId>
           <artifactId>system-stubs-jupiter</artifactId>
-          <version>1.1.0</version>
+          <version>2.1.8</version>
           <scope>test</scope>
       </dependency>
   </dependencies>

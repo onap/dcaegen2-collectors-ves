@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2018,2020 Nokia. All rights reserved.
  * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,10 @@
 package org.onap.dcae;
 
 import io.vavr.control.Try;
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
+import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Java6Assertions;
 import org.json.JSONObject;
@@ -122,11 +123,11 @@ public final class TestingUtilities {
     }
 
     public static RestTemplate createRestTemplateWithSsl(final SSLContext context) {
-        final SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(context);
-        final HttpClient httpClient = HttpClients
-                .custom()
-                .setSSLSocketFactory(socketFactory)
+        var tlsStrategy = ClientTlsStrategyBuilder.create().setSslContext(context).buildClassic();
+        var connectionManager = PoolingHttpClientConnectionManagerBuilder.create()
+                .setTlsSocketStrategy(tlsStrategy)
                 .build();
+        var httpClient = HttpClients.custom().setConnectionManager(connectionManager).build();
 
         final HttpComponentsClientHttpRequestFactory factory =
                 new HttpComponentsClientHttpRequestFactory(httpClient);

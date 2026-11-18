@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
  * Copyright (C) 2018 Nokia. All rights reserved.s
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +33,7 @@ public class HealthCheckController {
         return "Welcome to VESCollector";
     }
 
-    @GetMapping("/healthcheck")
+    @GetMapping({"/healthcheck", "/healthcheck/"})
     public String healthCheck() {
         return "I'm good";
     }

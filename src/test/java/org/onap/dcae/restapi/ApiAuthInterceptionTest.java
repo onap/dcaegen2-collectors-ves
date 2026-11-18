@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2018 - 2021 Nokia. All rights reserved.
  * Copyright (C) 2023 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +37,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 

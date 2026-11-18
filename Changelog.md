@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.13.0] - Unreleased
 
 - [DCAEGEN2-3442] Bump development version to 1.13.0-SNAPSHOT.
+- [DCAEGEN2-3442] Upgrade to Spring Boot 3.5 and Java 17 and refresh affected runtime dependencies.
 
 ## [1.12.6] - 2026/04/05
 

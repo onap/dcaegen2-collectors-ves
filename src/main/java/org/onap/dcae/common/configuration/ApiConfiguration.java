@@ -3,6 +3,7 @@
  * org.onap.dcaegen2.collectors.ves
  * ================================================================================
  * Copyright (C) 2018 - 2019 Nokia. All rights reserved.
+ * Copyright (C) 2026 Deutsche Telekom Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +21,7 @@
 
 package org.onap.dcae.common.configuration;
 
-import org.onap.dcae.ApplicationSettings;
 import org.onap.dcae.restapi.ApiAuthInterceptor;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,17 +31,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class ApiConfiguration implements WebMvcConfigurer {
 
-  private final ApplicationSettings applicationSettings;
-  private Logger errorLogger;
+  private final ApiAuthInterceptor authInterceptor;
 
-  @Autowired
-  ApiConfiguration(ApplicationSettings applicationSettings, Logger errorLogger) {
-    this.applicationSettings = applicationSettings;
-    this.errorLogger = errorLogger;
+  ApiConfiguration(ApiAuthInterceptor authInterceptor) {
+    this.authInterceptor = authInterceptor;
   }
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new ApiAuthInterceptor(applicationSettings, errorLogger));
+    registry.addInterceptor(authInterceptor);
   }
 }
