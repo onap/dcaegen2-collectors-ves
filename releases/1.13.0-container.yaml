@@ -1,0 +1,9 @@
+distribution_type: 'container'
+container_release_tag: '1.13.0'
+project: 'dcaegen2-collectors-ves'
+log_dir: 'dcaegen2-collectors-ves-maven-docker-stage-master/1374/'
+ref: aa81704c75f2a7e3fbc5679a0ba8c82b8cfba02d
+containers:
+  - name: 'org.onap.dcaegen2.collectors.ves.vescollector'
+    version: '1.13.0-20261118T073959Z'
+git_tag: '1.13.0'
